@@ -781,36 +781,38 @@ computed: mapState({
 
 We're now at a stage where we have our three task lanes on screen! The final step is to enable the user to change the lane that a task is assigned to; let's look at how we can do that now.
 
-## Changing lanes
+## Vue.js, Lanes, and Drag & Drop Support
 
-For our app, we're going to enable the user to simply drag tasks between the different lanes. Doing this will update the collection inside the Vuex store that the task belongs to. As an additional nicety, we're also going to show a coloured label beside the task on the backlog screen so that it's easy to identify the 'status' of task when you're not on the Kanban board itself.
+For our app, we're going to enable users to simply drag tasks between the different lanes. Doing this will update the collection inside the Vuex store that the task belongs to. As an additional nicety, we're also going to show a coloured label beside the task on the backlog screen so that it's easy to identify the 'status' of task when we're not on the Kanban board itself.
 
-To get the dragging working, we're going to make use of the [vue-draggable](https://github.com/SortableJS/Vue.Draggable) component, which is based on the popular [SortableJS](https://github.com/RubaXa/Sortable) library. The way that this works is that you wrap the containers that contain the things you want to drag inside the Vue Draggable component, telling it which array from the Vuex store that it should manipulate. When you drag an item from one container to another, the component will send us an updated list of items that we can then commit to our Vuex store.
+To get the dragging working, we're going to make use of the [vue-draggable](https://github.com/SortableJS/Vue.Draggable) component, which is based on the popular [SortableJS](https://github.com/RubaXa/Sortable) library. The way that this works is that we wrap the containers that contain the things we want to drag inside the Vue Draggable component, telling it which array from the Vuex store that it should manipulate. When we drag an item from one container to another, the component will send us an updated list of items that we can then commit to our Vuex store.
 
-To start, install the `vuedraggable` component using the command line:
+To start, install the `vuedraggable` component using the following command line:
 
-`$ npm install vuedraggable`
-
-Next open our `TaskLane` component. The first thing we'll do is import the `Draggable` component inside the `<script>` tag:
-
-```js
-// ..
-import Draggable from 'vuedraggable';
-// ..
+```bash
+$ npm install vuedraggable
 ```
 
-Then register the draggable component with our `TaskLane` component:
+Next, let's open our `TaskLane` component. The first thing we'll do is import the `Draggable` component inside the `<script>` tag:
+
+```js
+// ...
+import Draggable from 'vuedraggable';
+// ...
+```
+
+Then, we will register the draggable component with our `TaskLane` component:
 
 ```js
 // ..
 components: {
   item: TaskLaneItem,
-  draggable: Draggable
+  draggables: Draggable,
 }
 // ..
 ```
 
-Now we can wrap our task lane inside a Draggable component to enable the items to be dragged between the different arrays. To do this, find the `<div v-for="item in items"..>` markup inside the `<template>` section and wrap it in a `<draggable>`, like so:
+Now, we can wrap our task lane inside a Draggable component to enable the items to be dragged between the different arrays. To do this, find the `<div v-for="item in items"..>` markup inside the `<template>` section and wrap it in a `<draggable>`, like so:
 
 {% highlight html %}
 <div class="card-body">
@@ -822,9 +824,9 @@ Now we can wrap our task lane inside a Draggable component to enable the items t
 </div>
 {% endhighlight %}
 
-Here, the existing `<div v-for...>` element is wrapped in this new draggable component. We've set the model for this to be this thing called 'draggables' and we've also set an option for the group to be the value 'default'. These options are simply passed straight through to the underlying SortableJS instance (with the exception of some event handlers, I believe). Setting the group name is what allows items to be dragged from one list to another (from [the SortableJS documentation](https://github.com/RubaXa/Sortable#group-option)). Since we've got multiple task lanes all with their own `Draggable` component but with the same group name, we're able to drag task items between them! If wanted to prevent tasks from being dragged into specific lanes, it follows that you would give them different group names to facilitate that feature.
+Here, the existing `<div v-for...>` element is wrapped in this new draggable component. We've set the model for this to be this thing called `draggables` and we've also set an option for the group to be the value `default`. These options are simply passed straight through to the underlying SortableJS instance (with the exception of some event handlers). Setting the group name is what allows items to be dragged from one list to another (from [the SortableJS documentation](https://github.com/RubaXa/Sortable#group-option)). Since we've got multiple task lanes all with their own `Draggable` component but with the same group name, we're able to drag task items between them! If we wanted to prevent tasks from being dragged into specific lanes, it follows that we would give them different group names to facilitate that feature.
 
-If you load up the app now, you'll find that you'll be able to drag items from one lane to another - neat! However, notice that when you switch back to the Backlog view then return to the Kanban board, it hasn't remembered the positions of the tasks and you'll see them all sitting back in the To-Do lane, as they were originally. Let's fix that now, by using a computed property to fetch the items.
+If we load up the app now, we'll find that we'll be able to drag items from one lane to another - neat! However, notice that when you switch back to the Backlog view then return to the Kanban board, it hasn't remembered the positions of the tasks and you'll see them all sitting back in the To-Do lane, as they were originally. Let's fix that now by using a computed property to fetch the items.
 
 We've already used a computed property in a previous component, but this one is slightly different as we're going to tightly control what happens when you get and set that property. When the items are retrieved (get), we'll simply return the `items` prop that was given to the `TaskLane` component to render. When the items are put back (set), we'll commit those items back to the Vuex store.
 
@@ -838,37 +840,37 @@ draggables: {
   set(items) {
     this.$store.commit('updateItems', {
       items,
-      id: this.id
-    })
-  }
-}
+      id: this.id,
+    });
+  },
+},
 ```
 
 This is where the `draggables` symbol comes in from our markup - it refers to our new computed property.
 
-If you run the app again now and move items around, you'll see that some JavaScript errors are being generated in the console, because the Vuex store doesn't know what the `updateItems` mutation type is - we can fix that now.
+If we run the app again now and move items around, we'll see that some JavaScript errors are being generated in the console, because the Vuex store doesn't know what the `updateItems` mutation type is - we can fix that now.
 
-Open `store.js` and add a new mutation in that takes our update list and overwrites the given task list with the new one:
+So, open `store.js` and add a new mutation in that takes our update list and overwrites the given task list with the new one:
 
 ```js
 updateItems(state, { items, id }) {
   state.items[id] = items;
-}
+},
 ```
 
-Pretty simple. If you look back at the Kanban board template, you'll see that each lane is given an id value. That id matches up (intentionally) with the array symbol in the store, so that it becomes trivial to update the list dynamically without too much data overhead. You won't hear me argue that this solution is scalable nor the _best_ idea in the world, but it's fine for our toy application.
+Pretty simple. If we look back at the Kanban board template, we'll see that each lane is given an id value. That id matches up (intentionally) with the array symbol in the store, so that it becomes trivial to update the list dynamically without too much data overhead. This solution is not scalable nor the _best_ idea in the world, but it's fine for our pet project.
 
-You'll also see I've used some ES6 destructuring magic here to refer to the `items` and `id` properties, even though we sent those as an object to the store. If you so wish, you can expand this out to the following equivalent code:
+Also, we have used some [ES6 destructuring magic](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) here to refer to the `items` and `id` properties, even though we sent those as an object to the store. If wanted, we could expand this out to the following equivalent code:
 
 ```js
 updateItems(state, payload) {
   state.items[payload.id] = payload.items;
-}
+},
 ```
 
-Now when you play about with your application you'll find that you'll be able to drag task items around into different lanes, and now that we're updating the Vuex store whenever we change something, their new positions will be saved when you move between the different pages. I neat side effect if this is that you can change the order of tasks within a single lane, and that detail is remembered too!
+Now, when we play about with your application you'll find that you'll be able to drag task items around into different lanes, and now that we're updating the Vuex store whenever we change something, their new positions will be saved when you move between the different pages. I neat side effect if this is that you can change the order of tasks within a single lane, and that detail is remembered too!
 
-However, if you move some items from the 'To-Do' lane into one of the other two lanes and then switch back to the Backlog view, the final problem will become obvious; the items that you moved out of the 'To-Do' lane are missing. Let's fix that up now.
+However, if we move some items from the 'To-Do' lane into one of the other two lanes and then switch back to the Backlog view, the final problem will become obvious; the items that we moved out of the 'To-Do' lane are missing. Let's fix that up now.
 
 ## Fixing up the backlog view
 
