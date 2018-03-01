@@ -40,7 +40,7 @@ Without further ado, let's get started!
 
 ## Prerequisites
 
-The only prerequisite you need to follow along with this article is [NodeJS](https://nodejs.org/en/download/). I'm using version 6.3.1. The main driver regarding the version of Node is [vue-cli](https://github.com/vuejs/vue-cli); it says you can use anything from Node 4.0 and above, but 6.0 and above is preferred.
+The only prerequisite you need to follow along with this article is [NodeJS](https://nodejs.org/en/download/). I'm using version 6.3.1. The main driver regarding the version of Node is [`vue-cli`](https://github.com/vuejs/vue-cli); it says you can use anything from Node 4.0 and above, but 6.0 and above is preferred.
 
 ## Setting up the application
 
