@@ -4,7 +4,7 @@ title: "Community at Auth0 begins a new chapter"
 description: "A new chapter for the Auth0 Community begins."
 longdescription: "Today marks a new chapter in the Community at Auth0 as we move to a new platform and dedicate a team."
 date: 2018-03-01 19:00
-category: Community, Company
+category: Announcements, Program
 author:
   name: "Jeremy Meiss"
   url: "https://twitter.com/IAmJerdog"
@@ -16,9 +16,11 @@ design:
 tags:
 - community
 - auth0
+- developers
 related:
 - 2017-11-29-5-massive-benefits-of-identity-as-a-service-for-developers
-- 2018-02-12-auth0-joins-the-google-cloud-partner-platform.markdown
+- 2018-02-12-auth0-joins-the-google-cloud-partner-platform
+- 2018-01-29-auth0-announces-record-year
 ---
 
 ## Gardening 101
