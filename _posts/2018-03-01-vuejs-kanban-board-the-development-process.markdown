@@ -23,9 +23,11 @@ related:
 - 2016-07-14-create-an-app-in-vuejs-2
 ---
 
-**TL;DR:** In [my last article](https://auth0.com/blog/docker-dashboard-with-react-typescript-socketio/) I showed you how to build a working dashboard for Docker, which would show you which containers are currently running, allow you to start and stop them, and start new ones. The application was pretty basic but its purpose was to exercise your skills with React, TypeScript and Socket.IO, amongst other things. It wasn't just another React tutorial; it demonstrated how to build something useful using the technologies you're trying to learn.
+**TL;DR:** In this article, we're going to use VueJS (the popular JavaScript framework) to build an interactive Kanban board in the browser. The complete source code for [this project is available on a GitHub repository](https://github.com/elkdanger/kanban-board) and [there is a demo available online](https://kanban.elkdanger.co.uk) of the finished project so that you have some idea of what we're going to build.
 
 ---
+
+In [my last article](https://auth0.com/blog/docker-dashboard-with-react-typescript-socketio/), I showed you how to build a working dashboard for Docker. This dashboard would show you which containers are currently running, allow you to start and stop them, and to create new ones. The application was pretty basic but its purpose was to exercise your skills with React, TypeScript and Socket.IO. It wasn't just another React tutorial; it demonstrated how to build something useful using the technologies you're trying to learn.
 
 I'd like to continue that theme here by building something else useful - a Kanban board! This time we're going to be using VueJS, another JavaScript library similar to React that enables you to build interactive applications in the browser.
 
@@ -38,10 +40,6 @@ Without further ado, let's get started!
 ## Prerequisites
 
 The only prerequisite you need to follow along with this article is [NodeJS](https://nodejs.org/en/download/). I'm using version 6.3.1. The main driver regarding the version of Node is [vue-cli](https://github.com/vuejs/vue-cli); it says you can use anything from Node 4.0 and above, but 6.0 and above is preferred.
-
-## Code and demo
-
-The complete source code for [the project is available on Github.com](https://github.com/elkdanger/kanban-board), and [there is a demo available](https://kanban.elkdanger.co.uk) of the finished project so that you have some idea of what we're going to build.
 
 ## Setting up the application
 
