@@ -623,13 +623,13 @@ Here, `buttonClass` takes a router path and if the given path matches the curren
 
 If we reload the app now, we'll find that our menubar will not only have some nice button styles, but it will be easy to tell which page we're on!
 
-## Creating the task lanes
+## Creating the Task Lanes with Vue.js
 
-We can now begin to think about how we're going to show the tasks in columns on the Kanban board. As mentioned previously, for our demo app we're going to have three 'lanes': 'To-do', 'In progress' and 'Done'. From a code perspective, each lane is going to look and behave exactly the same way, which makes it a good candidate for a component. Each lane component is simply going to be given a list of tasks to show, and some text to show in the header. The component itself will take care of the rest. This way we can easily duplicate that behaviour across our three task lanes.
+We can now begin to think about how we're going to show the tasks in columns on the Kanban board. As mentioned previously, for our demo app we're going to have three lanes: _To-do_, _In progress_ and _Done_. From a code perspective, each lane is going to look and behave exactly the same way, which makes it a good candidate for a component. Each lane component is simply going to be given a list of tasks to show, and some text to show in the header. The component itself will take care of the rest. This way we can easily duplicate that behaviour across our three task lanes.
 
 Furthermore, each item in the lane has its own markup and can be split down into another component: `TaskLaneItem`. This helps keep the markup clean and allows for adding more complex functionality later.
 
-Start by creating a new component in `./src/components/TaskLane.vue`, and start by populating the template:
+So, let's start by creating a new component in `src/components/TaskLane.vue`, and start by populating the template:
 
 {% highlight html %}
 <template>
@@ -647,9 +647,9 @@ Start by creating a new component in `./src/components/TaskLane.vue`, and start 
 </template>
 {% endhighlight %}
 
-Here I've used the markup for Bootstrap's [Card](https://getbootstrap.com/docs/4.0/components/card/) component, which suits this application rather well. I've specified a header, which is populated by reading the 'title' prop, loops through the 'items' prop inside the body of the card, and then writes out the number of tasks in the footer by reading 'itemCount', which as we'll see in a minute, is a computed property of the component.
+Here we've used the markup for [Bootstrap's Card](https://getbootstrap.com/docs/4.0/components/card/) component, which suits this application rather well. Also, we've specified a header, which is populated by reading the `title` prop, loops through the `items` prop inside the body of the card, and then writes out the number of tasks in the footer by reading `itemCount`. This last props, as we'll see in a minute, is a computed property of the component.
 
-You'll also notice that I've made use of an `<item>` component; we'll get to that in a minute. Before that, let's create some of the code for this component. Put this into the component's `script` tag:
+We've also made use of an `<item>` component; we'll get to that in a minute. Before that, let's create some of the code for this component. So, let's put this into the component's `script` tag:
 
 ```js 
 import TaskLaneItem from './TaskLaneItem';
@@ -658,30 +658,30 @@ export default {
   name: 'TaskLane',
   props: ['items', 'title', 'id'],
   components: {
-    item: TaskLaneItem
+    item: TaskLaneItem,
   },
   computed: {
     itemCount() {
       if (!this.items) return '';
       if (this.items.length === 1) return '1 task';
       return `${this.items.length} tasks`;
-    }
-  }
+    },
+  },
 };
 ```
 
-You can see here that the two props are being registered - the list of tasks in `items`, and the title of the lane in `title` - as well as the `TaskLaneItem` component (coming next). You can also see at the bottom a computed property which decides what the footer text should be. It simply works out a friendly way to display the number of tasks based on how many tasks there are. Simple enough, but it does demonstrate how you can 'compute' what a bound value should be based on other dependenct properties.
+Here, two props are being registered: the list of tasks in `items` and the `title` of the lane. Besides that, we are also defining the `TaskLaneItem` component (coming next). At the bottom, we can also see a computed property which decides what the footer text should be. It simply works out a friendly way to display the number of tasks based on how many tasks there are. Simple enough, but it does demonstrate how we can 'compute' what a bound value should be based on other dependenct properties.
 
-Next, let's turn our attention to the `TaskLaneItem` component, which is responsible for drawing out individual items on the kanban board. Create a new file `./src/components/TaskLaneItem.vue` with the following content:
+Next, let's turn our attention to the `TaskLaneItem` component, which is responsible for drawing out individual items on the kanban board. Create a new file on `src/components/TaskLaneItem.vue` with the following content:
 
 {% highlight html %}
 <template>
   <div class="card task-lane-item">
     <div class="card-block">
-        <h5 class="card-title">
-            <span class="text-muted">#{{ "{{ item.id" }} }}</span>
-            {{ "{{ item.text " }} }}
-        </h5>
+      <h5 class="card-title">
+        <span class="text-muted">#{{item.id}}</span>
+        {{item.text}}
+      </h5>
     </div>
   </div>
 </template>
@@ -694,14 +694,13 @@ export default {
 </script>
 
 <style>
-.card.task-lane-item {
-  background: #627180;
-}
+  .card.task-lane-item {
+    background: #627180;
+  }
 </style>
-
 {% endhighlight %}
 
-This is a very simple component that gets given the item that it should display, and simply renders out the item id and the item text - again using Bootstrap's Card component. There's no computed magic here or any other functionality, but it allows us to separate out the markup from the task lane, keeping it cleaner.
+This is a very simple component that gets given the item that it should display and simply renders out the item id and the item text - again using Bootstrap's Card component. There's no computed magic here or any other functionality, but it allows us to separate out the markup from the task lane, keeping it cleaner.
 
 Finally, let's wire this up to the `KanbanBoard` component and get our items on the screen. We'll just deal with the to-do items at the moment; we'll add in the other lanes in a moment. Head back to `KanbanBoard.vue` and modify the template to look like this:
 
@@ -726,17 +725,17 @@ import TaskLane from './TaskLane';
 export default {
   name: 'KanbanBoard',
   components: {
-    'task-lane': TaskLane
+    'task-lane': TaskLane,
   },
   computed: mapState({
-    todoItems: s => s.items.todo
-  })
+    todoItems: s => s.items.todo,
+  }),
 };
 ```
 
-This shouldn't look too unfamiliar compared to the other components we've just made. We first import `mapState` and the `TaskLane` component, then we defined our `KanbanBoard` component, register our `TaskLane` component and then define a computed property `todoItems` which reads the `items.todo` property from the Vuex state. As you can imagine, we'll have another couple of computed properties in here later when we start defining our lanes for our 'in progress' and 'done' items. More on that in a bit.
+This shouldn't look too unfamiliar compared to the other components we've just made. We first import `mapState` and the `TaskLane` component, then we defined our `KanbanBoard` component, register our `TaskLane` component, and then define a computed property `todoItems` which reads the `items.todo` property from the Vuex state. We'll have another couple of computed properties in here later when we start defining our lanes for our 'in progress' and 'done' items. More on that in a bit.
 
-Right now, you should be able to add a new item into the backlog using the Backlog view, switch over to the Kanban board and see the same item inside the 'To-Do' column. Nice one!
+Right now, we should be able to add a new item into the backlog using the Backlog view, switch over to the Kanban board and see the same item inside the 'To-Do' column. Nice one!
 
 ## Creating the other lanes
 
