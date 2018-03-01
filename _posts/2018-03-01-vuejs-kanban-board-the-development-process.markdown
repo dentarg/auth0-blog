@@ -14,6 +14,7 @@ design:
   image: "https://cdn2.auth0.com/blog/vuejs/logo.png"
 tags:
 - vuejs
+- vuex
 - auth0
 - frontend
 - kanban
@@ -190,7 +191,7 @@ export default {
 </style>
 {% endhighlight %}
 
-## The Vue.js Backlog Component
+## Vue.js and Vuex
 
 Now, we can begin the to develop the backlog component. This component will allow us to see the list of items and to add new items to the backlog. We'll have a couple of elements to it:
 
@@ -389,12 +390,12 @@ Right now, we will find that we can type something into the box, hit 'enter' on 
 
 Let's fix that now.
 
-## Creating our first mutation
+## Creating Our First Vuex Mutation
 
 Back to `store.js`, we can add the mutation to the store using the `mutations` options key. In our mutation, we're going to:
 
-* Push a new item into our `todoItems` array, giving it the next ID value
-* Increment `nextId` so that the next item to be added gets the next Id value
+* push a new item into our `todoItems` array, giving it the next ID value;
+* and increment `nextId` so that the next item to be added gets a different value;
 
 To fulfil these requirements, modify your store to the following:
 
@@ -403,26 +404,26 @@ To fulfil these requirements, modify your store to the following:
 export default new Vuex.Store({
   state: {
     items: {
-      todo: []
+      todo: [],
     },
-    nextId: 1
+    nextId: 1,
   },
   mutations: {
     addItem(state, item) {
       state.items.todo.push(Object.assign(item, { id: state.nextId }));
       state.nextId += 1;
-    }
-  }
+    },
+  },
 });
 ```
 
-Here we have a mutation `addItem`, which is simply a function that takes the current state and an item as an argument. We simply push it to `state.items.todo`, using `Object.assign` to augment the item with an id value, and then finally we increment `nextId` so that the next time we add an item, it gets a new id value.
+Here we have a mutation called `addItem` which is a simple function that takes the current state and an item as an argument. Then, we push it to `state.items.todo`, using `Object.assign` to augment the item with an id value, and we increment `nextId` so that the next time we add an item, it gets a new id value.
 
-Also notice the directive at the top of the example to disable the ESLint rule `no-param-reassign`; the call to increment the id value causes an issue with the ruleset I'm using, but I'm ok just turning that rule off in this case, as the benefits of just being able to call `state.nextId += 1` outweigh the rule for me.
+Also notice the directive at the top of the example to disable the ESLint rule `no-param-reassign`; the call to increment the id value causes an issue with the ruleset, [but it's ok just turning that rule off in this case](https://github.com/vuejs-templates/webpack/issues/883). The benefits of just being able to call `state.nextId += 1` outweigh the rule.
 
-So from right now you can put new items into the backlog! Unfortunately we can't actually see them yet, so let's move onto the next part - the Backlog component.
+So, right now, we can put new items into the backlog but, unfortunately, we can't actually see them yet. We will address that in the next part - the Backlog component.
 
-## The backlog
+## The Vue.js Backlog Component
 
 Essentially the backlog is just a styled list of todo items. Later, we're going to attribute each item to a status ("To-do", "In progress", or "Done") but for now let's just get the list on the screen.
 
