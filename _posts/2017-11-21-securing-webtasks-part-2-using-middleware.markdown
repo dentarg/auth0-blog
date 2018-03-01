@@ -167,6 +167,8 @@ curl -s -X GET -I "https://$container.run.webtask.io/middleware1" \
 curl -X GET "https://$container.run.webtask.io/middleware1"
 ```
 
+**Note:** These commands assume you are using bash. If you are using another terminal like PowerShell or CMD.exe, the commands may be slightly different.
+
 ![create and test middleware](https://cdn.auth0.com/website/blog/extend/securing-webtasks-part-2-middleware/create_test_middleware3.png)
 
 The first command gets a reference to our container, we need this to easily create the URLs used on the following steps. The second command creates the webtask. The next retrieves the headers for the webtask endpoint. The content type `application/javascript` is in the header output. The last command verifies the body contains the middleware script.
