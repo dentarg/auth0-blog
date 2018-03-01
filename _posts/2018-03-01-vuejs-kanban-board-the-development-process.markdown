@@ -133,15 +133,15 @@ We're going to come back here later and fill in some chrome to make it look a bi
 
 For now, we have a nice base to start created our Kanban board.
 
-## The chrome
+## Styling the Vue.js Kanban Board
 
-Let's get our header and base styles in place. For this app I decided to use [Bootstrap v4](https://getbootstrap.com/), through one of the smart [Bootswatch themes](https://bootswatch.com). I chose [Superhero](https://bootswatch.com/superhero/), but you can choose any you like as long as you stick to the standard Bootstrap markup. You can decide on a style at the end if you like!
+Let's get our header and base styles in place. For this app, we will use [Bootstrap v4](https://getbootstrap.com/) through one of the smart [Bootswatch themes](https://bootswatch.com). From there, we will chose the [Superhero](https://bootswatch.com/superhero/) them, but there are some other nice options available as well.
 
-To insert it into our app, I chose to simply include the link from [BootstrapCDN](https://www.bootstrapcdn.com/bootswatch/) to my chosen theme and put that into my `index.html` file.
+To insert it into our app, let's include the link from [BootstrapCDN](https://www.bootstrapcdn.com/bootswatch/) to the chosen theme and put that into the `index.html` file.
 
-Later I also want to grab a couple of fancy icons from [FontAwesome](http://fontawesome.io/), so I'll include a link to that too. Fortunately, [MaxCDN also provides access to FontAwesome](https://www.bootstrapcdn.com/fontawesome/), so let's get that link too.
+Later, we will also want to grab a couple of fancy icons from [FontAwesome](http://fontawesome.io/). Fortunately, [MaxCDN also provides access to this icon library](https://www.bootstrapcdn.com/fontawesome/), so let's get that link too.
 
-In the end, my `index.html` looks like this. Notice the two stylesheet links at the top of the markup, and also the extra container div around the `app` element:
+In the end, our `index.html` file will look like the following code snippet. Notice the two stylesheet links at the top of the markup and also the extra container div around the `app` element:
 
 ```html
 <!DOCTYPE html>
@@ -162,13 +162,12 @@ In the end, my `index.html` looks like this. Notice the two stylesheet links at 
 </html>
 ```
 
-To finish off the header, let's dive into `App.vue` and add in some text so that we can get something on screen, if nothing else. Add some content at the top to let our users know what the app is, and a bit of styling just to neaten it up a bit. My `App.vue` content now looks like this:
+To finish off the header, let's dive into `App.vue` and add in some text so that we can get something on screen. Let's add some content at the top, so our users know what the app is, and a bit of styling just to neaten it up a bit. After that, the `App.vue` content will look like this:
 
 {% highlight html %}
-
 <template>
   <div id="app">
-    
+
     <div class="page-header">
       <h1>Kanban Board</h1>
       <p class="lead">An example of a Kanban board, written in Vue.js</p>
@@ -180,7 +179,7 @@ To finish off the header, let's dive into `App.vue` and add in some text so that
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
 };
 </script>
 
@@ -189,10 +188,9 @@ export default {
     font-weight: 300;
   }
 </style>
-
 {% endhighlight %}
 
-## The backlog
+## The Vue.js Backlog Component
 
 Now we can begin the backlog screen. This will allow us to see our list of items, and add new items to the backlog. We'll have a couple of elements to it:
 
