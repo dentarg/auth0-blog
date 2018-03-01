@@ -495,9 +495,9 @@ At this point, we should be able to type something into your form textbox, hit t
 
 That's better!
 
-## The kanban board
+## The Kanban Board Vue.js Component
 
-Let's start having a look at the board view of our items. In more feature-rich project tracking products (such as [Jira](https://www.atlassian.com/software/jira)) the user is able to customise the 'lanes' - columns that work items can be dropped into - but for our simple application, we're going to hard-code three lanes to begin with; 'To-Do', 'In progress' and 'Done'. Allowing the user to customise these lanes is left as an excercise for you, the reader!
+Let's start having a look at the board view of our items. In a more feature-rich project tracking products (such as [Jira](https://www.atlassian.com/software/jira)), the user is able to customise the 'lanes'—columns that work items can be dropped into—but for our simple application, we're going to hard-code three lanes to begin with: 'To-Do', 'In progress', and 'Done'. Allowing the user to customise these lanes is left as an excercise for you, the reader!
 
 We can start by adding the board page which will eventually contain the UI for our kanban board UI. We'll leave it empty for now, but let's get the navigation and routing sorted first.
 
@@ -505,12 +505,12 @@ Create a new file `src/components/KanbanBoard.vue` and populate it with the foll
 
 {% highlight html %}
 <template>
-    <p>This is where the kanban board will go</p>
+  <p>This is where the kanban board will go</p>
 </template>
 
 <script>
 export default {
-  name: 'KanbanBoard'
+  name: 'KanbanBoard',
 };
 </script>
 {% endhighlight %}
@@ -519,56 +519,56 @@ Next, modify the router so that we can navigate to this new view:
 
 ```js
 // src/router/index.js
-
+// ... other import statements ...
 import KanbanBoard from '@/components/KanbanBoard';
 
 export default new Router({
   routes: [
     {
       path: '/backlog',
-      component: Backlog
+      component: Backlog,
     },
     // Add in a route to our new KanbanBoard component here
     {
       path: '/board',
-      component: KanbanBoard
+      component: KanbanBoard,
     },
     {
       path: '*',
-      redirect: '/backlog'
-    }
+      redirect: '/backlog',
+    },
   ],
 });
 ```
 
-Now you should be able to test the route out by changing the url in the browser to `/#/board` and get to our new kanban board view. Obviously we don't want the user to have to change the url manually when they want to switch pages, so let's add some buttons to make it easier for them.
+Now, we should be able to test the route out by changing the url in the browser to `/#/board` and get to our new kanban board view. Obviously, we don't want the user to have to change the url manually when they want to switch pages. As such, let's add some buttons to make it easier for them.
 
 Create another new component in `src/components/MenuBar.vue` with the following content:
 
 {% highlight html %}
 <template>
   <div class="menubar">
-      <div class="btn-group" role="group" aria-label="Menu bar">
-          <router-link to="/board">Board</router-link>
-          <router-link to="/backlog">Backlog</router-link>
-      </div>
+    <div class="btn-group" role="group" aria-label="Menu bar">
+      <router-link to="/board">Board</router-link>
+      <router-link to="/backlog">Backlog</router-link>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'MenuBar'
-}
+  name: 'MenuBar',
+};
 </script>
 
 <style>
-.menubar {
+  .menubar {
     margin-bottom: 16px;
-}
+  }
 </style>
 {% endhighlight %}
 
-Next, find `App.vue` and add in the MenuBar component before the router content:
+Next, find `App.vue` and add the `MenuBar` component before the router content:
 
 {% highlight html %}
 <div id="app">    
@@ -580,10 +580,10 @@ Next, find `App.vue` and add in the MenuBar component before the router content:
 </div>
 {% endhighlight %}
 
-And add in the component into the App's `script` section:
+And add the component into the App's `script` section:
 
 ```js
-import MenuBar from '@/components/MenuBar'
+import MenuBar from '@/components/MenuBar';
 
 export default {
   name: 'app',
@@ -593,11 +593,11 @@ export default {
 };
 ```
 
-Now you should have a couple of links you can click to navigate between the pages. Neat!
+Now, we should have a couple of links we can click to navigate between the pages. Neat!
 
-They don't look great though, so let's make them actual buttons. We're going to add the standard Bootstrap button classes, but we're going to do it in such a way that will highlight the current page that the user is on. We can dynamically change the style depending on the current route.
+They don't look great though. So, let's make them actual buttons. We're going to add the standard Bootstrap button classes. However, we're going to do it in such a way that will highlight the current page that the user is on. We can dynamically change the style depending on the current route.
 
-Start by adding a helper function into our `MenuBar` component that will return the right classes depending on the route:
+Let's start by adding a helper function into our `MenuBar` component that will return the right classes depending on the route:
 
 ```js
 export default {
@@ -614,14 +614,14 @@ export default {
 };
 ```
 
-Here, `buttonClass` takes a router path and if the given path matches the current route, the primary button classes is returned. Otherwise, the secondary button class is returned. Additionally, the base `btn` class is always returned, as you would expected. To put this into effect, modify the router links as follows to call this method and obtain the correct button styles:
+Here, `buttonClass` takes a router path and if the given path matches the current route, the primary button classes is returned. Otherwise, the secondary button class is returned. Additionally, the base `btn` class is always returned. To put this into effect, modify the router links as follows to call this method and obtain the correct button styles:
 
 {% highlight html %}
 <router-link to="/board" :class="buttonClass('/board')">Board ...</router-link>
 <router-link to="/backlog" :class="buttonClass('/backlog')">Backlog ...</router-link>
 {% endhighlight %}
 
-If you reload the app now, you'll find that your menubar will not only have some nice button styles, but it will be easy to tell which page you're on!
+If we reload the app now, we'll find that our menubar will not only have some nice button styles, but it will be easy to tell which page we're on!
 
 ## Creating the task lanes
 
