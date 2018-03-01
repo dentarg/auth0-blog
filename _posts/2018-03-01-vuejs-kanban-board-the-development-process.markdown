@@ -457,6 +457,7 @@ export default {
 Finally, let's add in the markup to show the items on the page. Here, we are using a Bootstrap `card` class to render the items:
 
 {% highlight html %}
+{% raw %}
 <template>
   <div class="backlog-view">
     <new-item></new-item>
@@ -469,6 +470,7 @@ Finally, let's add in the markup to show the items on the page. Here, we are usi
     </div>
   </div>
 </template>
+{% endraw %}
 {% endhighlight %}
 
 At this point, we should be able to type something into your form textbox, hit the 'enter' key and see a list of backlog items appearing underneath. Neat! Let's add a bit of padding and margin into this component to space out the components a little better:
@@ -632,19 +634,21 @@ Furthermore, each item in the lane has its own markup and can be split down into
 So, let's start by creating a new component in `src/components/TaskLane.vue`, and start by populating the template:
 
 {% highlight html %}
+{% raw %}
 <template>
   <div class="card">
-      <h3 class="card-header">{{ "{{ title" }} }}</h3>
+      <h3 class="card-header">{{title}}</h3>
       <div class="card-body">
           <div v-for="item in items" :key="item.id">
               <item :item="item"></item>
           </div>
       </div>
       <div class="card-footer text-muted">
-          {{ "{{ itemCount" }} }}
+          {{itemCount}}
       </div>
   </div>
 </template>
+{% endraw %}
 {% endhighlight %}
 
 Here we've used the markup for [Bootstrap's Card](https://getbootstrap.com/docs/4.0/components/card/) component, which suits this application rather well. Also, we've specified a header, which is populated by reading the `title` prop, loops through the `items` prop inside the body of the card, and then writes out the number of tasks in the footer by reading `itemCount`. This last props, as we'll see in a minute, is a computed property of the component.
@@ -675,6 +679,7 @@ Here, two props are being registered: the list of tasks in `items` and the `titl
 Next, let's turn our attention to the `TaskLaneItem` component, which is responsible for drawing out individual items on the kanban board. Create a new file on `src/components/TaskLaneItem.vue` with the following content:
 
 {% highlight html %}
+{% raw %}
 <template>
   <div class="card task-lane-item">
     <div class="card-block">
@@ -698,6 +703,7 @@ export default {
     background: #627180;
   }
 </style>
+{% endraw %}
 {% endhighlight %}
 
 This is a very simple component that gets given the item that it should display and simply renders out the item id and the item text - again using Bootstrap's Card component. There's no computed magic here or any other functionality, but it allows us to separate out the markup from the task lane, keeping it cleaner.
@@ -896,8 +902,10 @@ On the final step, we're going to put some badges on the items in the backlog vi
 To start with, let's modify the markup to include the markup for the badge component. Still inside `Backlog.vue`, modify the markup for the `h5` tag to include a span for the badge:
 
 {% highlight html %}
-<h5 class="card-title"><span class="text-muted">#{{ "{{ item.id" }} }}</span>
+{% raw %}
+<h5 class="card-title"><span class="text-muted">#{{item.id}}</span>
 {{item.text}} <span :class="badgeClass(item)">{{badgeText(item)}}</span></h5>
+{% endraw %}
 {% endhighlight %}
 
 We can see the span itself has a couple of dynamic elements in there which find out the class and the text for the badge. If we try and refresh the page now, we'll find that things start to break, primarily because we haven't defined what `badgeClass` and `badgeText` are yet.
