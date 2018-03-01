@@ -42,9 +42,9 @@ Without further ado, let's get started!
 
 The only prerequisite you need to follow along with this article is [NodeJS](https://nodejs.org/en/download/). I'm using version 6.3.1. The main driver regarding the version of Node is [`vue-cli`](https://github.com/vuejs/vue-cli); it says you can use anything from Node 4.0 and above, but 6.0 and above is preferred.
 
-## Setting up the application
+## Setting Up the Vue.js Application
 
-To get started with the application, we're going to use [vue-cli](https://github.com/vuejs/vue-cli). This will generate our base application for us, including setting up [Webpack](https://webpack.js.org/) with everything that we need. For this tutorial we won't really need to go into the Webpack configuration, or really interact with Webpack at all - the default configuration is all fine for us.
+To get started with the application, we're going to use [`vue-cli`](https://github.com/vuejs/vue-cli). This will generate our base application for us, including setting up [Webpack](https://webpack.js.org/) with everything that we need. For this tutorial, we won't really need to go into the Webpack configuration, or really interact with Webpack at all—the default configuration is all fine for us.
 
 To start, let's install `vue-cli` globally from the command line:
 
@@ -52,7 +52,7 @@ To start, let's install `vue-cli` globally from the command line:
 $ npm install -g vue-cli
 ```
 
-Then, browse to a folder on your disk to create the project, and invoke the Vue command line interface. It will walk you through a series of questions to set up your project; most of them I have left as the default, but I elected not to create unit or E2E tests for this demo. I also chose the AirBnb ESLint preset, but I will be modifying some of the rules just to fit in with my coding style - that part is optional for you, just remember to translate the code examples below accordingly.
+Then, let's browse to a folder on our disk to create the project, and invoke the Vue.js command line interface. This tool will walk us through a series of questions to set up our project. We can leave most of them as the default, but let's opt not to create unit or E2E tests for this demo. Also, let's chose the [AirBnb ESLint preset](https://github.com/airbnb/javascript), but we will be modifying some of the rules.
 
 Invoke the command as follows:
 
@@ -60,7 +60,7 @@ Invoke the command as follows:
 $ vue init webpack
 ```
 
-Note that we're using the Webpack template, which sets up Webpack, hot reloading (allowing us to immediately see changes in the browser without refreshing the page), vue-loader and a few other bits and pieces. Let's look at the output from mine and compare:
+Note that we're using the Webpack template, which sets up Webpack, [hot reloading (allowing us to immediately see changes in the browser without refreshing the page)](https://vue-loader.vuejs.org/en/features/hot-reload.html), `vue-loader`, and a few other bits and pieces. This is what the output will look like:
 
 ```
 $ vue init webpack
@@ -83,9 +83,9 @@ $ vue init webpack
      npm run dev
 ```
 
-Next, run `$ npm install` to install the required Node packages. Then `$ npm run dev` to get the project running and ensure that you've got a good baseline. Now browse to http://localhost:8080 - all things being well, you should see a boilerplate 'Welcome to your Vue.js App' page.
+Next, run `$ npm install` to install the required Node packages. Then `$ npm run dev` to get the project running and to ensure that we've got a good baseline. Now, browse to [`http://localhost:8080`](http://localhost:8080) - all things being well, you should see a boilerplate 'Welcome to your Vue.js App' page.
 
-You can leave the application running at this point, as any changes we make will automatically be recompiled and sent to the browser.
+As any changes we make will automatically be recompiled and sent to the browser, you can leave the application running at this point.
 
 ## Linting
 
