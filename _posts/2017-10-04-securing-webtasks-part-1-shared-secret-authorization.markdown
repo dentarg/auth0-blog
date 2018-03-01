@@ -29,6 +29,11 @@ The ease with which you can deploy that endpoint and glue together the services 
 
 However, if you create a webtask that sends messages to Slack channels when triggered by Github, you wouldn't want anyone but Github to be able to invoke your webtask.
 
+This is the first in a series of posts on securing your Webtasks, these are the other posts in the series:
+
+- [Securing Webtasks Part 1: Shared Secret Authorization](https://auth0.com/blog/securing-webtasks-part-1-shared-secret-authorization/)
+- [Securing Webtasks Part 2: Using Middleware](https://auth0.com/blog/securing-webtasks-part-2-using-middleware/)
+
 In this post, I will show you the simplest possible way to secure your webtasks using a shared secret for authorization.
 
 To get started let's create a new webtask using the Webtask.io Editor.
@@ -180,4 +185,4 @@ So, consider where you are now. You've made some great strides in your attempt t
 
 But look at the webtask code your currently have. The majority of the logic is dealing with the more sophisticated programming model needed to properly handle authorization. The inital unsecured webtask was three lines of code. Sure, the short and sweet code wasn't secure, but still nobody would deny that it would be nice to use the simpler programming model style webtask and yet still have the same authorization mechanism.
 
-Well, it turns out we can write short and sweet webtasks and still have robust authorization. And in the next post I'll show you how it's done by using [Webtasks Middleware](https://auth0.com/extend/docs/developer-guide#middleware). We will also migrate from using query string based tokens to authorization headers.
+Well, it turns out we can write short and sweet webtasks and still have robust authorization. And in the next post I'll show you how it's done by using [Webtasks Middleware](https://auth0.com/blog/securing-webtasks-part-2-using-middleware/). We will also migrate from using query string based tokens to authorization headers.
