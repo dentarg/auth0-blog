@@ -3,7 +3,7 @@ layout: post
 title: "Building a blog with Gatsby, React and Webtask.io!"
 description: "Building a blog with Gatsby, the React based static content generator. Using Webtask.io, the serverless endpoint service to provide a backend API."
 longdescription: "Building a blog with Gatsby, the React based static content generator. Using Webtask.io, the serverless endpoint service to provide a backend API, we look at building a blog with Gatsby and adding extra features like pagination, user authentication with Auth0 and newsletter subscription."
-date: 2018-01-22 11:11
+date: 2018-03-01 08:30
 category: Technical Guide, Frontend, Gatsby
 author:
   name: Luke Oliff
@@ -11,8 +11,8 @@ author:
   avatar: https://avatars1.githubusercontent.com/u/956290?s=200
   mail: luke.oliff@auth0.com
 design:
-  bg_color: "#1A1A1A"
-  image: https://cdn.auth0.com/blog/reactjs16/logo.png
+  bg_color: "#2B1743"
+  image: https://cdn.auth0.com/blog/gatsby-react-webtask/logo.png
 tags:
 - gatsby
 - javascript
