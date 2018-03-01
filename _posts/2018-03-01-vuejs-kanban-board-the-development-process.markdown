@@ -23,14 +23,14 @@ related:
 - 2016-07-14-create-an-app-in-vuejs-2
 ---
 
-**TL;DR:** In this article, we're going to use [VueJS (the progressive
+**TL;DR:** In this article, we're going to use [Vue.js (the progressive
 JavaScript framework)](https://vuejs.org/) to build an interactive Kanban board in the browser. The complete source code for [this project is available on a GitHub repository](https://github.com/elkdanger/kanban-board) and [there is a demo available online](https://kanban.elkdanger.co.uk) of the finished project.
 
 ---
 
 In [my last article](https://auth0.com/blog/docker-dashboard-with-react-typescript-socketio/), I showed you how to build a working dashboard for Docker. This dashboard would show you which containers are currently running, allow you to start and stop them, and to create new ones. The application was pretty basic but its purpose was to exercise your skills with React, TypeScript, and Socket.IO. It wasn't just another React tutorial; it demonstrated how to build something useful using the technologies you're trying to learn.
 
-I'd like to continue that theme here by building another useful tool: a Kanban board! This time, we're going to use VueJS, another JavaScript library similar to React that enables you to build interactive applications in the browser.
+I'd like to continue that theme here by building another useful tool: a Kanban board! This time, we're going to use Vue.js, another JavaScript library similar to React that enables you to build interactive applications in the browser.
 
 Furthermore, there will be a second part to this article which will demonstrate how to make the application work offline. That is, we're going to make our Kanban a [Progressive Web App](https://auth0.com/blog/introduction-to-progressive-apps-part-one/).
 
@@ -178,7 +178,7 @@ To finish off the header, let's dive into `App.vue` and add in some text so that
     
     <div class="page-header">
       <h1>Kanban Board</h1>
-      <p class="lead">An example of a Kanban board, written in VueJS</p>
+      <p class="lead">An example of a Kanban board, written in Vue.js</p>
     </div>
 
     <router-view/>
