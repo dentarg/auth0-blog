@@ -486,16 +486,12 @@ At this point, we should be able to type something into your form textbox, hit t
 .card-block {
   padding: 15px;
 }
-</style>
-{% endhighlight %}
 
-Looking at it now, I'm also just going to quickly dive into the `NewItemForm` component and add a little space in there too, to stop the form butting up against the top of the backlog. Add this to the `style` tag we added earlier:
-
-```
 .add-item {
   margin: 30px 0;
 }
-```
+</style>
+{% endhighlight %}
 
 That's better!
 
