@@ -737,7 +737,7 @@ This shouldn't look too unfamiliar compared to the other components we've just m
 
 Right now, we should be able to add a new item into the backlog using the Backlog view, switch over to the Kanban board and see the same item inside the 'To-Do' column. Nice one!
 
-## Creating the other lanes
+## Creating the Other Lanes
 
 From this point, creating the 'In progress' and 'Done' lanes is a simple extension of what we've already done. In the Vuex store, we have a `todo` array that stores the items in the To-do lane, so we can follow a similar pattern for the other two lanes we're going to implement.
 
@@ -749,14 +749,14 @@ To start, head to `store.js` and add another two arrays into the `items` propert
     items: {
       todo: [],
       inProgress: [],
-      done: []
+      done: [],
     },
-    nextId: 1
+    nextId: 1,
   },
   //...
 ```
 
-Next, re-open `KanbanBoard.vue` and add in components to display the two new lanes we just added right underneath the markup we have for the `todo` lane:
+Next, re-open `KanbanBoard.vue` and add the components to display the two new lanes we just added right underneath the markup we have for the `todo` lane:
 
 {% highlight html %}
 <div class="col-md">
@@ -774,12 +774,12 @@ Finally, modify the script in the same component to map the state for these two 
 computed: mapState({
   todoItems: s => s.items.todo,
   inProgressItems: s => s.items.inProgress,
-  doneItems: s => s.items.done
-})
+  doneItems: s => s.items.done,
+}),
 //...
 ```
 
-You're now at a stage where you have your three task lanes on screen! The final step is to enable the user to change the lane that a task is assigned to; let's look at how we can do that now.
+We're now at a stage where we have our three task lanes on screen! The final step is to enable the user to change the lane that a task is assigned to; let's look at how we can do that now.
 
 ## Changing lanes
 
