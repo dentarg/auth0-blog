@@ -226,7 +226,7 @@ export default new Vuex.Store({
 });
 ```
 
-Here, we import the main Vue object and the Vuex _plugin_ which is then added to Vue via the `Vue.use(Vuex)` call. This allows each component to get access to the store to interact with the data. The store itself becomes initialised with some state which stores the list of *ToDo* items and the `nextId` to be used when a new item is created.
+Here, we import the main Vue object and the Vuex _plugin_ which is then added to Vue via the `Vue.use(Vuex)` call. This allows each component to get access to the store to interact with the data. The store itself becomes initialised with some state which stores the list of *to-do* items and the `nextId` to be used when a new item is created.
 
 We'll come back and fill this in a bit more later. For now, let's head over to `main.js` and add this store in to our Vue app. First, let's import the store from the module we just created:
 
@@ -425,48 +425,53 @@ So, right now, we can put new items into the backlog but, unfortunately, we can'
 
 ## The Vue.js Backlog Component
 
-Essentially the backlog is just a styled list of todo items. Later, we're going to attribute each item to a status ("To-do", "In progress", or "Done") but for now let's just get the list on the screen.
+Essentially the backlog component is just a styled list of to-do items. Later, we're going to attribute each item to a status ("To-do", "In progress", or "Done") but, for now, let's just get the list on the screen.
 
-Re-open the `Backlog.vue`. The first thing we're going to do is connect to the store to retrieve our data. Vuex provides a simple way to do this using its `mapState` function. We can then provide an additional function to retrieve what we want from the store.
+Re-open the `Backlog.vue`. The first thing we're going to do is connect to the store to retrieve our data. Vuex provides a simple way to do this using its `mapState` function. Then, we can provide an additional function to retrieve what we want from the store.
 
-To start, modify the script inside `Backlog.vue` to import `mapState` from Vue:
+To start, let's modify the script inside `Backlog.vue` to import `mapState` from Vue:
 
 {% highlight html %}
-
 <script>
 import { mapState } from 'vuex';
 import NewItemForm from './NewItemForm';
 
-...
+//...
 </script>
 {% endhighlight %}
 
-We're going to retrieve the data inside a _computed property_. Modify the backlog component to create this computed property and read the items from the store:
+We're going to retrieve the data inside a _computed property_. So, let's modify the backlog component to create this computed property and read the items from the store:
 
 ```js
 export default {
   name: 'Backlog',
   components: {
-    'new-item': NewItemForm
+    'new-item': NewItemForm,
   },
   computed: mapState({
-    items: s => s.items.todo
-  })
+    items: s => s.items.todo,
+  }),
 };
 ```
 
-Finally, add in the markup to show the items on the page. Here I've used a Bootstrap Card to render the items:
+Finally, let's add in the markup to show the items on the page. Here, we are using a Bootstrap `card` class to render the items:
 
 ```html
-  <div class="card" v-for="item in items" :key="item.id">
-      <div class="card-block">
-          <h5 class="card-title"><span class="text-muted">#{{ "{{ item.id "}} }}</span>
-          {{ "{{ item.text " }}}}</h5>
-      </div>
+<template>
+  <div class="backlog-view">
+    <new-item></new-item>
+
+    <div class="card" v-for="item in items" :key="item.id">
+        <div class="card-block">
+          <h5 class="card-title"><span class="text-muted">#{{item.id}}</span>
+          {{item.text}}</h5>
+        </div>
+    </div>
   </div>
+</template>
 ```
 
-At this point, you should be able to type something into your form textbox, hit the 'enter' key and see a list of backlog items start to appear underneath. Neat! Let's add a bit of padding and margin into this component to space out the components a little better:
+At this point, we should be able to type something into your form textbox, hit the 'enter' key and see a list of backlog items appearing underneath. Neat! Let's add a bit of padding and margin into this component to space out the components a little better:
 
 {% highlight html %}
 <style>
@@ -496,7 +501,7 @@ That's better!
 
 ## The kanban board
 
-Let's start having a look at the board view of our items. In more feature-rich project tracking products (such as [Jira](https://www.atlassian.com/software/jira)) the user is able to customise the 'lanes' - columns that work items can be dropped into - but for our simple application, we're going to hard-code three lanes to begin with; 'Todo', 'In progress' and 'Done'. Allowing the user to customise these lanes is left as an excercise for you, the reader!
+Let's start having a look at the board view of our items. In more feature-rich project tracking products (such as [Jira](https://www.atlassian.com/software/jira)) the user is able to customise the 'lanes' - columns that work items can be dropped into - but for our simple application, we're going to hard-code three lanes to begin with; 'To-Do', 'In progress' and 'Done'. Allowing the user to customise these lanes is left as an excercise for you, the reader!
 
 We can start by adding the board page which will eventually contain the UI for our kanban board UI. We'll leave it empty for now, but let's get the navigation and routing sorted first.
 
@@ -702,21 +707,21 @@ export default {
 
 This is a very simple component that gets given the item that it should display, and simply renders out the item id and the item text - again using Bootstrap's Card component. There's no computed magic here or any other functionality, but it allows us to separate out the markup from the task lane, keeping it cleaner.
 
-Finally, let's wire this up to the `KanbanBoard` component and get our items on the screen. We'll just deal with the todo items at the moment; we'll add in the other lanes in a moment. Head back to `KanbanBoard.vue` and modify the template to look like this:
+Finally, let's wire this up to the `KanbanBoard` component and get our items on the screen. We'll just deal with the to-do items at the moment; we'll add in the other lanes in a moment. Head back to `KanbanBoard.vue` and modify the template to look like this:
 
 {% highlight html %}
 <template>
   <div class="board">
     <div class="row">
         <div class="col-md">
-          <task-lane id="todo" title="Todo" :items="todoItems"></task-lane>
+          <task-lane id="todo" title="To-Do" :items="todoItems"></task-lane>
         </div>
     </div>
   </div>
 </template>
 {% endhighlight %}
 
-Here we have an instance of our task lane called 'Todo', and we bind its `items` prop to `todoItems`, which we'll deal with now. Modify the script for the kanban board component to look like the following:
+Here we have an instance of our task lane called 'To-Do', and we bind its `items` prop to `todoItems`, which we'll deal with now. Modify the script for the kanban board component to look like the following:
 
 ```js
 import { mapState } from 'vuex';
@@ -735,7 +740,7 @@ export default {
 
 This shouldn't look too unfamiliar compared to the other components we've just made. We first import `mapState` and the `TaskLane` component, then we defined our `KanbanBoard` component, register our `TaskLane` component and then define a computed property `todoItems` which reads the `items.todo` property from the Vuex state. As you can imagine, we'll have another couple of computed properties in here later when we start defining our lanes for our 'in progress' and 'done' items. More on that in a bit.
 
-Right now, you should be able to add a new item into the backlog using the Backlog view, switch over to the Kanban board and see the same item inside the 'todo' column. Nice one!
+Right now, you should be able to add a new item into the backlog using the Backlog view, switch over to the Kanban board and see the same item inside the 'To-Do' column. Nice one!
 
 ## Creating the other lanes
 
@@ -824,7 +829,7 @@ Now we can wrap our task lane inside a Draggable component to enable the items t
 
 Here, the existing `<div v-for...>` element is wrapped in this new draggable component. We've set the model for this to be this thing called 'draggables' and we've also set an option for the group to be the value 'default'. These options are simply passed straight through to the underlying SortableJS instance (with the exception of some event handlers, I believe). Setting the group name is what allows items to be dragged from one list to another (from [the SortableJS documentation](https://github.com/RubaXa/Sortable#group-option)). Since we've got multiple task lanes all with their own `Draggable` component but with the same group name, we're able to drag task items between them! If wanted to prevent tasks from being dragged into specific lanes, it follows that you would give them different group names to facilitate that feature.
 
-If you load up the app now, you'll find that you'll be able to drag items from one lane to another - neat! However, notice that when you switch back to the Backlog view then return to the Kanban board, it hasn't remembered the positions of the tasks and you'll see them all sitting back in the Todo lane, as they were originally. Let's fix that now, by using a computed property to fetch the items.
+If you load up the app now, you'll find that you'll be able to drag items from one lane to another - neat! However, notice that when you switch back to the Backlog view then return to the Kanban board, it hasn't remembered the positions of the tasks and you'll see them all sitting back in the To-Do lane, as they were originally. Let's fix that now, by using a computed property to fetch the items.
 
 We've already used a computed property in a previous component, but this one is slightly different as we're going to tightly control what happens when you get and set that property. When the items are retrieved (get), we'll simply return the `items` prop that was given to the `TaskLane` component to render. When the items are put back (set), we'll commit those items back to the Vuex store.
 
@@ -868,7 +873,7 @@ updateItems(state, payload) {
 
 Now when you play about with your application you'll find that you'll be able to drag task items around into different lanes, and now that we're updating the Vuex store whenever we change something, their new positions will be saved when you move between the different pages. I neat side effect if this is that you can change the order of tasks within a single lane, and that detail is remembered too!
 
-However, if you move some items from the 'Todo' lane into one of the other two lanes and then switch back to the Backlog view, the final problem will become obvious; the items that you moved out of the 'Todo' lane are missing. Let's fix that up now.
+However, if you move some items from the 'To-Do' lane into one of the other two lanes and then switch back to the Backlog view, the final problem will become obvious; the items that you moved out of the 'To-Do' lane are missing. Let's fix that up now.
 
 ## Fixing up the backlog view
 
@@ -905,7 +910,7 @@ Before we do that, let's sort out a couple of utilities that will help us comple
 ```js
 const badgeDetail = {
   todo: {
-    text: 'todo',
+    text: 'to-do',
     class: 'badge badge-light'
   },
 
