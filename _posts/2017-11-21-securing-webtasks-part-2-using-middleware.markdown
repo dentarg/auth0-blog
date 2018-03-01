@@ -169,7 +169,7 @@ curl -X GET "https://$container.run.webtask.io/middleware1"
 
 ![create and test middleware](https://cdn.auth0.com/website/blog/extend/securing-webtasks-part-2-middleware/create_test_middleware3.png)
 
-The first command creates the webtask. The next retrieves the headers for the webtask endpoint. The content type `application/javascript` is in the header output. The last command verifies the body contains the middleware script.
+The first command gets a reference to our container, we need this to easily create the URLs used on the following steps. The second command creates the webtask. The next retrieves the headers for the webtask endpoint. The content type `application/javascript` is in the header output. The last command verifies the body contains the middleware script.
 
  Now, let's create a simple webtask that uses the middleware url as middleware.
 
@@ -296,7 +296,7 @@ function createMiddleware() {
 module.exports = createMiddleware;
 ```
 
-This code, while a bit more complex, is straightforward. It pulls the webtask context our of the request giving us access to secrets. It checks to see if a secret value is defined. If it is, it ensures the bearer token value of the authorization header matches the secret. If it does, it allows the execution to continue. If it does not, it creates an error with HTTP status 403 and passes it to the next function. Finally, if there is no secret, there is nothing to do so it allows execution as well.
+This code, while a bit more complex, is straightforward. It pulls the webtask context out of the request giving us access to secrets. It checks to see if a secret value is defined. If it is, it ensures the bearer token value of the authorization header matches the secret. If it does, it allows the execution to continue. If it does not, it creates an error with HTTP status 403 and passes it to the next function. Finally, if there is no secret, there is nothing to do so it allows execution as well.
 
 Let's wrap this middleware up in a factory and publish it as webtask.
 
