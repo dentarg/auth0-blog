@@ -132,11 +132,11 @@ export default {
 
 We're going to come back here later and fill in some chrome to make it look a bit nicer. Right now, if we look at our application in the browser, we should just see a blank page. This is fine—we're going to start filling in some UI in just a moment.
 
-For now, we have a nice base to start created our Kanban board.
+For now, we have a nice base to start creating our Kanban board.
 
 ## Styling the Vue.js Kanban Board
 
-Let's get our header and base styles in place. For this app, we will use [Bootstrap v4](https://getbootstrap.com/) through one of the smart [Bootswatch themes](https://bootswatch.com). From there, we will chose the [Superhero](https://bootswatch.com/superhero/) them, but there are some other nice options available as well.
+Let's get our header and base styles in place. For this app, we will use [Bootstrap v4](https://getbootstrap.com/) through one of the smart [Bootswatch themes](https://bootswatch.com). From there, we will choose the [Superhero](https://bootswatch.com/superhero/) them, but there are some other nice options available as well.
 
 To insert it into our app, let's include the link from [BootstrapCDN](https://www.bootstrapcdn.com/bootswatch/) to the chosen theme and put that into the `index.html` file.
 
@@ -144,7 +144,7 @@ Later, we will also want to grab a couple of fancy icons from [FontAwesome](http
 
 In the end, our `index.html` file will look like the following code snippet. Notice the two stylesheet links at the top of the markup and also the extra container div around the `app` element:
 
-```html
+{% highlight html %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -161,9 +161,9 @@ In the end, our `index.html` file will look like the following code snippet. Not
     <!-- built files will be auto injected -->
   </body>
 </html>
-```
+{% endhighlight %}
 
-To finish off the header, let's dive into `App.vue` and add in some text so that we can get something on screen. Let's add some content at the top, so our users know what the app is, and a bit of styling just to neaten it up a bit. After that, the `App.vue` content will look like this:
+To finish off the header, let's dive into `App.vue` and add in some text so that we can get something on the screen. Let's add some content at the top, so our users know what the app is, and a bit of styling just to neaten it up a bit. After that, the `App.vue` content will look like this:
 
 {% highlight html %}
 <template>
@@ -228,7 +228,7 @@ export default new Vuex.Store({
 
 Here, we import the main Vue object and the Vuex _plugin_ which is then added to Vue via the `Vue.use(Vuex)` call. This allows each component to get access to the store to interact with the data. The store itself becomes initialised with some state which stores the list of *to-do* items and the `nextId` to be used when a new item is created.
 
-We'll come back and fill this in a bit more later. For now, let's head over to `main.js` and add this store in to our Vue app. First, let's import the store from the module we just created:
+We'll come back and fill this in a bit more later. For now, let's head over to `main.js` and add this store into our Vue app. First, let's import the store from the module we just created:
 
 ```js
 import store from './store';
@@ -291,7 +291,7 @@ export default new Router({
 });
 ```
 
-Now, when users access our Vue.js application in a browser, they should automatically be redirected to `/#/backlog` andtheywe should see the text 'Backlog' underneath the main heading content. Neat!
+Now, when users access our Vue.js application in a browser, they should automatically be redirected to `/#/backlog` and they should see the text 'Backlog' underneath the main heading content. Neat!
 
 Let's continue and get our form on the screen. Create a new file on `src/components/NewItemForm.vue`, and add some markup that shows an input box on the page:
 
@@ -339,7 +339,7 @@ export default {
 There's a bit going on here, so let's break it down:
 
 1. We give the component a name of `NewItemForm`.
-2. We specify the data for this component as a function `data()`, and for this component the only piece of data we have is `itemText`. If you look back at the markup, you'll notice that the `v-model` attribute on the textbox is bound to `itemText`, meaning that when the user changes the textbox value, `itemText` will contain whatever they typed in.
+2. We specify the data for this component as a function `data()` and, for this component, the only piece of data we have is `itemText`. If you look back at the markup, you'll notice that the `v-model` attribute on the textbox is bound to `itemText`, meaning that when the user changes the textbox value, `itemText` will contain whatever they typed in.
 3. We then have a method called `submitForm()` to handle the user submitting the form. This is where we can send new data to the store via _mutations_. Here, we want to invoke a mutation called `addItem` and we set the text to value of `itemText`. Finally, we clear the value of `itemText` so that the user can enter another item.
 
 Before we move on, let's add a bit of styling to the form to make it look a little nicer. Underneath the script tag in our component, let's add the following:
@@ -386,7 +386,7 @@ After all these style changes, our app will look like this:
 
 ![Kanban board preview](https://cdn.auth0.com/blog/vuejs-kanban/new-item-component.png)
 
-Right now, we will find that we can type something into the box, hit 'enter' on our keyboard to submit the form, and the value in the textbox disappears. At this point the value that we entered should have been submitted to the store, but keen eyes will notice an error in the console: `[vuex] unknown mutation type: addItem`. We get that because the store has no idea what to do with that mutation, which isn't surprising as we haven't written it yet!
+Right now, we will find that we can type something into the box, hit 'enter' on our keyboard to submit the form, and the value in the textbox disappears. At this point, the value that we entered should have been submitted to the store, but keen eyes will notice an error in the console: `[vuex] unknown mutation type: addItem`. We get that because the store has no idea what to do with that mutation, which isn't surprising as we haven't written it yet!
 
 Let's fix that now.
 
@@ -419,7 +419,7 @@ export default new Vuex.Store({
 
 Here we have a mutation called `addItem` which is a simple function that takes the current state and an item as an argument. Then, we push it to `state.items.todo`, using `Object.assign` to augment the item with an id value, and we increment `nextId` so that the next time we add an item, it gets a new id value.
 
-Also notice the directive at the top of the example to disable the ESLint rule `no-param-reassign`; the call to increment the id value causes an issue with the ruleset, [but it's ok just turning that rule off in this case](https://github.com/vuejs-templates/webpack/issues/883). The benefits of just being able to call `state.nextId += 1` outweigh the rule.
+Also, notice the directive at the top of the example to disable the ESLint rule `no-param-reassign`; the call to increment the id value causes an issue with the ruleset, [but it's ok just turning that rule off in this case](https://github.com/vuejs-templates/webpack/issues/883). The benefits of just being able to call `state.nextId += 1` outweigh the rule.
 
 So, right now, we can put new items into the backlog but, unfortunately, we can't actually see them yet. We will address that in the next part - the Backlog component.
 
@@ -456,7 +456,7 @@ export default {
 
 Finally, let's add in the markup to show the items on the page. Here, we are using a Bootstrap `card` class to render the items:
 
-```html
+{% highlight html %}
 <template>
   <div class="backlog-view">
     <new-item></new-item>
@@ -469,7 +469,7 @@ Finally, let's add in the markup to show the items on the page. Here, we are usi
     </div>
   </div>
 </template>
-```
+{% endhighlight %}
 
 At this point, we should be able to type something into your form textbox, hit the 'enter' key and see a list of backlog items appearing underneath. Neat! Let's add a bit of padding and margin into this component to space out the components a little better:
 
@@ -497,7 +497,7 @@ That's better!
 
 ## The Kanban Board Vue.js Component
 
-Let's start having a look at the board view of our items. In a more feature-rich project tracking products (such as [Jira](https://www.atlassian.com/software/jira)), the user is able to customise the 'lanes'—columns that work items can be dropped into—but for our simple application, we're going to hard-code three lanes to begin with: 'To-Do', 'In progress', and 'Done'. Allowing the user to customise these lanes is left as an excercise for you, the reader!
+Let's start having a look at the board view of our items. In a more feature-rich project tracking products (such as [Jira](https://www.atlassian.com/software/jira)), the user is able to customise the 'lanes'—columns that work items can be dropped into—but for our simple application, we're going to hard-code three lanes to begin with: 'To-Do', 'In progress', and 'Done'. Allowing the user to customise these lanes is left as an exercise for you, the reader!
 
 We can start by adding the board page which will eventually contain the UI for our kanban board UI. We'll leave it empty for now, but let's get the navigation and routing sorted first.
 
@@ -670,7 +670,7 @@ export default {
 };
 ```
 
-Here, two props are being registered: the list of tasks in `items` and the `title` of the lane. Besides that, we are also defining the `TaskLaneItem` component (coming next). At the bottom, we can also see a computed property which decides what the footer text should be. It simply works out a friendly way to display the number of tasks based on how many tasks there are. Simple enough, but it does demonstrate how we can 'compute' what a bound value should be based on other dependenct properties.
+Here, two props are being registered: the list of tasks in `items` and the `title` of the lane. Besides that, we are also defining the `TaskLaneItem` component (coming next). At the bottom, we can also see a computed property which decides what the footer text should be. It simply works out a friendly way to display the number of tasks based on how many tasks there are. Simple enough, but it does demonstrate how we can 'compute' what a bound value should be based on other dependent properties.
 
 Next, let's turn our attention to the `TaskLaneItem` component, which is responsible for drawing out individual items on the kanban board. Create a new file on `src/components/TaskLaneItem.vue` with the following content:
 
@@ -783,7 +783,7 @@ We're now at a stage where we have our three task lanes on screen! The final ste
 
 ## Vue.js, Lanes, and Drag & Drop Support
 
-For our app, we're going to enable users to simply drag tasks between the different lanes. Doing this will update the collection inside the Vuex store that the task belongs to. As an additional nicety, we're also going to show a coloured label beside the task on the backlog screen so that it's easy to identify the 'status' of task when we're not on the Kanban board itself.
+For our app, we're going to enable users to simply drag tasks between the different lanes. Doing this will update the collection inside the Vuex store that the task belongs to. As an additional nicety, we're also going to show a coloured label beside the task on the backlog screen so that it's easy to identify the 'status' of the task when we're not on the Kanban board itself.
 
 To get the dragging working, we're going to make use of the [vue-draggable](https://github.com/SortableJS/Vue.Draggable) component, which is based on the popular [SortableJS](https://github.com/RubaXa/Sortable) library. The way that this works is that we wrap the containers that contain the things we want to drag inside the Vue Draggable component, telling it which array from the Vuex store that it should manipulate. When we drag an item from one container to another, the component will send us an updated list of items that we can then commit to our Vuex store.
 
@@ -858,7 +858,7 @@ updateItems(state, { items, id }) {
 },
 ```
 
-Pretty simple. If we look back at the Kanban board template, we'll see that each lane is given an id value. That id matches up (intentionally) with the array symbol in the store, so that it becomes trivial to update the list dynamically without too much data overhead. This solution is not scalable nor the _best_ idea in the world, but it's fine for our pet project.
+Pretty simple. If we look back at the Kanban board template, we'll see that each lane is given an id value. That id matches up (intentionally) with the array symbol in the store so that it becomes trivial to update the list dynamically without too much data overhead. This solution is not scalable nor the _best_ idea in the world, but it's fine for our pet project.
 
 Also, we have used some [ES6 destructuring magic](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) here to refer to the `items` and `id` properties, even though we sent those as an object to the store. If wanted, we could expand this out to the following equivalent code:
 
@@ -902,7 +902,7 @@ To start with, let's modify the markup to include the markup for the badge compo
 
 We can see the span itself has a couple of dynamic elements in there which find out the class and the text for the badge. If we try and refresh the page now, we'll find that things start to break, primarily because we haven't defined what `badgeClass` and `badgeText` are yet.
 
-Before we do that, let's sort out a couple of utilities that will help us complete the implementation for those methods. First up, we're going to define a map of text and classes based on lane, which we can use later to figure out what the text and class should be for an item. Here's what that looks like:
+Before we do that, let's sort out a couple of utilities that will help us complete the implementation of those methods. First up, we're going to define a map of text and classes based on the lane, which we can use later to figure out what the text and class should be for an item. Here's what that looks like:
 
 ```js
 const badgeDetail = {
@@ -975,4 +975,4 @@ If we look at our Kanban board now, we should have nicely-coloured badges on all
 
 That brings this tutorial to a close, giving us our very own Kanban board with which to plan our next project! Ok, so it's pretty basic but it gets the job done.
 
-Keep an eye out for part 2 where we're going to progressively enhance this application with offline capabilities, home screen icons and some data storage!
+Keep an eye out for part 2 where we're going to progressively enhance this application with offline capabilities, home screen icons, and some data storage!
