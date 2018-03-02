@@ -1,18 +1,19 @@
 ---
 layout: post
 title: "Open Auth Standards: Your Secret to Success With the PSD2 Initiative"
-description: "In the new world of open banking, secure APIs are Just the beginning."
+description: "In the new world of open banking, secure APIs are just the beginning."
 longdescription: "The Payment Services Directive for the European Union went into effect on January 13th, 2018 and third-party providers (TPPs) will finally be able to start handling finances for consumers, read this post to learn more about it."
-date: 2018-02-24 12:30
-category: Technical Guide
+date: 2018-03-02 12:30
+category: Growth, Certifications
 author:
-  name: CHANGE ME
-  url: https://twitter.com/speyrott?lang=en
-  mail: speyrott@auth0.com
-  avatar: https://en.gravatar.com/userimage/92476393/001c9ddc5ceb9829b6aaf24f5d28502a.png?size=200
+  name: "Diego Poza"
+  url: "https://twitter.com/diegopoza"
+  mail: "diego.poza@auth0.com"
+  avatar: "https://avatars3.githubusercontent.com/u/604869?v=3&s=200"
+is_non-tech: true
 design:
-  image: https://cdn.auth0.com/blog/sparkpost/logo.png
-  bg_color: "#222222"
+  image: https://cdn.auth0.com/blog/psd2-initiative/logo.png
+  bg_color: "#3F3442"
   image_size: "70%"
 tags:
 - authentication
@@ -20,9 +21,16 @@ tags:
 - standard
 - auth-standards
 - psd2
+- oauth2
+- openid
+- banking
+- financial
+- api
 related:
 - 2018-02-07-oauth2-the-complete-guide
-- 2017-10-19-oauth-2-best-practices-for-native-apps
+- 2017-02-23-we-are-now-open-id-certified
+- 2018-01-26-security-predictions-for-2018-that-go-beyond-gdpr-compliance
+
 ---
 
 Marc Andreessen famously said software is ["eating the world."](https://www.wsj.com/articles/SB10001424053111903480904576512250915629460) In a matter of months, it will take a bite out of one of the last remaining holdouts—European financial institutions. 
@@ -35,7 +43,7 @@ But these open APIs also pose new security risks. To compensate, banks will have
 
 Let's take a look at how banking will work under PSD2.
 
-{% include tweet_quote.html quote_text="Banks need to meet the stringest standards to protect customers when using new APIs, learn about the European PSD2 initiative." %}
+{% include tweet_quote.html quote_text="Banks need to meet the strongest standards to protect customers when using new APIs, learn about the European PSD2 initiative." %}
 
 ---
 
@@ -87,10 +95,10 @@ Facebook is another big contender in the payments market. [Facebook Payments](ht
 ## New security needs: OAuth 2.0 and OpenID Connect
 Open APIs, however, do involve new security risks. Banks and other Account Servicing Payment Service Providers (ASPSPs) need to secure their APIs to prevent fraud. 
 
-The PSD2, a technologically neutral document, doesn't specify exactly how open APIs should be secured. However, EU banks are likely to follow the Open Banking Standard set by the UK's Competition and Markets Authority (CMA). The [CMA now requires](https://www.pingidentity.com/en/company/blog/2017/05/19/psd2_and_the_adoption_of_oidc_for_the_uks_open_banking_standard.html) the use of authorization framework OAuth 2.0 with the additional OpenID Connect authentication layer to protect UK bank open APIs.
+The PSD2, a technologically neutral document, doesn't specify exactly how open APIs should be secured. However, EU banks are likely to follow the Open Banking Standard set by the UK's Competition and Markets Authority (CMA). The CMA now requires the use of authorization framework OAuth 2.0 with the additional OpenID Connect authentication layer to protect UK bank open APIs.
 
 ### OAuth 2.0
-OAuth 2.0 is a popular authorization framework in which a user can authorize a TPP without revealing any credentials like account passwords. 
+[OAuth 2.0 is a popular authorization framework](https://auth0.com/blog/oauth2-the-complete-guide/) in which a user can authorize a TPP without revealing any credentials like account passwords. 
 
 Essentially, the third-party application must ask the user for an [authorization grant](https://auth0.com/docs/protocols/oauth2), and use the authorization grant to receive an access token from the API. This access token can then be exchanged for a protected user resource, like bank account information.
 
