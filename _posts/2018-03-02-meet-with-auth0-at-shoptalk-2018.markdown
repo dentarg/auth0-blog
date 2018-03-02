@@ -48,6 +48,7 @@ Auth0 identity offers an opportunity to create a true omnichannel experience acr
 ## Schedule Your Shoptalk Meeting with Auth0
 
 We are sending an expert team, including a software architect, to Shoptalk this year. If you’d like to schedule a meeting to discuss how Auth0 can help increase your conversions, personalize engagement, streamline partnerships, and build brand loyalty, please reach out to [sales@auth0.com](mailto:sales@auth0.com).
+
 ---
 
 {% include asides/about-auth0.markdown %}
