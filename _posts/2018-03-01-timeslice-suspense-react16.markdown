@@ -33,9 +33,9 @@ related:
 
 ---
 
-ReactJS is a JavaScript library, built and maintained by Facebook. As of today, it powers so many popular web and mobile platforms such as Twitter, Airbnb, Lyft, Dropbox, Pinterest, Whatsapp and Instagram. The latest release of ReactJS which is _React 16_ ships with a lot of features such as `Error Boundaries`, `Custom DOM Attributes definition`, `Fragements as return types`, `Portals` and so many others.
+ReactJS is a JavaScript library, built and maintained by Facebook. As of today, it powers so many popular web and mobile platforms such as Twitter, Airbnb, Lyft, Dropbox, Pinterest, Whatsapp and Instagram. The latest release of ReactJS which is _React 16_ ships with a lot of features such as `Error Boundaries`, `Custom DOM Attributes definition`, `Fragments as return types`, `Portals` and so many others.
 
-However, the ReactJS team is not slacking. They are hard at work looking for new ways to make React a highly performant library in UI component development. A sneak peek into new features coming to React was demo'd by the _creator of Redux_ and _React core team member_, [Dan Abramov](https://twitter.com/dan_abramov) at **JSConf Iceland, 2018.** If you haven't watched Dan's talk, here is the [demo](https://www.facebook.com/react/videos/1552821821462886/).
+However, the ReactJS team is not slacking. They are hard at work looking for new ways to make React a highly performant library in UI component development. A sneak peek into new features coming to React was demoed by the _creator of Redux_ and _React core team member_, [Dan Abramov](https://twitter.com/dan_abramov) at **JSConf Iceland, 2018.** If you haven't watched Dan's talk, here is the [demo](https://www.facebook.com/react/videos/1552821821462886/).
 
 ## What's coming to ReactJS?
 
@@ -44,30 +44,30 @@ Making it easier for developers to build great user experiences using ReactJS ha
 * Computing Power
 * Network Speed
 
-With these categories spelled out, you start asking the following questions:
+With these categories spelt out, you start asking the following questions:
 
 - Are the users on a slow network? If so, how's the user experience? Can we (developers) control the loading states?
-- Are the users on a low end device (devices with low CPU power)? If so, is using the app still a memorable experience effectively?
-- Are the users on a fast network? If so, is the xperience seamless? no janky UI
-- Are the users on a high end device (devices with high CPU power)? If so, is the rendering flawless?
+- Are the users on a low-end device (devices with low CPU power)? If so, is using the app still a memorable experience effectively?
+- Are the users on a fast network? If so, is the experience seamless? no janky UI
+- Are the users on a high-end device (devices with high CPU power)? If so, is the rendering flawless?
 
-These are valid questions thats need answers. Let's explore how **Time Slicing** and **Suspense**, these upcoming features can help deliver the best user experience for every one.
+These are valid questions that need answers. Let's explore how **Time Slicing** and **Suspense**, these upcoming features can help deliver the best user experience for everyone.
 
 ### Time Slicing
 
-In Dan's talk, he said "We’ve built a generic way to ensure that high-priority updates like user input don’t get blocked by rendering low-priority updates". What does this mean? The ReactJS team named this concept **Time Slicing**. Let me explain in simpler terms.
+In Dan's talk, he said: "We’ve built a generic way to ensure that high-priority updates like user input don’t get blocked by rendering low-priority updates". What does this mean? The ReactJS team named this concept **Time Slicing**. Let me explain in simpler terms.
 
 {% include tweet_quote.html quote_text="We’ve built a generic way to ensure that high-priority updates like user input don’t get blocked by rendering low-priority updates." %}
 
 ReactJS is concerned about a device's CPU power. While rendering, ReactJS ensures that it doesn't block the thread thus causing the app to freeze. 
 
-Time-slicing allows ReactJS, which now runs on _React Fiber_, to split computations of updates on children components into chunks during idle callbacks and rendering work is spread out over multiple frames. Now, during the process of asynchronous rendering, it ensures that if a user's device is very fast, updates within the app feels synchronous and if a user's device is slow, the app feels responsive. No freezing, No janky UI experience!
+Time-slicing allows ReactJS, which now runs on _React Fiber_, to split computations of updates on children components into chunks during idle callbacks and rendering work is spread out over multiple frames. Now, during the process of asynchronous rendering, it ensures that if a user's device is very fast, updates within the app feel synchronous and if a user's device is slow, the app feels responsive. No freezing, No janky UI experience!
 
 ### Suspense
 
-In Dan's talk, he said "We have built a generic way for components to suspend rendering while they load asynchronous data". 
+In Dan's talk, he said: "We have built a generic way for components to suspend rendering while they load asynchronous data". 
 
-The simple definition of the **suspense** feature is that ReactJS can pause any state update until the data been fetched is ready to be rendered. In essence, ReactJS suspends the component tree while waiting for the data to be fetched completely. During suspension, it goes ahead to handle other high-priority updates. 
+The simple definition of the **suspense** feature is that ReactJS can pause any state update until the data been fetched is ready to be rendered. In essence, ReactJS suspends the component tree while waiting for the data to be fetched completely. During the suspension, it goes ahead to handle other high-priority updates. 
 
 {% include tweet_quote.html quote_text="We have built a generic way for components to suspend rendering while they load asynchronous data." %}
 
@@ -124,13 +124,16 @@ Object.assign(data.data, this.previousData, currentResult.data);
 _Query component render method_
 
 
-If the `async` mode is turned on, rendering is suspended till data is fetched. In the example above, it throws a promise in async mode. During suspension, a developer can now effectively control the loading states like using a component with a prop that has a time limit attached to it or use the loading API method from the `createFetcher` method as shown below.
+If the `async` mode is turned on, rendering is suspended till data is fetched. In the example above, it throws a promise in async mode. During the suspension, a developer can now effectively control the loading states via using a component with a prop that has a time limit attached to it as shown below or through the `loading` API method from the `createFetcher`. 
+
 
 ```js
 <Placeholder 
     delayMs={1000} 
     fallback={<Loadingsize="medium" color="blue" />}
 ```
+
+**Note:** There is a concept of a loading API from the `simple-cache-provider`. It might land as a `Loading` component or the name might change.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Did You Know™<br><br>React Suspense doesn&#39;t necessarily rely on async rendering. It works in sync mode, too. But the downside is that those &lt;Placeholder /&gt; components are immediately triggered, without any delay.<br><br>Those `delayMs` props illustrate why async rendering is so good for UX.</p>&mdash; Andrew Clark (@acdlite) <a href="https://twitter.com/acdlite/status/969318507966906368?ref_src=twsrc%5Etfw">March 1, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
