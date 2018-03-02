@@ -1,0 +1,42 @@
+---
+layout: post
+title: Meet with Auth0 at Shoptalk 2018
+description: <A SHORT DESCRIPTION OF THE POST <= 200 CHARACTERS >
+longdescription: <A LONG DESCRIPTION OF THE POST BETWEEN 230 AND 320 CHARACTERS>
+date: 2018-03-02 12:54
+category: <FROM HERE: https://docs.google.com/spreadsheets/d/1e_RKzi8kVwzqPG8si8kyDOWPiBk9tI-XNGh0KgRIF7Q>
+press_release: false
+is_non-tech: true
+author:
+  name: <YOUR NAME>
+  url: <YOUR URL>
+  mail: <YOUR MAIL>
+  avatar: <LINK TO PROFILE PIC>
+design:
+  bg_color: <A HEX BACKGROUND COLOR>
+  image: <A PATH TO A 200x200 IMAGE>
+tags:
+- foo
+related:
+- <ADD SOME RELATED POSTS FROM AUTH0'S BLOG>
+---
+
+Just a few years ago, some retailers were hesitant about letting shoppers access online stores through social logins like Facebook or Google. Leading up to [Shoptalk 2018](https://shoptalk.com/), people headed to this year’s global retail innovation convention in Vegas are telling us that’s no longer the case — [one-click login](https://auth0.com/retail) has gone mainstream.
+
+## Increased Conversions
+At Auth0, we’ve helped customers like Polaris, Nando’s, Wayfair, The Iconic, Western Digital, Talbot’s, and more streamline their customer logins. Our customers find that social login increases conversions, removing unnecessary barriers to a pleasurable shopping experience. 
+
+Rather than losing a customer during login hesitation, social login also gives retailers opportunities for personalization while enabling them to deliver a consistent brand experience at each touchpoint. According to a [Web Hosting Buzz survey](http://www.webhostingbuzz.com/blog/2013/03/21/whos-sharing-what/): 86% of users report being bothered by having to create new accounts on websites. 
+
+## Phase I Replatforming - Identity
+
+Another trend we’re hearing is the desire to replatform ecommerce experiences as a way to become more responsive to ever-changing customer needs. Shoptalk attendees are telling us that addressing identity is phase I in their multi-phase approach to becoming more agile.
+
+Auth0 identity offers an opportunity to create a true omnichannel experience across brands with single-sign on, while also simplifying partner collaborations.
+
+## Schedule Your Shoptalk Meeting with Auth0
+
+We are sending an expert team, including a software architect, to Shoptalk this year. If you’d like to schedule a meeting to discuss how Auth0 can help increase your conversions, personalize engagement, streamline partnerships, and build brand loyalty, please reach out to [sales@auth0.com](mailto:sales@auth0.com).
+---
+
+{% include asides/about-auth0.markdown %}
