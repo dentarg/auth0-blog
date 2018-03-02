@@ -9,6 +9,7 @@ author:
   name: Steve Hobbs
   url: https://stevescodingblog.co.uk
   mail: elkdanger@gmail.com
+  avatar: https://en.gravatar.com/userimage/3841188/bc8fc1f1ebb326d59bab456cac894bdf.jpeg
 design:
   bg_color: #35485d
   image: "https://cdn2.auth0.com/blog/vuejs/logo.png"
