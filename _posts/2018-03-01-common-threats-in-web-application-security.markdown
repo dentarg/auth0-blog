@@ -220,8 +220,9 @@ Set-Cookie: sess=sessionid123; path=/; SameSite
 Cookies are an important feature of web applications, usually carrying our users session identification, so the server knows you're you on each request. The `SameSite` directive might be a good way to protect your session information, but **Cookie Prefixing** is a new and under utilized method to ensure a cookie is absolutely secure.
 
 Some user agent implementations support the following cookie prefixes:
+
 - `__Secure` - Tells the browser that it should only include the cookie in requests that are sent over secure channel.
-- `__Host` - Taking it further than `__Secure`, this will tell the browser to only use the cookie from a secure origin, the scope is limited to a path attribute passed down by the server. If the server omits the path attribute the "directory" of the request URI is used. It also signals that the domain attribute must not be present, which prevents the cookie from being sent to other domains.
+- `__Host` - Tells the browser not only that it should only include the cookie in requests that are sent over secure channel, this will also tell the browser to only use the cookie from a secure origin and the scope is limited to a path attribute passed down by the server. If the server omits the path attribute the "directory" of the request URI is used. It also signals that the domain attribute must not be present, which prevents the cookie from being sent to other domains.
 
 Effectively a `__Host` cookie is very specific to where it was intended to be used and therefore should be considered the most secure way to define one.
 
