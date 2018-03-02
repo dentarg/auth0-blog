@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Beyond React 16: Time Slicing and Suspense"
+title: "Beyond React 16: Time Slicing and Suspense API"
 description: "Learn what's coming to ReactJS. Get a sneak peek of the powerful features that will grace React soon."
 longdescription: "Time Slicing, Suspense and the Fetcher API are new features and concepts that will land soonest in stable releases of ReactJS. Learn how they work."
 date: 2018-03-01 08:30
