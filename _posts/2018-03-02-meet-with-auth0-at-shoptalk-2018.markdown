@@ -12,7 +12,7 @@ author:
   mail: "jennifer.obrien@auth0.com"
   avatar: "https://cdn.auth0.com/blog/avatars/jenny-obrien.png"
 design:
-  bg_color: #222228
+  bg_color: "#222228"
   image: https://cdn.auth0.com/blog/logos/auth0.png
 tags:
 - retail
@@ -26,6 +26,12 @@ related:
 - 2017-12-08-how-poor-identity-access-management-equals-security-breaches
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
 Just a few years ago, some retailers were hesitant about letting shoppers access online stores through social logins like Facebook or Google. Leading up to [Shoptalk 2018](https://shoptalk.com/), people headed to this year’s global retail innovation convention in Vegas are telling us that’s no longer the case — [one-click login](https://auth0.com/retail) has gone mainstream.
 
 ## Increased Conversions
