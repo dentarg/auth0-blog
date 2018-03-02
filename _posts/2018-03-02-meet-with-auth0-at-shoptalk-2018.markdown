@@ -1,24 +1,29 @@
 ---
 layout: post
 title: Meet with Auth0 at Shoptalk 2018
-description: <A SHORT DESCRIPTION OF THE POST <= 200 CHARACTERS >
-longdescription: <A LONG DESCRIPTION OF THE POST BETWEEN 230 AND 320 CHARACTERS>
+description: We’re sending an expert team to Shoptalk this year. Schedule a meeting to learn how Auth0 can help you increase conversions.
+longdescription: Auth0’s social login gives retailers opportunities for personalization while enabling them to deliver a consistent brand experience at each touchpoint. We’re sending an expert team to Shoptalk this year. Schedule a meeting to learn how Auth0 can help you increase conversions.
 date: 2018-03-02 12:54
-category: <FROM HERE: https://docs.google.com/spreadsheets/d/1e_RKzi8kVwzqPG8si8kyDOWPiBk9tI-XNGh0KgRIF7Q>
-press_release: false
+category: Announcements, Program
 is_non-tech: true
 author:
-  name: <YOUR NAME>
-  url: <YOUR URL>
-  mail: <YOUR MAIL>
-  avatar: <LINK TO PROFILE PIC>
+  name: "Jenny O'Brien"
+  url: "https://www.linkedin.com/in/jenny-o-brien-storyteller/"
+  mail: "jennifer.obrien@auth0.com"
+  avatar: "https://cdn.auth0.com/blog/avatars/jenny-obrien.png"
 design:
-  bg_color: <A HEX BACKGROUND COLOR>
-  image: <A PATH TO A 200x200 IMAGE>
+  bg_color: #222228
+  image: https://cdn.auth0.com/blog/logos/auth0.png
 tags:
-- foo
+- retail
+- ecommerce
+- identity
+- conference
+- social login
 related:
-- <ADD SOME RELATED POSTS FROM AUTH0'S BLOG>
+- 2017-12-18-retail-analytics-past-present-and-future
+- 2017-06-09-the-three-best-ways-to-create-the-single-vision-of-a-customer
+- 2017-12-08-how-poor-identity-access-management-equals-security-breaches
 ---
 
 Just a few years ago, some retailers were hesitant about letting shoppers access online stores through social logins like Facebook or Google. Leading up to [Shoptalk 2018](https://shoptalk.com/), people headed to this year’s global retail innovation convention in Vegas are telling us that’s no longer the case — [one-click login](https://auth0.com/retail) has gone mainstream.
