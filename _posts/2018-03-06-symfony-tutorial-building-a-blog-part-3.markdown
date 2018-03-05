@@ -167,7 +167,7 @@ yarn run encore dev
 
 In order to use Heroku, you need to have an account. So, go to the [sign up page](https://signup.heroku.com/) and follow all instructions provided there.
 
-Once your account has been created, you're going to need to install the Command Line Interface (CLI). Each operating system has a different method of installing the Heroku CLI. So, below is a list of the commands used to install this:
+Once your account has been created, you're going to need Heroku's Command Line Interface (CLI). Each operating system has a different method of installing the Heroku CLI. So, below is a list of the commands used to install this:
 
 * on MacOS: `brew install heroku/brew/heroku`
 * on Ubuntu Snap: `sudo snap install heroku --classic`
@@ -201,9 +201,7 @@ When the command has finished running, you should see something similar to the i
 
 ![Creating a ClearDB database](https://cdn.auth0.com/blog/symfony-part-3/create-heroku-database.png)
 
-Heroku stores the environment files themselves. So, in order for your blog to use sensitive keys (such as the database table name, user, and password), you need to store them as environment keys. Previously, you placed this in a `.env` file.
-
-The following is the structure of keys you are going to need:
+Heroku stores the environment variables themselves. So, in order for your blog to use sensitive keys (such as the database credentials and Auth0 properties), you need to update these variables. Previously, you stored them in a `.env` file. Now, you will need to execute the following commands to populate Heroku with these variables:
 
 ```bash
 heroku config:set APP_ENV=prod
@@ -213,6 +211,8 @@ heroku config:set AUTH0_CLIENT_SECRET=(Your Auth0 client secret)
 heroku config:set AUTH0_DOMAIN=(Your Auth0 Domain)
 heroku config:set DATABASE_NAME=(Your database name, as shown by the heroku addons:add command)
 ```
+
+**Note:** You will need to replace the values after `AUTH0_CLIENT_ID`, `AUTH0_CLIENT_SECRET`, and `AUTH0_DOMAIN` with the properties of your Auth0 Client and `DATABASE_NAME` with the `CLEARDB_DATABASE_URL` provided by the Heroku CLI (something like `cleardb-regular-32216`).
 
 ### Installing Travis CI
 
