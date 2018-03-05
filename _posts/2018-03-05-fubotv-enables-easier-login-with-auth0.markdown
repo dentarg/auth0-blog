@@ -25,7 +25,7 @@ related:
 
 **BELLEVUE, Wash. -- March 5, 2018** – [Auth0](https://auth0.com/), a global leader in Identity-as-a-Service (IDaaS), today announced that it is the identity management platform of choice for fuboTV, the leading sports-first live streaming TV service in the U.S. The company’s rapidly growing subscriber base will use Auth0 for authentication and social login across a variety of platforms including desktop, mobile phones, and tablets.
 
-fuboTV subscribers use the OTT service to watch their favorite teams and stay on top of the most popular sports, news, and entertainment networks in the U.S. For example, its fubo Premier base package includes more than 65 channels, viewable on desktop at [www.fubo.tv](www.fubo.tv) as well as Android and iOS mobile phones and tablets, and leading TV connected devices including Apple TV, Roku, and Amazon Fire TV.
+fuboTV subscribers use the OTT service to watch their favorite teams and stay on top of the most popular sports, news, and entertainment networks in the U.S. For example, its fubo Premier base package includes more than 65 channels, viewable on desktop at [www.fubo.tv](http://www.fubo.tv) as well as Android and iOS mobile phones and tablets, and leading TV connected devices including Apple TV, Roku, and Amazon Fire TV.
 
 _“We wanted to make the login process easier and more secure for our customers, who rely on us 24/7 for the latest and greatest in sports and entertainment,”_ said Sung Ho Choi, co-founder, fuboTV. _“Auth0’s authentication capabilities, including the option for our customers to login via their social media profiles, gives our customers a better experience overall.”_ 
 
