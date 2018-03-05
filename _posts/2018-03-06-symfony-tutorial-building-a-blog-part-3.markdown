@@ -40,7 +40,7 @@ related:
 [In the first article](https://auth0.com/blog/symfony-tutorial-building-a-blog-part-1/), you:
 
 * installed and configured a Symfony installation;
-* created two new database tables: `author` and `blog_post`;
+* created two entities (and their respective database tables): `Author` and `BlogPost`;
 * allowed users to authenticate with [Auth0](https://auth0.com);
 * and ensured that the authenticated users have `Author` instances associated with them before using the system.
 
@@ -68,9 +68,9 @@ In this third article, you will be learning about deploying to two different env
 
 ## About Travis CI
 
-[Travis CI](https://travis-ci.org/) is a hosted, distributed, continuous integration service. Travis CI allows you to build and test your software hosted on GitHub, allowing you to publicise projects comfortable in knowing that project is fully functional for others to use.
+[Travis CI](https://travis-ci.org/) is a hosted and distributed continuous integration service. Travis CI allows you to build and test your software hosted on GitHub, allowing you to publicise projects comfortable in knowing that project is fully functional for others to use.
 
-With Travis CI, there are two different sites to use. The [`travis-ci.org`](https://travis-ci.org/) site allows you test open source projects (public repositories). Whereas [`travis-ci.com`](https://travis-ci.com/) allows you to test private projects, but requires a fee dependent on the size of your project.
+With Travis CI, there are two different sites to use. The [`travis-ci.org`](https://travis-ci.org/) site allows you test open-source projects (public repositories). Whereas [`travis-ci.com`](https://travis-ci.com/) allows you to test private projects, but requires a fee dependent on the size of your project.
 
 ## Building the Blog Engine
 
@@ -466,7 +466,7 @@ We also need a `.htaccess` to be created so run:
 composer require apache-pack
 ```
 
-In order for Heroku to know what packages to include on your new space, we need to specify which build packs to use. NodeJS is required to run `Yarn` to build the styling of the blog.
+In order for Heroku to know what packages to include on your new space, you need to specify which build packs to use. NodeJS is required to run `Yarn` to build the styling of the blog.
 
 ```bash
 heroku buildpacks:add heroku/nodejs
