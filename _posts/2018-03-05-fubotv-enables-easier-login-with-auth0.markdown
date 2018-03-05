@@ -2,7 +2,7 @@
 layout: post
 title: fuboTV Enables Easier Login for Streaming Sports Fans with Auth0
 description: Social login makes customer experience hassle-free 
-longdescription: <A LONG DESCRIPTION OF THE POST BETWEEN 230 AND 320 CHARACTERS>
+longdescription: Auth0 announced that it is the identity management platform of choice for fuboTV, the leading sports-first live streaming TV service in the U.S. The company’s subscriber base will use Auth0 for authentication and social login across a variety of platforms including desktop, mobile phones, and tablets.
 date: 2018-03-05 11:55
 category: Announcements, Press
 press_release: true
