@@ -78,13 +78,9 @@ With Travis CI, there are two different sites to use. The [`travis-ci.org`](http
 
 For this tutorial, you will need a GitHub account. So, if needed, head over to [sign up at GitHub](https://github.com/join?source=header-home) and complete the process.
 
-Once signed up, go to the example repository for the [Symfony blog part 2](https://github.com/auth0-blog/symfony-blog-part-2).
-
-Click the "Fork" button that appears in the top right-hand corner of the browser. As shown in the example below:
+Once signed up, go to the example repository for the [Symfony blog part 2](https://github.com/auth0-blog/symfony-blog-part-2) article and click on the "Fork" button that appears in the top right-hand corner of the browser. As shown in the example below:
 
 ![Forking a repository on GitHub](https://cdn.auth0.com/blog/symfony-part-3/fork-repository.png)
-
-Make sure you have followed all instructions in the first two parts.
 
 You will find that you now have a repository of the same name but under your account. Click the "Clone or download" button and copy the URL found in there.
 
@@ -92,16 +88,16 @@ Next, you will need to clone this repository for yourself, so run the following 
 
 ```bash
 git clone https://github.com/auth0-blog/symfony-blog-part-2
-cd symfony-blog-part-2
 ```
 
-Install our dependencies with the following command:
+After cloning it, install the dependencies with the following command:
 
 ```bash
+cd symfony-blog-part-2
 composer install
 ```
 
-In the root directory is a file called `.env`. Update the following values with your Auth0 credentials:
+In the root directory, you will find a file called `.env`. Update the following values with your Auth0 credentials:
 
 ```yml
 AUTH0_CLIENT_ID={AUTH0_CLIENT_ID}
@@ -109,9 +105,9 @@ AUTH0_CLIENT_SECRET={AUTH0_CLIENT_SECRET}
 AUTH0_DOMAIN={AUTH0_DOMAIN}
 ```
 
-Note that you will have to replace the values above. [Check the first part to understand how to replace them](https://auth0.com/blog/symfony-tutorial-building-a-blog-part-1/).
+Note that you will have to replace the values above (`{AUTH0_CLIENT_ID}`, `{AUTH0_CLIENT_SECRET}`, and `{AUTH0_DOMAIN}`). [Check the first part to understand how to replace them](https://auth0.com/blog/symfony-tutorial-building-a-blog-part-1/).
 
-__Pro Tip!__ If you do not have a MySQL database available, an easy way to bootstrap one is with Docker:
+__Pro Tip!__ You will need a MySQL database locally to test your application. So, if you do not have one, an easy way to bootstrap it is with Docker:
 
 ```bash
 docker run --name symfony-blog-mysql \
@@ -140,7 +136,7 @@ And change the following line: `DATABASE_URL=mysql://db_user:db_password@127.0.0
 DATABASE_URL=mysql://symfony-blog-user:mysecretpassword@127.0.0.1:3306/symfony-blog
 ```
 
-Also add a new line with:
+Also add a new line with the contents below (and replace `(Your database name)` with the name of your database):
 
 ```yaml
 DATABASE_NAME=(Your database name)
