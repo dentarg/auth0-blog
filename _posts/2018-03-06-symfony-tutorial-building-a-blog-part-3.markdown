@@ -216,14 +216,13 @@ heroku config:set DATABASE_NAME=(Your database name, as shown by the heroku addo
 
 ### Installing Travis CI
 
-[Travis CI](https://travis-ci.org/) can be installed via Ruby. If you have Ruby installed, please, make sure it is at least version 1.9.3 (2.0.0 recommended). You can check this by typing the following command in a terminal:
+[Travis CI](https://travis-ci.org/) can be installed via Ruby. If you have Ruby installed, please, make sure it is at least version `1.9.3` (2.0.0 recommended). You can check this by typing the following command in a terminal:
 
 ```bash
 ruby -v
 ```
 
 If Ruby isn't installed, it can be installed by one of the following methods, depending on your operating system:
-
 
 * Mac OS X: `brew install ruby`
 * Debian / Ubuntu: `sudo apt-get install ruby-full`
@@ -248,7 +247,7 @@ Once your account is created, you should see [your profile page](https://travis-
 
 ![Turning Travis CI integration with GitHub on](https://cdn.auth0.com/blog/symfony-blog-engine-part-3/travis-ci-integration.png)
 
-In order to run through the [Travis CI](https://travis-ci.org/) build, you need a `.env` file specifically tailored to this service. So, in the root of your project, create a `.env.travis.dist` file and paste the following in:
+In order to run through the [Travis CI](https://travis-ci.org/) build, you need a `.env` file especially created to this service. So, in the root directory of your project, create a `.env.travis.dist` file and paste the following in:
 
 ```yml
 DATABASE_URL=mysql://travis@127.0.0.1:3306/travisbuild
