@@ -501,7 +501,7 @@ If previously you called your space `space-name-here`, then just append `-stagin
 
 Next, you are going to need to create a new database entry for this space. You can do this by running the following command:
 
-__NOTE:__ You may need to define your space name in this command, so change the `space-name-here-staging` to your space name below
+> __NOTE:__ You may need to define your space name in this command, so change the `space-name-here-staging` to your space name below
 
 ```bash
 heroku addons:add cleardb:ignite -a space-name-here-staging
@@ -536,7 +536,7 @@ heroku config:set AUTH0_DOMAIN=(Your Auth0 Domain) -a space-name-here-staging
 heroku config:set DATABASE_NAME=(Your database name shown in the image above) -a space-name-here-staging
 ```
 
-In the above commands, you've set the `SYMFONY_ENV` to `staging`. We now need some files in `config/packages/staging` in order to store our staging configurations. Create the directory `staging` in `./config/packages/`, then within that direcotry, create file `doctrine.yaml` and paste the following in:
+In the above commands, you've set the `SYMFONY_ENV` to `staging`. Now, you need some files in `config/packages/staging` to store your staging configurations. Create the directory `staging` under `./config/packages/`, then within that directory, create the `doctrine.yaml` file and paste the following in:
 
 ```yml
 doctrine:
@@ -605,6 +605,7 @@ git commit -m "Preparing the staging environment"
 git checkout -b staging
 git push --set-upstream origin staging
 ```
+
 Time to add the staging URL to the allowed callback URLs for your staging client. Head over to the [Auth0 Dashboard](https://manage.auth0.com/#/clients), choose your staging client and carry out the following instructions:
 
 * In the staging Auth0 `Client`, go to the settings tab.
@@ -612,8 +613,7 @@ Time to add the staging URL to the allowed callback URLs for your staging client
 * The url you need to put in the text box is your space url, for example: `https://space-name-here-staging.herokuapp.com/` followed by: `auth0/callback`. So it will look like: `https://space-name-here-staging.herokuapp.com/auth0/callback`.
 * Click the `Save Changes` button at the bottom of the page
 
-You will now be able to use your blog, and authenticate as an article writer.
-If you head over to your Heroku dashboard, you should see the build in progress or complete. After this build is completed, you can browse to the URL for your staging environment and you will see an exact duplicate of the production environment.
+You will now be able to test your application on a staging environment. So, if you head over to your Heroku dashboard, you should see the build in progress or complete. After this build is completed, you can browse to the URL for your staging environment and you will see an exact duplicate of the production environment.
 
 ## Conclusion
 
