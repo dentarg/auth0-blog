@@ -41,29 +41,29 @@ However, the ReactJS team is not slacking. They are hard at work looking for new
 
 Making it easier for developers to build great user experiences using ReactJS has always been the goal of the ReactJS team. Building for great user experiences involves splitting the attention of developers into two distinct categories:
 
-* Computing Power
-* Network Speed
+* **Computing Power**
+* **Network Speed**
 
 With these categories spelt out, you start asking the following questions:
 
 - Are the users on a slow network? If so, how's the user experience? Can we (developers) control the loading states?
 - Are the users on a low-end device (devices with low CPU power)? If so, is using the app still a memorable experience effectively?
-- Are the users on a fast network? If so, is the experience seamless? no janky UI
+- Are the users on a fast network? If so, is the experience seamless? no janky UI.
 - Are the users on a high-end device (devices with high CPU power)? If so, is the rendering flawless?
 
-These are valid questions that need answers. Let's explore how **Time Slicing** and **Suspense**, these upcoming features can help deliver the best user experience for everyone.
+These are valid questions that need answers. Let's explore how **Time Slicing** and **Suspense** in ReactJS can help deliver the best user experience for everyone.
 
-### Time Slicing
+## Time Slicing
 
-In Dan's talk, he said: "We’ve built a generic way to ensure that high-priority updates like user input don’t get blocked by rendering low-priority updates". What does this mean? The ReactJS team named this concept **Time Slicing**. Let me explain in simpler terms.
+In Dan's talk, he said: _"We’ve built a generic way to ensure that high-priority updates like user input don’t get blocked by rendering low-priority updates"_. What does this mean? The ReactJS team named this concept **Time Slicing**. Let me explain in simpler terms.
 
 {% include tweet_quote.html quote_text="We’ve built a generic way to ensure that high-priority updates like user input don’t get blocked by rendering low-priority updates." %}
 
 ReactJS is concerned about a device's CPU power. While rendering, ReactJS ensures that it doesn't block the thread thus causing the app to freeze. 
 
-Time-slicing allows ReactJS, which now runs on _React Fiber_, to split computations of updates on children components into chunks during idle callbacks and rendering work is spread out over multiple frames. Now, during the process of asynchronous rendering, it ensures that if a user's device is very fast, updates within the app feel synchronous and if a user's device is slow, the app feels responsive. No freezing, No janky UI experience!
+**Time-slicing** allows ReactJS, which now runs on _React Fiber_, to split computations of updates on children components into chunks during idle callbacks and rendering work is spread out over multiple frames. Now, during the process of asynchronous rendering, it ensures that if a user's device is very fast, updates within the app feel synchronous and if a user's device is slow, the app feels responsive. No freezing, No janky UI experience!
 
-### Suspense
+## Suspense
 
 In Dan's talk, he said: "We have built a generic way for components to suspend rendering while they load asynchronous data". 
 
@@ -81,7 +81,7 @@ Dan used an API from `Future React` called `createFetcher` (_this name is likely
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">createFetcher from <a href="https://twitter.com/dan_abramov?ref_src=twsrc%5Etfw">@dan_abramov</a>&#39;s talk is this thing:<br><br>We&#39;re calling it simple-cache-provider (for now). It&#39;s a basic cache that works for 80% of use cases, and (when it&#39;s done) will serve as a reference implementation for Apollo, Relay, etc.<a href="https://t.co/elI6YFco0A">https://t.co/elI6YFco0A</a></p>&mdash; Andrew Clark (@acdlite) <a href="https://twitter.com/acdlite/status/969168681644179456?ref_src=twsrc%5Etfw">March 1, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-I'll borrow a practical example from the [React Apollo's team initial implementation](https://dev-blog.apollodata.com/a-first-look-at-async-react-apollo-10a82907b48e) to show you how suspense works. They imitated the **suspense** feature by suspending the result of a GraphQL query.
+I'll borrow a practical example from the [React Apollo's team initial implementation](https://dev-blog.apollodata.com/a-first-look-at-async-react-apollo-10a82907b48e) to show you how suspense works. The React Apollo team imitated the **suspense** feature by suspending the result of a GraphQL query.
 
 ```js
 const MOVIE_QUERY = gql`
@@ -133,13 +133,16 @@ If the `async` mode is turned on, rendering is suspended till data is fetched. I
     fallback={<Loadingsize="medium" color="blue" />}
 ```
 
-**Note:** There is a concept of a loading API from the `simple-cache-provider`. It might land as a `Loading` component or the name might change.
+**Note:** Dan Abramov mentioned that there is the concept of a loading API from the `simple-cache-provider`. It might land as a `Loading` component or the name might change in upcoming ReactJS releases.
+
+> In React, if a component suspends, we keep rendering the siblings as deeply as we can. Suspend means "don't commit," not "don't reconcile." - **Andrew Clark**
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Did You Know™<br><br>React Suspense doesn&#39;t necessarily rely on async rendering. It works in sync mode, too. But the downside is that those &lt;Placeholder /&gt; components are immediately triggered, without any delay.<br><br>Those `delayMs` props illustrate why async rendering is so good for UX.</p>&mdash; Andrew Clark (@acdlite) <a href="https://twitter.com/acdlite/status/969318507966906368?ref_src=twsrc%5Etfw">March 1, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Did You Know™<br><br>You can suspend from inside of getDerivedStateFromProps. It “just works” because it’s part of React’s render phase.<br><br>You can also suspend inside a setState reducer (first argument).</p>&mdash; Andrew Clark (@acdlite) <a href="https://twitter.com/acdlite/status/969428655238557697?ref_src=twsrc%5Etfw">March 2, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 
 
 Another use case is `Code splitting`. Code splitting is a concept used in improving performance by loading only the code a particular page needs in an application. `Code splitting` works well with the `suspense` feature.
@@ -158,7 +161,7 @@ const moviePage = moviePageFetcher.read().default;
 ...
 ```
 
-The code above loads the MoviePage component only when it is needed. And takes advantage of the `createFetcher`.
+The code above loads the MoviePage component only when it is needed while taking advantage of the **suspense** feature via the `createFetcher` method.
 
 {% include asides/react.markdown %}
 
