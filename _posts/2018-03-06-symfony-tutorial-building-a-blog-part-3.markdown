@@ -70,7 +70,7 @@ In this third article, you will be learning about deploying to two different env
 
 [Travis CI](https://travis-ci.org/) is a hosted and distributed continuous integration service. Travis CI allows you to build and test your software hosted on GitHub, allowing you to publicise projects comfortable in knowing that project is fully functional for others to use.
 
-With Travis CI, there are two different sites to use. The [`travis-ci.org`](https://travis-ci.org/) site allows you test open-source projects (public repositories). Whereas [`travis-ci.com`](https://travis-ci.com/) allows you to test private projects, but requires a fee dependent on the size of your project.
+With Travis CI, there are two different sites to use. The [`travis-ci.org`](https://travis-ci.org/) site allows you test open-source projects (public repositories). Whereas [`travis-ci.com`](https://travis-ci.com/) allows you to test private projects but requires a fee dependent on the size of your project.
 
 ## Building the Blog Engine
 
@@ -136,7 +136,7 @@ And change the following line: `DATABASE_URL=mysql://db_user:db_password@127.0.0
 DATABASE_URL=mysql://symfony-blog-user:mysecretpassword@127.0.0.1:3306/symfony-blog
 ```
 
-Also add a new line with the contents below (and replace `(Your database name)` with the name of your database):
+Also, add a new line with the contents below (and replace `(Your database name)` with the name of your database):
 
 ```yaml
 DATABASE_NAME=(Your database name)
@@ -247,7 +247,7 @@ Once your account is created, you should see [your profile page](https://travis-
 
 ![Turning Travis CI integration with GitHub on](https://cdn.auth0.com/blog/symfony-blog-engine-part-3/travis-ci-integration.png)
 
-In order to run through the [Travis CI](https://travis-ci.org/) build, you need a `.env` file especially created to this service. So, in the root directory of your project, create a `.env.travis.dist` file and paste the following in:
+In order to run through the [Travis CI](https://travis-ci.org/) build, you need a `.env` file specially created to this service. So, in the root directory of your project, create a `.env.travis.dist` file and paste the following in:
 
 ```yml
 DATABASE_URL=mysql://travis@127.0.0.1:3306/travisbuild
@@ -461,7 +461,7 @@ Also, you will need a `.htaccess` file. So, run the following command:
 composer require apache-pack
 ```
 
-In order for Heroku to know what NPM packages to include on your new space, you need to specify which build packs to use. Note that Node.js is required to run `yarn` to build the styling of the blog.
+In order for Heroku to know what NPM packages to include in your new space, you need to specify which build packs to use. Note that Node.js is required to run `yarn` to build the styling of the blog.
 
 ```bash
 heroku buildpacks:add heroku/nodejs
