@@ -34,7 +34,7 @@ Communities are like gardens. The seed gets planted, often by a company with a f
 ## Managing the (Garden) Community
 The responsibility of the Community Manager is to water it and make sure the ground has the nutrients necessary to facilitate growth. You likely won’t know what the outcome will be, but for me that is part of the excitement of community. Nothing happens though unless people participate - and that’s where you come in!
 
-Over the past year or so we’ve gone through a few iterations of what community looks like at Auth0. We have an already vibrant user base, but the challenge has been bringing together that user base in a way which provides opportunities to collaborate and share with other developers in the Identity and Access Management space. In addition, empowering developers seeking to implement Auth0 into their ideas, platforms, and products has always been our motivation in the community. Today we set out meeting that challenge head-on with the unveiling of our new Community.
+Over the past year or so we’ve gone through a few iterations of what community looks like at Auth0. We have an already vibrant user base, but the challenge has been bringing together that user base in a way which provides opportunities to collaborate and share with other developers in the Identity and Access Management space. In addition, empowering developers seeking to implement Auth0 into their ideas, platforms, and products has always been our motivation in the community. Today we set out meeting that challenge head-on with the unveiling of our [new Community](https://community.auth0.com).
 
 ![Auth0 Community has a new platform.](https://cdn.auth0.com/blog/community-auth0-new-chapter/new_community_platform.png)
 
