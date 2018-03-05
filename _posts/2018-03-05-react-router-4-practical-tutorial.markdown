@@ -300,7 +300,27 @@ const Courses = ({ match }) => (
 
 We used the `match.params` which provides a key/value object of the URL location. `:course` is the URL param. Therefore, `match.params.course` will provide the value of the correct URL location. Awesome!
 
-### 
+### Route Protection and Authentication
+
+In previous versions of React Router such as v3, route protection code looks like this:
+
+```
+const Root = () => {
+  return (
+    <div className="container">
+      <Router history={browserHistory}>
+        <Route path="/" component={Display}/>
+        <Route path="/upload" component={Upload} onEnter={requireAuth} />
+        <Route path="/callback" component={Callback} />
+      </Router>
+    </div>
+  )
+}
+```
+
+The `<Route/>` component had an `onEnter` prop that accepts a method that allows entry or refusal to a URL location based on a user's authentication status. Now, it's different in React Router 4.
+
+
 
 
 
