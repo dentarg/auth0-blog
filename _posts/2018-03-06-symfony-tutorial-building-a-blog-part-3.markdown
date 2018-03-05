@@ -303,9 +303,9 @@ travis encrypt $(heroku auth:token) --add deploy.api_key
 
 ## Configuring Symfony for Production
 
-Now that you have set up and configured Heroku and [Travis CI](https://travis-ci.org/), you need to make some changes to your Symfony installation in order to be functional when hosted by [Heroku](https://www.heroku.com).
+Now that you have set up and configured Heroku and [Travis CI](https://travis-ci.org/), you need to make some changes to your Symfony project to make it functional when hosted on [Heroku](https://www.heroku.com).
 
-First, you will need to change your `composer.json` file. You need to add a compile command that will tell Heroku to update the schema of the database. Where it says:
+First, you will need to change your `composer.json` file. On this file, you need to add a compile command that will tell Heroku to update the schema of the database. Where it says:
 
 ```json
 "auto-scripts": {
@@ -341,7 +341,7 @@ Add the compile entry at the bottom as shown below:
 ]
 ```
 
-After that, you need to exclude your *DataFixtures* from the services auto-wiring. Open the `./config/services.yaml` file and find:
+After that, you need to exclude your *DataFixtures* from the services auto-wiring. So, open the `./config/services.yaml` file and find:
 
 ```yml
 App\:
@@ -394,7 +394,7 @@ With:
 dbname: '%env(DATABASE_NAME)%'
 ```
 
-In `config/packages/dev` create a new file called `doctrine.yaml` and paste the following in:
+Then, create a new file called `doctrine.yaml` in the `config/packages/dev` directory and paste the following configuration into it:
 
 ```yaml
 doctrine:
@@ -402,14 +402,14 @@ doctrine:
         url: '%env(resolve:DATABASE_URL)%'
 ```
 
-In `config/packages/prod` there is already a `doctrine.yaml` file. Under `Doctrine:` add:
+After that, open the `doctrine.yaml` file (it resides on `config/packages/prod`) and, under `Doctrine:`, add:
 
 ```yaml
 dbal:
     url: '%env(resolve:CLEARDB_DATABASE_URL)%'
 ```
 
-Install the Monolog Bundle in order to see the logs on Heroku if needed. This can be done by running the following command:
+After update Doctrine configurations, you will need to install the Monolog Bundle to see Heroku's logs. This can be done by running the following command:
 
 ```bash
 composer require logger
@@ -443,25 +443,25 @@ Replace the line containing `path: "%kernel.logs_dir%/%kernel.environment%.log"`
 path: 'php://stderr'
 ```
 
-In order for travis-ci to run, it needs to be able to run tests. Although we're not going to cover PHPUnit tests, we're going to install the package so run:
+In order for `travis-ci` to run, it needs to be able to run tests. Although you are not using PHPUnit tests, you will need to install the package. So, run the following command:
 
 ```bash
 composer require phpunit-bridge
 ```
 
-With the new Symfony, Heroku doesn't know where the public directory is (This used to be `./web/`). In order for Heroku to understand the public directory, you need to create a new file `Procfile` in the root of your project directory. In this file add the following line:
+With the new version of Symfony, Heroku doesn't know where the public directory is (it used to be `./web/` but moved to `./public/`). Therefore, to make Heroku aware of the public directory, you need to create a new file called `Procfile` in the root of your project directory. In this file add the following line:
 
 ```yml
 web: vendor/bin/heroku-php-apache2 public/
 ```
 
-We also need a `.htaccess` to be created so run:
+Also, you will need a `.htaccess` file. So, run the following command:
 
 ```bash
 composer require apache-pack
 ```
 
-In order for Heroku to know what packages to include on your new space, you need to specify which build packs to use. NodeJS is required to run `Yarn` to build the styling of the blog.
+In order for Heroku to know what NPM packages to include on your new space, you need to specify which build packs to use. Note that Node.js is required to run `yarn` to build the styling of the blog.
 
 ```bash
 heroku buildpacks:add heroku/nodejs
@@ -478,14 +478,14 @@ git push
 
 In order to see your blog via the URL of your space hosted on Heroku, you will need to update your Auth0 Client to accept callbacks from this URL.
 
-Head over to the [Auth0 Dashboard](https://manage.auth0.com/#/clients), choose your production client and carry out the following instructions:
+So, Head over to the [Auth0 Dashboard](https://manage.auth0.com/#/clients), choose your production client and carry out the following instructions:
 
 * In the production Auth0 `Client`, go to the settings tab.
 * Find the text box labeled `Allowed Callback URLs`.
 * The url you need to put in the text box is your space url, for example: `https://space-name-here.herokuapp.com/` followed by: `auth0/callback`. So it will look like: `https://space-name-here.herokuapp.com/auth0/callback`.
 * Click the `Save Changes` button at the bottom of the page
 
-You will now be able to use your blog, and authenticate as an article writer.
+You will now be able to read articles on your blog and authenticate as a writer.
 
 ## Instructions for Setting Up the Staging Environment
 
