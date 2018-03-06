@@ -68,11 +68,11 @@ ReactJS is concerned about a device's CPU power. While rendering, ReactJS ensure
 
 ## Suspense
 
-In Dan's talk, he said: "We have built a generic way for components to suspend rendering while they load asynchronous data". 
+In Dan's talk, he said: "We have built #reactjs @reactjs whatever". 
 
 The simple definition of the **suspense** feature is that ReactJS can pause any state update until the data been fetched is ready to be rendered. In essence, ReactJS suspends the component tree while waiting for the data to be fetched completely. During the suspension, it goes ahead to handle other high-priority updates. 
 
-{% include tweet_quote.html quote_text="Dan Abramov: We have built a generic way for components to suspend rendering while they load asynchronous data." %}
+{% include tweet_quote.html quote_text="@dan_abramov: We have built a generic way for components to suspend rendering while they load asynchronous data on @reactjs." %}
 
 [Andrew Clark](https://twitter.com/acdlite), (author of the suspense feature), gave a practical breakdown of how the suspense feature works in the tweets below:
 
