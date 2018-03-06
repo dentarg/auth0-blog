@@ -341,7 +341,7 @@ spring.jpa.database-platform=org.hibernate.dialect.PostgreSQL9Dialect
 spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults = false
 ```
 
-> **Note:** The last two properties on the code snippet above were added to [suppress a annoying exception that occurs when JPA (Hibernate) tries to verify PostgreSQL CLOB feature](http://vkuzel.blogspot.com.br/2016/03/spring-boot-jpa-hibernate-atomikos.html).
+> **Note:** The last two properties on the code snippet above were added to [suppress an annoying exception that occurs when JPA (Hibernate) tries to verify PostgreSQL CLOB feature](http://vkuzel.blogspot.com.br/2016/03/spring-boot-jpa-hibernate-atomikos.html).
 
 The first property, `spring.datasource.url`, defines the address of our database. As we are running a dockerized PostgreSQL container and are bridging the default PostgreSQL port between our machine and the Docker container, we can reach the database by passing `jdbc:postgresql://localhost/questionmarks`. The second property defines the user that will communicate with the database, `postgres` in this case. The third property defines `mysecretpassword` as the password for `postgres` (the same that we passed when creating our dockerized PostgreSQL container). The last property defines the `org.postgresql.Driver` class as the driver responsible for handling the communication.
 
