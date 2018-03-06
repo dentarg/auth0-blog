@@ -3,6 +3,7 @@ layout: post
 title: "Integrating Spring Data JPA, PostgreSQL, and Liquibase"
 description: "Let's learn how to integrate Spring Data JPA, PostgreSQL, and Liquibase to manage the persistence layer of a Spring Boot application."
 date: 2017-08-31 16:46
+updated: 2018-03-06 08:30
 category: Technical Guide, Java, Spring Boot
 author:
   name: "Bruno Krebs"
@@ -24,7 +25,7 @@ related:
 
 **TL;DR**: In this blog post, we are going to learn how to use Spring Data JPA, along with Liquibase and PostgreSQL, to manage the persistence layer of a Spring Boot application. We are also going to use Project Lombok to avoid writing some tedious boilerplate code that Java and JPA require.
 
-Throughout this post we will create the basis of an application called *QuestionMarks*. The idea is that this application will enable users to practice and enhance their knowledge by answering a set of multiple choice questions. To provide a better organization, these questions will be grouped in different exams. For example, there could be an exam called *JavaScript Interview* that would hold a set of JavaScript related questions to help users to prepare for interviews. Of course, in this article we won't build the whole application as it would take a lot of time and would make the article huge, but we will be able to see the technologies aforementioned in action.
+Throughout this post, we will create the basis of an application called _QuestionMarks_. The idea is that this application will enable users to practice and enhance their knowledge by answering a set of multiple choice questions. To provide a better organization, these questions will be grouped in different exams. For example, there could be an exam called _JavaScript Interview_ that would hold a set of JavaScript related questions to help users to prepare for interviews. Of course, in this article, we won't build the whole application as it would take a lot of time and would make the article huge. However, we will be able to see the technologies aforementioned in action.
 
 Before diving into integrating these technologies, let's first take a look at their definition.
 
@@ -89,7 +90,7 @@ Next step is to bootstrap a Spring Boot application. We have two alternatives eq
 
 If we choose to bootstrap our application with [Spring Initilizr](http://start.spring.io/), we will need to fill the form available with the following values:
 
-- Generate a **Gradle Project** with **Java** and Spring Boot **1.5.6**.
+- Generate a **Gradle Project** with **Java** and Spring Boot **2.0.0**.
 - Project Metadata Group: **com**.
 - Project Metadata Artifact: **questionmarks**.
 - Selected Dependencies: let's leave this empty.
@@ -97,18 +98,6 @@ If we choose to bootstrap our application with [Spring Initilizr](http://start.s
 Note that although during this blog post we will use Gradle, we could easily use Maven instead. Let's just keep in mind that if we choose **Maven Project** the dependency configuration will be different. Besides that, the Spring Boot version does *not* need to be *1.5.6*. The examples here must probably work with older and newer versions.
 
 After that we just need to import the new Spring Boot project in our preferred IDE (Integrated Development Environment).
-
-### Bootstrapping with GitHub
-
-If we choose to bootstrap our application by cloning the [GitHub repository provided](https://github.com/auth0-blog/questionmarks-server), we will need to issue the following commands:
-
-```bash
-git clone https://github.com/auth0-blog/questionmarks-server.git
-cd questionmarks-server
-git checkout -b origin/part1
-```
-
-The three commands above will give us the same result of using the Spring Initilizr website (i.e. if we fill the website's form with the values shown above). After that we just need to import the new Spring Boot project in our preferred IDE (Integrated Development Environment).
 
 ## Importing Dependencies
 
@@ -118,12 +107,12 @@ Now that we have our basic Spring Boot application set, we can change our depend
 // everything else ...
 
 dependencies {
-  compileOnly('org.projectlombok:lombok:1.16.18')
+  compileOnly('org.projectlombok:lombok:1.16.20')
   compile('org.springframework.boot:spring-boot-starter')
   compile('org.springframework.boot:spring-boot-starter-web')
   compile('org.springframework.boot:spring-boot-starter-data-jpa')
   compile('org.liquibase:liquibase-core')
-  runtime('org.postgresql:postgresql:42.1.4')
+  runtime('org.postgresql:postgresql:42.2.1')
   testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 ```
@@ -347,7 +336,12 @@ spring.datasource.url=jdbc:postgresql://localhost/questionmarks
 spring.datasource.username=postgres
 spring.datasource.password=mysecretpassword
 spring.datasource.driver-class-name=org.postgresql.Driver
+
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQL9Dialect
+spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults = false
 ```
+
+> **Note:** The last two properties on the code snippet above were added to [suppress an annoying exception that occurs when JPA (Hibernate) tries to verify PostgreSQL CLOB feature](http://vkuzel.blogspot.com.br/2016/03/spring-boot-jpa-hibernate-atomikos.html).
 
 The first property, `spring.datasource.url`, defines the address of our database. As we are running a dockerized PostgreSQL container and are bridging the default PostgreSQL port between our machine and the Docker container, we can reach the database by passing `jdbc:postgresql://localhost/questionmarks`. The second property defines the user that will communicate with the database, `postgres` in this case. The third property defines `mysecretpassword` as the password for `postgres` (the same that we passed when creating our dockerized PostgreSQL container). The last property defines the `org.postgresql.Driver` class as the driver responsible for handling the communication.
 
