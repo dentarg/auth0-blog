@@ -457,7 +457,7 @@ Go to the `store` folder and create a file named `data.js` and open it up.
 In this file, we are going to create a mock array of conference objects and export a function that would let anything on the application request that mock data: 
 
 ```js
-// data.js
+// src/store/data.js
 
 const CONFERENCES = [{
     name: "auth0 conf",
@@ -576,7 +576,7 @@ If this line is absent from any component file, the build process will break and
 Open `App.jsx` and bring Mithril in. Once that's done, let's create the skeleton of the `App` component:
 
 ```jsx
-// App.jsx
+// src/components/layout/App.jsx
 
 const m = require('mithril');
 
@@ -599,7 +599,7 @@ Using JSX, we are able to run JavaScript simple expressions within JSX tags by w
 Let's go to `index.jsx`, import `App` and let's render a string within it:
 
 ```jsx
-// index.jsx
+// src/index.jsx
 
 const m = require("mithril");
 const root = document.getElementById("app");
@@ -641,7 +641,8 @@ What is going to make our core interface template a success is not so much the J
 Open `index.css` and add the following styles:
 
 ```css
-/* index.css */
+/* src/index.css */
+
 body,
 html {
   height: 100%;
@@ -656,7 +657,7 @@ This sets our top-level document containers nicely to fit wide and tall in the b
 Recall from `index.jsx` that the `root` of our tree is `<div id="app">`. We also need to ensure that this container reaches across the viewport. We also need to make it a `flex` container so that anything that we add within it can shrink or expand using the `flex` CSS property. 
 
 ```css
-/* index.css */
+/* src/index.css */
 
 @import url('https://fonts.googleapis.com/css?family=Rubik');
 
@@ -684,7 +685,7 @@ Additionally, we are giving `#app` a nice background color and we've imported a 
 If you are looking at your browser you'd have noticed that nothing has changed. Why's that? Since we are using Webpack as our build tool and bundler, we need to make Webpack aware that `index.css` exists. We do so by importing it into `index.jsx` &mdash; which is Webpack's entry point. 
 
 ```js
-// index.jsx
+// src/index.jsx
 
 const m = require("mithril");
 const root = document.getElementById("app");
@@ -702,7 +703,7 @@ With this change, now the browser changes. Our CSS wiring is working!
 We also want to make `<div class="App">` within the `App` component a `flex` container. Let's go back to `style.css` and add this class rule:
 
 ```css
-/* index.css */
+/* src/index.css */
 
 /* ... */
 
@@ -721,7 +722,7 @@ Let's create `NavBar` first.
 Under `components/layout`, create `NavBar.jsx` with the following content:
 
 ```jsx
-// NavBar.jsx
+// src/components/layout/NavBar.jsx
 
 const m = require("mithril");
 
@@ -738,7 +739,7 @@ export default NavBar;
 Now, in that same folder, create `MainStage.jsx` with this content:
 
 ```jsx
-// MainStage.jsx
+// src/components/layout/MainStage.jsx
 
 const m = require("mithril");
 
@@ -755,7 +756,7 @@ export default MainStage;
 With both `MainStage` and `NavBar` created, let's import and add them to our `App` component:
 
 ```jsx
-// App.jsx
+// src/components/layout/App.jsx
 
 const m = require('mithril');
 
@@ -780,7 +781,7 @@ export default App;
 Let's magic happen through the power of CSS! Going back to `index.css`, let's add the following class definitions that are wired to `MainStage` and `NavBar`:
 
 ```css
-/* index.css */
+/* src/index.css */
 
 /* ... */
 
@@ -814,7 +815,7 @@ The core container of the navigation bar is there but it's missing what makes it
 Under `components/ui` create `NavButton.jsx` and add the following content:
 
 ```jsx
-// NavButton.jsx
+// src/components/ui/NavButton.jsx
 
 const m = require("mithril");
 
@@ -835,7 +836,7 @@ Making `path` and `icon` external data allows us to make `NavButton` a resilient
 Let's head back to `NavBar.jsx` and let's import and integrate `NavButton` into it:
 
 ```jsx
-// NavBar.jsx
+// src/components/layout/NavBar.jsx
 
 const m = require("mithril");
 
@@ -860,7 +861,7 @@ In the browser, you should see the three icons popping up; however, they are rat
 > We could have created smaller `.css` files to match each `.jsx` component within their directories, but to avoid a large spread of files and for simplicity, we are going to manage all of the application styling within `index.css` only.
 
 ```css
-/* index.css */
+/* src/index.css */
 
 /* ... */
 
@@ -905,7 +906,7 @@ We should focus next on building `StageBanner` and `CardContainer` to be used wi
 Under `components/ui` create `StageBanner.jsx` and jumpstart it with the following content:
 
 ```jsx
-// StageBanner.jsx
+// src/components/ui/StageBanner.jsx
 
 const m = require('mithril');
 
@@ -923,7 +924,7 @@ export default StageBanner;
 Let's create `StageTitle` first. Under `component/ui`, create `StageTitle.jsx` and start it with this:
 
 ```jsx
-// StageTitle.jsx
+// src/components/ui/StageTitle.jsx
 
 const m = require("mithril");
 
@@ -938,7 +939,7 @@ export default StageTitle;
 Next, let's create `LogoutButton.jsx` under the same folder:
 
 ```jsx
-// LogoutButton.jsx
+// src/components/ui/LogoutButton.jsx
 
 const m = require("mithril");
 
@@ -961,7 +962,7 @@ In our case, `onclick` within `LogoutButton` will receive a function from the au
 With `StageTitle` and `LogoutButton` now defined, let's go ahead and add them to `StageBanner`:
 
 ```jsx
-// StageBanner.jsx
+// src/components/ui/StageBanner.jsx
 
 const m = require('mithril');
 
@@ -984,7 +985,7 @@ If you look at the browser, you'll see that we still have that message "Hello fr
 Back into `index.jsx` make the following update that imports `StageBanner` and integrates it within a view wrapped by `App` that is being distributed through the function `ConferenceView`:
 
 ```jsx
-// index.jsx
+// src/index.jsx
 
 const m = require("mithril");
 const root = document.getElementById("app");
@@ -1014,7 +1015,7 @@ Since auth0 still has not been integrated with the application, we are passing a
 The stage title and the logout button are now present in the application but they need better styling. Let's add style rules to the `stage-banner` and `stage-title` classes in our `index.css` file:
 
 ```css
-/* index.css */
+/* src/index.css */
 
 /* ... */
 
@@ -1053,7 +1054,7 @@ Our interface is looking more complete. Notice how fast we have been developing 
 Now, let's create `CardContainer.jsx` under `components/layout`:
 
 ```jsx
-// CardContainer.jsx
+// src/components/layout/CardContainer.jsx
 
 const m = require("mithril");
 
@@ -1074,7 +1075,7 @@ export default CardContainer;
 This is a simple layout component that we are going to use to wrap the cards in a `flex` box and control their overflow through vertical scrolling. To achieve that, let add the following class to `index.css`:
 
 ```css
-/* index.css */
+/* src/index.css */
 
 /* ... */
 
@@ -1088,7 +1089,7 @@ This is a simple layout component that we are going to use to wrap the cards in 
 Let's revisit `index.jsx` and add `CardContainer` to `ConferenceView`:
 
 ```jsx
-// index.jsx
+// src/index.jsx
 
 const m = require("mithril");
 const root = document.getElementById("app");
@@ -1119,7 +1120,7 @@ There is no visible change in the browser right now because `CardContainer` is e
 To start, let's create `ConferenceCard.jsx` under `components/cards`:
 
 ```jsx
-// ConferenceCard.jsx
+// src/components/cards/ConferenceCard.jsx
 
 const m = require("mithril");
 
@@ -1151,7 +1152,7 @@ It looks like we would need to have our JSX component accept attributes such as 
 For now, let's just display the `name`, `location` and `date`:
 
 ```jsx
-// ConferenceCard.jsx
+// src/components/cards/ConferenceCard.jsx
 
 const m = require("mithril");
 
@@ -1178,7 +1179,7 @@ Whenever you see that error in the console, it means that something is wrong or 
 To make the content visible, let's add some styling to `conference-card` in `index.css`:
 
 ```css
-/* index.css */
+/* src/index.css */
 
 /* ... */
 
@@ -1196,7 +1197,7 @@ To make the content visible, let's add some styling to `conference-card` in `ind
 Let's head back to `index.jsx` where we are going to import and instantiate the mock data:
 
 ```jsx
-// index.jsx
+// src/index.jsx
 
 const m = require("mithril");
 const root = document.getElementById("app");
@@ -1228,7 +1229,7 @@ Now that we have data live in `CONFERENCES`, let's import `ConferenceCard` and m
 
 
 ```jsx
-// index.jsx
+// src/index.jsx
 
 // ...
 
@@ -1269,7 +1270,7 @@ We don't want to use `CONFERENCES` directly inside the View template; thus, we p
  Let's organize our data as such using two containers:
 
  ```jsx
- // ConferenceCard.jsx
+ // src/components/cards/ConferenceCard.jsx
 
 const m = require("mithril");
 
@@ -1295,7 +1296,7 @@ export default ConferenceCard;
  Right now, our conference data is looking all jammed into the card, let's style the class `conference-fields` to give it proper spacing:
 
  ```css
- /* index.css */
+ /* src/index.css */
 
 /* ... */
 
@@ -1311,7 +1312,7 @@ export default ConferenceCard;
  Under `components/cards` create `ConferenceField.jsx`:
 
  ```jsx
-// ConferenceField.jsx
+// src/components/cards/ConferenceField.jsx
 
 const m = require("mithril");
 
@@ -1328,7 +1329,7 @@ export default ConferenceField;
  Let's integrate `ConferenceField` with `ConferenceCard`:
 
  ```jsx
-// ConferenceCard.jsx
+// src/components/cards/ConferenceCard.jsx
 
 const m = require("mithril");
 
@@ -1356,7 +1357,7 @@ export default ConferenceCard;
  No changes happen in the browser. We need to use some CSS to style the card better but we only need to apply the style changes to `ConferenceField` and nothing else. We achieve that easily through the `conference-field` class:
 
  ```css
- /* index.css */
+ /* src/index.css */
 
 /* ... */
 
@@ -1418,7 +1419,7 @@ Has `"/conferences"` as key and takes a component that has no name definition (h
 Let's replace `m.render()` with this router configuration in `index.jsx`:
 
 ```jsx
-// index.jsx
+// src/index.jsx
 
 // ...
 
@@ -1436,7 +1437,7 @@ Nothing else in `index.jsx` changes. The application is rendering as before in t
 Let's now add a `CFPView` to our application to host a template for the Call for Papers conference data. Add the following view function in `index.jsx`:
 
 ```jsx
-// index.jsx
+// src/index.jsx
 
 // ...
 
@@ -1457,7 +1458,7 @@ m.route(root, "/conferences", {
 And now let's create a route that takes us to that view &mdash; carefully selecting the path defined for that view in `NavBar`:
 
 ```jsx
-// index.jsx
+// src/index.jsx
 
 // ...
 
@@ -1483,7 +1484,7 @@ Click on the leftmost navigation button (the one with the microphone icon) and y
 For now, let's leave the `CardContainer` in `CFPView` empty. Let's create a view and route for the entry form next:
 
 ```jsx
-// index.jsx
+// src/index.jsx
 
 // ...
 
@@ -1533,7 +1534,7 @@ First, let's go back to `index.jsx` and replace `m.route()` with an `m.render()`
 
 
 ```jsx
-// index.jsx
+// src/index.jsx
 
 // ...
 
@@ -1563,7 +1564,7 @@ We should not grab a DOM element before it is rendered &mdash; it would result i
 Lifecycle methods are properties of the component definition object &mdash; they are at the same level of the `view` property. Let's open `App.jsx` and add the `oncreate` hook:
 
 ```jsx
-// App.jsx
+// src/components/layout/App.jsx
 
 const m = require('mithril');
 
@@ -1589,7 +1590,7 @@ export default App;
 Now, let's grab the DOM element that represent the `MainStage` component template:
 
 ```jsx
-// App.jsx
+// src/components/layout/App.jsx
 
 // ...
 
@@ -1615,7 +1616,7 @@ Getting _vnode_ as an argument is super handy because we can just query the `App
 Next, we are going to use `mainStage` as the element where we will attach our route subtrees:
 
 ```jsx
-// App.jsx
+// src/components/layout/App.jsx
 
 // ...
 
@@ -1656,7 +1657,7 @@ Uncaught ReferenceError: CFPView is not defined
 That is because our views were defined in `index.jsx`. To solve this problem, we have to bring that code into `App.jsx`. Cut the function definitions for `ConferenceView`, `CFPView` and `FormView` from `index.jsx` and paste them in `App.jsx`:
 
 ```jsx
-// App.jsx
+// src/components/layout/App.jsx
 
 // ...
 
@@ -1720,7 +1721,7 @@ Super important! Before we do this, we need to comment out the `m.render()` in `
 This is the complete `App.jsx` file so far:
 
 ```jsx
-// App.jsx
+// src/components/layout/App.jsx
 
 const m = require('mithril');
 
@@ -1796,7 +1797,7 @@ We can only return one thing from a function. If we remove `App` from the views,
 Here's the updated code:
 
 ```jsx
-// App.jsx
+// src/components/layout/App.jsx
 
 const m = require('mithril');
 
@@ -1869,7 +1870,7 @@ Our application is back! We've done a magnificent job at not just refactoring bu
 Look how compact our `index.jsx` looks now:
 
 ```jsx
-// index.jsx
+// src/index.jsx
 
 const m = require("mithril");
 const root = document.getElementById("app");
@@ -1896,9 +1897,9 @@ Let's flesh out the `CFPView` first. This view should only present conference ob
 Under `components/cards` create `CFPCard.jsx`:
 
 ```jsx
-// CFPCard.jsx
+// src/components/cards/CFPCard.jsx
 
-// CFPCard.jsx
+// src/components/cards/CFPCard.jsx
 
 const m = require("mithril");
 import ConferenceField from './ConferenceField.jsx';
@@ -1927,7 +1928,7 @@ Now, let's go into `App.jsx` and add a function that first filters the conferenc
 First, in the `// Components` section at the top of `App.jsx`, import `CFPCard`:
 
 ```jsx
-// App.jsx
+// src/components/layout/App.jsx
 
 // ...
 
@@ -1940,7 +1941,7 @@ import CFPCard from '../../components/cards/CFPCard.jsx';
 Now let's add the desired logic:
 
 ```jsx
-// App.jsx
+// src/components/layout/App.jsx
 
 // ...
 
@@ -1973,6 +1974,8 @@ First, we are going to create a reusable `UIButton` component to use as the form
 Under `components/ui` create `UIButton.jsx`:
 
 ```jsx
+// src/components/ui/UIButton.jsx
+
 const m = require("mithril");
 
 const UIButton = {
@@ -1991,7 +1994,7 @@ export default UIButton;
 Now, under `components` create `EntryForm.jsx`:
 
 ```jsx
-// EntryForm.jsx
+// src/components/EntryForm.jsx
 
 const m = require('mithril');
 import UIButton from './ui/UIButton.jsx';
@@ -2032,7 +2035,7 @@ export default EntryForm;
 Next, let's include `EntryForm` into our `FormView` in `App.jsx`:
 
 ```jsx
-// App.jsx
+// src/components/layout/App.jsx
 
 // ...
 
@@ -2053,7 +2056,7 @@ const FormView = () => [
 Visit `FormView` and you will see a rather disorganized form. Let's add some styles to the classes present in both `UI Button` and `EntryForm`:
 
 ```css
-/* index.css */
+/* src/index.css */
 
 /* ... */
 
@@ -2121,7 +2124,7 @@ Our plan is to track the state of the CFP question. We are going to create a sta
 Let create a property in the `EntryForm` component called `data` that will hold our desired state properties:
 
 ```jsx
-// EntryForm.jsx
+// src/components/EntryForm.jsx
 
 // ...
 
@@ -2141,7 +2144,7 @@ In the code above, `data` is a property of the `EntryForm` component's state obj
 Next, within our form, we are going to change that state property when a radio button is clicked:
 
 ```jsx
-// EntryForm.jsx
+// src/components/EntryForm.jsx
 
 // ...
 
@@ -2181,7 +2184,7 @@ What we've done is to create local UI state. Local UI state governs what a local
 Now, we have to display the "Call for Papers Deadline" label and input conditionally depending on the local UI state &mdash; specifically, the state value of the `vnode.state.CFP` property:
 
 ```jsx
-// EntryForm.jsx
+// src/components/EntryForm.jsx
 
 // ...
 
@@ -2235,7 +2238,7 @@ Right now, pressing the "Save" button only prints "Saving..." to the console. Wh
 Let's visit `EntryForm.jsx` and add the following form handling function:
 
 ```jsx
-// EntryForm.jsx
+// src/components/EntryForm.jsx
 
 // ...
 
@@ -2256,7 +2259,7 @@ Let's now iterate through the entries of `formData` to populate properties of ou
 
 
 ```jsx
-// EntryForm.jsx
+// src/components/EntryForm.jsx
 
 // ...
 
@@ -2296,7 +2299,7 @@ Notice that some properties of the conference data object are not specified in t
 Let's provide `newEntry` with default values for those two properties:
 
 ```jsx
-// EntryForm.jsx
+// src/components/EntryForm.jsx
 
 // ...
 
@@ -2347,7 +2350,7 @@ The last thing that we need to do in this section is to add `newEntry` to the mo
 We need to create a function to add elements to the `CONFERNECES` array guarded in `data.js`. Open that file, `data.js`, and update it as follows:
 
 ```js
-// data.js
+// src/store/data.js
 
 // ...
 
@@ -2358,7 +2361,7 @@ exports.setMockData = (conference) => CONFERENCES.push(conference);
 This change will break the `import` from `data.js` in `App.jsx`. Let's open `App.jsx` and update the `getMockData` import to this:
 
 ```jsx
-// App.jsx
+// src/components/layout/App.jsx
 
 // ...
 
@@ -2372,7 +2375,7 @@ Since there is no default export in `data.js` any longer, we need to specify exa
 Next, let's head back to `EntryForm.jsx` and let's import the `setMockData` function from `data.js` and integrate it with the logic of our form handler:
 
 ```jsx
-// EntryForm.jsx
+// src/components/EntryForm.jsx
 
 // ...
 
@@ -2428,7 +2431,7 @@ Under `components/cards` create `CountDownField.jsx`. This component is interest
 Here's what `CountDownField` looks like &mdash; add this logic to your `CountDownField.jsx` file:
 
 ```js
-// CountDownField.jsx
+// src/components/cards/CountDownField.jsx
 
 const m = require("mithril");
 
@@ -2501,7 +2504,7 @@ Let's now integrate this field into `ConferenceCard` and `CFPCard`. We just have
 In `ConferenceCard.jsx`:
 
 ```jsx
-// ConferenceCard.jsx
+// src/components/cards/ConferenceCard.jsx
 
 // ...
 import CountDownField from "./CountDownField.jsx";
@@ -2523,7 +2526,7 @@ export default ConferenceCard;
 In `CFPCard.jsx`:
 
 ```jsx
-// CFPCard.jsx
+// src/components/cards/CFPCard.jsx
 
 // ...
 import CountDownField from "./CountDownField.jsx";
@@ -2580,6 +2583,8 @@ To set up a client, follow these easy steps:
 7. Within `auth0-variables.js` create and export an object with properties that map to the Auth0 web configuration data:
 
 ```javascript
+// src/services/auth0-variables.js
+
 const AUTH0 = {
   CLIENTID: '<your client id>',
   DOMAIN: '<your domain>',
@@ -2667,7 +2672,7 @@ Note how we are navigating to a route called `/auth` when logging out. That rout
 First, let's create `WelcomeView`. This view relies on `UIButton`; therefore, we need to import that component as well:
 
 ```jsx
-// App.jsx
+// src/components/layout/App.jsx
 
 import UIButton from '../../components/ui/UIButton.jsx';
 
@@ -2690,7 +2695,7 @@ Let's create its route now:
 
 
 ```jsx
-// App.jsx
+// src/components/layout/App.jsx
 
 import UIButton from '../../components/ui/UIButton.jsx';
 
@@ -2736,7 +2741,7 @@ const App = {
 The only way we can access `/auth` right now is by navigating directly to it by entering `http://localhost:8080/#!/auth` in the browser. Let's give some nice styling to this view:
 
 ```css
-/* index.css */
+/* src/index.css */
 
 /* ... */
 
@@ -2763,7 +2768,7 @@ It looks much better now! We'll need to wire Auth0's `login()` into the `UIButto
 Let's import our `Auth` service class to `App.jsx`:
 
 ```jsx
-// App.jsx
+// src/components/layout/App.jsx
 
 // Services
 import Auth from '../../services/auth.js';
@@ -2786,7 +2791,7 @@ const WelcomeView = () => [
 And, let's update the `action` callback function attribute of `WelcomeView`'s `UIButton` to run `auth.login()` upon execution:
 
 ```jsx
-// App.jsx
+// src/components/layout/App.jsx
 
 // Services
 import Auth from '../../services/auth.js';
@@ -2848,7 +2853,7 @@ First, let's make `/auth` the default route. This would force anyone visiting th
 
 
 ```jsx
-// App.jsx
+// src/components/layout/App.jsx
 
 // ...
 
@@ -2886,7 +2891,7 @@ export default App;
 Next, let's modify the `"/conferences"` route to use `onmatch` instead of `view` to render the route's template:
 
 ```jsx
-// App.jsx
+// src/components/layout/App.jsx
 
 // ...
 
@@ -2931,7 +2936,7 @@ Ensure that you are logged out of the application. Refresh the browser and go to
 
 
 ```jsx
-// App.jsx
+// src/components/layout/App.jsx
 
 // ...
 
@@ -2981,7 +2986,7 @@ Once again, ensure that you are logged out. Try visiting any route other than `/
 Did it work? It shouldn't. Despite logging in, we are not letting AUth0 store our session authentication token. For that, we have to run `auth.handleAuthentication();` before our `m.route()`:
 
 ```jsx
-// App.jsx
+// src/components/layout/App.jsx
 
 // ...
 
