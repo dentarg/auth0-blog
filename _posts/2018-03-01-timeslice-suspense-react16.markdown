@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Beyond React 16: Time Slicing and Suspense API"
-description: "Learn what's coming to ReactJS. Get a sneak peek of the powerful features that will grace React soon."
+description: "Learn what's coming to ReactJS. Get a sneak peek of the powerful features that will grace ReactJS soon."
 longdescription: "Time Slicing, Suspense and the Fetcher API are new features and concepts that will land soonest in stable releases of ReactJS. Learn how they work."
 date: 2018-03-01 08:30
 category: Technical Guide, Frontend, ReactJS
@@ -20,6 +20,9 @@ tags:
 - reactfiber
 - fiber
 - frontend
+- time-slicing
+- suspense
+- fetcher
 - authentication
 related:
 - 2017-02-21-reactjs-authentication-tutorial
@@ -29,11 +32,11 @@ related:
 
 ---
 
-**TL;DR:** ReactJS is a UI library that's a very powerful tool amongst frontend developers in building JavaScript applications. In this article, I'll introduce you to a few features coming to ReactJS.
+**TL;DR:** [ReactJS](https://reactjs.org) is a UI library that's a very powerful tool amongst frontend developers in building JavaScript applications. In this article, I'll introduce you to a few features coming to ReactJS.
 
 ---
 
-ReactJS is a JavaScript library, built and maintained by Facebook. As of today, it powers so many popular web and mobile platforms such as Twitter, Airbnb, Lyft, Dropbox, Pinterest, Whatsapp and Instagram. The latest release of ReactJS which is _React 16_ ships with a lot of features such as `Error Boundaries`, `Custom DOM Attributes definition`, `Fragments as return types`, `Portals` and so many others.
+ReactJS is a JavaScript library, built and maintained by Facebook. As of today, it powers so many popular web and mobile platforms such as Twitter, Airbnb, Lyft, Dropbox, Pinterest, Whatsapp and Instagram. The latest release of ReactJS which is _React 16_ ships with a lot of features such as `Error Boundaries`, `Custom DOM Attributes definition`, `Fragments as return types`, `Portals` and many others.
 
 However, the ReactJS team is not slacking. They are hard at work looking for new ways to make React a highly performant library in UI component development. A sneak peek into new features coming to React was demoed by the _creator of Redux_ and _React core team member_, [Dan Abramov](https://twitter.com/dan_abramov) at **JSConf Iceland, 2018.** If you haven't watched Dan's talk, here is the [demo](https://www.facebook.com/react/videos/1552821821462886/).
 
@@ -48,7 +51,7 @@ With these categories spelt out, you start asking the following questions:
 
 - Are the users on a slow network? If so, how's the user experience? Can we (developers) control the loading states?
 - Are the users on a low-end device (devices with low CPU power)? If so, is using the app still a memorable experience effectively?
-- Are the users on a fast network? If so, is the experience seamless? no janky UI.
+- Are the users on a fast network? If so, is the experience seamless? No janky UI.
 - Are the users on a high-end device (devices with high CPU power)? If so, is the rendering flawless?
 
 These are valid questions that need answers. Let's explore how **Time Slicing** and **Suspense** in ReactJS can help deliver the best user experience for everyone.
@@ -57,7 +60,7 @@ These are valid questions that need answers. Let's explore how **Time Slicing** 
 
 In Dan's talk, he said: _"We’ve built a generic way to ensure that high-priority updates like user input don’t get blocked by rendering low-priority updates"_. What does this mean? The ReactJS team named this concept **Time Slicing**. Let me explain in simpler terms.
 
-{% include tweet_quote.html quote_text="We’ve built a generic way to ensure that high-priority updates like user input don’t get blocked by rendering low-priority updates." %}
+{% include tweet_quote.html quote_text="Dan Abramov: We’ve built a generic way to ensure that high-priority updates like user input don’t get blocked by rendering low-priority updates." %}
 
 ReactJS is concerned about a device's CPU power. While rendering, ReactJS ensures that it doesn't block the thread thus causing the app to freeze. 
 
@@ -69,7 +72,7 @@ In Dan's talk, he said: "We have built a generic way for components to suspend r
 
 The simple definition of the **suspense** feature is that ReactJS can pause any state update until the data been fetched is ready to be rendered. In essence, ReactJS suspends the component tree while waiting for the data to be fetched completely. During the suspension, it goes ahead to handle other high-priority updates. 
 
-{% include tweet_quote.html quote_text="We have built a generic way for components to suspend rendering while they load asynchronous data." %}
+{% include tweet_quote.html quote_text="Dan Abramov: We have built a generic way for components to suspend rendering while they load asynchronous data." %}
 
 [Andrew Clark](https://twitter.com/acdlite), (author of the suspense feature), gave a practical breakdown of how the suspense feature works in the tweets below:
 
