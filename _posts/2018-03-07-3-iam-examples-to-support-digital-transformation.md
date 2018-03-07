@@ -2,13 +2,13 @@
 layout: post
 title: "3 IAM Examples to Support Digital Transformation"
 description: "From basic website authentication to implementing an OpenID Connect server and API authentication:  This article covers 3 IAM examples to support your Digital Transformation."
-date: 2018-02-28 08:30
+date: 2018-03-07 08:30
 category: Technical Guide, Identity
 author:
-  name: ""
-  url: ""
-  mail: ""
-  avatar: ""
+  name: "Jared Hanson"
+  url: "https://twitter.com/jaredhanson"
+  mail: "jared@auth0.com"
+  avatar: "https://cdn.auth0.com/blog/jared-hanson/avatar.png"
 design:
   bg_color: "#3F3442"
   image: https://cdn.auth0.com/blog/iam-digital-transformation/logo.png
