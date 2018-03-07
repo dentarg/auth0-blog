@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "3 IAM Examples to Support Digital Transformation"
-description: "From basic website authentication to implementing an OpenID Connect server and API authentication:  This article covers 3 IAM examples to support your Digital Transformation."
+description: "From basic website authentication to implementing an OpenID Connect server and API authentication: This article covers 3 IAM examples to support your Digital Transformation."
+longdescription: We recently hosted a webinar that covered modern identity management and what it takes to implement both Authentication and Authorization to support your Digital Transformation. In this article, we'll cover these implementations ranging from basic authentication to an OpenID Connect server, and API authentication.
 date: 2018-03-07 08:30
 category: Technical Guide, Identity
 author:
@@ -25,7 +26,7 @@ related:
  - 2017-07-21-the-role-of-identity-in-application-modernization
 ---
 
-**TL;DR:** We recently [hosted a webinar](https://auth0-1.wistia.com/medias/i6q0xhz4o9) that covered modern identity management and what it takes to implement both Authentication and Authorization to support your Digital Transformation.  In this article, we'll cover these implementations ranging from basic authentication, to an OpenID Connect server, and API authentication.
+**TL;DR:** We recently [hosted a webinar](https://auth0-1.wistia.com/medias/i6q0xhz4o9) that covered modern identity management and what it takes to implement both Authentication and Authorization to support your Digital Transformation. In this article, we'll cover these implementations ranging from basic authentication, to an OpenID Connect server, and API authentication.
 
 
 ## Introduction
