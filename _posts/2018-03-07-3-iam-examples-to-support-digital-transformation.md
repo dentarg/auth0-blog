@@ -26,7 +26,7 @@ related:
  - 2017-07-21-the-role-of-identity-in-application-modernization
 ---
 
-**TL;DR:** We recently [hosted a webinar](https://auth0-1.wistia.com/medias/i6q0xhz4o9) that covered modern identity management and what it takes to implement both Authentication and Authorization to support your Digital Transformation. In this article, we'll cover these implementations ranging from basic authentication, to an OpenID Connect server, and API authentication.
+**TL;DR:** We recently [hosted a webinar](https://resources.auth0.com/webinars/3-iam-examples/) that covered modern identity management and what it takes to implement both Authentication and Authorization to support your Digital Transformation. In this article, we'll cover these implementations ranging from basic authentication, to an OpenID Connect server, and API authentication.
 
 
 ## Introduction
