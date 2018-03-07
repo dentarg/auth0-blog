@@ -16,6 +16,7 @@ design:
   image: https://cdn.auth0.com/blog/angular2-series/angular2-logo.png
   image_size: "70%"
   blog_series: true
+published: false
 tags:
 - angular2
 - angularjs
