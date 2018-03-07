@@ -97,11 +97,15 @@ In this example of a HSTS header, we have three *directives*.  `max-age`, `inclu
 
 > **Note:** If you start to use HSTS and your site has not been setup with HTTPS certificates then your site would become unreachable.
 
+![HSTS browser compatibility table](https://cdn.auth0.com/blog/common-threats-in-web-app-security/mock-hsts-browser-compatibility-table.png)
+
 ## X-XSS-Protection header
 
 XSS (Cross Site Scripting) is the most common of all web application attacks.
 
 XSS occurs when malicious scripts are injected into otherwise trusted web applications. Most modern browsers come prepared to protect against XSS. We can ensure this is enabled by sending the `X-XSS-Protection` header.
+
+> **Note:** `X-XSS-Protection` header is not available in Firefox and has been rendered entirely redundant by the Content Security Policy header, which we detail below.
 
 Here are some examples of an `X-XSS-Protection` header.
 
@@ -129,7 +133,9 @@ In this example of a XSS header, we have three *directives*.  `1` and `mode`. Al
   
 - `report=<report url>`
 
-  Enables XSS filtering. If a cross-site scripting attack is detected, the browser will sanitize the page and report the violation. 
+  Enables XSS filtering. If a cross-site scripting attack is detected, the browser will sanitize the page and report the violation.
+  
+![X-XSS-Protection browser compatibility table](https://cdn.auth0.com/blog/common-threats-in-web-app-security/mock-x-xss-protection-browser-compatibility-table.png)
 
 ## X-Frame-Options header
 
@@ -168,6 +174,8 @@ With this header, we get three possible *directives*.  `DENY`, `ALLOW-FROM`, and
 - `SAMEORIGIN`
 
   This means framing is only allowed within the current domain.
+  
+![X-Frame-Options browser compatibility table](https://cdn.auth0.com/blog/common-threats-in-web-app-security/mock-x-frame-options-browser-compatibility-table.png)
 
 ## Content Security Policy (CSP) header
 
@@ -201,7 +209,9 @@ function requestHandler(req, res) {
 }
 ```
 
-Note the `script-src` directive here, that we have set to `self`, therefore only allowing scripts from within our own domain. Content Security Policies are both excellent and very powerful, but must be used cautiously. Just as with HSTS, incorrect configuration could cause unforeseen issues or missing content.
+Note the `script-src` directive here, that we have set to `self`, therefore only allowing scripts from within our own domain. Content Security Policies are both excellent and very powerful, but must be used cautiously. Just as with HSTS, incorrect configuration could cause unforeseen issues or missing content. This will also disable inline JavaScript unless it's provided `unsafe-inline` keyword, a hash like ('sha256-OsJINy4ZgkXN5pDjr32TfT/PBETcXuD9koo2t1mYDzg='), or a nonce ('nonce-...'), which is great for security!
+  
+![CSP browser compatibility table](https://cdn.auth0.com/blog/common-threats-in-web-app-security/mock-content-security-policy-browser-compatibility-table.png)
 
 ## Cross Site Request Forgery (CSRF)
 
@@ -215,6 +225,8 @@ An example of the SameSite `directive`:
 Set-Cookie: sess=sessionid123; path=/; SameSite
 ```
 
+![Cookie SameSite browser compatibility table](https://cdn.auth0.com/blog/common-threats-in-web-app-security/mock-cookie-samesite-browser-compatibility-table.png)
+
 ## Cookies
 
 Cookies are an important feature of web applications, usually carrying our users session identification, so the server knows you're you on each request. The `SameSite` directive might be a good way to protect your session information, but **Cookie Prefixing** is a new and under utilized method to ensure a cookie is absolutely secure.
@@ -225,6 +237,8 @@ Some user agent implementations support the following cookie prefixes:
 - `__Host` - Tells the browser not only that it should only include the cookie in requests that are sent over secure channel, this will also tell the browser to only use the cookie from a secure origin and the scope is limited to a path attribute passed down by the server. If the server omits the path attribute the "directory" of the request URI is used. It also signals that the domain attribute must not be present, which prevents the cookie from being sent to other domains.
 
 Effectively a `__Host` cookie is very specific to where it was intended to be used and therefore should be considered the most secure way to define one.
+
+![Cookie prefix browser compatibility table](https://cdn.auth0.com/blog/common-threats-in-web-app-security/mock-cookie-prefixes-browser-compatibility-table.png)
 
 ## Conclusion
 
