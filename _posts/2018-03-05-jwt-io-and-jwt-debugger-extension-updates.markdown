@@ -118,7 +118,7 @@ Several JWT claims are time-based. For instance, the `iat` claim specifies the e
 The supported claims are: `exp`, `iat`, `nbf`, `auth_time`, and `updated_at`.
 
 ### Firefox Support
-Yes! It's finally here. Ever since the first release of the JWT Debugger extension for Chrome we have received requests for a Firefox version. It's now here and supports all the features of the Chrome extension. [Get it here]()!
+Yes! It's finally here. Ever since the first release of the JWT Debugger extension for Chrome we have received requests for a Firefox version. It's now here and supports all the features of the Chrome extension. [Get it here](https://addons.mozilla.org/en-US/firefox/addon/jwtio-debugger)!
 
 ![JWT Debugger on Firefox](https://cdn.auth0.com/blog/jwtio-update/3-firefox.png)
 
