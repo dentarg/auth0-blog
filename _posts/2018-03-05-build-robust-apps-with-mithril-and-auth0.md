@@ -2297,7 +2297,7 @@ const AUTH0 = {
   CLIENTID: '<your client id>',
   DOMAIN: '<your domain>',
   CALLBACKURL: '<your callback URL>',
-	AUDIENCE: 'https://<your domain>.auth0.com/userinfo'
+  AUDIENCE: 'https://<your domain>.auth0.com/userinfo'
 };
 
 export default AUTH0;
@@ -2353,7 +2353,7 @@ export default class Auth {
     // Set the time that the Access Token will expire at
     let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
-		localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
     // navigate to the home route
     m.route.set('/conferences');
@@ -2362,7 +2362,7 @@ export default class Auth {
   logout() {
     // Clear Access Token and ID Token from local storage
     localStorage.removeItem('access_token');
-		localStorage.removeItem('id_token');
+    localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     // navigate to the default route
     m.route.set('/auth');
