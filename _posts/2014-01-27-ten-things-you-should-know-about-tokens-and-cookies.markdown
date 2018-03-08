@@ -105,7 +105,7 @@ One possible option is, when the user authenticates on `app.yourdomain.com` and 
       $.cookie('loggedin', profile.name, '.yourdomain.com');
     });
 
-Then, in `youromdain.com` you can check the existance of that cookie and redirect to `app.yourdomain.com` if the cookie exists. The token will be available on app subdomain, and from there on, the usual flow applies (if the token is still valid use it, if not get a new one unless last login was more than the threshold you set up).
+Then, in `yourdomain.com` you can check the existance of that cookie and redirect to `app.yourdomain.com` if the cookie exists. The token will be available on app subdomain, and from there on, the usual flow applies (if the token is still valid use it, if not get a new one unless last login was more than the threshold you set up).
 
 It could happen that the cookie exists but the token was deleted or something else happened. In that case, the user would have to login again. But what's important to highlight here is, as we said before, we are not using the cookie as an authentication mechanism, just as a storage mechanism that happens to support storing information across different domains.
 
