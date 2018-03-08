@@ -2296,11 +2296,14 @@ To set up a client, follow these easy steps:
 const AUTH0 = {
   CLIENTID: '<your client id>',
   DOMAIN: '<your domain>',
-  CALLBACKURL: '<your callback URL>'
+  CALLBACKURL: '<your callback URL>',
+	AUDIENCE: 'https://<your domain>.auth0.com/userinfo'
 };
 
 export default AUTH0;
 ```
+
+> The audience is a parameter set during authorization, and it contains the unique identifier of the target API. This is how you tell Auth0 for which API to issue an Access Token, which is the intended audience of this token. If you do not want to access a custom API, then by setting the audience to yourdomain.auth0.com/userinfo, you can use the opaque Access Token to retrieve the user's profile.
 
 8. As an important step, add `auth0-variables.js` to the `.gitignore` file so that it's never committed to source control.
 
@@ -2326,7 +2329,7 @@ export default class Auth {
     clientID: AUTH0_DATA.CLIENTID,
     redirectUri: AUTH0_DATA.CALLBACKURL,
     audience: AUTH0_DATA.AUDIENCE,
-    responseType: 'token',
+    responseType: 'token id_token',
     scope: 'openid profile email'
   });
 
@@ -2336,7 +2339,7 @@ export default class Auth {
 
   handleAuthentication() {
     this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken) {
+      if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
         m.route.set('/conferences');
       } else if (err) {
@@ -2350,6 +2353,7 @@ export default class Auth {
     // Set the time that the Access Token will expire at
     let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
+		localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
     // navigate to the home route
     m.route.set('/conferences');
@@ -2358,6 +2362,7 @@ export default class Auth {
   logout() {
     // Clear Access Token and ID Token from local storage
     localStorage.removeItem('access_token');
+		localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     // navigate to the default route
     m.route.set('/auth');
@@ -2729,6 +2734,6 @@ This concludes our project! We've done it. We built a functional, sleek, and sec
 
 Look how powerful Auth0 is! With very simple configuration and very little code, we achieved a great milestone: allowing only registered users to access the application and requiring them to log in. There is a lot more that we can do with Auth0! Discover all the [possibilities for authentication here](https://auth0.com/docs/api/authentication).
 
-We also got a chance to build a fairly complex application very easily by using Mithril as our framework. My favorite part of using Mithril has been on how easily it integrates with JSX, making it very transparent to use, and how simple, yet powerful, its router is! There's so much more that Mithril can do! We've just scratched the surface. Feel free to visit the [Mithril docs](https://mithril.js.org/api.html) to explore its API. What could have we done better throughout this application? What have you liked the most about Mithril? Please let me know in the comments below.
+We also got a chance to build a fairly complex application very easily by using Mithril as our framework. My favorite part of using Mithril has been on how easily it integrates with JSX, making it very transparent to use, and how simple, yet powerful, its router is! There's so much more that Mithril can do! We've just scratched the surface. Feel free to visit the [Mithril docs](https://mithril.js.org/api.html) to explore its API. What could have we done better throughout this application? Please let me know in the comments below. I also want to know what have you liked the most about Mithril?
 
 Now that you understand Mithril, learning other frameworks such as [React](https://auth0.com/blog/reactjs-authentication-tutorial/) or [Inferno](https://auth0.com/blog/learn-about-inferno-js-build-and-authenticate-an-app/) would be a breeze. Happy coding!
