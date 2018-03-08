@@ -394,7 +394,7 @@ We'll need a new React component to manage and coordinate user authentication.
 Create a new file `src/components/Auth.js` and inside it put the following code:
 
 ```js
-// src/components/Auth.js
+// src/utils/auth.js
 import auth0 from 'auth0-js';
 
 const AUTH0_DOMAIN = '<your-domain>.auth0.com';
@@ -407,7 +407,7 @@ export default class Auth {
     redirectUri: 'http://localhost:8000/callback',
     audience: `https://${AUTH0_DOMAIN}/api/v2/`,
     responseType: 'token id_token',
-    scope: 'openid profile'
+    scope: 'openid profile email'
   });
 
   login() {
@@ -417,6 +417,29 @@ export default class Auth {
 ```
 
 Edit `src/utils/auth.js` and replace `<your-domain>` and `<your-client-id>` with your Auth0 domain prefix and your client ID, found on your [client dashboard](https://manage.auth0.com/#/clients).
+
+Due to a dependency issue, we also need to tell Gatsby about a global variable in order for Webpack to know about it in production builds. This won't affect us in development, but later on this could come back and surprise us!
+
+So now edit `gatsby-node.js` and add the following code.
+
+```js
+// gatsby-node.js
+...
+
+exports.modifyWebpackConfig = ({ config, stage }) => {
+  switch (stage) {
+    case "build-html":
+      config.plugin('define', webpack.DefinePlugin, [ { "global.GENTLY": false } ]);
+
+        break;
+  }
+
+  return config;
+};
+
+
+exports.createPages = ({ graphql, boundActionCreators }) => { ...
+```
 
 #### Test our component
 
@@ -469,16 +492,18 @@ export default class Auth {
   }
 
   handleAuthentication() {
-    this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult);
-      } else if (err) {
-        console.error(err);
-      }
+    if (typeof window !== 'undefined') {
+      this.auth0.parseHash((err, authResult) => {
+        if (authResult && authResult.accessToken && authResult.idToken) {
+          this.setSession(authResult);
+        } else if (err) {
+          console.log(err);
+        }
 
-      // Return to the homepage after authentication.
-      navigateTo('/');
-    });
+        // Return to the homepage after authentication.
+        navigateTo('/');
+      });
+    }
   }
 
   isAuthenticated() {
@@ -565,22 +590,43 @@ Next, we're going to add a new component for navigation. This could hold our bra
 // src/components/Nav.js
 import React from 'react';
 import Auth from '../utils/auth';
+import Subscribe from './Subscribe';
+
+import logo from '../assets/logo-100-blue.png';
 
 const auth = new Auth();
 
 export default class Nav extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      authenticated: false
+    };
+  }
+
   login() {
     auth.login();
+
+    this.setState({
+      authenticated: auth.isAuthenticated()
+    });
   }
 
   logout() {
     auth.logout();
-    this.forceUpdate();
+
+    this.setState({
+      authenticated: auth.isAuthenticated()
+    });
+  }
+
+  componentDidMount() {
+    this.setState({
+      authenticated: auth.isAuthenticated()
+    });
   }
 
   render() {
-    const { isAuthenticated } = auth;
-
     return (
       <div
         style={{
@@ -602,7 +648,7 @@ export default class Nav extends React.Component {
           </a>
           <span> | </span>
           {
-            !isAuthenticated() && (
+            !this.state.authenticated && (
               <span>
                 <a href="#"
                   onClick={this.login.bind(this)}
@@ -617,7 +663,7 @@ export default class Nav extends React.Component {
             )
           }
           {
-            isAuthenticated() && (
+            this.state.authenticated && (
               <span>
                 <a href="#"
                   onClick={this.logout.bind(this)}
@@ -634,6 +680,7 @@ export default class Nav extends React.Component {
                   }
                 </a>
                 <span> | </span>
+                <Subscribe />
               </span>
             )
           }
@@ -935,7 +982,7 @@ export default class Subscribe extends React.Component {
     return auth.getUser() && auth.isAuthenticated();
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.isIdentified() && localStorage.getItem('subscribed') === null) {
       const token = localStorage.getItem('access_token');
       axios.get(`${wtUri}/subscribed`, {headers: {"Authorization" : `Bearer ${token}`}})
