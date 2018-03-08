@@ -391,7 +391,7 @@ We'll need a new React component to manage and coordinate user authentication.
 
 #### Basic component
 
-Create a new file `src/components/Auth.js` and inside it put the following code:
+Create a new file `src/utils/auth.js` and inside it put the following code:
 
 ```js
 // src/utils/auth.js
@@ -451,7 +451,7 @@ Quickly, we'll test that we can load our new component from any part of the app.
 import { rhythm } from '../utils/typography'
 
 // Add this to test we can load our Auth component
-import Auth from '../components/Auth.js';
+import Auth from '../utils/auth.js';
 const auth = new Auth();
 auth.login();
 
@@ -467,10 +467,10 @@ Now go ahead and remove the test code from `src/templates/index.js`.
 
 #### Finish the component
 
-We need a few more methods in the `Auth` component to handle authentication in the app. So add the following code to `src/component/Auth.js`:
+We need a few more methods in the `Auth` util to handle authentication in the app. So add the following code to `src/utils/auth.js`:
 
 ```js
-// src/component/Auth.js
+// src/utils/auth.js
 ...
 import { navigateTo } from "gatsby-link";
 
@@ -590,9 +590,6 @@ Next, we're going to add a new component for navigation. This could hold our bra
 // src/components/Nav.js
 import React from 'react';
 import Auth from '../utils/auth';
-import Subscribe from './Subscribe';
-
-import logo from '../assets/logo-100-blue.png';
 
 const auth = new Auth();
 
@@ -679,8 +676,6 @@ export default class Nav extends React.Component {
                     )
                   }
                 </a>
-                <span> | </span>
-                <Subscribe />
               </span>
             )
           }
