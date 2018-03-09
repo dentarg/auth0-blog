@@ -3,8 +3,8 @@ layout: post
 title: 3 Reasons Your Data Integration Plan is Important
 description: "When your data isn't organized, you lose your competitive advantage as an organization"
 longdescription: "When your data isn't organized, you lose your competitive advantage as an organization. We show you three reasons your data integration plan is important"
-date: 2018-02-19 22:33
-category: Growth
+date: 2018-03-09 08:33
+category: Growth, Data
 is_non-tech: true
 author:
   name: "Diego Poza"
@@ -12,8 +12,8 @@ author:
   mail: "diego.poza@auth0.com"
   avatar: "https://avatars3.githubusercontent.com/u/604869?v=3&s=200"
 design:
-  bg_color: "#2b0050"
-  image: https://cdn.auth0.com/blog/get-iam-budget/logo.png
+  bg_color: "#10316F"
+  image: https://cdn.auth0.com/blog/data-integration-plan/logo.png
 tags:
 - iam
 - identity
@@ -21,9 +21,9 @@ tags:
 - data
 - data-integration
 related:
-- 2017-12-08-how-poor-identity-access-management-equals-security-breaches
-- 2018-01-19-how-iam-can-help-your-enterprise-get-mobile
-- 2018-02-02-3-ways-to-get-an-iam-budget-in-2018
+- 2017-12-18-retail-analytics-past-present-and-future
+- 2017-11-27-how-data-analytics-can-transform-your-business
+- 2018-02-14-what-is-data-security
 ---
 
 Imagine your customer support (CS) team receives an angry complaint from a particular user, R. Michaels. R. Michaels was charged for your company’s service although he was sure he canceled it. He says he's going to file a chargeback with the credit card company, at additional cost to your firm — and complain on Twitter.
@@ -106,7 +106,7 @@ The below are a sample of popular tools for integration (although by no means an
 
 ### Segment
 
-Segment is a single platform, which quickly collects, stores, and routes user data to hundreds of tools with a simple click. It can be critical for all segments, which rely on this data, including analytics, marketing automation, email, user testing, error reporting, and support. 
+[Segment](https://segment.com/) is a single platform, which quickly collects, stores, and routes user data to hundreds of tools with a simple click. It can be critical for all segments, which rely on this data, including analytics, marketing automation, email, user testing, error reporting, and support. 
 
 ![Segment Flow](https://cdn.auth0.com/blog/3-reasons-your-data-integration-plan-is-important/segment-auth0-flow.png)
 
@@ -114,7 +114,7 @@ With Segment, engineers can eliminate time spent installing and maintaining anal
 
 ### mParticle
 
-As with Segment, mParticle collects data from a range of inputs, such as the Web, mobile apps, and feeds from external SaaS providers, and forwards it to output services for audience targeting and push notifications, attributions, storage, and further analytics. 
+As with Segment, [mParticle](https://www.mparticle.com/) collects data from a range of inputs, such as the Web, mobile apps, and feeds from external SaaS providers, and forwards it to output services for audience targeting and push notifications, attributions, storage, and further analytics. 
 
 ![mParticle](https://cdn.auth0.com/blog/3-reasons-your-data-integration-plan-is-important/mparticle.png)
 
@@ -122,7 +122,7 @@ mParticle focuses on two types of inputs: events (how users interact with an app
 
 ### Clearbit
 
-Clearbit has provided its services to a range of tech companies, such as Asana, Braintree, Slack, Stripe, Zendesk, and more. It offers its customers nearly a dozen APIs to mine publicly available data sources  for information on individuals and companies.
+[Clearbit](https://clearbit.com/) has provided its services to a range of tech companies, such as Asana, Braintree, Slack, Stripe, Zendesk, and more. It offers its customers nearly a dozen APIs to mine publicly available data sources  for information on individuals and companies.
  
 ![Clearbit](https://cdn.auth0.com/blog/3-reasons-your-data-integration-plan-is-important/clearbit.png)
 
