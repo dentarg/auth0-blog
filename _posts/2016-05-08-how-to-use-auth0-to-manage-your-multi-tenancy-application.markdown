@@ -106,6 +106,6 @@ For instance, a user might be authenticated for multiple tenants and have differ
 
 The logic of the applications can then use this metadata to restrict or allow users access to data and instances as the roles allow.
 
-To find out how you can implement a multi-tenant application using Auth0, follow our demo [here](https://auth0.com/docs/scenarios/multi-tenant-saas-azure-ad).
+To find out how you can implement a multi-tenant application using Auth0, follow our demo [here](https://manage-dev.mozilla.auth0.com/docs/integrations/building-multi-tenant-saas-applications-with-azure-active-directory).
 
 [Unlock B2B SaaS growth with modern identity management. Download free eBook here.](https://resources.auth0.com/unlock-b2b-saas-growth-iam/)
