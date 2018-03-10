@@ -133,22 +133,24 @@ Let's write some Node Js code. The first piece of functionality that we will imp
 
 ```js
 // We saw how we could download dependencies via npm. To use those dependencies in our code we require them. The syntax to require a library is the keyword require and a string for the name of the library. We assign this require function to a variable and can then access methods from the library through that variable. Here we are requiring all of our dependencies at the top of the page as is good practice.
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var dotenv = require('dotenv');
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const dotenv = require('dotenv');
+const passport = require('passport');
+const Auth0Strategy = require('passport-auth0');
 
 // We are using the dotenv library to load our environmental variables from the .env file. We don't have anything in the .env file for now, but we will soon.
 dotenv.load();
 
 // Just like external libraries, we can import our application code using the require function. The major difference is that we have to give the exact path to our file. We saw in the directory structure section that we will have an index.js file in a routes directory. Go ahead and create it if you haven't already, otherwise you'll get errors when compiling the code.
-var routes = require('./routes/index');
+const routes = require('./routes/index');
 
 // This line of code instantiates the Express JS framework. We assign it to a variable called app, and will add our configruation to this variable.
-var app = express();
+const app = express();
 
 // The .set method allows us to configure various options with the Express framework. Here we are setting our views directory as well as telling Express that our templating engine will be Jade. More on that soon.
 app.set('views', path.join(__dirname, 'views'));
@@ -157,31 +159,39 @@ app.set('view engine', 'jade');
 // The .use method is similar to the .set method, where it allows us to set further configurations. The .use method also acts as a chain of events that will take place once a request hits our Node Js application. First we'll log the request data, parse any incoming data, and so on.
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(session({
-  // Here we are creating a unique session identifier
   secret: 'shhhhhhhhh',
   resave: true,
   saveUninitialized: true
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// catch 404 and forward to error handler.
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+// catch 404 and forward to error handler
+app.use((req, res, next) => {
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
+
 // If our applicatione encounters an error, we'll display the error and stacktrace accordingly.
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   res.status(err.status || 500);
-  res.send(err);
+  res.render('error', {
+    message: err.message,
+    error: err
+  });
 });
 
 // Finally, we'll choose to have our app listen on port 3000. This means that once we launch our app, we'll be able to navigate to localhost:3000 and see our app in action. You are free to choose any port you want, so 8080, or 80, or really any number will work. The reason 3000 is typically used is because it's the lowest port number that can be used without requiring elevated privileges on Mac/Linux systems.
-app.listen(3000);
+app.listen(3000, (err) => {
+  if (err) console.log(err.message);
+  console.log("App running on port 3000 of localhost");
+});
 ```
 
 Let's test our app so far. To run our app, we'll simply run the command `node app` in your terminal. Next, navigate to `locahost:3000` in your web browser. If all went as expected, you should just see a 404 page not found error. That is the expected behavior since we did not add any routes to our application, but we did add a page not found error handler. Next, let's add some routes.
@@ -192,28 +202,28 @@ If you followed along with our directory structure, you'll have created an `inde
 
 ```js
 // Again we are importing the libraries we are going to use
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 // On our router variable, we'll be able to include various methods. For our app we'll only make use of GET requests, so the method router.get will handle that interaction. This method takes a string as its first parameter and that is the url path, so for the first route we are just giving it '/', which means the default route. Next we are defining a Node Js callback function, that takes three parameters, a request (req), a response (res), and an optional next (next) parameter. Finally, in our callback function, we are just send the message "You are on the homepage".
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next)=>{
   res.send('You are on the homepage');
 });
 
 // We are going to do the same thing for the remaining routes.
-router.get('/login',function(req, res){
+router.get('/login',(req, res)=>{
   res.send('You are on the login page');
 });
 
-router.get('/logout', function(req, res){
+router.get('/logout', (req, res)=>{
   res.send('You are on the logout page');
 });
 
-router.get('/polls', function(req, res){
+router.get('/polls', (req, res)=>{
   res.send('You are on the polls page');
 })
 
-router.get('/user', function(req, res, next) {
+router.get('/user', (req, res, next)=> {
   res.send('You are on the user page');
 });
 
@@ -247,7 +257,7 @@ Let's get back to our routes. We have defined them, but if we run our applicatio
 // dotenv.load();
 
 // Just like external libraries, we can import our application code using the require function. The major difference is, we have to give the exact path to our file. We saw in the directory structure section that we will have an index.js file in a routes directory. Go ahead and create it if you haven't already, otherwise you'll get errors when compiling the code.
-var routes = require('./routes/index');
+const routes = require('./routes/index');
 
 // var app = express();
 
@@ -302,7 +312,6 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", rel="stylesheet")
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
-    script(src="https://cdn.auth0.com/js/lock/10.3/lock.min.js")
   body
     block content
 ```
@@ -405,38 +414,47 @@ Lastly, we'll also create a stub for our login page by creating a file called `l
 Finally, we are ready to wire up our views and controllers with actual functionality. Remember, we are storing our controllers in the `routes/index.js` file. Let's open up that file and make the following adjustments:
 
 ```js
-var express = require('express');
-var passport = require('passport');
-var router = express.Router();
-var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
-var request = require('request');
+const express = require('express');
+const passport = require('passport');
+const router = express.Router();
+const ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
+const request = require('request');
 
 // We are going to want to share some data between our server and UI, so we'll be sure to pass that data in an env variable.
-var env = {
+const env = {
+  AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
+  AUTH0_DOMAIN: process.env.AUTH0_DOMAIN,
+  AUTH0_CALLBACK_URL: process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/callback'
 };
 
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next)=> {
   // Now, rather then just sending the text "You are on the homepage", we are going to actually render the view we created using the res.render method. The second argument will allow us to pass in data from the backend to our view dynamically.
   res.render('index', { env: env });
 });
 
-router.get('/login',function(req, res){
-  // Same thing for the login page.
-  res.render('login', { env: env });
-});
+router.get('/login', passport.authenticate('auth0', {
+    clientID: env.AUTH0_CLIENT_ID,
+    domain: env.AUTH0_DOMAIN,
+    redirectUri: env.AUTH0_CALLBACK_URL,
+    responseType: 'code',
+    scope: 'openid profile email'
+  }), (req, res) => {
+    res.redirect("/");
+  }
+);
 
-router.get('/logout', function(req, res){
+router.get('/logout', (req, res)=>{
   // For the logout page, we don't need to render a page, we just want the user to be logged out when they hit this page. We'll use the ExpressJS built in logout method, and then we'll redirect the user back to the homepage.
   req.logout();
   res.redirect('/');
 });
 
-router.get('/polls', ensureLoggedIn, function(req, res){
+router.get('/polls', ensureLoggedIn, (req, res)=>{
   // You may have noticed that we included two new require files, one of them being request. Request allows us to easily make HTTP requests. In our instance here, we are using the Huffington Post's API to pull the latest election results, and then we're sending that data to our polls view.
   // The second require was the connect-ensure-loggedin library, and from here we just required a method called ensureLoggedIn, which will check and see if the current user is logged in before rendering the page. If they are not, they will be redirected to the login page. We are doing this in a middleware pattern, we first call the ensureLoggedIn method, wait for the result of that action, and finally execute our /polls controller.
-  request('http://elections.huffingtonpost.com/pollster/api/charts.json?topic=2016-president', function (error, response, body) {
+  request('http://elections.huffingtonpost.com/pollster/api/charts.json?topic=2016-president',  (error, response, body)=> {
     if (!error && response.statusCode == 200) {
-      var polls = JSON.parse(body);
+      const polls = JSON.parse(body);
       // For this view, we are not only sending our environmental information, but the polls and user information as well.
       res.render('polls', {env: env, user: req.user, polls: polls});
     } else {
@@ -445,7 +463,7 @@ router.get('/polls', ensureLoggedIn, function(req, res){
   })
 })
 
-router.get('/user', ensureLoggedIn, function(req, res, next) {
+router.get('/user', ensureLoggedIn, (req, res, next) =>{
   // Same thing for our
   res.render('user', { env: env, user: req.user });
 });
@@ -458,7 +476,7 @@ This completes our controller's implementation. We did a lot in this section. We
 Before we close out this section, let's make one quick change to our `app.js` file. If you recall, in our `app.js` file we built our error handler. In the last section, we created a pretty view for our errors, so let's make sure we're using that view.
 
 ```js
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) =>{
   res.status(err.status || 500);
   //res.send(err)
   res.render('error', {
