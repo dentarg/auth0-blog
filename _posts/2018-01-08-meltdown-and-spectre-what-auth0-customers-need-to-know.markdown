@@ -52,17 +52,17 @@ Yes. The vulnerabilities are present on all devices with affected CPUs, includin
 
 ## What is Auth0 Doing to Protect Me?
 
-Your security is of utmost importance to us at Auth0. Our engineering and security teams have made architectural and design decisions that significantly elevate and improve the security posture for all of our customers when faced with vulnerabilities, including Meltdown and Spectre. We are closely monitoring this situation and working with our best-in-class vendors to ensure that all of our systems are patched and these vulnerabilities are mitigated as quickly as possible. As patches become available, they are applied immediately.
+Your security is of utmost importance to us at Auth0. Our engineering and security teams have made architectural and design decisions that significantly elevate and improve the security posture for all of our customers when faced with vulnerabilities, including Meltdown and Spectre. We closely monitored this situation and worked with our best-in-class vendors to ensure that all of our systems are patched and these vulnerabilities are mitigated. **All our servers and service providers have been patched and are no longer at risk.**
 
 One of Auth0's service providers is Amazon Web Services (AWS). The AWS infrastructure that powers services like RDS, Elasticache, and Redshift was protected in advance of the Meltdown and Spectre disclosure, thereby immunizing a significant portion of Auth0’s infrastructure in advance as well. At this time, [all infrastructure that AWS provides to Auth0 has been patched](https://aws.amazon.com/security/security-bulletins/AWS-2018-013/) to mitigate potential risk from these vulnerabilities.
 
 In addition, Auth0 has taken steps to ensure that, internally, we are up-to-date on all mitigation patches with regard to workstations as well as all devices used by personnel. To take similar precautions with your own computers, servers, and devices, please see the next section to learn what you can do to reduce your risk.
 
-We will share additional information in our [blog](https://auth0.com/blog) as our vendors continue to update and deploy patches for these vulnerabilities. If you have any questions or encounter issues, please contact us at: **[notifications@auth0.com](mailto:notifications@auth0.com)**
+If you have any questions or encounter issues, please contact us at: **[notifications@auth0.com](mailto:notifications@auth0.com)**
 
 ## What Should I Do?
 
-Auth0 is currently working with vendors to mitigate the risks posed by Meltdown and Spectre with regard to the Auth0 cloud and PSaaS appliance platforms. We will be actively coordinating with customers to make sure their environments are covered by the latest patches. We’ve also ensured that our workstations and devices are properly updated with patches to protect against these vulnerabilities. However, you must _also_ take the necessary steps to protect your personal computers, servers, and other devices. This is a great opportunity to do a quick “Check for Updates” on all of your devices and applications and install anything that’s available. 
+Auth0 worked with vendors to mitigate the risks posed by Meltdown and Spectre with regard to the Auth0 cloud and PSaaS appliance platforms. We actively coordinated with customers to make sure their environments were covered by the latest patches. We also ensured that our workstations and devices were properly updated with patches to protect against these vulnerabilities. However, you must _also_ take the necessary steps to protect your personal computers, servers, and other devices. This is a great opportunity to do a quick “Check for Updates” on all of your devices and applications and install anything that’s available. 
 
 Install all **vendor-supplied operating system updates**, such as:
 
