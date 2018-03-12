@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Symfony Tutorial: Building a Blog (Part 3)
+title: "Symfony Tutorial: Building a Blog (Part 3)"
 description: "Learn how to create and deploy a secure blog engine with Symfony."
 longdescription: "Creating applications with Symfony is easy and can be scaled to be used in any requirement. The tools that it provides to create and maintain web applications is amazing and replaces repetitive tasks. In this series, you will use Symfony to create a production-ready blog engine and then you will deploy it to Heroku."
 date: 2018-03-06 08:30
@@ -142,7 +142,7 @@ Also, add a new line with the contents below (and replace `(Your database name)`
 DATABASE_NAME=(Your database name)
 ```
 
-Last thing, if you haven't followed the first part of this series, you might need to issue the following commands to create the database tables and to populate them:
+If you haven't followed the first part of this series, you might need to issue the following commands to create the database tables and to populate them:
 
 ```bash
 php bin/console doctrine:database:create
@@ -468,6 +468,16 @@ heroku buildpacks:add heroku/nodejs
 heroku buildpacks:add heroku/php
 ```
 
+Heroku's spaces are hosted behind reverse proxies and load balancers which cause problems with your application. These reverse proxies may mask whether you're accessing the browser via HTTP or HTTPS for example. As a result of this, you need to add the following code in your `./public/index.php` file below the `$request = Request::createFromGlobals();` line:
+
+```php
+// tell Symfony about your reverse proxy
+Request::setTrustedProxies(
+    array($request->server->get('REMOTE_ADDR')),
+    Request::HEADER_X_FORWARDED_ALL ^ Request::HEADER_X_FORWARDED_HOST
+);
+```
+
 It's time to commit all of your changes to your forked repository. This can be done by the following commands:
 
 ```bash
@@ -526,8 +536,8 @@ After that, you are going to need to create a staging area on Auth0, [log into y
 Once created, you need to make use of the Auth0 client Id, secret, and domain. You also need to make use of the database name returned to you when you ran the `cleardb:ignite` command. Replace the contents of the brackets in the examples below with these details. Then, run each of these commands:
 
 ```bash
-heroku buildpacks:add heroku/nodejs
-heroku buildpacks:add heroku/php
+heroku buildpacks:add heroku/nodejs -a space-name-here-staging
+heroku buildpacks:add heroku/php -a space-name-here-staging
 heroku config:set APP_ENV=staging -a space-name-here-staging
 heroku config:set SYMFONY_ENV=staging -a space-name-here-staging
 heroku config:set AUTH0_CLIENT_ID=(Your Auth0 Client ID) -a space-name-here-staging
@@ -536,7 +546,7 @@ heroku config:set AUTH0_DOMAIN=(Your Auth0 Domain) -a space-name-here-staging
 heroku config:set DATABASE_NAME=(Your database name shown in the image above) -a space-name-here-staging
 ```
 
-In the above commands, you've set the `SYMFONY_ENV` to `staging`. Now, you need some files in `config/packages/staging` to store your staging configurations. Create the directory `staging` under `./config/packages/`, then within that directory, create the `doctrine.yaml` file and paste the following in:
+In the above commands, you've set the `SYMFONY_ENV` to `staging`. Now, you need some files in `config/packages/staging` to store your staging configurations. Create the `staging` directory under `./config/packages/` and, within that directory, create the `doctrine.yaml` file and paste the following in:
 
 ```yml
 doctrine:
@@ -609,8 +619,8 @@ git push --set-upstream origin staging
 Time to add the staging URL to the allowed callback URLs for your staging client. Head over to the [Auth0 Dashboard](https://manage.auth0.com/#/clients), choose your staging client and carry out the following instructions:
 
 * In the staging Auth0 `Client`, go to the settings tab.
-* Find the text box labeled `Allowed Callback URLs`.
-* The url you need to put in the text box is your space url, for example: `https://space-name-here-staging.herokuapp.com/` followed by: `auth0/callback`. So it will look like: `https://space-name-here-staging.herokuapp.com/auth0/callback`.
+* Find the text box labelled `Allowed Callback URLs`.
+* The URL you need to put in the text box is your space URL, for example: `https://space-name-here-staging.herokuapp.com/` followed by: `auth0/callback`. So it will look like: `https://space-name-here-staging.herokuapp.com/auth0/callback`.
 * Click the `Save Changes` button at the bottom of the page
 
 You will now be able to test your application on a staging environment. So, if you head over to your Heroku dashboard, you should see the build in progress or complete. After this build is completed, you can browse to the URL for your staging environment and you will see an exact duplicate of the production environment.
