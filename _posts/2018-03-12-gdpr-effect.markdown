@@ -3,15 +3,15 @@ layout: post
 title: GDPR Effect?
 description: "The growing list of new privacy laws outside the EU can be challenging. Auth0 provides a list of recently enacted laws or those under consideration."
 longdescription: "The EU’s deliberations on personal data protection and data breach notification have changed the way governments around the world view privacy. The growing list of new privacy laws outside the EU can be challenging. Auth0 provides a list of recently enacted laws or those under consideration."
-date: 2018-03-12 18:30
-category: Security, Identity, Regulation
+date: 2018-03-12 08:30
+category: Hot Topics, GDPR
 press_release: false
 is_non-tech: true
 author:
-  name: "Jenny O'Brien"
-  url: "https://www.linkedin.com/in/jenny-o-brien-storyteller/"
-  mail: "jennifer.obrien@auth0.com"
-  avatar: "https://cdn.auth0.com/blog/avatars/jenny-obrien.png"
+  name: "Ingrid Choy-Harris"
+  url: "https://twitter.com/QUARTZ45"
+  mail: "ingrid.choyharris@auth0.com"
+  avatar: "https://cdn.auth0.com/blog/avatar/ingrid-choy-harris.png"
 design:
   image: https://cdn2.auth0.com/blog/get-ready-for-gdpr/logo.png
   bg_color: "#000040"
@@ -26,6 +26,13 @@ related:
 - 2018-01-15-mission-possible-reality-for-7-gdpr-misconceptions
 - 2018-01-17-jumpstart-identity-innovation-with-gdpr
 - 2017-05-03-get-ready-for-gdpr
+---
+
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>GDPR is around the corner. Are you Ready? Take our GDPR Readiness Assessment to find out. <a href="https://auth0.com/gdpr-assessment/tool-1">Start the survey</a>.</strong>
+</div>
+
 ---
 
 Governments around the globe are changing how they view privacy as a result of the EU’s deliberations on personal data protection and breach notification.
