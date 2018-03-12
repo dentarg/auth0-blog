@@ -8,10 +8,10 @@ category: Hot Topics, GDPR
 press_release: false
 is_non-tech: true
 author:
-  name: "Ingrid Choy-Harris"
-  url: "https://twitter.com/QUARTZ45"
-  mail: "ingrid.choyharris@auth0.com"
-  avatar: "https://cdn.auth0.com/blog/avatar/ingrid-choy-harris.png"
+  name: "Jenny O'Brien"
+  url: "https://www.linkedin.com/in/jenny-o-brien-storyteller/"
+  mail: "jennifer.obrien@auth0.com"
+  avatar: "https://cdn.auth0.com/blog/avatars/jenny-obrien.png"
 design:
   image: https://cdn2.auth0.com/blog/get-ready-for-gdpr/logo.png
   bg_color: "#000040"
@@ -39,7 +39,7 @@ Governments around the globe are changing how they view privacy as a result of t
 
 Those deliberations resulted in the General Data Protection Regulation (GDPR) coming into force on May 25, 2018. Meanwhile, many other governments, including two states in the U.S., have recently enacted or are considering similar regulations. These changes mean that organizations which have previously avoided the effort to become GDPR-compliant could still find themselves facing similar regulatory requirements and fines—or at least the need to get their data and processes in order to scale into new regions.
 
-{% include tweet_quote.html quote_text="Keep up with the growing list of new privacy laws and amendments outside the EU with the help of Auth0 Compliance Manager, Ingrid Choy-Harris (@QUARTZ45)" %}
+{% include tweet_quote.html quote_text="Keep up with the growing list of new privacy laws and amendments outside the EU with the help of Auth0" %}
 
 ## GDPR Whitelisting Influence
 
