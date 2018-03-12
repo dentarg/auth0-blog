@@ -1,6 +1,6 @@
 ---
 layout: post_extend
-title: "Troubleshooting Webtasks"
+title: "Troubleshooting Webtasks: Using Debuggers"
 description: "Learn how to troubleshoot webtasks from monitoring logs in the editor all the way to debugging locally using devtool and visual studio code."
 longdescription: ""
 date: 2018-03-28 08:00
