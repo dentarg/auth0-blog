@@ -2,9 +2,9 @@
 layout: post_extend
 title: "Troubleshooting Webtasks: Using the CLI"
 description: "Learn how to troubleshoot webtasks from monitoring logs in the editor all the way to debugging locally using devtool and visual studio code."
-longdescription: "The Webtasks technology that powers Auth0 Extend and Webtask.io is a very powerful system. Learn how to troubleshoot webtasks from monitoring logs in the editor all the way to debugging locally using devtool and visual studio code."
+longdescription: ""
 date: 2018-03-21 08:00
-category: Extend, Technical, Webtasks
+category: Extend, Techincal, Webtasks
 press_release: false
 is_non-tech: false
 author:
@@ -14,25 +14,20 @@ author:
   avatar: "https://cdn.auth0.com/website/blog/profiles/bobbyjohnson.png"
 design:
   bg_color: "#3445DC"
-  image: https://cdn.auth0.com/blog/troubleshooting-webtasks/logo.png
+  image: https://cdn.auth0.com/website/blog/extend/why-auth0-chose-serverless-extensibility/logo.png
 tags:
 - extend
 - webtasks
 - debugging
 related:
   - 2017-08-01-auth0-webtasks-the-quickest-of-all-quick-starts
-  - 2018-03-14-troubleshooting-webtasks-using-the-editor
+  - 2017-08-22-for-the-best-security-think-beyond-webhooks
   - 2017-10-04-securing-webtasks-part-1-shared-secret-authorization
 ---
 
-**TL;DR:** In this series, we will learn how to troubleshoot webtasks from monitoring logs in the editor all the way to debugging locally using devtool and visual studio code.
+**TL;DR:** In this post, we will learn how to troubleshoot webtasks from monitoring logs in the editor all the way to debugging locally using devtool and visual studio code.
 
-The full list of posts in this series:
-
-- [Troubleshooting Webtasks: Using the Editor](https://auth0.com/blog/troubleshooting-webtasks-using-the-editor/)
-- [Troubleshooting Webtasks: Using the CLI](https://auth0.com/blog/troubleshooting-webtasks-using-the-cli/)
-
-This post covers the tools built into the WT CLI, here are some shortcuts to help you locate the topics you are interested in quickly.
+This is a relatively long post, so here are some shortcuts to help you locate the topics you are interested in quickly.
 
 - <a href="#connecting-to-the-log-stream" target="_self">Connecting to the log stream with the CLI</a>
 - <a href="#run-webtask-locally" target="_self">Run webtask locally with the CLI</a>
@@ -40,11 +35,11 @@ This post covers the tools built into the WT CLI, here are some shortcuts to hel
 ---
 
 
-The Webtasks technology that powers [Auth0 Extend](https://auth0.com/extend/) and [Webtask.io](https://webtask.io/) is a very powerful system. It allows end users to provide the functionality they need by writing simple logic in JavaScript. That JavaScript is then securely sandboxed and executed with extremely low latency while protecting the security and performance of other customers and the technology itself.
+The Webtasks platform that powers [Auth0 Extend](https://auth0.com/extend/), [Webtask.io](https://webtask.io/) and [Auth0 Hooks](https://auth0.com/docs/hooks) is a very powerful system. It allows end users to provide the functionality they need by writing simple logic in JavaScript. That JavaScript is then securely sandboxed and executed with extremely low latency while protecting the security and performance of other customers and the platform itself.
 
-Whether you are building a fun weekend project, ensuring your authorized users are members of a specific domain or offering your customers an easy way to customize your SaaS; the Webtasks technology allows you to accomplish your goals without placing the burden of hosting, monitoring or scaling on you or your users.
+Whether you are building a fun weekend project, ensuring your authorized users are members of a specific domain or offering your customers an easy way to customize your SaaS; the Webtasks platform allows you to accomplish your goals without placing the burden of hosting, monitoring or scaling on you or your users.
 
-Even with a technology this powerful, you are going to run into issues at times. A service you depend on may go down. Or a bit of logic might not consider all the possible cases that can arise during execution.
+Even with a platform this powerful, you are going to run into issues at times. A service you depend on may go down. Or a bit of logic might not consider all the possible cases that can arise during execution.
 
 When unexpected events happen, how do you go about troubleshooting the issues? In this post, I will show you the most common ways of troubleshooting a webtask. From simple test executions to full local debugging support, we will cover it all.
 
@@ -52,14 +47,14 @@ When unexpected events happen, how do you go about troubleshooting the issues? I
 
 The tools built directly into the editor are great for troubleshooting a single webtask; especially if it is simple. But using console log statements to troubleshoot a complex webtask or a set of collaborative tasks would quickly grow tedious.
 
-The webtask CLI offers several tools out of the box to help troubleshoot issues with webtasks. The CLI can be used in this way for Webtask.io or Auth0 Extend deployments.
+The webtask CLI offers several tools out of the box to help troubleshoot issues with webtasks. The CLI can be used in this way for Auth0 Hooks, Webtask.io or Auth0 Extend deployments.
 
-To set up the CLI for use with Webtask.io, visit [this interactive tutorial](https://webtask.io/cli) which will walk you through the process. Auth0 Extend customers should already have instructions for setting the CLI up to work with your cluster. If you need help, feel free to [join us in our customer Slack](https://auth0-extend.run.webtask.io/slack-signup) for assistance.
+To set up the CLI for use with Webtask.io, visit [this interactive tutorial](https://webtask.io/cli) which will walk you through the process. Auth0 Hooks users can visit [their tenant settings](https://manage.auth0.com/#/tenant/webtasks) in their management dashboard for similar instructions. And finally, Auth0 Extend customers should already have instructions for setting the CLI up to work with your cluster. If you need help, feel free to [join us in our customer Slack](https://auth0-extend.run.webtask.io/slack-signup) for assistance.
 
 
 ### <span id="connecting-to-the-log-stream"></span>Connecting to the log stream
 
-Using the Logs panel in the editor, we were able to watch live executions of our webtask in real time. With the CLI we can also connect to the log stream. This is particularly useful when you have scoped your webtasks functions to do a single thing and build functionality up through collaborative tasks.
+Using the Logs panel in the editor, we were able to watch live executions of our webtask in real time. With the CLI we can also connect to the log stream, with the added benefit of seeing the logs for all of our webtasks. This is particularly useful when you have scoped your webtasks functions to do a single thing and build functionality up through collaborative tasks.
 
 Connecting to the log stream is a snap with the CLI.
 
@@ -134,7 +129,7 @@ We can see the custom logs messages from both the `call-log-panel` and the `log-
 
 ### <span id="run-webtask-locally"></span>Run webtask locally
 
-At this point, we are still deploying a webtask every time we wish to test its execution. The webtask CLI gives us the ability to host our webtask logic locally. We can then iterate faster on the logic and only deploy once we are satisfied it is working correctly.
+At this point, we are still deploying a webtask to the platform every time we wish to test its execution. The webtask CLI gives us the ability to host our webtask logic locally. We can then iterate faster on the logic and only deploy once we are satisfied it is working correctly.
 
 Let's create a local copy of our last webtask and host locally using the CLI.
 
@@ -163,15 +158,13 @@ The CLI will spin up the webtask listening on port 8080 and begin waiting for a 
 
 ![Terminal Serve Execution](https://cdn.auth0.com/website/blog/extend/troubleshooting-webtasks/terminal-serve-first-execution.png)
 
-We can now see the logged messages from the webtask directly in our console. Note that the Webtasks backend messages are not there, we are running locally. Also, we are calling the `call-log` webtask and do not see the logs messages coming from it. When serving locally, we are completely isolated.
+We can now see the logged messages from the webtask directly in our console. Note that the Webtasks platform messages are not there, we are running locally. Also, we are calling the `call-log` webtask and do not see the logs messages coming from it. When serving locally, we are completely isolated.
 
 It is also worth pointing out that the local serve method does not support live reload when our task.js code is updated. As with the log stream, we can hit `CTRL-C` to stop the hosted task.
-
-The serve functionality of the WT CLI gives you access to all of the Webtask functionality including meta and secret values as well as local storage simulation. For detailed instructions, see the [Webtask Workshop](https://github.com/auth0/webtask-workshop).
 
 
 # Summary
 
-In this post, we have covered various techniques available via the WT CLI to troubleshoot failures. These techniques work with all of the products using the Webtasks technology. Feel free to bookmark this post and reference it when you are working on your next project.
+It was a long road, but we have now covered the ways to troubleshoot webtasks from a quick log logging in the editor all the way to full IDE like debugger support.
 
-In the next post, we will cover using the Webtask CLI, Devtool and Visual Studio Code to get a full IDE debugging experience.
+These techniques work with all of the products using the Webtasks platform. Feel free to bookmark this post and reference it when you are working on your next project.
