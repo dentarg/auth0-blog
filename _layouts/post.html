@@ -5,6 +5,19 @@ is_post: true
 <!-- Twitter Conversion -->
 <script type="text/javascript">
   twttr.conversion.trackPid('l4rua');
+  var gaIntervalId = setInterval(function () {
+    var scrollTop = document.documentElement.scrollTop;
+    var scrollHeight = document.body.scrollHeight;
+
+    if (scrollTop < scrollHeight / 10) return;
+
+    ga('send', {
+      hitType: 'pageview',
+      page: location.pathname + '#read'
+    });
+
+    clearInterval(gaIntervalId);
+  }, 90000);
 </script>
 
 <noscript>
