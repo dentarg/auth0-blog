@@ -3,7 +3,7 @@ layout: post
 title: "Using Python, Flask, and Angular to Build Modern Web Apps - Part 1"
 description: "In this series, you will learn how to create modern web applications with Python, Flask, and Angular."
 longdescription: "In this series, you will learn how to create modern web applications with Python, Flask, and Angular. You will create a SPA and a backend API to expose exams and questions so users can test their knowledge regarding different technologies."
-date: 2018-02-21 08:30
+date: 2018-03-13 08:30
 category: Technical Guide, Python
 author:
   name: "Bruno Krebs"
@@ -12,7 +12,7 @@ author:
   avatar: "https://twitter.com/brunoskrebs/profile_image?size=original"
 design:
   bg_color: "#4A4A4A"
-  image: https://cdn.auth0.com/blog/python-restful/logo.png
+  image: https://cdn.auth0.com/blog/python-flask-angular/logo.png
 tags:
 - python
 - flask
@@ -23,6 +23,7 @@ tags:
 related:
 - 2017-09-28-developing-restful-apis-with-python-and-flask
 - 2017-11-09-sqlalchemy-orm-tutorial-for-python-developers
+- 2017-06-28-real-world-angular-series-part-1
 ---
 
 **TL;DR:** In this series, you will learn how to create modern web applications with Python, Flask, and Angular. You will use this stack to build a SPA and a backend API to expose exams and questions so users can test their knowledge regarding different technologies. [In this GitHub repository](https://github.com/auth0-blog/python-flask-angular-1), you can find the final code created throughout the first part of the series.
