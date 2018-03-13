@@ -155,6 +155,7 @@ Each Angular component we write will have at a minimum the `*.component.ts` file
 We're going to be making HTTP requests to our API in our Angular app. To do so, we need to add the correct module to our `app.module.ts` file. Let's do so now by importing the `HttpClientModule` and adding it to our @NgModule's `imports` array like so:
 
 ```typescript
+// app.module.ts
 ...
 import { HttpClientModule } from '@angular/common/http';
 
@@ -188,6 +189,7 @@ We're going to use [Bootstrap](http://getbootstrap.com/docs/3.3/) to style our a
 Every Angular application must have a root component. We can name it whatever we want, but the important thing is that we have one. In our application, the `app.component.ts` file will be our root component. Let's take a look at our implementation of this component.
 
 ```typescript
+// app.component.ts
 import { Component } from '@angular/core';
 
 @Component({
@@ -240,6 +242,7 @@ Since we initialized our app with the `--routing` flag, the architecture for rou
 Open the `app-routing.module.ts` file and add the following:
 
 ```typescript
+// app-routing.module.ts
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CallbackComponent } from './callback.component';
@@ -282,6 +285,7 @@ We can just navigate to `localhost:4200` in the browser and see our app displaye
 For our app, we'll create one such type. In the `deal.ts` file, we'll define a type of Deal. Let's see how we'll accomplish this.
 
 ```js
+// deal.ts
 export class Deal {
   id: number;
   name: string;
@@ -298,6 +302,7 @@ Now we can declare objects in our Angular application to be a type of `deal`. Th
 The public and private deals components are very similar. In fact, the only difference between the two implementations is that one will display deals from the public API and the other will display deals from the private API. For brevity, we'll just show one of the component implementations. Let's implement the `public-deals.component.ts`.
 
 ```typescript
+// public-deals.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Deal } from '../deal';
@@ -368,14 +373,14 @@ Next, let's build the view of our public deals component. We'll do this in the `
   </div>
 </div>
 
-<!-- We are going to use the authService.loggedIn() method to see if the user is logged in or not. If they are not logged in we'll encourage them to login, otherwise if they are logged in, we'll provide a handy link to private deals. We haven't implemented the authService yet, so don't worry about the functionality just yet -->
-<div class="col-sm-12" *ngIf="!authService.authenticated">
+<!-- We are going to use the authService.isLoggedIn method to see if the user is logged in or not. If they are not logged in we'll encourage them to login, otherwise if they are authenticated, we'll provide a handy link to private deals. We haven't implemented the authService yet, so don't worry about the functionality just yet -->
+<div class="col-sm-12" *ngIf="!authService.isLoggedIn">
   <div class="jumbotron text-center">
     <h2>Get More Deals By Logging In</h2>
   </div>
 </div>
 
-<div class="col-sm-12" *ngIf="authService.authenticated">
+<div class="col-sm-12" *ngIf="authService.isLoggedIn">
   <div class="jumbotron text-center">
     <h2>View Private Deals</h2>
     <a class="btn btn-lg btn-success" routerLink="/special">Private Deals</a>
@@ -406,10 +411,12 @@ Our private deals component will look very similar. For brevity, we won't displa
 Earlier in the tutorial we wrote a very simple API that exposed two routes. Now, let's write an Angular service that will interact with these two endpoints. We'll do this in the `deal.service.ts` file. The implementation is as follows:
 
 ```typescript
+// deal.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class DealService {
@@ -493,6 +500,7 @@ npm install express-jwt jwks-rsa --save
 Open up the `server.js` file located in your `server` directory and make the following edits:
 
 ```js
+// server.js
 'use strict';
 
 const express = require('express');
@@ -550,7 +558,7 @@ Log into your Auth0 [management dashboard](https://manage.auth0.com) and let's m
 
 Change the **Client Type** to `Single Page Application`. Then add `http://localhost:4200/callback` to the **Allowed Callback URLs** field.
 
-Finally, click on the **Advanced Settings** link at the bottom and select the **OAuth** tab. Change the **JsonWebToken Signature Algorithm** to `RS256`.
+Finally, click on the **Advanced Settings** link at the bottom and select the **OAuth** tab. Make sure that the **JsonWebToken Signature Algorithm** is set to `RS256`.
 
 Make note of the **Client ID**; we will need this to set up the configuration for our Angular app's authentication.
 
@@ -562,35 +570,25 @@ Now we need to install the `auth0-js` library. We can do so like this in our Ang
 npm install auth0-js --save
 ```
 
-### Auth0 Config
+### Auth0 Environment Config
 
-Now let's create a simple interface file to hold our Auth0 config. You can create this file with this CLI command:
-
-```bash
-ng g interface auth/auth-config
-```
-
-Open the generated `auth-config.ts` file and add the following:
+Open your `src/environments/environment.ts` file and add an `auth` property to the constant with the following information:
 
 ```typescript
-interface AuthConfig {
-  CLIENT_ID: string;
-  CLIENT_DOMAIN: string;
-  AUDIENCE: string;
-  REDIRECT: string;
-  SCOPE: string;
-}
-
-export const AUTH_CONFIG: AuthConfig = {
-  CLIENT_ID: '[AUTH0_CLIENT_ID]',
-  CLIENT_DOMAIN: '[AUTH0_DOMAIN]', // e.g., you.auth0.com
-  AUDIENCE: 'http://localhost:3001',
-  REDIRECT: 'http://localhost:4200/callback',
-  SCOPE: 'openid profile email'
+// environment.ts
+export const environment = {
+  production: false,
+  auth: {
+    clientID: 'YOUR-AUTH0-CLIENT-ID',
+    domain: 'YOUR-AUTH0-DOMAIN', // e.g., you.auth0.com
+    audience: 'YOUR-AUTH0-API-IDENTIFIER', // e.g., http://localhost:3001
+    redirect: 'http://localhost:4200/callback',
+    scope: 'openid profile email'
+  }
 };
 ```
 
-This file provides the authentication configuration variables so we can use Auth0 to secure our front end. Be sure to update the `CLIENT_ID` and `CLIENT_DOMAIN` to your own information from your Auth0 Client.
+This file provides the authentication configuration variables so we can use Auth0 to secure our front end. Be sure to update the `YOUR-AUTH0-CLIENT-ID`, `YOUR-AUTH0-DOMAIN`, and `YOUR-AUTH0-API-IDENTIFIER` to your own information from your Auth0 Client and API settings.
 
 ### Authentication Service
 
@@ -605,44 +603,36 @@ This will create a new folder at `src/app/auth` with an `auth.service.ts` file i
 Open this file and modify it to the following:
 
 ```typescript
+// auth.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as auth0 from 'auth0-js';
-import { AUTH_CONFIG } from './auth-config';
+import { environment } from './../../environments/environment';
 import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
   // Create Auth0 web auth instance
+  // @TODO: Update AUTH_CONFIG and remove .example extension in src/app/auth/auth0-variables.ts.example
   auth0 = new auth0.WebAuth({
-    clientID: AUTH_CONFIG.CLIENT_ID,
-    domain: AUTH_CONFIG.CLIENT_DOMAIN,
-    responseType: 'token id_token',
-    redirectUri: AUTH_CONFIG.REDIRECT,
-    audience: AUTH_CONFIG.AUDIENCE,
-    scope: AUTH_CONFIG.SCOPE
+    clientID: environment.auth.clientID,
+    domain: environment.auth.domain,
+    responseType: 'token',
+    redirectUri: environment.auth.redirect,
+    audience: environment.auth.audience,
+    scope: environment.auth.scope
   });
   userProfile: any;
-
-  // Create a stream of logged in status to communicate throughout app
-  loggedIn: boolean;
-  loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
+  accessToken: string;
 
   constructor(private router: Router) {
-    // If authenticated, set local profile property and update login status subject
-    // If token is expired, log out to clear any data from localStorage
-    if (this.authenticated) {
-      this.userProfile = JSON.parse(localStorage.getItem('profile'));
-      this.setLoggedIn(true);
+    // If token not expired, renew token and fetch profile
+    // If token is expired, log out to clear any data
+    if (this.isLoggedIn) {
+      this.getAccessToken();
     } else {
       this.logout();
     }
-  }
-
-  setLoggedIn(value: boolean) {
-    // Update login status subject
-    this.loggedIn$.next(value);
-    this.loggedIn = value;
   }
 
   login() {
@@ -650,12 +640,19 @@ export class AuthService {
     this.auth0.authorize();
   }
 
-  handleAuth() {
+  handleLoginCallback() {
+    // --Begin URL decoding failsafe to fix bug introduced by Angular v5.2.8
+    // https://github.com/angular/angular/pull/22687
+    const _url = this.router.url;
+    if (_url.indexOf('#') > -1 && _url.indexOf('%3D') > -1) {
+      window.location.hash = decodeURIComponent(_url).split('#')[1];
+    }
+    // --End failsafe overzealous URL encoding bugfix
     // When Auth0 hash parsed, get profile
-    this.auth0.parseHash(window.location.hash, (err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
+    this.auth0.parseHash((err, authResult) => {
+      if (authResult && authResult.accessToken) {
         window.location.hash = '';
-        this._getProfile(authResult);
+        this.getUserInfo(authResult);
       } else if (err) {
         console.error(`Error: ${err.error}`);
       }
@@ -663,35 +660,41 @@ export class AuthService {
     });
   }
 
-  private _getProfile(authResult) {
+  getAccessToken() {
+    this.auth0.checkSession({}, (err, authResult) => {
+      if (authResult && authResult.accessToken) {
+        this.getUserInfo(authResult);
+      } else if (err) {
+        console.error(err);
+      }
+    });
+  }
+
+  getUserInfo(authResult) {
     // Use access token to retrieve user's profile and set session
     this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
-      this._setSession(authResult, profile);
+      if (profile) {
+        this._setSession(authResult, profile);
+      }
     });
   }
 
   private _setSession(authResult, profile) {
     const expTime = authResult.expiresIn * 1000 + Date.now();
-    // Save session data and update login status subject
-    localStorage.setItem('token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('profile', JSON.stringify(profile));
+    // Save authentication data and update login status subject
     localStorage.setItem('expires_at', JSON.stringify(expTime));
+    this.accessToken = authResult.accessToken;
     this.userProfile = profile;
-    this.setLoggedIn(true);
   }
 
   logout() {
     // Remove tokens and profile and update login status subject
-    localStorage.removeItem('token');
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('profile');
     localStorage.removeItem('expires_at');
     this.userProfile = undefined;
-    this.setLoggedIn(false);
+    this.accessToken = undefined;
   }
 
-  get authenticated(): boolean {
+  get isLoggedIn(): boolean {
     // Check if current date is greater than expiration
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return Date.now() < expiresAt;
@@ -717,7 +720,7 @@ import { AuthService } from './auth/auth.service';
 
 Now the service is available to use throughout our application.
 
-We will use the [Auth0 centralized login](https://auth0.com/docs/hosted-pages/login) option for authenticating our users. This is the most secure way to authenticate a user and get an `access_token` in an OAuth compliant manner. With our authentication service created, let's continue building our authentication workflow.
+We will use the [Auth0 login page](https://auth0.com/docs/hosted-pages/login) to authenticate our users. This is the most secure way to authenticate a user and get an access token in an OAuth compliant manner. With our authentication service created, let's continue building our authentication workflow.
 
 ### Angular Authentication All In
 
@@ -732,6 +735,7 @@ ng g guard auth/auth --no-spec
 Open the generated `auth.guard.ts` file and make the following changes:
 
 ```typescript
+// auth.guard.ts
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -741,12 +745,15 @@ import { Router } from '@angular/router';
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (!this.authService.authenticated) {
+    if (!this.authService.isLoggedIn) {
       this.router.navigate(['/']);
       return false;
     }
@@ -758,9 +765,7 @@ export class AuthGuard implements CanActivate {
 To implement this route guard in our routes, let's go ahead and open our `app-routing.module.ts` file. Here, we'll include our auth guard service and enable it on our secret route. Let's take a look at the implementation.
 
 ```typescript
-...
-// Add CanActivate to the imports
-import { Routes, RouterModule, CanActivate } from '@angular/router';
+// app-routing.module.ts
 ...
 // Import the AuthGuard
 import { AuthGuard } from './auth/auth.guard';
@@ -789,11 +794,12 @@ export class AppRoutingModule { }
 
 That's all there is to it. Our route is now protected at the routing level.
 
-If you recall, we included a stub for the AuthService in our deal components. Since the authentication service is now implemented, our placeholder functionality will just work. We'll see the correct behavior displayed based on user state.
+If you recall, we included a stub for the `AuthService` in our deal components. Since the authentication service is now implemented, our placeholder functionality will just work. We'll see the correct behavior displayed based on user state.
 
 We will need to update our root component though as we didn't include authentication-specific functionality there. I did this on purpose so we could go through the example line by line. Let's do that next.
 
 ```typescript
+// app.component.ts
 import { Component } from '@angular/core';
 import { AuthService } from './auth/auth.service';
 
@@ -810,15 +816,15 @@ import { AuthService } from './auth/auth.service';
             <a routerLink="/deals" routerLinkActive="active">Deals</a>
           </li>
           <li>
-            <a routerLink="/special" *ngIf="authService.authenticated" routerLinkActive="active">Private Deals</a>
+            <a routerLink="/special" *ngIf="authService.isLoggedIn" routerLinkActive="active">Private Deals</a>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <a *ngIf="!authService.authenticated" (click)="authService.login()">Log In</a>
+            <a *ngIf="!authService.isLoggedIn" (click)="authService.login()">Log In</a>
           </li>
           <li>
-            <a (click)="authService.logout()" *ngIf="authService.authenticated">Log Out</a>
+            <a (click)="authService.logout()" *ngIf="authService.isLoggedIn">Log Out</a>
           </li>
         </ul>
       </nav>
@@ -840,13 +846,14 @@ export class AppComponent {
 
 We imported the `AuthService` and made it publicly available in our constructor (it needs to be `public` in order for the template to use its methods).
 
-We added `*ngIf="authService.authenticated` to our link to private deals so it will not be rendered if the user is not logged in. We also added `*ngIf` logic to our login and logout links to show the appropriate link depending on the user's authentication state. When the user clicks on the login link now, they will be taken to a centralized login page on the Auth0 domain. They will enter their credentials here and if correct, they will be redirected back to the application.
+We added `*ngIf="authService.isLoggedIn` to our link to private deals so it will not be rendered if the user is not logged in. We also added `*ngIf` logic to our login and logout links to show the appropriate link depending on the user's authentication state. When the user clicks on the login link now, they will be taken to a centralized login page on the Auth0 domain. They will enter their credentials here and if correct, they will be redirected back to the application.
 
 ### Callback Component
 
 We'll now code up the callback component that we generated at the beginning of the tutorial. This component will be activated when the `localhost:4200/callback` route is called and it will process the redirect from Auth0 and ensure we recieved the right data back in the hash after a successful authentication. To do this, the component will make use of the `AuthService` we created earlier. Let's take a look at the implementation:
 
 ```typescript
+// callback.component.ts
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth/auth.service';
 
@@ -864,31 +871,39 @@ export class CallbackComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.handleAuth();
+    this.authService.handleLoginCallback();
   }
 
 }
 ```
 
-Once a user is authenticated, Auth0 will redirect back to our application and call the `/callback` route. Auth0 will also append the `id_token` as well as the `access_token` to this request, and our CallbackComponent will make sure to properly process and store those tokens in `localStorage`. If all is well, meaning we recieved an `id_token` and an `access_token`, we will be redirected back to the homepage and will be in a logged in state.
+Once a user is authenticated, Auth0 will redirect back to our application and call the `/callback` route. Auth0 will also append the access token to this request, and our CallbackComponent will make sure to properly process and store the token and profile. If all is well, meaning we recieved an access token, we will be redirected back to the homepage and will be in a logged in state.
 
 ### Updating the Deal Service
 
-There is one final update we need to make. If you try to access the `/special` route now, even if you are logged in, you won't get the list of secret deals. This is because we are not passing the `access_token` to the backend. We'll have to update our deal service.
+There is one final update we need to make. If you try to access the `/special` route now, even if you are logged in, you won't get the list of secret deals. This is because we are not passing the access token to the backend. We'll have to update our deal service.
 
-We need to update the call to the `/api/deals/private` to include our `access_token`. There are a couple of different ways to accomplish this. We could use the existing `http` call and add the correct header, but there is an easier way. The Angular JWT library comes with an AuthHTTP method that will take care of this for us. Let's see how we're going to implement this in our application.
+We need to update the call to the `/api/deals/private` to include our access token. We need to import HttpHeaders to attach an `authorization` header with the bearer scheme to our request. We'll also need to import our `AuthService` to gain access to the `accessToken`. Let's see how we're going to implement this in our application.
 
 ```typescript
+// deal.service.ts
 ...
 // Import HttpHeaders
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+// Import AuthService
+import { AuthService } from './auth/auth.service';
+  ...
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) { }
   ...
 
   // Implement a method to get the private deals
   getPrivateDeals() {
     return this.http
       .get(this.privateDealsUrl, {
-        headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('token')}`)
+        headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
       })
       .pipe(
         catchError(this.handleError)
@@ -896,7 +911,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
   }
 ```
 
-We will add an `Authorization` header to our `getPrivateDeals()` request using the token stored in local storage. Now when a call is made to the private route in our API, we will automatically append the `access_token` to the call. Let's try it out in the next section to make sure that it works.
+We will add an `Authorization` header to our `getPrivateDeals()` request using the token from the authentication service. Now when a call is made to the private route in our API, we will automatically append the `authService.accessToken` to the call. Let's try it out in the next section to make sure that it works.
 
 ### Putting it all Together
 
