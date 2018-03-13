@@ -10,14 +10,14 @@ is_post: true
     var scrollHeight = document.body.scrollHeight;
 
     if (scrollTop < scrollHeight / 10) return;
-    
+
     ga('send', {
       hitType: 'pageview',
       page: location.pathname + '#read'
     });
 
     clearInterval(gaIntervalId);
-  }, 30000);
+  }, 90000);
 </script>
 
 <noscript>
