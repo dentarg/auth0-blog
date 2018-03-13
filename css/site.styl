@@ -469,10 +469,10 @@ h1,h2,h3,h4,h5
   margin-top 50px
 
 .tab
-	@extend .small-caps;
-	font-weight: normal;
-	display: block;
-	padding: 22.5px 5px;
+  @extend .small-caps;
+  font-weight: normal;
+  display: block;
+  padding: 22.5px 5px;
   margin-bottom: -1px;
   font-size: 14px;
 
@@ -480,18 +480,18 @@ h1,h2,h3,h4,h5
     margin: 0 25px;
 
   i
-  	position: relative;
-  	top: 3px;
-  	margin-right: 6px;
+    position: relative;
+    top: 3px;
+    margin-right: 6px;
 
   & + li
-  	border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 
-  	+breakpoint("desktop")
-  		border-top: 0;
+    +breakpoint("desktop")
+      border-top: 0;
 
   +breakpoint("desktop")
-  	display: inline-block;
+    display: inline-block;
 
   a
     color: white;
@@ -499,8 +499,8 @@ h1,h2,h3,h4,h5
     &:hover,
     &:focus,
     &:active
-    	opacity: 0.5;
-    	text-decoration: none;
+      opacity: 0.5;
+      text-decoration: none;
 
   &.active
     position: relative;
@@ -508,18 +508,18 @@ h1,h2,h3,h4,h5
     color: white;
 
     +breakpoint("desktop")
-    	background: none;
+      background: none;
 
     a
-    	color: white;
-    	font-weight: 500;
-    	text-decoration: none;
+      color: white;
+      font-weight: 500;
+      text-decoration: none;
 
-    	&:hover,
-    	&:focus,
-    	&:active
-    		text-decoration: none;
-    		opacity: 1;
+      &:hover,
+      &:focus,
+      &:active
+        text-decoration: none;
+        opacity: 1;
 
 
 
@@ -609,14 +609,14 @@ h1,h2,h3,h4,h5
       background-color: rgba(35, 34, 40, 0.87)
 
   .nav-list
-  	+breakpoint("desktop")
-  		height: auto ;
-  		display: block ;
+    +breakpoint("desktop")
+      height: auto ;
+      display: block ;
 
   ul > li
-  	@extend .tab;
-  	text-transform: none;
-  	letter-spacing: normal;
+    @extend .tab;
+    text-transform: none;
+    letter-spacing: normal;
     +breakpoint("desktop")
       margin-left: 0px;
       padding-left: 0px;
