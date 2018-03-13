@@ -39,11 +39,11 @@ You can get the code example [here](https://github.com/XVincentX/express-gateway
 ## Introduction
 
 Unless you're building a proof of concept or an application that's not aiming to reach the production, you definitely
-want to add monitoring and metrics to your system. In this installment we're going to look how Express-Gateway can
+want to add **monitoring** and **metrics** to your system. In this installment we're going to look how **Express Gateway** can
 help you to add application specific metrics and expose them through an HTTP endpoint that can be queired by an
-external service, such as Prometheus.
+external service, such as **Prometheus**.
 
-## Express-Gateway to rescue
+## Express Gateway to rescue
 
 Express Gateway is an API Gateway that sits at the heart of any microservices architecture (regardless of what language or platform you're using), **securing** the different pieces and exposing them through **APIs**. All these magic works by using [Node.js](https://nodejs.org), [ExpressJS](https://expressjs.com/), and [Express middleware](https://expressjs.com/en/guide/writing-middleware.html).
 
@@ -53,11 +53,11 @@ Express Gateway centralizes all the application configuration for the API use ca
 
 Express Gateway entities, like _policies_, _pipelines_, _conditions_, and _actions_, wrap around Express middleware to make it **dynamic**. Any Express middleware can be plugged into Express Gateway to take advantage of its dynamic capabilities. It also features an hot-reload mechanism so you can change its configuration without having to restart the gateway at all.
 
-## Writing a plugin for Express-Gateway
+## Writing a plugin for Express Gateway
 
 Express Gateway comes with a plugin framework used to extend the Express Gateway core.
 
-The plugin framework enables anyone to take Express middleware and integrate them into Express Gateway as plugins.
+The plugin framework enables anyone to take **Express middleware** and integrate them into Express Gateway as plugins.
 Express Gateway provides a declarative way to take advantage of Express middleware to be driven centrally and executed
 dynamically.
 
@@ -96,7 +96,7 @@ In this example, we will label all the responses that are on the way to the clie
 #### What format do we expose the metrics?
 
 In order to leverage the existing tooling around, we will expose the collected metrics in the
-[Prometheus Text Based Wire Format]. In this way, we can leverage the tools that are already on the space
+[Prometheus Text Based Wire Format]. In this way, we can **leverage the tools** that are already on the space
 to push and visualize the informations, such as [Grafana][grafana]
 
 ```javascript
@@ -170,11 +170,11 @@ pluginContext.registerAdminRoute((app) => {
 
 In part of code is registering a new [route][admin-route-plugin] that will expose all the collected metrics. According
 to the `Accept` header, we're either returning the data in Prometheus format as JSON or in Text format. The external
-tool collecting the data (such as InfluxDB or a Prometheus server) will query this endpoint periodically to grab the
+tool collecting the data (such as InfluxDB or a Prometheus server) will query this endpoint **periodically** to grab the
 latest updates.
 
 *Note:* Prometheus also supports for [data pushing](https://prometheus.io/docs/instrumenting/pushing/) instead of
-polling it periodically. In you go in this way, you can avoid to expose an endpoint at all. Based on your requirements
+polling it periodically. In you go in this way, you can **avoid to expose an endpoint** at all. Based on your requirements
 (such as security) you may opt for this other option.
 
 ```javascript
@@ -195,7 +195,7 @@ pluginContext.registerPolicy({
 ```
 
 Then we export a new policy that will register an event handler once the response is terminated. Here we can now
-inspect all the response as well as request details that will populate our labels.
+**inspect** all the response as well as request details that will populate our labels.
 
 *Note:* [egContext][egcontext] is an Express Gateway specific object that contains additional informations on the
 request that's being handled.
@@ -204,7 +204,7 @@ request that's being handled.
 
 We have our plugin ready to be used. Now we have to install it in our Gateway and enabled it.
 
-Express Gateway plugins are nothing more than NPM packages, so we can simply publish our package to the registry and
+Express Gateway plugins are nothing more than **NPM packages**, so we can simply publish our package to the registry and
 then install it using the command line.
 
 For this tutorial, I've already published such plugin with the exact same code we saw above as
@@ -264,12 +264,12 @@ You can see we received back the Prometheus metrics with all the data we collect
 
 ## Byproduct — Use JSON Schema to validate your parameters
 
-Express-Gateway relies on JSON Schemas to make sure all the configurations that goes in its funnel it's correct.
+Express Gateway relies on **JSON Schemas** to make sure all the configurations that goes in its funnel it's correct.
 
-You can leverage the same mechanism to specify the required parameters, good defaults and validation rules
+You can leverage the same mechanism to specify the **required** parameters, good defaults and **validation** rules
 for your plugin.
 
-In our case, for instance, it's pretty clear that the Admin API path where the metrics will be exposed is mandatory;
+In our case, for instance, it's pretty clear that the Admin API path where the metrics will be exposed is **mandatory**;
 also we might want to configure the header where the consumer id information is stored.
 
 With these two requirements in mind, we can write something like this:
@@ -314,16 +314,16 @@ module.exports = {
 
 ```
 
-Thanks to this small addition, the gateway will validate the provided parameters against the schema and will
+Thanks to this small addition, the gateway will **validate** the provided parameters against the schema and will
 refuse to load the plugin if the validation does not pass.
 
 {% include asides/express-gateway.markdown %}
 
 ## Conclusions
 
-Metrics are hard. In a Microservices context, it's even harder. In this installment we discovered how to leverage
-the shared middleware (our API Gateway) to collect data without having to modify the services' code at all, and have
-a centralized way to push and display these.
+Metrics are **hard**. In a Microservices context, it's even **harder**. In this installment we discovered how to leverage
+the shared **middleware** (our API Gateway) to collect data **without** having to modify the services' code at all, and have
+a **centralized** way to push and display these.
 
 [plugin-shape]: https://www.express-gateway.io/docs/plugins/plugin-development/
 [express-response]: http://expressjs.com/en/4x/api.html#res
