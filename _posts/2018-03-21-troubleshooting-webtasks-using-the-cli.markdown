@@ -14,7 +14,7 @@ author:
   avatar: "https://cdn.auth0.com/website/blog/profiles/bobbyjohnson.png"
 design:
   bg_color: "#3445DC"
-  image: https://cdn.auth0.com/website/blog/extend/why-auth0-chose-serverless-extensibility/logo.png
+  image: https://cdn.auth0.com/blog/troubleshooting-webtasks/logo.png
 tags:
 - extend
 - webtasks
