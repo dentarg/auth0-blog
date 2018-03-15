@@ -712,15 +712,15 @@ import {
 const routes = [
   { path: '/',
     exact: true,
-    sidebar: () => <div>Home</div>,
+    leftbar: () => <div>Home</div>,
     main: () => <h2>Home</h2>
   },
   { path: '/about',
-    sidebar: () => <div>About</div>,
+    leftbar: () => <div>About</div>,
     main: () => <h2>About</h2>
   },
   { path: '/contact',
-    sidebar: () => <div>Contact</div>,
+    leftbar: () => <div>Contact</div>,
     main: () => <h2>Contact</h2>
   }
 ]
@@ -751,7 +751,7 @@ class App extends React.Component {
 export default App
 ```
 
-In the code above, we have a `sidebar` and a `main` key. They'll come in handy soon and make our work super easy. 
+In the code above, we have a `leftbar` and a `main` key. They'll come in handy soon and make our work super easy. 
 
 Now, all we need to do is map over the routes array as shown in the code below:
 
@@ -778,7 +778,7 @@ render() {
               key={route.path}
               path={route.path}
               exact={route.exact}
-              component={route.sidebar}
+              component={route.leftbar}
             />
           ))}
         </div>
@@ -799,7 +799,7 @@ render() {
 }
 ```
 
-In the code above, whenever the route's path matches the URL location, the sidebar component will be rendered.
+In the code above, whenever the route's path matches the URL location, the leftbar component will be rendered. Try it out in your browser and see your left sidebar in action!
 
 {% include asides/react.markdown %}
 
