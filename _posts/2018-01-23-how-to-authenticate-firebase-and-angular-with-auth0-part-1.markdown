@@ -1023,29 +1023,7 @@ First, as always, we'll import our dependencies. This includes our `environment`
 
 You can refer to the code comments for descriptions of the private and public members of our `AuthService` class.
 
-Next is our constructor function:
-
-```typescript
-  constructor(
-    private router: Router,
-    private afAuth: AngularFireAuth,
-    private http: HttpClient) {
-      // If authenticated, set local profile property and get new Firebase token.
-      // If not authenticated but there are still items in localStorage, log out.
-      const lsProfile = localStorage.getItem('profile');
-      const lsToken = localStorage.getItem('access_token');
-
-      if (this.tokenValid) {
-        this.userProfile = JSON.parse(lsProfile);
-        this.loggedIn = true;
-        this._getFirebaseToken(lsToken);
-      } else if (!this.tokenValid && lsProfile) {
-        this.logout();
-      }
-  }
-```
-
-In addition to passing in the Angular router, AngularFireAuth, and the HTTP client, we'll check the current authentication status of the user when this service initializes to determine if they have a valid existing session or not.
+Next is our constructor function, where we'll make `Router`, `AngularFireAuth`, and `HttpClient` available for use in our class.
 
 The `login()` method looks like this:
 
@@ -1061,18 +1039,19 @@ The `login()` method looks like this:
 
 If a `redirect` URL segment is passed into the method, we'll save it in local storage. If no redirect is passed, we'll simply store the current URL. We'll then use the `_auth0` instance we created in our members and call [Auth0's `authorize()` method](https://auth0.com/docs/libraries/auth0js/v9#webauth-authorize-) to go to the [Auth0 login page](https://auth0.com/docs/hosted-pages/login) so our user can authenticate.
 
-The next three methods are `handleAuth()`, `_getProfile()`, and `_setSession()`:
+The next three methods are `handleLoginCallback()`, `getUserInfo()`, and `_setSession()`:
 
 ```typescript
-  handleAuth() {
+  handleLoginCallback() {
     this.loading = true;
     // When Auth0 hash parsed, get profile
     this._auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken) {
         window.location.hash = '';
-        // Get Firebase token
-        this._getFirebaseToken(authResult.accessToken);
-        this._getProfile(authResult);
+        // Store access token
+        this.accessToken = authResult.accessToken;
+        // Get user info: set up session, get Firebase token
+        this.getUserInfo(authResult);
       } else if (err) {
         this.router.navigate(['/']);
         this.loading = false;
@@ -1081,9 +1060,9 @@ The next three methods are `handleAuth()`, `_getProfile()`, and `_setSession()`:
     });
   }
 
-  private _getProfile(authResult) {
+  getUserInfo(authResult) {
     // Use access token to retrieve user's profile and set session
-    this._auth0.client.userInfo(authResult.accessToken, (err, profile) => {
+    this._auth0.client.userInfo(this.accessToken, (err, profile) => {
       if (profile) {
         this._setSession(authResult, profile);
       } else if (err) {
@@ -1095,34 +1074,32 @@ The next three methods are `handleAuth()`, `_getProfile()`, and `_setSession()`:
   private _setSession(authResult, profile) {
     // Set tokens and expiration in localStorage
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + Date.now());
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
-    // Set profile information
-    localStorage.setItem('profile', JSON.stringify(profile));
     this.userProfile = profile;
     // Session set; set loggedIn and loading
     this.loggedIn = true;
     this.loading = false;
+    // Get Firebase token
+    this._getFirebaseToken();
     // Redirect to desired route
     this.router.navigate([localStorage.getItem('auth_redirect')]);
   }
 ```
 
-These methods are fairly self-explanatory: they use Auth0 methods [`parseHash()` and `userInfo()` to extract authentication results and get the user's profile](https://auth0.com/docs/libraries/auth0js/v9#extract-the-authresult-and-get-user-info). We'll also set our service's properties to store necessary state (such as whether the user's authentication state is loading and if they're logged in or not), handle errors, save data to local storage, and redirect to the appropriate route.
+These methods are fairly self-explanatory: they use Auth0 methods [`parseHash()` and `userInfo()` to extract authentication results and get the user's profile](https://auth0.com/docs/libraries/auth0js/v9#extract-the-authresult-and-get-user-info). We'll also set our service's properties to store necessary state (such as whether the user's authentication state is loading and if they're logged in or not), handle errors, save data to our service and local storage, and redirect to the appropriate route.
 
 We are also going to use the authentication result's access token to authorize an HTTP request to our API to get a Firebase token. This is done with the `_getFirebaseToken()` and `_firebaseAuth()` methods:
 
 ```typescript
-  private _getFirebaseToken(accessToken) {
-    // Detect if no valid access token passed into this method
-    if (!accessToken) {
+  private _getFirebaseToken() {
+    // Prompt for login if no access token
+    if (!this.accessToken) {
       this.login();
     }
     const getToken$ = () => {
       return this.http
         .get(`${environment.apiRoot}auth/firebase`, {
-          headers: new HttpHeaders().set('Authorization', `Bearer ${accessToken}`)
+          headers: new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`)
         });
     };
     this.firebaseSub = getToken$().subscribe(
@@ -1152,7 +1129,7 @@ We'll create a `getToken$` observable from the `GET` request to our API's `/auth
 
 Our custom Firebase token will expire in `3600` seconds (1 hour). This is only _half_ as long as our default Auth0 access token lifetime (which is `7200` seconds, or 2 hours). To avoid having our users lose access to Firebase unexpectedly in the middle of a session, we'll set up automatic Firebase token renewal with two methods: `scheduleFirebaseRenewal()` and `unscheduleFirebaseRenewal()`.
 
-> **Note:** You can also implement automatic session renewal with Auth0 in a similar manner using the [`checkSession()` method](https://auth0.com/docs/libraries/auth0js/v9#using-checksession-to-acquire-new-tokens). 
+> **Note:** You can also implement automatic session renewal with Auth0 in a similar manner using the [`checkSession()` method](https://auth0.com/docs/libraries/auth0js/v9#using-checksession-to-acquire-new-tokens). In addition, you could use `checkSession()` to restore an unexpired authentication session in the constructor if a user navigates away from the app and then returns later. We won't cover that in this tutorial, but this is something you should try on your own!
 
 ```typescript
   scheduleFirebaseRenewal() {
@@ -1186,7 +1163,7 @@ Our custom Firebase token will expire in `3600` seconds (1 hour). This is only _
       .subscribe(
         () => {
           console.log('Firebase token expired; fetching a new one');
-          this._getFirebaseToken(localStorage.getItem('access_token'));
+          this._getFirebaseToken();
         }
       );
   }
@@ -1206,11 +1183,10 @@ Finally, the last two methods in our authentication service are `logout()` and `
 
 ```typescript
   logout() {
-    // Ensure all auth items removed from localStorage
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('profile');
+    // Ensure all auth items removed
     localStorage.removeItem('expires_at');
     localStorage.removeItem('auth_redirect');
+    this.accessToken = undefined;
     this.userProfile = undefined;
     this.loggedIn = false;
     // Sign out of Firebase
@@ -1223,14 +1199,13 @@ Finally, the last two methods in our authentication service are `logout()` and `
   get tokenValid(): boolean {
     // Check if current time is past access token's expiration
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    const tokenValid = Date.now() < expiresAt;
     return Date.now() < expiresAt;
   }
 ```
 
 The `logout()` method removes all session information from local storage and from our service, signs out of Firebase Auth, and redirects the user back to the homepage (the only public route in our app).
 
-The `tokenValid()` method simply checks whether the Auth0 access token is expired or not by comparing its expiration to the current datetime.
+The `tokenValid` accessor method checks whether the Auth0 access token is expired or not by comparing its expiration to the current datetime.
 
 That's it for our `AuthService`!
 
@@ -1258,13 +1233,13 @@ export class CallbackComponent implements OnInit {
   constructor(private auth: AuthService) { }
 
   ngOnInit() {
-    this.auth.handleAuth();
+    this.auth.handleLoginCallback();
   }
 
 }
 ```
 
-All our callback component needs to do is show the `LoadingComponent` while the `AuthService`'s `handleAuth()` method executes. The `handleAuth()` method will parse the authentication hash, get the user's profile info, set their session, and redirect to the appropriate route in the app.
+All our callback component needs to do is show the `LoadingComponent` while the `AuthService`'s `handleAuth()` method executes. The `handleLoginCallback()` method will parse the authentication hash, get the user's profile info, set their session, and redirect to the appropriate route in the app.
 
 ### Auth Guard
 
@@ -1291,7 +1266,7 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.auth.tokenValid) {
+    if (this.auth.loggedIn) {
       return true;
     } else {
       // Send guarded route to redirect after logging in
@@ -1302,7 +1277,7 @@ export class AuthGuard implements CanActivate {
 }
 ```
 
-We'll import `AuthService` add a `constructor()` function to make the service available in our route guard. The `canActivate()` method should return `true` if conditions are met to grant access to a route, and `false` if not. In our case, the user should be able to access the guarded route if they have a valid access token. The `tokenValid()` method from our `AuthService` provides this information.
+We'll import `AuthService` add a `constructor()` function to make the service available in our route guard. The `canActivate()` method should return `true` if conditions are met to grant access to a route, and `false` if not. In our case, the user should be able to access the guarded route if they are authenticated. The `loggedIn` property from our `AuthService` provides this information.
 
 If the user does not have a valid token, we'll prompt them to log in. We want them to be redirected back to the guarded route after they authenticate, so we'll call the `login()` method and pass the guarded route (`state.url`) as the redirect parameter.
 
@@ -1449,7 +1424,6 @@ import { DogDetail } from './../core/dog-detail';
 @Injectable()
 export class ApiService {
   private _API = `${environment.apiRoot}api`;
-  private _accessToken = localStorage.getItem('access_token');
 
   constructor(
     private http: HttpClient,
@@ -1466,7 +1440,7 @@ export class ApiService {
   getDogByRank$(rank: number): Observable<DogDetail> {
     return this.http
       .get(`${this._API}/dog/${rank}`, {
-        headers: new HttpHeaders().set('Authorization', `Bearer ${this._accessToken}`)
+        headers: new HttpHeaders().set('Authorization', `Bearer ${this.auth.accessToken}`)
       })
       .pipe(
         catchError((err, caught) => this._onError(err, caught))
