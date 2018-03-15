@@ -1,27 +1,31 @@
 ---
 layout: post
-title: "Identity-as-a-Service 2018: What's New?"
+title: "Identity-as-a-Service in 2018: What's New?"
 description: "Between GDPR, biometrics and the blockchain, 2018 promises to be a big year for identity."
 longdescription: "Blockchain, with its immutable nature for data storage; Biometrics with Apple's Face ID at the front; and EU's with its new GDPR enforcement, are changing the landscape of identity. Keep reading for the breakdown of the top identity-as-a-service trends of 2018."
-date: 2018-02-25 12:30
-category: Technical Guide
+date: 2018-03-16 12:30
+category: Hot Topics, Trends
 author:
-  name: CHANGE ME
-  url: https://twitter.com/speyrott?lang=en
-  mail: speyrott@auth0.com
-  avatar: https://en.gravatar.com/userimage/92476393/001c9ddc5ceb9829b6aaf24f5d28502a.png?size=200
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
-  image: https://cdn.auth0.com/blog/sparkpost/logo.png
-  bg_color: "#222222"
+  image: https://cdn.auth0.com/blog/idaas-in-2018/logo.png
+  bg_color: "#222228"
   image_size: "70%"
 tags:
 - identity
 - identity-as-a-service
-- iaas
+- identity-management
 - idaas
+- blockchain
+- face-id
+- gdpr
 related:
-- 2018-02-09are-you-gdpr-ready
 - 2018-01-26-security-predictions-for-2018-that-go-beyond-gdpr-compliance
+- 2018-02-02-3-ways-to-get-an-iam-budget-in-2018
+- 2017-12-08-how-poor-identity-access-management-equals-security-breaches
 ---
 
 The New Year is bringing with it a rapidly growing desire to keep individual identity safe—on a state and geopolitical level, as well as a personal level. 
