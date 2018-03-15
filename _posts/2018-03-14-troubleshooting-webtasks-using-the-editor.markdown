@@ -38,11 +38,11 @@ This post covers the tools built into the Webtasks Editor, here are some shortcu
 ---
 
 
-The Webtasks platform that powers [Auth0 Extend](https://auth0.com/extend/), [Webtask.io](https://webtask.io/) and [Auth0 Hooks](https://auth0.com/docs/hooks) is a very powerful system. It allows end users to provide the functionality they need by writing simple logic in JavaScript. That JavaScript is then securely sandboxed and executed with extremely low latency while protecting the security and performance of other customers and the platform itself.
+The Webtasks technology that powers [Auth0 Extend](https://auth0.com/extend/), [Webtask.io](https://webtask.io/) and [Auth0 Hooks](https://auth0.com/docs/hooks) is a very powerful system. It allows end users to provide the functionality they need by writing simple logic in JavaScript. That JavaScript is then securely sandboxed and executed with extremely low latency while protecting the security and performance of other customers and the technology itself.
 
-Whether you are building a fun weekend project, ensuring your authorized users are members of a specific domain or offering your customers an easy way to customize your SaaS; the Webtasks platform allows you to accomplish your goals without placing the burden of hosting, monitoring or scaling on you or your users.
+Whether you are building a fun weekend project, ensuring your authorized users are members of a specific domain or offering your customers an easy way to customize your SaaS; the Webtasks technology allows you to accomplish your goals without placing the burden of hosting, monitoring or scaling on you or your users.
 
-Even with a platform this powerful, you are going to run into issues at times. A service you depend on may go down. Or a bit of logic might not consider all the possible cases that can arise during execution.
+Even with a technology this powerful, you are going to run into issues at times. A service you depend on may go down. Or a bit of logic might not consider all the possible cases that can arise during execution.
 
 When unexpected events happen, how do you go about troubleshooting the issues? In this series, I will show you the most common ways of troubleshooting a webtask. From simple test executions to full local debugging support, we will cover it all.
 
@@ -238,6 +238,6 @@ The Runner panel is handy when we have sample data that we know causes a runtime
 
 # Summary
 
-In this post we have covered the various techniques available via the Webtask Editor to troubleshoot failures. These techniques work with all of the products using the Webtasks platform. Feel free to bookmark this post and reference it when you are working on your next project.
+In this post we have covered the various techniques available via the Webtask Editor to troubleshoot failures. These techniques work with all of the products using the Webtasks technology. Feel free to bookmark this post and reference it when you are working on your next project.
 
 In the next post we will cover using the Webtask CLI to monitor logs and execute webtasks locally.
