@@ -1082,8 +1082,7 @@ The next three methods are `handleLoginCallback()`, `getUserInfo()`, and `_setSe
     // Get Firebase token
     this._getFirebaseToken();
     // Redirect to desired route
-    this.router.navigate([localStorage.getItem('auth_redirect')]);
-  }
+    this.router.navigateByUrl(localStorage.getItem('auth_redirect'));
 ```
 
 These methods are fairly self-explanatory: they use Auth0 methods [`parseHash()` and `userInfo()` to extract authentication results and get the user's profile](https://auth0.com/docs/libraries/auth0js/v9#extract-the-authresult-and-get-user-info). We'll also set our service's properties to store necessary state (such as whether the user's authentication state is loading and if they're logged in or not), handle errors, save data to our service and local storage, and redirect to the appropriate route.
