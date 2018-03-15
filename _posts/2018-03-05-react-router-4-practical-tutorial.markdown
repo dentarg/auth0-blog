@@ -631,9 +631,9 @@ const CustomLink = ({ children, to, exact }) => (
 );
 ```
 
-It's not complex. The `<CustomLink />` harnessed the power of `<Route />`. In the code above, it uses the `match` object to determine whether to add `>` symbol whenever the the path matches the URL location. 
+It's not complex. The `<CustomLink>` harnessed the power of `<Route>`. In the code above, it uses the `match` object to determine whether to add `>` symbol whenever the the path matches the URL location. 
 
-`<Route />` has a prop called `children`. This prop takes in a function that will render wether the path matches the URL location or not. And that's all we need to create a custom Link!
+There are 3 ways to render something with a `<Route>`; `<Route component>`, `<Route render>`, and `<Route children>`.  The code above used the `children` prop. This render prop takes in a function that receives all the same route props as the `component` and `render` methods, except when a route doesn't match the URL location. This process gives you the power to dynamically adjust your UI based on whether or not the route matches. And that's all we need to create a custom Link!
 
 ### Handling Non-existent Routes
 
