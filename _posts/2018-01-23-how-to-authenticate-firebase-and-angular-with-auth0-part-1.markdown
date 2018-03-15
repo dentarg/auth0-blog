@@ -1204,7 +1204,7 @@ Finally, the last two methods in our authentication service are `logout()` and `
 
 The `logout()` method removes all session information from local storage and from our service, signs out of Firebase Auth, and redirects the user back to the homepage (the only public route in our app).
 
-The `tokenValid` accessor method checks whether the Auth0 access token is expired or not by comparing its expiration to the current datetime.
+The `tokenValid` accessor method checks whether the Auth0 access token is expired or not by comparing its expiration to the current datetime. This can be useful for determining if the user needs a new access token; we won't cover that in this tutorial, but you may want to explore Auth0 session renewal further on your own.
 
 That's it for our `AuthService`!
 
