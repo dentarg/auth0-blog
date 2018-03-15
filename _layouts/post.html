@@ -12,8 +12,10 @@ is_post: true
     if (scrollTop < scrollHeight / 10) return;
 
     ga('send', {
-      hitType: 'pageview',
-      page: location.pathname + '#read'
+      hitType: 'event',
+      eventCategory: 'article',
+      eventAction: 'read',
+      eventLabel: location.pathname
     });
 
     clearInterval(gaIntervalId);
