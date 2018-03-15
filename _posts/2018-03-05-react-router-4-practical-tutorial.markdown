@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "React Router 4: A Practical Tutorial"
-description: "A practical tutorial that teaches React Router 4 through examples."
-longdescription: "Learn declarative routing with React Router 4 via practical examples."
+title: "React Router 4: A Practical Introduction"
+description: "A gentle introduction to React Router 4 through practical examples."
+longdescription: "React Router 4 uses declarative approach to routing. In this tutorial, you'll learn how to use React Router 4 in your web projects via practical examples."
 date: 2017-11-28 13:05
 category: Technical Guide, JavaScript, React
 design:
@@ -18,6 +18,10 @@ tags:
 - node
 - javascript
 - react
+- react-router-4
+- react-router
+- declarative
+- routing
 related:
 - 2017-11-16-spring-5-embedded-tomcat-8-gradle-tutorial
 - 2017-02-21-reactjs-authentication-tutorial
@@ -62,16 +66,13 @@ npm install --save react-router-dom
 
 ## What we'll cover
 
-We'll focus on using React Router 4 for the browser. We'll cover just ten important concepts:
+We'll focus on using React Router 4 for the browser. We'll cover the very important concepts listed below:
 
 * Basic Routing
-* Nested Routing
+* Nested Routing and URL Parameters
 * Route Protection and Authentication
-* URL Parameters
 * Link Component Customization
-* Route Configuration
-* Transitions
-* Handling Non-existent Pages
+* Handling Non-existent Routes
 * SideBar Rendering
 
 
@@ -183,7 +184,7 @@ In the examples above, all the `<Route />` components have a `component` prop th
        render={() => (<div> This is the airport route </div>)}/>
 ```
 
-### Nested Routing
+### Nested Routing & URL Parameters
 
 What if you needed URLs like `/courses/business`, and  `/courses/technology/` ? How would you accomplish this?
 
@@ -302,7 +303,11 @@ We used the `match.params` which provides a key/value object of the URL location
 
 ### Route Protection and Authentication
 
+When developing web applications, there are scenarios where certain routes have to be protected from access. Most times, these routes can only be accessed by authorized users.
+
 In previous versions of React Router such as v3, route protection code looks like this:
+
+_index.js_
 
 ```
 const Root = () => {
@@ -320,319 +325,482 @@ const Root = () => {
 
 The `<Route/>` component had an `onEnter` prop that accepts a method that allows entry or refusal to a URL location based on a user's authentication status. Now, it's different in React Router 4.
 
+Let's build out three components, `Public`, `Private`, and `Login`.
 
+_App.js_
+import React, { Component } from 'react';
+import {
+  Route,
+  Link,
+  BrowserRouter as Router,
+} from 'react-router-dom';
 
+const Public = () => (
+  <div> This is a public page </div>
+);
 
+const Private = () => (
+  <div> This is a private page </div>
+);
 
+const Login = () => (
+  <div> Login Page <button>login</button> </div>
+);
 
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <div style={{width: 1000, margin: '0 auto'}}>
+          <ul>
+            <li><Link to='/public'> Public </Link></li>
+            <li><Link to='/private'> Private </Link></li>
+          </ul>
 
+          <hr/>
 
-## Learning Redux
-
-To learn how to properly use Redux, we have to understand three basic concepts of this library. The first one is called _store_. When using Redux to manage our state, we let it keep an updated version of this state in the store. This is the main purpose of this piece of Redux. The store exists to hold (store) the current state of our data and to become the single source of truth.
-
-The second concept is called _reducer_. Reducer is nothing but a [pure function](https://auth0.com/blog/glossary-of-modern-javascript-concepts/#purity) that gets our app's current state and generates a new state based on an _action_. Actions are the third concept that we are interested in. To define an action to be applied to our state, we simply create an object with a `type` and any arbitrary number (`0..N`) of properties.
-
-![Redux data flow.µ](https://cdn.auth0.com/blog/redux-tutorial/redux-graph.png)
-
-For example, we can have as the current state a simple JavaScript object that contains a person’s name. To change this state (object), we use a reducer that, based on an action, updates the person with arbitrary data. The following code snippet illustrates these concepts.
-
-```js
-const BIRTHDAY_UPDATE = 'BIRTHDAY_UPDATE';
-const initialState = {name: 'Bruno Krebs'};
-
-function reducer(state, action) {
-    const { birthday } = action;
-    switch (action.type) {
-        case BIRTHDAY_UPDATE:
-            return {
-                ...state,
-                birthday
-            };
-        default:
-            return state;
-    }
+          <Route path='/public' component={Public} />
+          <Route path='/private' component={Private} />
+        </div>
+      </Router>
+    );
+  }
 }
 
-const updateAction = {
-    type: BIRTHDAY_UPDATE,
-    birthday: new Date(1984, 10, 20)
+export default App;
+```
+
+Right now, we can access both routes, `/public`, and `/private`. Now, let's make sure the `/private` route can't be accessed until a user is logged in. React Router 4 uses a declarative approach, so it's convenient that we have a component such as `<SecretRoute />` that we can use. However, the react router 4 library doesn't provide it. We'll build it. But let's come up with an Auth Service.
+
+In this example, the Auth Service will simply be an object like so:
+
+```js
+const AuthService = {
+  isAuthenticated: false,
+  authenticate(cb) {
+    this.isAuthenticated = true
+    setTimeout(cb, 100)
+  },
+  logout(cb) {
+    this.isAuthenticated = false
+    setTimeout(cb, 100)
+  }
+}
+```
+
+Now, let's build the `<SecretRoute />` like so:
+
+```js
+const SecretRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
+    AuthService.isAuthenticated === true
+      ? <Component {...props} />
+      : <Redirect to='/login' />
+  )} />
+);
+```
+_SecretRoute component_
+
+The code above simply illustrates that if the authentication status of the user is true, then a component would be rendered else the user would be redirected to the `/login` route. Let's try it out.
+
+_App.js_
+import React, { Component } from 'react';
+import {
+  Route,
+  Link,
+  Redirect,
+  BrowserRouter as Router,
+} from 'react-router-dom';
+
+const Login = () => (
+  <div> Login Page <button>login</button> </div>
+);
+
+const AuthService = {
+  isAuthenticated: false,
+  authenticate(cb) {
+    this.isAuthenticated = true
+    setTimeout(cb, 100)
+  },
+  logout(cb) {
+    this.isAuthenticated = false
+    setTimeout(cb, 100)
+  }
 };
 
-const newState = reducer(initialState, updateAction);
+const SecretRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
+    AuthService.isAuthenticated === true
+      ? <Component {...props} />
+      : <Redirect to='/login' />
+  )} />
+);
 
-console.assert(initialState.birthday === undefined, 'Initial state must not be changed');
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <div style={{width: 1000, margin: '0 auto'}}>
+          <ul>
+            <li><Link to='/public'> Public </Link></li>
+            <li><Link to='/private'> Private </Link></li>
+          </ul>
 
-console.assert(
-    newState.birthday !== undefined &&
-    newState.birthday.getTime() === new Date(1984, 10, 20).getTime(),
-    'New state must contain 1984/10/20 as the birthday'
+          <hr/>
+
+          <Route path='/public' component={Public} />
+          <SecretRoute path='/private' component={Private} />
+        </div>
+      </Router>
+    );
+  }
+}
+
+export default App;
+```
+
+When you click on the `Private` link, you are redirected back to `/login` route. Great! Let's take it a step further by trying to actually log in and log out. Modify the login component like so:
+
+_App.js_
+```js
+...
+class Login extends React.Component {
+  state = {
+    redirectToPreviousRoute: false
+  };
+
+  login = () => {
+    AuthService.authenticate(() => {
+      this.setState({ redirectToPreviousRoute: true });
+    });
+  };
+
+  render() {
+    const { from } = this.props.location.state || { from: { pathname: "/" } };
+    const { redirectToPreviousRoute } = this.state;
+
+    if (redirectToPreviousRoute) {
+      return <Redirect to={from} />;
+    }
+
+    return (
+      <div>
+        <p>You must log in to view the page at {from.pathname}</p>
+        <button onClick={this.login}>Log in</button>
+      </div>
+    );
+  }
+}
+```
+
+We have modified the Login Component to be able to have a `login` function and also redirect back to the route that the user was trying to log onto when the user was denied access. This should be typical behaviour of your routing system else users will always be redirected to a particular page rather than where they came from!
+
+Now, we'll have to modify the props of the `<Redirect />` component in `<SecretRoute />`.
+
+_App.js_
+```js
+...
+const SecretRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
+    AuthService.isAuthenticated === true
+      ? <Component {...props} />
+      : <Redirect to={{
+          pathname: '/login',
+          state: { from: props.location }
+        }} />
+  )} />
 );
 ```
 
-> Note that the [spread operator (`…state`)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator) used in the example above is a feature recently introduced to JavaScript and might not be available on all environments. For example, it is [not available on Node.js prior to version `8.2.1`](http://node.green/). Therefore, we must have a Node.js newer than `8.2.1` or we need to run this in a browser compatible with this feature.
+We are almost done. However, wouldn't it be nice if we can provide a logout button for the user after successful authentication? Let's create an `<AuthStatus />` component.
 
-In the snippet exhibited, we can see that we use the `initialState` to generate a `newState`. This new state is the product of calling the `reducer` function with the `updateAction` object and the `initialState`. After passing the state and the action to the reducer, we get a new state where we can still find the name of the person, and the new `birthday` property correctly applied.
-
-Although simple, the code snippet used above shows another concept that is quite important when using Redux. The state **does not** change. What happens is that we have to generate a new state (or return the same) when using Redux. The pros of creating new states instead of updating the current one is that, by following this paradigm, we enable [traceability](https://en.wikipedia.org/wiki/Traceability) in our application's state. By enabling traceability, we also enable other great features like the possibility to [time travel](https://github.com/gaearon/redux-devtools).
-
-After understanding these three concepts (well, four with state immutability), we are ready to start using Redux in practice. In the following sections, we are going to create a small Node.js script that uses Redux to manage state.
-
-## Using Redux
-
-You might have noticed that we haven't used Redux in the previous section. A great characteristic of Redux is that it relies on simple concepts and structures. As we will see, introducing Redux to manage states in apps is easy. The Redux library itself is quite small, have a great performance, and is really intuitive.
-
-To keep things organized, let's create a new Node.js project, and add actions and reducers to it. In a terminal, let's issue the following commands:
-
-```bash
-# create a dir to our project
-mkdir redux-node
-
-# change working directory to it
-cd redux-node
-
-# initialize the directory as a NPM project
-npm init -y
-
-# create the source folder
-mkdir src
-
-# create files for the main app, actions, and reducers
-touch src/index.js src/actions.js src/reducers.js
-```
-
-These commands will give us a brand new project with the basic structure that we will need. To makes our lives easier and before proceeding with the next steps, let's open this project on an IDE (like WebStorm or Visual Studio Code).
-
-### Creating Redux Actions
-
-Now, let's open the `src/actions.js` file and add the following action creators and action types to it:
-
+_App.js_
 ```js
-// action types
-export const ADD_EXPENSE = 'ADD_EXPENSE';
-export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
-
-// action creators
-export const addExpense = expense => ({
-    type: ADD_EXPENSE,
-    expense
-});
-
-export const removeExpense = expense => ({
-    type: REMOVE_EXPENSE,
-    expense
-});
+...
+const AuthStatus = withRouter(({ history }) => (
+  AuthService.isAuthenticated ? (
+    <p>
+      Welcome! <button onClick={() => {
+        AuthService.logout(() => history.push('/'))
+      }}>Sign out</button>
+    </p>
+  ) : (
+    <p>You are not logged in.</p>
+  )
+));
 ```
 
-These action creators are quite simple. They simply returns objects that contain `type`, to indicate if it is a removal or an addition, and an `expense` as the payload. We won't invest time creating automated tests to these action creators, as they are trivial.
+In the above code sample, we used `withRouter` and `history.push`. `withRouter` is a higher order component from React Router that allows re-rendering of its component every time the route changes with the same props. `history.push` is one way of redirecting asides using the `<Redirect />` component from React Router.
 
-### Creating Redux Reducers
+Now, go ahead and render the `<AuthStatus />` component.
 
-We are going to add the business logic of our tutorial app in the reducer that we are going to create in this section. This reducer will have a `switch` statement that, based on an action, will trigger the proper function to generate the new state. Let's open the `src/reducers.js` file and add the following reducer definition to it:
-
+_App.js_
 ```js
-import {ADD_EXPENSE, REMOVE_EXPENSE} from "./actions";
+...
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <div style={{width: 1000, margin: '0 auto'}}>
+          <AuthStatus />
+          <ul>
+            <li><Link to='/public'> Public </Link></li>
+            <li><Link to='/private'> Private </Link></li>
+          </ul>
 
-export default expenses;
+          <hr/>
 
-export const initialState = {
-    expenses: [],
-    balance: 0
-};
-
-function expenses(state = initialState, action = {}) {
-    switch (action.type) {
-        case ADD_EXPENSE:
-            return addExpense(state, action.expense);
-        case REMOVE_EXPENSE:
-            return removeExpense(state, action.expense);
-        default:
-            return state;
-    }
-}
-
-function addExpense(state, expense) {
-    return {
-        ...state,
-        expenses: [...state.expenses, expense],
-        balance: state.balance + expense.amount
-    }
-}
-
-function removeExpense(state, expense) {
-    const persistedExpense = state.expenses.find(item => item.id === expense.id);
-    return {
-        ...state,
-        expenses: state.expenses.filter(item => item.id !== expense.id),
-        balance: state.balance - persistedExpense.amount
-    }
-}
-```
-
-To decide exactly what function to call (`addExpense` or `removeExpense`), the reducer created by this file (`expenses`) compares the `action.type` with both `ADD_EXPENSE` and `REMOVE_EXPENSE` constants. After identifying the correct type, it triggers the proper function passing the current `state` of the application and the `expense` in question.
-
-### Testing Redux Reducers with Jest
-
-It is easy to create an automated test to validate the behavior of this reducer. As reducers are pure functions, we don't need to mock anything. We just need to generate some samples of expenses and actions, trigger our reducer with them, and check the generated output. Let's install the [`jest`](https://facebook.github.io/jest/) test runner and [`babel`](https://babeljs.io/) to help us testing the reducer.
-
-```bash
-npm i -D jest babel-jest babel-preset-es2015
-```
-
-Also, let's update the `scripts` property in the `package.json` file so we can easily run `jest`:
-
-```js
-{
-  // ...
-  "scripts": {
-    "test": "jest",
-    "test:watch": "npm test -- --watch"
+          <Route path='/public' component={Public} />
+          <Route path="/login" component={Login}/>
+          <SecretRoute path='/private' component={Private} />
+        </div>
+      </Router>
+    );
   }
-  // ...
 }
 ```
 
-With these scripts in place, we can create the test suite that will validate the `expenses` reducer. Let's create a file called `reducers.test.js` alongside with `reducers.js` and define two tests in a new test suite, as follows:
+Now, try it in the browser again. You should be able to log in and log out successfully!
+
+### Link Component Customization
+
+Link Component Customization? What's that? It's simple. You'll learn how to customize your links to have a distinctive look when a particular link is active. React Router 4 has an easy way of accomplishing this task.
+
+Have the code below in your `App.js` like so:
 
 ```js
-import {addExpense, removeExpense} from './actions';
-import expenses, {initialState} from './reducers';
+import React from 'react'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
 
-describe('reducers', () => {
-    it('should be able to add expenses', () => {
-        const stateStep1 = expenses(initialState, addExpense({
-            id: 1,
-            amount: 20
-        }));
-        expect(stateStep1.expenses.length).toEqual(1);
-        expect(stateStep1.balance).toEqual(20);
 
-        const stateStep2 = expenses(stateStep1, addExpense({
-            id: 2,
-            amount: 10
-        }));
-        expect(stateStep2.expenses.length).toEqual(2);
-        expect(stateStep2.balance).toEqual(30);
-    });
+const Home = () => (
+  <div>
+    <h2>Home Page</h2>
+  </div>
+)
 
-    it('should be able to remove expenses', () => {
-        const stateStep1 = expenses(initialState, addExpense({
-            id: 1,
-            amount: 55
-        }));
-        expect(stateStep1.expenses.length).toEqual(1);
-        expect(stateStep1.balance).toEqual(55);
+const Contact = () => (
+  <div>
+    <h2>Contact Page</h2>
+  </div>
+)
 
-        const stateStep2 = expenses(stateStep1, addExpense({
-            id: 2,
-            amount: 36
-        }));
-        expect(stateStep2.expenses.length).toEqual(2);
-        expect(stateStep2.balance).toEqual(91);
+class App extends React.Component {
+  render() {
+    return (
+      <Router>
+        <div>
+            <CustomLink exact={true} to="/">
+              Home
+            </CustomLink>
+            <CustomLink to="/contact">
+              Contact
+            </CustomLink>
 
-        const stateStep3 = expenses(stateStep2, removeExpense({
-            id: 1
-        }));
-        expect(stateStep3.expenses.length).toEqual(1);
-        expect(stateStep3.balance).toEqual(36);
-    });
+          <hr/>
 
-    it('should return the default state', () => {
-        expect(expenses()).toEqual(initialState);
-    });
-});
+          <Route exact path="/" component={Home}/>
+          <Route path="/contact" component={Contact}/>
+        </div>
+      </Router>
+    )
+  }
+}
+
+export default App;
 ```
 
-The test suite and its tests are a little bit verbose, but they are easy to understand. We start by importing the `addExpense` and `removeExpense` action creators. After that, we import the `expenses` reducer from its source alongside with the `initialState`. Lastly, we use the `describe` function to define the test suite and the `it` function to create three tests.
-
-The first two tests are pretty similar. Therefore, let's analyze the first one to understand how they work. The first step executed by this test calls the `expenses` reducer passing to it the `initialState` and the `addExpense` action creator. As the parameter of this action creator, we pass an expense with `id = 1` and `amount = 20`. We then check if the result of the `expenses` execution, the `stateStep1`, contains a single expense and if the `balance` is equal 20. After that, we execute a similar process that validates if the `expenses` reducer accepts a new expense and updates the `balance` accordingly. The difference in the second test is that, after adding two expenses, we use the reducer to remove an expense.
-
-Let's run the `npm test` command to verify our implementation. If we followed the steps above correctly, we should get an output similar this:
-
-```
-> redux-node@1.0.0 test /Users/brunokrebs/git/tmp/redux-node
-> jest
-
- PASS  src/reducers.test.js
-  reducers
-    ✓ should be able to add expenses (3ms)
-    ✓ should be able to remove expenses (1ms)
-    ✓ should return the default state
-
-Test Suites: 1 passed, 1 total
-Tests:       3 passed, 3 total
-Snapshots:   0 total
-Time:        0.834s, estimated 1s
-Ran all test suites.
-```
-
-### Defining a Redux Store
-
-So far, we haven't used the central piece of Redux, the Redux Store. We have only defined two functions to create Redux Actions and a Redux Reducer. Now it's time to create a Redux Store and put our reducer and our action creators to work.
-
-As we want to use modern JavaScript code, let's install `babel-cli` and a plugin:
-
-```bash
-npm i -D babel-cli babel-plugin-transform-object-rest-spread
-```
-
-The plugin simply guarantees that we can use the spread operator with Babel. After installing both dependencies, let's open the `index.js` file and add the following code:
+The `<CustomLink />` is in charge of making the active link distinct. Now, what makes up the`<CustomLink />` component? Check out the code below:
 
 ```js
-import {createStore} from 'redux';
-import {addExpense, removeExpense} from './actions';
-import expenses from './reducers';
-
-const store = createStore(expenses);
-
-store.dispatch(addExpense({
-    id: 1,
-    amount: 45
-}));
-
-store.dispatch(addExpense({
-    id: 2,
-    amount: 20
-}));
-
-store.dispatch(addExpense({
-    id: 3,
-    amount: 30
-}));
-
-store.dispatch(removeExpense({
-    id: 2
-}));
-
-console.assert(store.getState().balance === 75);
-console.assert(store.getState().expenses.length === 2);
+const CustomLink = ({ children, to, exact }) => (
+  <Route path={to} exact={exact} children={({ match }) => (
+    <div className={match ? 'active' : ''}>
+      {match ? '> ' : ''}
+      <Link to={to}>
+        {children}
+      </Link>
+    </div>
+  )}/>
+);
 ```
 
-Pretty simple, right? To create a Redux Store, all we had to do was to import the `createStore` function from Redux and call it passing our reducer. Interacting with the store was not hard either. After importing the action creators, we simply called the `dispatch` function of the store, passing to it actions created by our action creators (`addExpense` and `removeExpense`).
+It's not complex. The `<CustomLink />` harnessed the power of `<Route />`. In the code above, it uses the `match` object to determine whether to add `>` symbol whenever the the path matches the URL location. 
 
-In the end, to verify that the store ended up in the correct state, we added two `console.assert` calls. The first one showed that the `balance` is indeed 75, and the second one guaranteed that we finished with two expenses in the last state.
+`<Route />` has a prop called `children`. This prop takes in a function that will render wether the path matches the URL location or not. And that's all we need to create a custom Link!
 
-To run our code, we need to use the [`babel-node`](https://babeljs.io/docs/usage/cli/#babel-node) command provided by Babel. To easily run this command, let's edit the `package.json` file and add the following record to the `script` property:
+### Handling Non-existent Routes
+
+As a developer, you need to handle scenarios where certain routes don't exist. If a user stumbles upon your site, and visits a non-existent route such as `/babalawo`. What do you do? Do you just allow your site to break?
+
+This is how to handle this scenario. Add code to your `App.js` like so:
+
+_App.js_
 
 ```js
-{
-  // ...
-  "scripts": {
-    "start": "babel-node src/",
-    // ...
+import React, { Component } from 'react';
+import {
+  Route,
+  Link,
+  Redirect,
+  Switch,
+  BrowserRouter as Router,
+} from 'react-router-dom';
+
+const Home = () => (
+  <div>
+    <h2>Home Page</h2>
+  </div>
+)
+
+const Contact = () => (
+  <div>
+    <h2>Contact Page</h2>
+  </div>
+)
+
+class App extends Component {
+  render() {
+    return (
+       <Router>
+        <div>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/contact">Contact</Link>
+            </li>
+          </ul>
+
+        <Switch>
+          <Route exact path="/" component={Home}/>
+          <Route path="/contact" component={Contact}/>
+          <Route render={() => (<div> Sorry, this page does not exist. </div>)} />
+        </Switch>
+        </div>
+      </Router>
+    );
+  }
+}
+
+export default App;
+```
+
+In the code above, we imported a new component, `<Switch />` from React Router. And we wrapped our routes inside the `<Switch />` component. Now, if none of the URLs visited matches the routes defined with a path, then the `<Switch />` component invokes the `<Route />` with no path and a render function. 
+
+Try it out in your browser. Visit a URL that doesn't exist. Your app will display a `Sorry, this page does not exist` message.
+
+### SideBar Rendering
+
+Sidebars in apps have been in existence for a very long time. Let's learn how to make a sidebar using React Router 4. The first step is to throw our routes in to an array like so:
+
+```js
+import React from 'react'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+} from 'react-router-dom'
+
+const routes = [
+  { path: '/',
+    exact: true,
+    sidebar: () => <div>Home</div>,
+    main: () => <h2>Home</h2>
   },
-  // ...
+  { path: '/about',
+    sidebar: () => <div>About</div>,
+    main: () => <h2>About</h2>
+  },
+  { path: '/contact',
+    sidebar: () => <div>Contact</div>,
+    main: () => <h2>Contact</h2>
+  }
+]
+
+class App extends React.Component {
+  render() {
+    return (
+      <Router>
+        <div style={{ display: 'flex' }}>
+          <div style={{
+            padding: '10px',
+            width: '40%',
+            background: '#FF6347'
+          }}>
+            <ul style={{ listStyleType: 'none', padding: 0 }}>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/about">About</Link></li>
+              <li><Link to="/contact">Contact</Link></li>
+            </ul>
+
+          </div>
+        </div>
+      </Router>
+    )
+  }
+}
+
+export default App
+```
+
+In the code above, we have a `sidebar` and a `main` key. They'll come in handy soon and make our work super easy. 
+
+Now, all we need to do is map over the routes array as shown in the code below:
+
+_App.js_
+
+```js
+...
+render() {
+  return (
+    <Router>
+      <div style={{ display: 'flex' }}>
+        <div style={{
+          padding: '10px',
+          width: '40%',
+          background: '#FF6347'
+        }}>
+          <ul style={{ listStyleType: 'none', padding: 0 }}>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
+          </ul>
+          {routes.map((route) => (
+            <Route
+              key={route.path}
+              path={route.path}
+              exact={route.exact}
+              component={route.sidebar}
+            />
+          ))}
+        </div>
+
+        <div style={{ flex: 1, padding: '10px' }}>
+          {routes.map((route) => (
+            <Route
+              key={route.path}
+              path={route.path}
+              exact={route.exact}
+              component={route.main}
+            />
+          ))}
+        </div>
+      </div>
+    </Router>
+  )
 }
 ```
 
-After that, we can simply issue `npm start` and we will see Babel run our code and assert that we get the expected state.
+In the code above, whenever the route's path matches the URL location, the sidebar component will be rendered.
 
-{% include tweet_quote.html quote_text="I just finished a Redux tutorial." %}
-
-{% include asides/javascript-at-auth0.markdown %}
+{% include asides/react.markdown %}
 
 ## Conclusion
 
-As we can see, Redux is an easy technology to reason about. Although not hard, correctly understanding its three main pieces (the store, reducers, and actions) is important before we move to other topics, like integrating with front-end frameworks. However, once we learn Redux's concepts, we can integrate it with, for example, React to get a great foundation for modern Single Page Apps.
-
-By the way, in our blog we have an article that shows how to properly [secure React and Redux Apps with JWTs](https://auth0.com/blog/secure-your-react-and-redux-app-with-jwt-authentication/). Take a look at it if you are going to use these technologies in your next project.
+Understanding React Router 4 requires a shift in your mental model of routing. I covered the main API concepts for using React Router 4 for the web in this tutorial. However, you can always consult the [official documentation](https://reacttraining.com/react-router/web) for more information.
