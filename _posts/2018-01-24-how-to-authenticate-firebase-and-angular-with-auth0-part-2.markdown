@@ -153,7 +153,7 @@ Let's move on to the template at `dogs.component.html`:
   <app-error *ngIf="error"></app-error>
 </ng-template>
 
-<div *ngIf="dogsList$ | async; let dogsList; else noDogs">
+<div *ngIf="dogsList$ | async as dogsList; else noDogs">
   <p class="lead">
     These were the top <a href="http://www.akc.org/content/news/articles/the-labrador-retriever-wins-top-breed-for-the-26th-year-in-a-row/">10 most popular dog breeds in the United States in 2016</a>, ranked by the American Kennel Club (AKC).
   </p>
@@ -186,7 +186,7 @@ There are a couple things in this template that we'll take a closer look at:
   <app-error *ngIf="error"></app-error>
 </ng-template>
 
-<div *ngIf="dogsList$ | async; let dogsList; else noDogs">
+<div *ngIf="dogsList$ | async as dogsList; else noDogs">
   ...
     <div *ngFor="let dog of dogsList" ...>
       ...
@@ -199,7 +199,7 @@ First we have an [`<ng-template>` element](https://angular.io/guide/structural-d
 
 So how (and when) do we tell this view to render?
 
-The next `<div *ngIf="...` is actually an [NgIfElse](https://angular.io/api/common/NgIf) using the [asterisk prefix as syntactic sugar](https://angular.io/guide/structural-directives#the-asterisk--prefix). We're also using the async pipe with our `dogsList$` observable and setting a variable name so we can reference the stream's emitted values in our template (`let dogsList`). If something goes wrong with the `dogsList$` observable, we have an `else noDogs` statement that tells the template to render the `<ng-template #noDogs>` view. This would be true before the data has been successfully fetched from the API, or if an error was thrown by the observable.
+The next `<div *ngIf="...` is actually an [NgIfElse](https://angular.io/api/common/NgIf) using the [asterisk prefix as syntactic sugar](https://angular.io/guide/structural-directives#the-asterisk--prefix). We're also using the async pipe with our `dogsList$` observable and setting a variable so we can reference the stream's emitted values in our template (`as dogsList`). If something goes wrong with the `dogsList$` observable, we have an `else noDogs` statement that tells the template to render the `<ng-template #noDogs>` view. This would be true before the data has been successfully fetched from the API, or if an error was thrown by the observable.
 
 If `dogsList$ | async` has successfully emitted a value, the div will render and we can iterate over our `dogsList` value (which is expected to be an array of `Dog`s, as specified in our component class) using the [NgForOf (`*ngFor`) structural directive](https://angular.io/api/common/NgForOf) to display each dog's information.
 
@@ -331,7 +331,7 @@ Now let's use these methods in our `dog.component.html` template:
   <app-error *ngIf="error"></app-error>
 </ng-template>
 
-<div *ngIf="dog$ | async; let dog; else noDog">
+<div *ngIf="dog$ | async as dog; else noDog">
   <h1 class="text-center">{{ getPageTitle(dog) }}</h1>
   <div class="row align-items-center pt-2">
     <div class="col-12 col-sm-6">
@@ -361,7 +361,7 @@ Now let's use these methods in our `dog.component.html` template:
 {% endraw %}
 {% endhighlight %}
 
-Overall, this template looks and functions similar to our Dogs listing component template, except that we are not iterating over an array. Instead, we are showing information for only one dog, and the page title is dynamically generated instead of static. We'll use the observable's emitted `dog` data (from `dog$ | async; let dog`) to display details with the help of [Bootstrap CSS](http://getbootstrap.com/docs/4.0/getting-started/introduction/) classes.
+Overall, this template looks and functions similar to our Dogs listing component template, except that we are not iterating over an array. Instead, we are showing information for only one dog, and the page title is dynamically generated instead of static. We'll use the observable's emitted `dog` data (from `dog$ | async as dog`) to display details with the help of [Bootstrap CSS](http://getbootstrap.com/docs/4.0/getting-started/introduction/) classes.
 
 The component should look like this in the browser when finished:
 
