@@ -34,7 +34,9 @@ related:
 
 Routing is of uttermost importance in almost every application's architecture. The larger your app becomes, the more your routing functionality becomes complex, from simple to deeply nested routing scenarios.
 
-[React Router](https://github.com/ReactTraining/react-router) is the most popular and commonly used library for routing in React applications. As your application grows to require several views and routes, it's ideal you choose a good router to help manage transition between views, redirects, getting URL parameters easily, etc.
+[React Router](https://github.com/ReactTraining/react-router) is the most popular and commonly used library for routing in React applications. As your application grows to require several views and routes, it's ideal you choose a good router to help manage transition between views, redirects, getting URL parameters easily, et al.
+
+{% include tweet_quote.html quote_text="React Router is the most popular and commonly used library for routing in React applications. " %}
 
 Before now, previous versions of React Router involved declaring your app's routes upfront, declaring all the routes in a file as part of your app's initialization before rendering occurs. With **React Router 4**, you get to route declaratively. React Router 4's API is basically just components thus making it easy to use if you already compose components in React. Let's dive in!
 
@@ -78,7 +80,7 @@ We'll focus on using React Router 4 for the browser. We'll cover the very import
 
 ### Basic Routing
 
-There are two types of Router components that you can use in your ReactJS web application. The `BrowserRouter` and `HashRouter`. The former gives you a URL without the `#`, while the latter gives you a URL wit the `#`.
+There are two types of Router components that you can use in your React web application. The `BrowserRouter` and `HashRouter`. The former gives you a URL without the `#`, while the latter gives you a URL wit the `#`.
 
 > **Note:** If you are building a web application that supports legacy browsers, it's recommended that you use the `HashRouter`.
 
@@ -766,7 +768,7 @@ render() {
           width: '40%',
           background: '#FF6347'
         }}>
-          <ul style={{ listStyleType: 'none', padding: 0 }}>
+          <ul style={{ listStyleType: 'none' }}>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/about">About</Link></li>
             <li><Link to="/contact">Contact</Link></li>
@@ -781,7 +783,7 @@ render() {
           ))}
         </div>
 
-        <div style={{ flex: 1, padding: '10px' }}>
+        <div style={{ flex: 1, padding: '20px' }}>
           {routes.map((route) => (
             <Route
               key={route.path}
@@ -804,3 +806,5 @@ In the code above, whenever the route's path matches the URL location, the sideb
 ## Conclusion
 
 Understanding React Router 4 requires a shift in your mental model of routing. I covered the main API concepts for using React Router 4 for the web in this tutorial. However, you can always consult the [official documentation](https://reacttraining.com/react-router/web) for more information.
+
+{% include tweet_quote.html quote_text="Understanding React Router 4 requires a shift in your mental model of routing." %}
