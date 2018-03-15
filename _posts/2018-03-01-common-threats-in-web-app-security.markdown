@@ -97,7 +97,7 @@ In this example of a HSTS header, we have three *directives*.  `max-age`, `inclu
 
 > **Note:** If you start to use HSTS and your site has not been setup with HTTPS certificates then your site would become unreachable.
 
-![HSTS browser compatibility table](https://cdn.auth0.com/blog/common-threats-in-web-app-security/mock-hsts-browser-compatibility-table.png)
+![HSTS browser compatibility table](https://cdn.auth0.com/blog/common-threats-in-web-app-security/strict-transport-security-browser-compatibility-table.png)
 
 ## X-XSS-Protection header
 
@@ -135,7 +135,7 @@ In this example of a XSS header, we have three *directives*.  `1` and `mode`. Al
 
   Enables XSS filtering. If a cross-site scripting attack is detected, the browser will sanitize the page and report the violation.
   
-![X-XSS-Protection browser compatibility table](https://cdn.auth0.com/blog/common-threats-in-web-app-security/mock-x-xss-protection-browser-compatibility-table.png)
+![X-XSS-Protection browser compatibility table](https://cdn.auth0.com/blog/common-threats-in-web-app-security/x-xss-protection-browser-compatibility-table.png)
 
 ## X-Frame-Options header
 
@@ -175,7 +175,7 @@ With this header, we get three possible *directives*.  `DENY`, `ALLOW-FROM`, and
 
   This means framing is only allowed within the current domain.
   
-![X-Frame-Options browser compatibility table](https://cdn.auth0.com/blog/common-threats-in-web-app-security/mock-x-frame-options-browser-compatibility-table.png)
+![X-Frame-Options browser compatibility table](https://cdn.auth0.com/blog/common-threats-in-web-app-security/x-frame-options-browser-compatibility-table.png)
 
 ## Content Security Policy (CSP) header
 
@@ -211,7 +211,7 @@ function requestHandler(req, res) {
 
 Note the `script-src` directive here, that we have set to `self`, therefore only allowing scripts from within our own domain. Content Security Policies are both excellent and very powerful, but must be used cautiously. Just as with HSTS, incorrect configuration could cause unforeseen issues or missing content. This will also disable inline JavaScript unless it's provided `unsafe-inline` keyword, a hash like ('sha256-OsJINy4ZgkXN5pDjr32TfT/PBETcXuD9koo2t1mYDzg='), or a nonce ('nonce-...'), which is great for security!
   
-![CSP browser compatibility table](https://cdn.auth0.com/blog/common-threats-in-web-app-security/mock-content-security-policy-browser-compatibility-table.png)
+![CSP browser compatibility table](https://cdn.auth0.com/blog/common-threats-in-web-app-security/content-security-policy-browser-compatibility-table.png)
 
 ## Cross Site Request Forgery (CSRF)
 
@@ -225,7 +225,7 @@ An example of the SameSite `directive`:
 Set-Cookie: sess=sessionid123; path=/; SameSite
 ```
 
-![Cookie SameSite browser compatibility table](https://cdn.auth0.com/blog/common-threats-in-web-app-security/mock-cookie-samesite-browser-compatibility-table.png)
+![Cookie SameSite browser compatibility table](https://cdn.auth0.com/blog/common-threats-in-web-app-security/cookie-samesite-browser-compatibility-table.png)
 
 ## Cookies
 
@@ -238,7 +238,7 @@ Some user agent implementations support the following cookie prefixes:
 
 Effectively a `__Host` cookie is very specific to where it was intended to be used and therefore should be considered the most secure way to define one.
 
-![Cookie prefix browser compatibility table](https://cdn.auth0.com/blog/common-threats-in-web-app-security/mock-cookie-prefixes-browser-compatibility-table.png)
+![Cookie prefix browser compatibility table](https://cdn.auth0.com/blog/common-threats-in-web-app-security/cookie-prefixes-browser-compatibility-table.png)
 
 ## Conclusion
 
