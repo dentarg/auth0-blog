@@ -566,6 +566,8 @@ class Home extends React.Component {
 
 As you can see, the `addBookButton` variable will contain the `<Link>` element when the user has the `write:books` permission. Otherwise, its value will be `null`. This conditional rendering of the *Add a book* link solves your issue.
 
+{% include tweet_quote.html quote_text="Managing OAuth 2.0 Scopes on ASP.NET Core 2.0 is easy." %}
+
 ## Summary
 
 In this part of the series, you made a few settings on the [Auth0 dashboard](https://manage.auth0.com/) in order to define and manage scopes and roles for users. Then you changed [the Web API application implemented in the first part](http://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-1) and the [React-based client built in the second part](http://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-1) of the series in order to support user's permission previously defined.
