@@ -34,7 +34,7 @@ related:
 
 Routing is of uttermost importance in almost every application's architecture. The larger your app becomes, the more your routing functionality becomes complex, from simple to deeply nested routing scenarios.
 
-[React Router](https://github.com/ReactTraining/react-router) is the most popular and commonly used library for routing in React applications. As your application grows to require several views and routes, it's ideal you choose a good router to help manage transition between views, redirects, getting URL parameters easily, et al.
+[React Router](https://github.com/ReactTraining/react-router) is the most popular and commonly used library for routing in React applications. As your application grows to require several views and routes, it's ideal you choose a good router to help manage the transition between views, redirects, getting URL parameters easily, et al.
 
 {% include tweet_quote.html quote_text="React Router is the most popular and commonly used library for routing in React applications. " %}
 
@@ -80,7 +80,7 @@ We'll focus on using React Router 4 for the browser. We'll cover the very import
 
 ### Basic Routing
 
-There are two types of Router components that you can use in your React web application. The `BrowserRouter` and `HashRouter`. The former gives you a URL without the `#`, while the latter gives you a URL wit the `#`.
+There are two types of Router components that you can use in your React web application. The `BrowserRouter` and `HashRouter`. The former gives you a URL without the `#`, while the latter gives you a URL with the `#`.
 
 > **Note:** If you are building a web application that supports legacy browsers, it's recommended that you use the `HashRouter`.
 
@@ -158,7 +158,7 @@ class App extends Component {
 export default App;
 ```
 
-In the code above, we links that should direct the user to `/`, `/airports`, and `cities` using the `<Link>` component. Each of these links have a component that should be rendered once the current location matches the route's path. However, something is off here. Let's check the results.
+In the code above, we have links that should direct the user to `/`, `/airports`, and `cities` using the `<Link>` component. Each of these links has a component that should be rendered once the current location matches the route's path. However, something is off here. Let's check the results.
 
 _/airports_
 
@@ -177,7 +177,7 @@ _src/App.js_
 ```
 
 ![Airports route with exact component rendering](https://cdn.auth0.com/blog/reactrouter4/exact.png)
-_Airports route without rendering Home component UI_
+_The Airports route without rendering Home component UI_
 
 In the examples above, all the `<Route />` components have a `component` prop that renders a component when the URL visited matches the Route's path. What if you just want to render a small function instead of a whole component? You can use the `render` prop as shown in the code below.
 
@@ -188,7 +188,7 @@ In the examples above, all the `<Route />` components have a `component` prop th
 
 ### Nested Routing & URL Parameters
 
-What if you needed URLs like `/courses/business`, and  `/courses/technology/` ? How would you accomplish this?
+What if you needed URLs like `/courses/business`, and  `/courses/technology/`? How would you accomplish this?
 
 _src/App.js_
 
@@ -325,7 +325,7 @@ const Root = () => {
 }
 ```
 
-The `<Route/>` component had an `onEnter` prop that accepts a method that allows entry or refusal to a URL location based on a user's authentication status. Now, it's different in React Router 4.
+The `<Route/>` component had a `onEnter` prop that accepts a method that allows entry or refusal to a URL location based on a user's authentication status. Now, it's different for React Router 4.
 
 Let's build out three components, `Public`, `Private`, and `Login`.
 
@@ -631,13 +631,13 @@ const CustomLink = ({ children, to, exact }) => (
 );
 ```
 
-It's not complex. The `<CustomLink>` harnessed the power of `<Route>`. In the code above, it uses the `match` object to determine whether to add `>` symbol whenever the the path matches the URL location. 
+It's not complex. The `<CustomLink>` harnessed the power of `<Route>`. In the code above, it uses the `match` object to determine whether to add `>` symbol whenever the path matches the URL location. 
 
 There are 3 ways to render something with a `<Route>`; `<Route component>`, `<Route render>`, and `<Route children>`.  The code above used the `children` prop. This render prop takes in a function that receives all the same route props as the `component` and `render` methods, except when a route doesn't match the URL location. This process gives you the power to dynamically adjust your UI based on whether or not the route matches. And that's all we need to create a custom Link!
 
 ### Handling Non-existent Routes
 
-As a developer, you need to handle scenarios where certain routes don't exist. If a user stumbles upon your site, and visits a non-existent route such as `/babalawo`. What do you do? Do you just allow your site to break?
+As a developer, you need to handle scenarios where certain routes don't exist. If a user stumbles upon your site and visits a non-existent route such as `/babalawo`. What do you do? Do you just allow your site to break?
 
 This is how to handle this scenario. Add code to your `App.js` like so:
 
@@ -699,7 +699,7 @@ Try it out in your browser. Visit a URL that doesn't exist. Your app will displa
 
 ### SideBar Rendering
 
-Sidebars in apps have been in existence for a very long time. Let's learn how to make a sidebar using React Router 4. The first step is to throw our routes in to an array like so:
+Sidebars in apps have been in existence for a very long time. Let's learn how to make a sidebar using React Router 4. The first step is to throw our routes into an array like so:
 
 ```js
 import React from 'react'
