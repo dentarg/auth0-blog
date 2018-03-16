@@ -68,7 +68,7 @@ Then click the *Auth0 Autorization* box to start the installation process. You w
 
 Once the extension is installed, you will see it listed in the *Installed Extensions* tab.
 
-## Configuring permissions and roles
+## Configuring Permissions and Roles
 
 Now that you have installed the *Authorization Extension*, you can use it to configure permissions and roles. To be clear, these are their definitions:
 
@@ -95,13 +95,13 @@ Use this form to create both roles. The final result should be as follows:
 
 ![Configuring permissions and roles](https://cdn.auth0.com/blog/asp-net-react/roles.png)
 
-## Adding roles to users
+## Adding Roles to Users
 
 Next, you will need to associate roles to users. Actually, in *Users* section of the *Authorization Extension* you will find all the users already created in your *Auth0* platform. Here you can assign roles to each user by selecting him, using the *Roles* tab and clicking the *Add role to user* button. Now you can check the roles you want to assign the user, as shown in the following picture:
 
 ![Adding roles to users.](https://cdn.auth0.com/blog/asp-net-react/roles-to-user.png)
 
-## Publishing permission rule
+## Publishing Permission and Rule
 
 As a final step of *Authorization Extension* configuration, you need to click your domain drop-down menu in the upper right corner and select the *Configuration* item:
 
@@ -113,7 +113,7 @@ In the page that appears, make sure that *Permissions* are enabled and click *Pu
 
 This operation creates a rule for your tenant that will be executed after each user login. In *Auth0* platform, a [rule](https://auth0.com/docs/rules/) is a JavaScript function that is executed when the user is authenticated. The newly created rule will add user's permissions to the user's profile. You can check the rule's code by using the [Dashboard](https://manage.auth0.com/#/rules).
 
-## Validating the token scopes
+## Validating Token Scopes
 
 The last step in this configuration process is to create a new rule which ensures that scopes contained in an *access token* is valid accordingly to the user's permission. It means that when a user is authenticated, you need to add only the user's permissions to his *access token*. To add this rule, go to [Rules](https://manage.auth0.com/#/rules) section in the *Auth0* dashboard, click the *Create rule* button and select the *Empty rule* template. Now, give a name to the rule and put the following code into the code window:
 
@@ -137,7 +137,7 @@ The first line of the JavaScript function's body checks if the current client is
 
 > **Note**: Keep in mind that the rules are executed in the order they are displayed in the *Rules* section.
 
-## Adding scope management to .NET API
+## Adding Scope Management to ASP.NET Core 2.0 APIs
 
 After this configuration process on the [Auth0](https://manage.auth0.com/) platform side, you need to change the code of the ASP.NET Core 2 Web API application built in [part 1](http://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-1) of this series. As a first step, you need to implement a way to add an access control to the Web API and to check if a request has the rights to access the Web API. You can apply the [Policy-based Authorization](https://docs.microsoft.com/en-us/aspnet/core/security/authorization/policies) provided by ASP.NET Core.
 
@@ -230,7 +230,7 @@ public class BooksController : Controller
 }
 ```
 
-## Testing authorization policy for read permission
+## Testing the Authorization Policy for Read Permission
 
 Now you can test Web API access control by simply running the *Single Page Application* created in [part 2](https://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-2/) of this series. If you access the application by using a user with *User* or *Admin* role, you will be able to get the list of books provided by the Web API. Otherwise, you will not be able to get the list and will get a page like the following:
 
@@ -267,7 +267,7 @@ You could make the user experience a bit more fluent by managing the `403` HTTP 
 
 In this case, if the status code returned by the server is `403`, the application will simply show an alert saying that the user is not authorized to access that page.
 
-## Managing write permissions in APIs
+## Managing Write Permissions in ASP.NET Core 2.0 APIs
 
 So far, you have only managed the `read:books` permission. Now, you are going to change the ASP.NET Core 2 Web API application to support `write:books` permission.
 
@@ -333,7 +333,7 @@ public class BooksController : Controller
 
 As you can see, the new API simply adds to the list of books the book representation received from the body of the HTTP POST request. The important thing is that the API has been marked with the `Authorize` attribute by specifying that the `write:books` permission is required.
 
-## Allowing to add books from React client
+## Allowing to Add Books from the React Client
 
 On the React client side, you will implement the addition of books.
 
@@ -504,7 +504,7 @@ handleFormSubmit(e) {
 
 As you can see, the first line of the method prevents the default behaviour of form submission. This is needed to avoid the standard page reloading performed by the browser. Then you get the access token by using the `getAccessToken()` method provided by `AuthService` module. Finally, you submit the current component state to the server by using `fetch()`. When a response is received from the server, if its status code is successful, the current route is changed with the root, that is you move back to the `Home` component. Otherwise, the message returned by the server is shown in an alert.
 
-## Disabling book addition for not authorized users
+## Disabling Book Addition for Not Authorized Users
 
 The implementation you made so far works fine. If you access the application by using an admin user, you will be able to add a new book by clicking the *Add a book* link, filling the form and submitting it to the server. On the other hand, if you access the application by using a simple user (i.e. a non-admin user) you will be able to click on the *Add a button* link and fill the book form, but when you will try to submit the form's data to the server you will receive a `403` HTTP status code.
 
