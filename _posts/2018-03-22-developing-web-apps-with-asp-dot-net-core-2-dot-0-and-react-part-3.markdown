@@ -50,7 +50,7 @@ As a first step, you need to create scopes for your APIs. So, open the [Auth0 da
 
 Here you can define scopes for your APIs by specifying a name and a description. A scope name can be any string but, by convention, it usually takes the form of `action:resource`, where `action` represents the action granted and `resource` represents the type of object upon which the action can be executed.
 
-So, let's define the `write:books` and `read:books` scopes for your APIs:
+So, define the `write:books` and `read:books` scopes for your APIs:
 
 ![Scopes defined for an ASP.NET Core 2.0 and React application](https://cdn.auth0.com/blog/asp-net-react/api-scopes-defined.png)
 
@@ -70,7 +70,7 @@ Once the extension is installed, you will see it listed in the *Installed Extens
 
 ## Configuring permissions and roles
 
-Now that you have installed the *Authorization Extension*, you can use it to configure permissions and roles. To be clear, let's define what they are:
+Now that you have installed the *Authorization Extension*, you can use it to configure permissions and roles. To be clear, these are their definitions:
 
 - *Permissions* are actions that users can do, such as reading a list of books or adding a new book to the list.
 - *Roles* are collections of permissions. For example, you can define a role for administrators that have the permissions to read the list of books and to add a new book to the list.
@@ -87,7 +87,7 @@ In your case,  you will add one permission for `read:books` and one for `write:b
 
 ![Configuring permissions and roles](https://cdn.auth0.com/blog/asp-net-react/permissions.png)
 
-Now let's go and define two roles for your application: *Admin*, having both permissions you've just created, and *User*, having just the `read:books` permission. By selecting *Roles* section and then clicking *Creating Role* button, you are asked to provide a few information about the role you want to create, as you can see in the following picture:
+Now you need to define two roles for your application: *Admin*, having both permissions you've just created, and *User*, having just the `read:books` permission. By selecting *Roles* section and then clicking *Creating Role* button, you are asked to provide a few information about the role you want to create, as you can see in the following picture:
 
 ![Configuring permissions and roles](https://cdn.auth0.com/blog/asp-net-react/create-role.png)
 
@@ -143,7 +143,7 @@ After this configuration process on the [Auth0](https://manage.auth0.com/) platf
 
 Following this approach, you need to define an *Authorization requirement* and an *Authorization handler*. The former is a collection of data containing the current user's rights. The latter evaluates the *Authorization requirement* to determine if access is allowed.
 
-Let's define the *Authorization requirement*. Add a `HasScopeRequirement.cs` file to the ASP.NET Core project and write the following code inside:
+Now, you have to define the *Authorization requirement*. So, add a `HasScopeRequirement.cs` file to the ASP.NET Core project and write the following code inside:
 
 ```c#
 public class HasScopeRequirement : IAuthorizationRequirement
@@ -272,7 +272,7 @@ In this case, if the status code returned by the server is `403`, the applicatio
 
 So far, you have only managed the `read:books` permission. Now, you are going to change the ASP.NET Core 2 Web API application to support `write:books` permission.
 
-As a first step, let's add the authorization policy in `Startup` class. You simply need to change the lambda function passed to the  `AddAuthorization()` method as in the following:
+As a first step, you will add the authorization policy in `Startup` class. You simply need to change the lambda function passed to the  `AddAuthorization()` method as in the following:
 
 ```c#
 	services.AddAuthorization(options =>
@@ -284,7 +284,7 @@ As a first step, let's add the authorization policy in `Startup` class. You simp
 	});
 ```
 
-Then, let's change the `BooksController` class in order to allow adding new books to the existing list.
+Then, you will change the `BooksController` class in order to allow adding new books to the existing list.
 
 First of all, you need to transform the current array of books into a static list, as shown below:
 
@@ -334,7 +334,7 @@ As you can see, the new API simply adds to the list of books the book representa
 
 ## Allowing to add books from React client
 
-On the React client side, let's go and implement the addition of books.
+On the React client side, you will implement the addition of books.
 
 First, you add in the home page a link that will open a page allowing to submit a new book. This can be done by starting with a small change in the JSX code of the `Home` component, as shown below:
 
@@ -389,7 +389,7 @@ class App extends Component {
 
 The `/bookForm` route is mapped to the `BookForm` component along with two props representing the browser history and the authentication service implemented in `AuthService` module.
 
-Let's implement the `BookForm` component by creating a file named `BookForm.js` and putting inside it the following code:
+Then, you will implement the `BookForm` component by creating a file named `BookForm.js` and putting inside it the following code:
 
 ```javascript
 import React from 'react';
