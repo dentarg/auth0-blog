@@ -3,7 +3,7 @@ layout: post
 title: "React Router 4: A Practical Introduction"
 description: "A gentle introduction to React Router 4 through practical examples."
 longdescription: "React Router 4 uses declarative approach to routing. In this tutorial, you'll learn how to use React Router 4 in your web projects via practical examples."
-date: 2017-11-28 13:05
+date: 2018-03-05 8:30
 category: Technical Guide, JavaScript, React
 design:
   bg_color: "#1A1A1A"
@@ -105,7 +105,7 @@ In the code above, I imported the `BrowserRouter`, `Route`, and `Link` component
 
 Open up `src/App.js`. Here, we will define our routes.
 
-```
+```js
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import './App.css';
@@ -160,20 +160,17 @@ export default App;
 
 In the code above, we have links that should direct the user to `/`, `/airports`, and `cities` using the `<Link>` component. Each of these links has a component that should be rendered once the current location matches the route's path. However, something is off here. Let's check the results.
 
-_/airports_
-
 ![Airports route](https://cdn.auth0.com/blog/reactrouter4/notexact.png)
 _Airports route_
 
 `Home` which is the UI for `Home` component should be rendered only on the `/`, root route. However, it is rendered on all the routes. The `/` matches `/airports` and `/cities` routes, therefore rendering its component in these two other routes. The solution to this is to simply add the `exact` prop to the `/` route.
 
 _src/App.js_
+
 ```js
-...
 <Route path="/" exact component={Home}/>
 <Route path="/airports" component={Airport}/>
 <Route path="/cities" component={City}/>
-...
 ```
 
 ![Airports route with exact component rendering](https://cdn.auth0.com/blog/reactrouter4/exact.png)
@@ -181,7 +178,7 @@ _The Airports route without rendering Home component UI_
 
 In the examples above, all the `<Route />` components have a `component` prop that renders a component when the URL visited matches the Route's path. What if you just want to render a small function instead of a whole component? You can use the `render` prop as shown in the code below.
 
-```
+```js
 <Route path="/airports" 
        render={() => (<div> This is the airport route </div>)}/>
 ```
@@ -192,7 +189,7 @@ What if you needed URLs like `/courses/business`, and  `/courses/technology/`? H
 
 _src/App.js_
 
-```
+```js
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import './App.css';
@@ -251,7 +248,7 @@ React Router 4 ships with a `match` API. The `match` object is created when a ro
 
 Let's refactor step by step. Refactor the Courses component to have the `match` object like so:
 
-```
+```js
 const Courses = ({ match }) => (
   <div>
      <ul>
@@ -269,7 +266,7 @@ const Courses = ({ match }) => (
 
 Test if your URLs are working. Now do the same for the routes but with `match.path`.
 
-```
+```js
 const Courses = ({ match }) => (
   <div>
      <ul>
@@ -287,7 +284,7 @@ const Courses = ({ match }) => (
 
 Check your app. Everything should work fine. Now one last step. We can actually replace those three lines of `<Route>` code with just one line.
 
-```
+```js
 const Courses = ({ match }) => (
   <div>
      <ul>
@@ -311,7 +308,7 @@ In previous versions of React Router such as v3, route protection code looks lik
 
 _index.js_
 
-```
+```js
 const Root = () => {
   return (
     <div className="container">
@@ -330,6 +327,10 @@ The `<Route/>` component had a `onEnter` prop that accepts a method that allows 
 Let's build out three components, `Public`, `Private`, and `Login`.
 
 _App.js_
+
+{% highlight html %}
+{% raw %}
+
 import React, { Component } from 'react';
 import {
   Route,
@@ -348,6 +349,8 @@ const Private = () => (
 const Login = () => (
   <div> Login Page <button>login</button> </div>
 );
+
+
 
 class App extends Component {
   render() {
@@ -368,9 +371,9 @@ class App extends Component {
     );
   }
 }
-
 export default App;
-```
+{% endraw %}
+{% endhighlight %}
 
 Right now, we can access both routes, `/public`, and `/private`. Now, let's make sure the `/private` route can't be accessed until a user is logged in. React Router 4 uses a declarative approach, so it's convenient that we have a component such as `<SecretRoute />` that we can use. However, the react router 4 library doesn't provide it. We'll build it. But let's come up with an Auth Service.
 
@@ -406,6 +409,10 @@ _SecretRoute component_
 The code above simply illustrates that if the authentication status of the user is true, then a component would be rendered else the user would be redirected to the `/login` route. Let's try it out.
 
 _App.js_
+
+{% highlight html %}
+{% raw %}
+
 import React, { Component } from 'react';
 import {
   Route,
@@ -459,11 +466,13 @@ class App extends Component {
 }
 
 export default App;
-```
+{% endraw %}
+{% endhighlight %}
 
 When you click on the `Private` link, you are redirected back to `/login` route. Great! Let's take it a step further by trying to actually log in and log out. Modify the login component like so:
 
 _App.js_
+
 ```js
 ...
 class Login extends React.Component {
@@ -495,13 +504,15 @@ class Login extends React.Component {
 }
 ```
 
-We have modified the Login Component to be able to have a `login` function and also redirect back to the route that the user was trying to log onto when the user was denied access. This should be typical behaviour of your routing system else users will always be redirected to a particular page rather than where they came from!
+We have modified the Login Component to be able to have a `login` function and also redirect back to the route that the user was trying to log onto when the user was denied access. This should be typical behavior of your routing system else users will always be redirected to a particular page rather than where they came from!
 
 Now, we'll have to modify the props of the `<Redirect />` component in `<SecretRoute />`.
 
 _App.js_
-```js
-...
+
+{% highlight html %}
+{% raw %}
+
 const SecretRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
     AuthService.isAuthenticated === true
@@ -512,11 +523,14 @@ const SecretRoute = ({ component: Component, ...rest }) => (
         }} />
   )} />
 );
-```
+
+{% endraw %}
+{% endhighlight %}
 
 We are almost done. However, wouldn't it be nice if we can provide a logout button for the user after successful authentication? Let's create an `<AuthStatus />` component.
 
 _App.js_
+
 ```js
 ...
 const AuthStatus = withRouter(({ history }) => (
@@ -537,8 +551,10 @@ In the above code sample, we used `withRouter` and `history.push`. `withRouter` 
 Now, go ahead and render the `<AuthStatus />` component.
 
 _App.js_
-```js
-...
+
+{% highlight html %}
+{% raw %}
+
 class App extends Component {
   render() {
     return (
@@ -560,7 +576,9 @@ class App extends Component {
     );
   }
 }
-```
+
+{% endraw %}
+{% endhighlight %}
 
 Now, try it in the browser again. You should be able to log in and log out successfully!
 
@@ -701,7 +719,9 @@ Try it out in your browser. Visit a URL that doesn't exist. Your app will displa
 
 Sidebars in apps have been in existence for a very long time. Let's learn how to make a sidebar using React Router 4. The first step is to throw our routes into an array like so:
 
-```js
+{% highlight html %}
+{% raw %}
+
 import React from 'react'
 import {
   BrowserRouter as Router,
@@ -749,7 +769,10 @@ class App extends React.Component {
 }
 
 export default App
-```
+
+{% endraw %}
+{% endhighlight %}
+
 
 In the code above, we have a `leftbar` and a `main` key. They'll come in handy soon and make our work super easy. 
 
@@ -757,8 +780,9 @@ Now, all we need to do is map over the routes array as shown in the code below:
 
 _App.js_
 
-```js
-...
+{% highlight html %}
+{% raw %}
+
 render() {
   return (
     <Router>
@@ -797,7 +821,9 @@ render() {
     </Router>
   )
 }
-```
+
+{% endraw %}
+{% endhighlight %}
 
 In the code above, whenever the route's path matches the URL location, the leftbar component will be rendered. Try it out in your browser and see your left sidebar in action!
 
