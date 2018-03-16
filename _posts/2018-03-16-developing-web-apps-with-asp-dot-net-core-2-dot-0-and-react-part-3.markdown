@@ -30,7 +30,7 @@ related:
 - 2018-02-06-developing-games-with-react-redux-and-svg-part-1
 ---
 
-**TL;DR:** This is the third part of the series about developing a Web application based on ASP.NET Core 2.0 and React. [In the first post](http://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-1), you built a secured Web API application that provides a list of books with ASP.NET Core 2.0. [In the second post](https://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-2/), you created a *Single Page Application* (SPA) client based on React to consume this API. In this post, you will integrate the client-server system with scopes and authorization management by using Auth0 services. You can find [the final code of both the React client and the ASP.NET server in this GitHub repository](https://github.com/andychiare/react-netcore2-auth0-scopes).
+**TL;DR:** This is the third part of the series about developing a Web application based on ASP.NET Core 2.0 and React. [In the first post](http://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-1), you built a secured Web API application that provides a list of books with ASP.NET Core 2.0. [In the second post](https://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-2/), you created a *Single Page Application* (SPA) client based on React to consume this API. In this post, you will integrate the client-server system with scopes and authorization management by using Auth0. You can find [the final code of both the React client and the ASP.NET server in this GitHub repository](https://github.com/andychiare/react-netcore2-auth0-scopes).
 
 {% include tweet_quote.html quote_text="Learn how to integrate React and ASP.NET Core apps in this practical tutorial." %}
 
@@ -38,19 +38,19 @@ related:
 
 ## API Scopes
 
-In order to enhance our client-server application, we are going to implement a more granular access control to the server's resources, so that specific users are allowed to make specific actions. In particular, we will add to our application an API to create new books and will restrict the access to this API only to specific users.
+In order to enhance your client-server application, you are going to implement a more granular access control to the server's resources. This will guarantee that only some specific users are allowed to make specific actions. In particular, you will add to your application an API to create new books and will restrict the access to this API only to some users.
 
 This access granularity can be obtained [by using *scopes*](https://auth0.com/docs/scopes). *Scopes* are a feature provided by [OAuth2](https://oauth.net/2/) protocol allowing to limit the access granted to an access token.
 
-## Creating scopes for your APIs
+## Creating Scopes for Your APIs
 
-As a first step you need to create scopes for your APIs. So, open the [Auth0 dashboard](https://manage.auth0.com/#/apis), click the *APIs* section and select the API created in the [first post](http://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-1) of the series. Then click the *Scopes* tab, as shown below:
+As a first step, you need to create scopes for your APIs. So, open the [Auth0 dashboard](https://manage.auth0.com/#/apis), click the *APIs* section, and select the API created in the [first post](http://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-1) of the series. Then click the *Scopes* tab, as shown below:
 
 ![./xxx-images/api-scopes.png](./xxx-images/api-scopes.png)
 
-Here you can define scopes for your APIs by specifying a name and a description. A scope name can be any string, but by convention it usually takes the form of `action:resource`, where `action` represents the action granted and `resource` represents the type of object upon which the action can be executed.
+Here you can define scopes for your APIs by specifying a name and a description. A scope name can be any string but, by convention, it usually takes the form of `action:resource`, where `action` represents the action granted and `resource` represents the type of object upon which the action can be executed.
 
-So, let's define the `write:books` and `read:books` scopes for our APIs:
+So, let's define the `write:books` and `read:books` scopes for your APIs:
 
 ![./xxx-images/api-scopes-defined.png](./xxx-images/api-scopes-defined.png)
 
@@ -62,7 +62,7 @@ To associate scopes with users, you need to configure permissions and roles. Thi
 
 ![./xxx-images/authorization-extension.png](./xxx-images/authorization-extension.png)
 
-Then click the *Auth0 Autorization* box to start the installation process. You will be prompted to choose the storage where you would like to store your data. For this simple application we will choose the default choice, *Webtask Storage*:
+Then click the *Auth0 Autorization* box to start the installation process. You will be prompted to choose the storage where you would like to store your data. For this simple application, you will choose the default choice, *Webtask Storage*:
 
 ![./xxx-images/auth0-authorization-install.png](./xxx-images/auth0-authorization-install.png)
 
@@ -73,7 +73,7 @@ Once the extension is installed, you will see it listed in the *Installed Extens
 Now that you have installed the *Authorization Extension*, you can use it to configure permissions and roles. To be clear, let's define what they are:
 
 - *Permissions* are actions that a users can do, such as reading a list of books or adding a new book to the list.
-- *Roles* are collections of permissions. For example, we can define a role for administrators that have the permissions to read the list of books and to add a new book to the list.
+- *Roles* are collections of permissions. For example, you can define a role for administrators that have the permissions to read the list of books and to add a new book to the list.
 
 So, click the *Authorization Extension* shown in the *Installed Extensions* tab and a new window will be opened. Here, select the *Permissions* section and then click the *Create Permission* button in the upper right corner. You will be prompted to provide data defining the permission, as shown below:
 
@@ -83,11 +83,11 @@ Here you will provide the name of the permission, a description and the client a
 
 > **Note**: Ensure that the name of a permission is exactly the same as the corresponding scope.
 
-In our case,  you will add one permission for `read:books` and one for `write:books`. For both permissions specify the client application associated with our React application. The final configuration should look like the following:
+In your case,  you will add one permission for `read:books` and one for `write:books`. For both permissions specify the client application associated with your React application. The final configuration should look like the following:
 
 ![./xxx-images/permissions.png](./xxx-images/permissions.png)
 
-Now let's go and define two roles for our application: *Admin*, having both permissions you've just created, and *User*, having just the `read:books` permission. By selecting *Roles* section and then clicking *Creating Role* button, you are asked to provide a few information about the role you want to create, as you can see in the following picture:
+Now let's go and define two roles for your application: *Admin*, having both permissions you've just created, and *User*, having just the `read:books` permission. By selecting *Roles* section and then clicking *Creating Role* button, you are asked to provide a few information about the role you want to create, as you can see in the following picture:
 
 ![./xxx-images/create-role.png](./xxx-images/create-role.png)
 
@@ -270,7 +270,7 @@ In this case, if the status code returned by the server is `403`, the applicatio
 
 ## Managing write permissions in APIs
 
-So far we have only managed the `read:books` permission. Now we are going to change the ASP.NET Core 2 Web API application to support `write:books` permission.
+So far, you have only managed the `read:books` permission. Now, you are going to change the ASP.NET Core 2 Web API application to support `write:books` permission.
 
 As a first step, let's add the authorization policy in `Startup` class. You simply need to change the lambda function passed to the  `AddAuthorization()` method as in the following:
 
@@ -310,7 +310,7 @@ public class BooksController : Controller
 }
 ```
 
-This is necessary because we need to keep the same list among the various requests and get any changes to it. Of course, in a real world scenario this data should be stored in a database.
+This is necessary because you need to keep the same list among the various requests and get any changes to it. Of course, in a real world scenario this data should be stored in a database.
 
 Now you can add a new API to add a book to the current book list:
 
@@ -501,7 +501,7 @@ As you can see, the first line of the method prevents the default behaviour of f
 
 ## Disabling book addition for not authorized users
 
-The implementation we have made so far works fine. If you access the application by using an admin user, you will be able to add a new book by clicking the *Add a book* link, filling the form and submitting it to the server. On the other hand, if you access the application by using a simple user (i.e. a non-admin user) you will be able to click on the *Add a button* link and fill the book form, but when you will try to submit the form's data to the server you will receive a `403` HTTP status code.
+The implementation you made so far works fine. If you access the application by using an admin user, you will be able to add a new book by clicking the *Add a book* link, filling the form and submitting it to the server. On the other hand, if you access the application by using a simple user (i.e. a non-admin user) you will be able to click on the *Add a button* link and fill the book form, but when you will try to submit the form's data to the server you will receive a `403` HTTP status code.
 
 Even if this behaviour is functionally correct, letting the user to access the book form when he is not authorized to send data to the server is very annoying. You should make sure that only admin users access the book form. In other words, only admin users should see the *Add a button* link.
 
@@ -556,7 +556,7 @@ class Home extends React.Component {
 }
 ```
 
-As you can see, the `addBookButton` variable will contain the `<Link>` element when the user has the `write:books` permission. Otherwise its value will be `null`. This conditional rendering of the *Add a book* link solves our issue.
+As you can see, the `addBookButton` variable will contain the `<Link>` element when the user has the `write:books` permission. Otherwise its value will be `null`. This conditional rendering of the *Add a book* link solves your issue.
 
 ## Summary
 
