@@ -46,13 +46,13 @@ This access granularity can be obtained [by using *scopes*](https://auth0.com/do
 
 As a first step, you need to create scopes for your APIs. So, open the [Auth0 dashboard](https://manage.auth0.com/#/apis), click the *APIs* section, and select the API created in the [first post](http://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-1) of the series. Then click the *Scopes* tab, as shown below:
 
-![./xxx-images/api-scopes.png](./xxx-images/api-scopes.png)
+![Creating scopes for your ASP.NET Core 2.0 APIs](https://cdn.auth0.com/blog/asp-net-react/api-scopes.png)
 
 Here you can define scopes for your APIs by specifying a name and a description. A scope name can be any string but, by convention, it usually takes the form of `action:resource`, where `action` represents the action granted and `resource` represents the type of object upon which the action can be executed.
 
 So, let's define the `write:books` and `read:books` scopes for your APIs:
 
-![./xxx-images/api-scopes-defined.png](./xxx-images/api-scopes-defined.png)
+![Scopes defined for a ASP.NET Core 2.0 and React application](https://cdn.auth0.com/blog/asp-net-react/api-scopes-defined.png)
 
 Definition of scopes for APIs just declares which actions may be performed on server's resources. As a next step you need to associate scopes to users in order to grant them the ability to access server's resources.
 
@@ -60,11 +60,11 @@ Definition of scopes for APIs just declares which actions may be performed on se
 
 To associate scopes with users, you need to configure permissions and roles. This may be accomplished by using the [Auth0 Authorization Extension](https://auth0.com/docs/extensions/authorization-extension/v2) in [Auth0 dashboard](https://manage.auth0.com). If you've never used this extension, you need to install it by accessing the *Extensions* section of the dashboard and by filtering the available extensions by *authorization* keyword, as shown in the following picture:
 
-![./xxx-images/authorization-extension.png](./xxx-images/authorization-extension.png)
+![Installing Authorization Extension](https://cdn.auth0.com/blog/asp-net-react/authorization-extension.png)
 
 Then click the *Auth0 Autorization* box to start the installation process. You will be prompted to choose the storage where you would like to store your data. For this simple application, you will choose the default choice, *Webtask Storage*:
 
-![./xxx-images/auth0-authorization-install.png](./xxx-images/auth0-authorization-install.png)
+![Installing Auth0 Autorization](https://cdn.auth0.com/blog/asp-net-react/auth0-authorization-install.png)
 
 Once the extension is installed, you will see it listed in the *Installed Extensions* tab.
 
@@ -77,7 +77,7 @@ Now that you have installed the *Authorization Extension*, you can use it to con
 
 So, click the *Authorization Extension* shown in the *Installed Extensions* tab and a new window will be opened. Here, select the *Permissions* section and then click the *Create Permission* button in the upper right corner. You will be prompted to provide data defining the permission, as shown below:
 
-![./xxx-images/create-permission.png](./xxx-images/create-permission.png)
+![Configuring permissions and roles](https://cdn.auth0.com/blog/asp-net-react/create-permission.png)
 
 Here you will provide the name of the permission, a description and the client application the permission should be bound to.
 
@@ -85,31 +85,31 @@ Here you will provide the name of the permission, a description and the client a
 
 In your case,  you will add one permission for `read:books` and one for `write:books`. For both permissions specify the client application associated with your React application. The final configuration should look like the following:
 
-![./xxx-images/permissions.png](./xxx-images/permissions.png)
+![Configuring permissions and roles](https://cdn.auth0.com/blog/asp-net-react/permissions.png)
 
 Now let's go and define two roles for your application: *Admin*, having both permissions you've just created, and *User*, having just the `read:books` permission. By selecting *Roles* section and then clicking *Creating Role* button, you are asked to provide a few information about the role you want to create, as you can see in the following picture:
 
-![./xxx-images/create-role.png](./xxx-images/create-role.png)
+![Configuring permissions and roles](https://cdn.auth0.com/blog/asp-net-react/create-role.png)
 
 Use this form to create both roles. The final result should be as follows:
 
-![./xxx-images/roles.png](./xxx-images/roles.png)
+![Configuring permissions and roles](https://cdn.auth0.com/blog/asp-net-react/roles.png)
 
 ## Adding roles to users
 
 Next, you will need to associate roles to users. Actually, in *Users* section of the *Authorization Extension* you will find all the users already created in your *Auth0* platform. Here you can assign roles to each user by selecting him, using the *Roles* tab and clicking the *Add role to user* button. Now you can check the roles you want to assign the user, as shown by the following picture:
 
-![./xxx-images/roles-to-user.png](./xxx-images/roles-to-user.png)
+![Adding roles to users.](https://cdn.auth0.com/blog/asp-net-react/roles-to-user.png)
 
 ## Publishing permission rule
 
 As a final step of *Authorization Extension* configuration, you need to click your domain drop-down menu in the upper right corner and select the *Configuration* item:
 
-![./xxx-images/auth-extension-configuration.png](./xxx-images/auth-extension-configuration.png)
+![Auth0 authorization extension configuration](https://cdn.auth0.com/blog/asp-net-react/auth-extension-configuration.png)
 
 In the page that appears, make sure that *Permissions* are enabled and click *Publish Rule* button:
 
-![./xxx-images/auth-extension-rule-publish.png](./xxx-images/auth-extension-rule-publish.png)
+![Publishing rules](https://cdn.auth0.com/blog/asp-net-react/auth-extension-rule-publish.png)
 
 This operation creates a rule for your tenant that will be executed after each user login. In *Auth0* platform, a [rule](https://auth0.com/docs/rules/) is a JavaScript function that is executed when the user is authenticated. The newly created rule will add user's permissions to the user's profile. You can check the rule's code by using the [Dashboard](https://manage.auth0.com/#/rules).
 
@@ -235,11 +235,11 @@ public class BooksController : Controller
 
 Now you can test Web API access control by simply running the *Single Page Application* created in [part 2](https://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-2/) of this series. If you access the application by using a user with *User* or *Admin* role, you will be able to get the list of books provided by the Web API. Otherwise, you will not be able to get the list and will get a page like the following:
 
-![./xxx-images/no-booklist-on-client.png](./xxx-images/no-booklist-on-client.png)
+![Empty list of books](https://cdn.auth0.com/blog/asp-net-react/no-booklist-on-client.png)
 
 If you look at the *Developer tools* console or some other similar tool in your browser, you will find something like this:
 
-![./xxx-image/forbidden-dev-tools.png](./xxx-images/forbidden-dev-tools.png)
+![Forbidden error on developer tools](https://cdn.auth0.com/blog/asp-net-react/forbidden-dev-tools.png)
 
 As expected, the Web API refused to provide you the requested data since you have not the required permissions.
 
@@ -356,7 +356,7 @@ class Home extends React.Component {
 
 This simple addition makes the home page looking as follows:
 
-![./xxx-images/home-page-with-link.png](./xxx-images/home-page-with-link.png)
+![Link to add books on React application](https://cdn.auth0.com/blog/asp-net-react/home-page-with-link.png)
 
 Then you need to define the route used in the `Link` component by creating it in the `App` component. The new route definition will be as follows:
 
@@ -442,7 +442,7 @@ export default BookForm;
 
 The markup generated by the `render()` method of the component defines a classic form with two text box and a submit button. Its appearance is as shown by the following picture:
 
-![./xxx-images/book-form.png](./xxx-images/book-form.png)
+![Creating the React form to add books.](https://cdn.auth0.com/blog/asp-net-react/book-form.png)
 
 The styles of the form are defined in the `BookForm.css` file imported by the component. Its content is as follows:
 
