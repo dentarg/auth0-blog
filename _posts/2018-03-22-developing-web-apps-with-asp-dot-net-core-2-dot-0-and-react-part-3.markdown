@@ -175,8 +175,7 @@ public class HasScopeHandler : AuthorizationHandler<HasScopeRequirement>
 			.FindFirst(c => c.Type == "scope" && c.Issuer == requirement.Issuer)
 			.Value.Split(' ');
 
-		if (scopes.Any(s => s == requirement.Scope))
-                context.Succeed(requirement);
+		if (scopes.Any(s => s == requirement.Scope)) context.Succeed(requirement);
 
 		return Task.CompletedTask;
 	}
@@ -277,10 +276,13 @@ As a first step, you will add the authorization policy in `Startup` class. You s
 ```c#
 	services.AddAuthorization(options =>
     {
-    	options.AddPolicy("read:books", policy => policy.Requirements.Add(new
-    		HasScopeRequirement("read:books", Configuration["Auth0:Authority"])));
-		options.AddPolicy("write:books", policy => policy.Requirements.Add(new 
-			HasScopeRequirement("write:books", Configuration["Auth0:Authority"])));
+    	options.AddPolicy("read:books", policy => policy.Requirements.Add(
+        new HasScopeRequirement("read:books", Configuration["Auth0:Authority"])
+      ));
+
+		  options.AddPolicy("write:books", policy => policy.Requirements.Add(
+        new HasScopeRequirement("write:books", Configuration["Auth0:Authority"])
+      ));
 	});
 ```
 
@@ -293,17 +295,16 @@ First of all, you need to transform the current array of books into a static lis
 public class BooksController : Controller
 {
 	private static List<Book> bookList = new List<Book>() {
-    	new Book { Author = "Ray Bradbury", Title = "Fahrenheit 451", AgeRestriction = false },
-        new Book { Author = "Gabriel García Márquez", Title = "One Hundred years of Solitude",
-        	AgeRestriction = false },
+    new Book { Author = "Ray Bradbury", Title = "Fahrenheit 451", AgeRestriction = false },
+    new Book { Author = "Gabriel García Márquez", Title = "One Hundred years of Solitude" AgeRestriction = false },
 		new Book { Author = "George Orwell", Title = "1984", AgeRestriction = false },
 		new Book { Author = "Anais Nin", Title = "Delta of Venus", AgeRestriction = true }
 	};
 
 	[HttpGet, Authorize("read:books")]
-    public IEnumerable<Book> Get()
-    {
-    	return bookList;
+  public IEnumerable<Book> Get()
+  {
+    return bookList;
 	}
 
 	//... etc
@@ -344,12 +345,14 @@ class Home extends React.Component {
   
   render() {
 	//... other statements
-    return  <div>
-              <Link to="/bookForm">Add a book</Link>
-              <ul>
-                {bookList}
-              </ul>
-            </div>;
+    return  (
+      <div>
+        <Link to="/bookForm">Add a book</Link>
+        <ul>
+          {bookList}
+        </ul>
+      </div>
+    );
   }
 }
 ```
@@ -413,23 +416,25 @@ class BookForm extends React.Component {
   }
 
   render() {
-    return <div className="formContainer">
-    <form onSubmit={(e) => this.handleFormSubmit(e)}>
-        <div className="row">
+    return (
+      <div className="formContainer">
+        <form onSubmit={(e) => this.handleFormSubmit(e)}>
+          <div className="row">
             <label className="col-50" htmlFor="author">Author</label>
-      		<input type="text" name="author" value={this.state.author} 
-      			onChange={(e)=> this.handleAuthorChange(e)}/>
-        </div>
-        <div className="row">
+            <input type="text" name="author" value={this.state.author} 
+              onChange={(e)=> this.handleAuthorChange(e)}/>
+          </div>
+          <div className="row">
             <label className="col-50" htmlFor="title">Title</label>
-      		<input type="text" name="title" value={this.state.title} 
-      			onChange={(e)=> this.handleTitleChange(e)}/>
-        </div>
-        <div className="row">
+            <input type="text" name="title" value={this.state.title} 
+              onChange={(e)=> this.handleTitleChange(e)}/>
+          </div>
+          <div className="row">
             <input type="submit" value="Submit book"/>
-        </div>
-    </form>
-    </div>;
+          </div>
+        </form>
+      </div>
+    );
   }
 
   handleFormSubmit(e) {
@@ -476,25 +481,25 @@ input[type=text] {
 Looking at the component's code, you can find that the constructor initializes the state of the component. It is defined as an object with an empty string for the author and the title of a book. You can also find two methods, `handleAuthorChange()` and `handleTitleChange()`, used to apply changes from the form elements to the component's state. The `handleFormSubmit()` method, bound to the `onSubmit` event of the form, is not actually implemented in the code above. You can implement it as follows:
 
 ```javascript
-  handleFormSubmit(e) {
-    e.preventDefault();
-    const accessToken = this.props.auth.getAccessToken();
+handleFormSubmit(e) {
+  e.preventDefault();
+  const accessToken = this.props.auth.getAccessToken();
 
-    fetch("/api/books", {
-      method: "POST",
-      body: JSON.stringify(this.state),
-      headers: new Headers({
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${accessToken}`
+  fetch("/api/books", {
+    method: "POST",
+    body: JSON.stringify(this.state),
+    headers: new Headers({
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${accessToken}`
     })
-    }).then((response) => {
-      if (response.ok) {
-        this.props.history.push("/");
-      } else {
-        alert(response.statusText);
-      }
-    });
-  }
+  }).then((response) => {
+    if (response.ok) {
+      this.props.history.push("/");
+    } else {
+      alert(response.statusText);
+    }
+  });
+}
 ```
 
 As you can see, the first line of the method prevents the default behaviour of form submission. This is needed to avoid the standard page reloading performed by the browser. Then you get the access token by using the `getAccessToken()` method provided by `AuthService` module. Finally, you submit the current component state to the server by using `fetch()`. When a response is received from the server, if its status code is successful, the current route is changed with the root, that is you move back to the `Home` component. Otherwise, the message returned by the server is shown in an alert.
@@ -510,10 +515,10 @@ You can obtain this result by making a few changes to the React application.
 The first thing you need to do is getting the scopes returned by the authorization server and store them into the session data. That's mean to add the following line to the `setSession()` method of the `AuthService` class:
 
 ```javascript
- setSession(authResult) {
-    //... other statements
-    localStorage.setItem('scopes', JSON.stringify(authResult.scope || ""));
-  }
+setSession(authResult) {
+  //... other statements
+  localStorage.setItem('scopes', JSON.stringify(authResult.scope || ""));
+}
 ```
 
 As you can see, you can find the user's scope in the `authResult` object returned by the server after the authentication. In particular, the `scope` property will be persisted as a string with all the other session info.
@@ -540,18 +545,21 @@ class Home extends React.Component {
   //... other statements
     
   render() {
-    const bookList = this.state.bookList.map((book) => 
-                            <li><i>{book.author}</i> - <h3>{book.title}</h3></li>);
-    const addBookButton = this.props.auth.hasScopes(["write:books"])? 
+    const bookList = this.state.bookList.map((book) => (
+      <li><i>{book.author}</i> - <h3>{book.title}</h3></li>
+    ));
+    const addBookButton = this.props.auth.hasScopes(["write:books"]) ? 
       <Link to="/bookForm">Add a book</Link> 
       : null;
 
-    return  <div>
-      {addBookButton}
-      <ul>
-        {bookList}
-      </ul>
-      </div>;
+    return (
+      <div>
+        {addBookButton}
+        <ul>
+          {bookList}
+        </ul>
+      </div>
+    );
   }
 }
 ```
