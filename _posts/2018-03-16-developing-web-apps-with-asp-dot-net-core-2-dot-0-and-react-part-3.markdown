@@ -3,8 +3,8 @@ layout: post
 title: "Developing Web Apps with ASP.NET Core 2.0 and React - Part 3"
 description: "A practical tutorial showing how to setup and develop a modern Web application based on ASP.NET Core 2.0 and React."
 longdescription: "In this series of posts, you will build a Web application based on ASP.NET Core 2.0 and React. To solve the identity management feature, you will integrate this stack with Auth0. In this third part of the series, you are going to integrate the existing ASP.NET Core API and React client with scopes and authorization management."
-date: xxxx-xx-xx xx:xx
-category: Technical Guide, Frontend, React, Backend, ASP.NET Core
+date: 2018-03-22 08:30
+category: Technical Guide, Microsoft, ASP Net Core
 author:
   name: "Andrea Chiarelli"
   url: "https://twitter.com/andychiare"
