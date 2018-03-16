@@ -27,15 +27,15 @@ related:
 
 **TL;DR:** In this series, we will learn how to troubleshoot webtasks from monitoring logs in the editor all the way to debugging locally using devtool and visual studio code.
 
-This post covers the tools built into the WT CLI, here are some shortcuts to help you locate the topics you are interested in quickly.
-
-- <a href="#connecting-to-the-log-stream" target="_self">Connecting to the log stream with the CLI</a>
-- <a href="#run-webtask-locally" target="_self">Run webtask locally with the CLI</a>
-
 The full list of posts in this series:
 
 - [Troubleshooting Webtasks: Using the Editor](https://auth0.com/blog/troubleshooting-webtasks-using-the-editor/)
 - [Troubleshooting Webtasks: Using the CLI](https://auth0.com/blog/troubleshooting-webtasks-using-the-cli/)
+
+This post covers the tools built into the WT CLI, here are some shortcuts to help you locate the topics you are interested in quickly.
+
+- <a href="#connecting-to-the-log-stream" target="_self">Connecting to the log stream with the CLI</a>
+- <a href="#run-webtask-locally" target="_self">Run webtask locally with the CLI</a>
 
 ---
 

@@ -30,6 +30,11 @@ related:
 
 **TL;DR:** In this series, we will learn how to troubleshoot webtasks from monitoring logs in the editor all the way to debugging locally using devtool and visual studio code.
 
+The full list of posts in this series:
+
+- [Troubleshooting Webtasks: Using the Editor](https://auth0.com/blog/troubleshooting-webtasks-using-the-editor/)
+- [Troubleshooting Webtasks: Using the CLI](https://auth0.com/blog/troubleshooting-webtasks-using-the-cli/)
+
 This post covers the tools built into the Webtasks Editor, here are some shortcuts to help you locate the topics you are interested in quickly.
 
 - <a href="#watching-execution-with-the-logs-panel" target="_self">Watching execution with the editor Logs panel</a>
@@ -240,4 +245,4 @@ The Runner panel is handy when we have sample data that we know causes a runtime
 
 In this post we have covered the various techniques available via the Webtask Editor to troubleshoot failures. These techniques work with all of the products using the Webtasks technology. Feel free to bookmark this post and reference it when you are working on your next project.
 
-In the next post we will cover using the Webtask CLI to monitor logs and execute webtasks locally.
+In the next post we will cover [using the Webtask CLI](https://auth0.com/blog/troubleshooting-webtasks-using-the-cli/) to monitor logs and execute webtasks locally.
