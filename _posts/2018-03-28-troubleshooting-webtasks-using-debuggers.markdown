@@ -2,7 +2,7 @@
 layout: post_extend
 title: "Troubleshooting Webtasks: Using Debuggers"
 description: "Learn how to troubleshoot webtasks from monitoring logs in the editor all the way to debugging locally using devtool and visual studio code."
-longdescription: ""
+longdescription: "The Webtasks technology that powers Auth0 Extend, Webtask.io and Auth0 Hooks is a very powerful system. Learn how to troubleshoot webtasks from monitoring logs in the editor all the way to debugging locally using devtool and visual studio code."
 date: 2018-03-28 08:00
 category: Extend, Techincal, Webtasks
 press_release: false
@@ -14,20 +14,26 @@ author:
   avatar: "https://cdn.auth0.com/website/blog/profiles/bobbyjohnson.png"
 design:
   bg_color: "#3445DC"
-  image: https://cdn.auth0.com/website/blog/extend/why-auth0-chose-serverless-extensibility/logo.png
+  image: https://cdn.auth0.com/blog/troubleshooting-webtasks/logo.png
 tags:
 - extend
 - webtasks
 - debugging
 related:
   - 2017-08-01-auth0-webtasks-the-quickest-of-all-quick-starts
-  - 2017-08-22-for-the-best-security-think-beyond-webhooks
-  - 2017-10-04-securing-webtasks-part-1-shared-secret-authorization
+  - 2018-03-14-troubleshooting-webtasks-using-the-editor
+  - 2018-03-21-troubleshooting-webtasks-using-the-cli
 ---
 
-**TL;DR:** In this post, we will learn how to troubleshoot webtasks from monitoring logs in the editor all the way to debugging locally using devtool and visual studio code.
+**TL;DR:** In this series, we will learn how to troubleshoot webtasks from monitoring logs in the editor all the way to debugging locally using devtool and visual studio code.
 
-This is a relatively long post, so here are some shortcuts to help you locate the topics you are interested in quickly.
+The full list of posts in this series:
+
+- [Troubleshooting Webtasks: Using the Editor](https://auth0.com/blog/troubleshooting-webtasks-using-the-editor/)
+- [Troubleshooting Webtasks: Using the CLI](https://auth0.com/blog/troubleshooting-webtasks-using-the-cli/)
+- [Troubleshooting Webtasks: Using Debuggers](https://auth0.com/blog/troubleshooting-webtasks-using-debuggers/)
+
+This post covers how to get an IDE-like debugging experience using common tools, here are some shortcuts to help you locate the topics you are interested in quickly.
 
 - <a href="#debugging-with-devtool" target="_self">Debugging locally with Devtool</a>
 - <a href="#debugging-with-visual-studio-code" target="_self">Debugging locally with Visual Studio Code</a>
@@ -35,13 +41,13 @@ This is a relatively long post, so here are some shortcuts to help you locate th
 ---
 
 
-The Webtasks platform that powers [Auth0 Extend](https://auth0.com/extend/), [Webtask.io](https://webtask.io/) and [Auth0 Hooks](https://auth0.com/docs/hooks) is a very powerful system. It allows end users to provide the functionality they need by writing simple logic in JavaScript. That JavaScript is then securely sandboxed and executed with extremely low latency while protecting the security and performance of other customers and the platform itself.
+The Webtasks technology that powers [Auth0 Extend](https://auth0.com/extend/), [Webtask.io](https://webtask.io/) and [Auth0 Hooks](https://auth0.com/docs/hooks) is a very powerful system. It allows end users to provide the functionality they need by writing simple logic in JavaScript. That JavaScript is then securely sandboxed and executed with extremely low latency while protecting the security and performance of other customers and the technology itself.
 
-Whether you are building a fun weekend project, ensuring your authorized users are members of a specific domain or offering your customers an easy way to customize your SaaS; the Webtasks platform allows you to accomplish your goals without placing the burden of hosting, monitoring or scaling on you or your users.
+Whether you are building a fun weekend project, ensuring your authorized users are members of a specific domain or offering your customers an easy way to customize your SaaS; the Webtasks technology allows you to accomplish your goals without placing the burden of hosting, monitoring or scaling on you or your users.
 
-Even with a platform this powerful, you are going to run into issues at times. A service you depend on may go down. Or a bit of logic might not consider all the possible cases that can arise during execution.
+Even with a technology this powerful, you are going to run into issues at times. A service you depend on may go down. Or a bit of logic might not consider all the possible cases that can arise during execution.
 
-When unexpected events happen, how do you go about troubleshooting the issues? In this post, I will show you the most common ways of troubleshooting a webtask. From simple test executions to full local debugging support, we will cover it all.
+When unexpected events happen, how do you go about troubleshooting the issues? In this series, I will show you the most common ways of troubleshooting a webtask. From simple test executions to full local debugging support, we will cover it all.
 
 ### Debugging a webtask locally
 
@@ -56,7 +62,7 @@ The most straightforward and quickest way to debug is using the standalone [Elec
 - Execute the command `npm install -g devtool`
 - Execute the command `wt debug -d=devtool task.js`
 
-Devtool will popup; we can drill down into the file explorer on the left to find our task.
+Devtool will pop up; we can drill down into the file explorer on the left to find our task.
 
 - Click on the **Sources** tab.
 - In the left-hand tree view, locate **task.js**.
@@ -184,6 +190,6 @@ We are now running and debugging entirely in Visual Studio Code. Notice that our
 
 # Summary
 
-It was a long road, but we have now covered the ways to troubleshoot webtasks from a quick log logging in the editor all the way to full IDE like debugger support.
+It was a long road, but we have now covered the ways to troubleshoot webtasks from a quick log logging in the editor all the way to full IDE like debugger support. In this post, we have covered the various techniques available to do some serious debugging of our Webtasks. 
 
-These techniques work with all of the products using the Webtasks platform. Feel free to bookmark this post and reference it when you are working on your next project.
+These techniques work with all of the products using the Webtasks technology. Feel free to bookmark this post and reference it when you are working on your next project.
