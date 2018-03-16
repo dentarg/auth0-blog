@@ -243,6 +243,6 @@ The Runner panel is handy when we have sample data that we know causes a runtime
 
 # Summary
 
-In this post we have covered the various techniques available via the Webtask Editor to troubleshoot failures. These techniques work with all of the products using the Webtasks technology. Feel free to bookmark this post and reference it when you are working on your next project.
+In this post, we have covered the various techniques available via the Webtask Editor to troubleshoot failures. These techniques work with all of the products using the Webtasks technology. Feel free to bookmark this post and reference it when you are working on your next project.
 
-In the next post we will cover [using the Webtask CLI](https://auth0.com/blog/troubleshooting-webtasks-using-the-cli/) to monitor logs and execute webtasks locally.
+In the next post, we will cover [using the Webtask CLI](https://auth0.com/blog/troubleshooting-webtasks-using-the-cli/) to monitor logs and execute webtasks locally.

@@ -167,9 +167,11 @@ We can now see the logged messages from the webtask directly in our console. Not
 
 It is also worth pointing out that the local serve method does not support live reload when our task.js code is updated. As with the log stream, we can hit `CTRL-C` to stop the hosted task.
 
+The serve functionality of the WT CLI gives you access to all of the Webtask functionality including meta and secret values as well as local storage simulation. For detailed instructions, see the [Webtask Workshop](https://github.com/auth0/webtask-workshop).
+
 
 # Summary
 
-In this post we have covered various techniques available via the WT CLI to troubleshoot failures. These techniques work with all of the products using the Webtasks technology. Feel free to bookmark this post and reference it when you are working on your next project.
+In this post, we have covered various techniques available via the WT CLI to troubleshoot failures. These techniques work with all of the products using the Webtasks technology. Feel free to bookmark this post and reference it when you are working on your next project.
 
-In the next post we will cover using the Webtask CLI, Devtool and Visual Studio Code to get a full IDE debugging experience.
+In the next post, we will cover using the Webtask CLI, Devtool and Visual Studio Code to get a full IDE debugging experience.
