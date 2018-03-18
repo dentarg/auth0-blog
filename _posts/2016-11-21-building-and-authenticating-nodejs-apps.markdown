@@ -378,16 +378,15 @@ Lastly, we'll also create a stub for our login page by creating a file called `l
 
 Finally, we are ready to wire up our views and controllers with actual functionality. Remember, we are storing our controllers in the `routes/index.js` file. Let's open up that file and make the following adjustments:
 
-Also, for users of this application to be authenticated with Auth0, you need to setup a client in your [Auth0 dashboard](https://manage.auth0.com/#/). If you don't have Auth0 account, setup one [here](https://auth0.com/signup).  
-After you have created an account, visit your dashboard and add a client. Then, go to the Settings section of your client to copy the Client ID, Domain  and CLIENT SECRET information. 
-One last thing to do in the Settings section is to add a callback URL; URL in your application where Auth0 redirects the user after they have authenticated. 
+Also, for users of this application to be authenticated with Auth0, you need to setup a client in your [Auth0 dashboard](https://manage.auth0.com/#/). If you don't have Auth0 account,  <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account now</a>).  
+After you have created an account, visit your dashboard and add a new client. Then, go to the Settings section of your client to copy the Client ID, Domain  and CLIENT SECRET information. 
+In the Settings section, scroll down a bit, you will see "Allowed Callback URLs", this is the last thing we will add here. Add the callback URL; URL in your application where Auth0 redirects the user after they have authenticated. A callback URL should like "http://localhost:3000/callback" where callback is one of the endpoints in created as route for this application. This "callback" endpoint can be assigned any name but make sure the given name is the same as the endpoint used in your route.
+Now, create `.env` file in the project root directory and add the following information.
 
-Now, create .env file in the project root directory and add the following information.
-
-AUTH0_DOMAIN="YOUR AUTH0 DOMAIN"
-AUTH0_CLIENT_ID="YOUR AUTH0 CLIENT ID"
-AUTH0_CLIENT_SECRET="YOUR AUTH0 CLIENT SECRET"
-AUTH0_CALLBACK_URL="YOUR CALLBACK URL"
+- AUTH0_DOMAIN="YOUR AUTH0 DOMAIN"
+- AUTH0_CLIENT_ID="YOUR AUTH0 CLIENT ID"
+- AUTH0_CLIENT_SECRET="YOUR AUTH0 CLIENT SECRET"
+- AUTH0_CALLBACK_URL="YOUR CALLBACK URL"
 
 ```js
 const express = require('express');
@@ -443,7 +442,7 @@ router.get('/user', ensureLoggedIn, (req, res, next) =>{
   // Same thing for our
   res.render('user', { env: env, user: req.user });
 });
-
+// this is the callback URL I talked about earlier. 
 router.get('/callback', passport.authenticate('auth0',
   {failureRedirect: '/url-if-something-fails'}), (req, res) => {
   res.redirect(req.session.returnTo || '/polls');
