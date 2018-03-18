@@ -45,9 +45,9 @@ $ Unauthorized
 
 You can see that the first request has been denied with `Unauthorized` status. That's because we didn't provide any JWT with the request, so it didn't go through.
 
-Now grab any HTTP client and let's configure it to start an OAuth 2.0 authorization process against Auth0. We can grab all the necessary parameters going on _Clients_ -> _Billings (Test Client)_ -> _Settings_ -> _Advanced Settings_ -> _Endpoints_
+Now grab any HTTP client and let's configure it to start an OAuth 2.0 authorization process against Auth0. We can grab all the necessary parameters going on _Clients_ -> _Billings (Test Client)_ -> _Settings_
 
-In my case, I am going to use `curl`, but you can use the one you prefer:
+In my case, I am going to use `curl`, but you can use the client you prefer:
 
 ```bash
 curl --request POST \
@@ -61,7 +61,7 @@ curl --request POST \
 }'
 ```
 
-**Note:** You might want to replace all the placeholders with real values provided by Auth0.
+**Note:** Make sure to replace all the placeholders with real values provided by Auth0.
 
 Now, by simply copying the `access_token` attribute from the response, we will be able to communicate with the API through Express Gateway (you can verify the returned token by using [JWT.io](https://jwt.io/#debugger)). This is the token to be used in order to access the protected resource. So, just try to issue requests making sure that the token is now sent as a `Bearer` Authorization to the endpoint. The response should hopefully be `200`.
 

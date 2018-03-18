@@ -38,6 +38,8 @@ You can get [the code example in this GitHub repository](https://github.com/XVin
 
 Unless you're building a proof of concept or an application that's not aiming to reach production, you definitely want to add **monitoring** and **metrics** to your system. In this installment, we're going to look how **Express Gateway** can help you to add application specific metrics and expose them through an HTTP endpoint that can be queried by an external service, such as [Prometheus][prometheus-homepage].
 
+{% include tweet_quote.html quote_text="Monitoring and metrics are an important part of your system." %}
+
 ## Express Gateway to Rescue
 
 Express Gateway is an API gateway that sits at the heart of any microservices architecture (regardless of what language or platform is being used), **securing** the different pieces and exposing them through **APIs**. All these magic works by using [Node.js](https://nodejs.org), [ExpressJS](https://expressjs.com/), and [Express middleware](https://expressjs.com/en/guide/writing-middleware.html).
@@ -245,11 +247,9 @@ You can see we received back the Prometheus metrics with all the data we collect
 
 Express Gateway relies on **JSON Schemas** to make sure all the configurations that goes in its funnel it's correct.
 
-You can leverage the same mechanism to specify the **required** parameters, good defaults and **validation** rules
-for your plugin.
+You can leverage the same mechanism to specify the **required** parameters, good defaults and **validation** rules for your plugin.
 
-In our case, for instance, it's pretty clear that the Admin API path where the metrics will be exposed is **mandatory**;
-also we might want to configure the header where the consumer id information is stored.
+In our case, for instance, it's pretty clear that the Admin API path where the metrics will be exposed is **mandatory**; also we might want to configure the header where the consumer id information is stored.
 
 With these two requirements in mind, we can write something like this:
 
@@ -300,9 +300,9 @@ refuse to load the plugin if the validation does not pass.
 
 ## Conclusions
 
-Metrics are **hard**. In a Microservices context, it's even **harder**. In this installment we discovered how to leverage
-the shared **middleware** (our API gateway) to collect data **without** having to modify the services' code at all, and have
-a **centralized** way to push and display these.
+Metrics are **hard**. In a Microservices context, it's even **harder**. In this installment we discovered how to leverage the shared **middleware** (our API gateway) to collect data **without** having to modify the services' code at all, and have a **centralized** way to push and display these.
+
+{% include tweet_quote.html quote_text="Metrics are hard. In a Microservices context, it's even harder. See how Express Gateway and Auth0 can help you with that" %}
 
 [plugin-shape]: https://www.express-gateway.io/docs/plugins/plugin-development/
 [express-response]: http://expressjs.com/en/4x/api.html#res
