@@ -206,7 +206,7 @@ If you followed along with our directory structure, you'll have created an `inde
 const express = require('express');
 const router = express.Router();
 
-// On our router variable, we'll be able to include various methods. For our app we'll only make use of GET requests, so the method router.get will handle that interaction. This method takes a string as its first parameter and that is the url path, so for the first route we are just giving it '/', which means the default route. Next we are defining a Node.js callback function, that takes three parameters, a request (req), a response (res), and an optional next (next) parameter. Finally, in our callback function, we are just send the message "You are on the homepage".
+// On our router variable, we'll be able to include various methods. For our app we'll only make use of GET requests, so the method router.get will handle that interaction. This method takes a string as its first parameter and that is the url path, so for the first route we are just giving it '/', which means the default route.
 router.get('/', (req, res) => {
     res.send('You are on the homepage');
 });
@@ -378,15 +378,26 @@ Lastly, we'll also create a stub for our login page by creating a file called `l
 
 Finally, we are ready to wire up our views and controllers with actual functionality. Remember, we are storing our controllers in the `routes/index.js` file. Let's open up that file and make the following adjustments:
 
-Also, for users of this application to be authenticated with Auth0, you need to setup a client in your [Auth0 dashboard](https://manage.auth0.com/#/). If you don't have Auth0 account,  <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account now</a>).  
-After you have created an account, visit your dashboard and add a new client. Then, go to the Settings section of your client to copy the Client ID, Domain  and CLIENT SECRET information. 
-In the Settings section, scroll down a bit, you will see "Allowed Callback URLs", this is the last thing we will add here. Add the callback URL; URL in your application where Auth0 redirects the user after they have authenticated. A callback URL should like "http://localhost:3000/callback" where callback is one of the endpoints in created as route for this application. This "callback" endpoint can be assigned any name but make sure the given name is the same as the endpoint used in your route.
-Now, create `.env` file in the project root directory and add the following information.
+Also, for users of this application to be authenticated with Auth0, you need to setup a client in your [Auth0 dashboard](https://manage.auth0.com/#/). If you don't have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a **free** one now</a>.
 
-- AUTH0_DOMAIN="YOUR AUTH0 DOMAIN"
-- AUTH0_CLIENT_ID="YOUR AUTH0 CLIENT ID"
-- AUTH0_CLIENT_SECRET="YOUR AUTH0 CLIENT SECRET"
-- AUTH0_CALLBACK_URL="YOUR CALLBACK URL"
+After creating your free Auth0 account, visit the [Auth0 dashboard](https://manage.auth0.com/#/) and add click on the _New Client_ button. Auth0 will show a form where you will need to inform two things:
+
+1. The _Name_ of the client: Here, you can add anything to represent your Node.js application.
+2. The _Client Type_: Here, you will need to choose _Regular Web Applications_.
+
+Then, click on _Create_ and go to the _Settings_ tab of your new client. From there, you will need to copy the _Client ID_, _Domain_, and _CLIENT SECRET_ properties.
+
+Also, you will need to update the _Allowed Callback URLs_ field. In this field, add the following value: `http://localhost:3000/callback`. This is the URL that Auth0 uses to redirects users after they authenticate.
+
+Now, create a file called `.env` in the project root directory and add the following content to it:
+
+```bash
+AUTH0_DOMAIN={YOUR_AUTH0_DOMAIN}
+AUTH0_CLIENT_ID={YOUR_AUTH0_CLIENT_ID}
+AUTH0_CLIENT_SECRET={YOUR_AUTH0_CLIENT_SECRET}
+```
+
+> **Note:** You will have to replace the `{YOUR_AUTH0_DOMAIN}`, `{YOUR_AUTH0_CLIENT_ID}`, and `{YOUR_AUTH0_CLIENT_SECRET}` placeholders with the properties copied from your Auth0 client (i.e. _Client ID_, _Domain_, and _CLIENT SECRET_).
 
 ```js
 const express = require('express');
@@ -395,14 +406,12 @@ const router = express.Router();
 const ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
 const request = require('request');
 
-
 const env = {
   AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
   AUTH0_DOMAIN: process.env.AUTH0_DOMAIN,
-  AUTH0_CALLBACK_URL: process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/callback'
 };
 
-router.get('/', (req, res, next)=> {
+router.get('/', (req, res, next) => {
   // Now, rather then just sending the text "You are on the homepage", we are going to actually render the view we created using the res.render method. The second argument will allow us to pass in data from the backend to our view dynamically.
   res.render('index', { env: env });
 });
@@ -410,7 +419,7 @@ router.get('/', (req, res, next)=> {
 router.get('/login', passport.authenticate('auth0', {
     clientID: env.AUTH0_CLIENT_ID,
     domain: env.AUTH0_DOMAIN,
-    redirectUri: env.AUTH0_CALLBACK_URL,
+    redirectUri: 'http://localhost:3000/callback',
     responseType: 'code',
     scope: 'openid profile email'
   }), (req, res) => {
@@ -442,7 +451,7 @@ router.get('/user', ensureLoggedIn, (req, res, next) =>{
   // Same thing for our
   res.render('user', { env: env, user: req.user });
 });
-// this is the callback URL I talked about earlier. 
+
 router.get('/callback', passport.authenticate('auth0',
   {failureRedirect: '/url-if-something-fails'}), (req, res) => {
   res.redirect(req.session.returnTo || '/polls');
@@ -465,8 +474,6 @@ app.use((err, req, res, next) =>{
   });
 });
 ```
-
-{% include asides/node.markdown %}
 
 ## Conclusion
 
