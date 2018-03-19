@@ -2,22 +2,23 @@
 layout: post
 title: The Difference Between Web Access Management and Identity Management
 description: "The risks of legacy authentication and why you should migrate to IAM"
-longdescription: "The risks of legacy authentication and why you should migrate to IAM"
-date: 2018-02-20 10:31
-category: Growth
+longdescription: "Organizations are migrating from Web Access Management systems to more integrated Identity Management (IdM) and Identity and Access Management (IAM) solutions. Learn the difference between Web Access Management and Identity Management"
+date: 2018-03-19 10:31
+category: Growth, Identity
 is_non-tech: true
 author:
-  name: Martin Gontovnikas
-  url: http://twitter.com/mgonto
-  mail: gonto@auth0.com
-  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
+  name: "Diego Poza"
+  url: "https://twitter.com/diegopoza"
+  mail: "diego.poza@auth0.com"
+  avatar: "https://avatars3.githubusercontent.com/u/604869?v=3&s=200"
 design:
-  bg_color: "#2b0050"
-  image: https://cdn.auth0.com/blog/get-iam-budget/logo.png
+  bg_color: "#6E2D18"
+  image: https://cdn.auth0.com/blog/difference-wam-iam/logo.png
 tags:
 - iam
 - identity
 - identity-management
+- web-access-management
 related:
 - 2017-12-08-how-poor-identity-access-management-equals-security-breaches
 - 2018-01-19-how-iam-can-help-your-enterprise-get-mobile
@@ -73,7 +74,7 @@ IdM is often used interchangeably with IAM, or identity and access management. I
 
 In other words, [IAM](https://auth0.com/learn/cloud-identity-access-management/) is the entire set of practices around identity that an organization needs to allow “the right individuals to access the right resources at the right times for the right reasons.”
 
-The Difference Between Web Access Management and Identity Management
+## The Difference Between Web Access Management and Identity Management
 
 The primary difference between legacy web access management and more modern identity and access management is the comprehensiveness and flexibility of the solutions they offer.
 
