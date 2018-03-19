@@ -100,7 +100,7 @@ import { UserProfile } from './profile.model';
 export class AuthService {
   // Create Auth0 web auth instance
   // @TODO: Update AUTH_CONFIG and remove .example extension in src/app/auth/auth0-variables.ts.example
-  auth0 = new auth0.WebAuth({
+  private _auth0 = new auth0.WebAuth({
     clientID: AUTH_CONFIG.CLIENT_ID,
     domain: AUTH_CONFIG.CLIENT_DOMAIN,
     responseType: 'token',
@@ -109,20 +109,19 @@ export class AuthService {
     scope: AUTH_CONFIG.SCOPE
   });
   userProfile: UserProfile;
+  accessToken: string;
 
   // Create a stream of logged in status to communicate throughout app
   loggedIn: boolean;
   loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
 
   constructor() {
-    // If authenticated, set local profile property and update login status subject
-    if (this.authenticated) {
-      this.userProfile = JSON.parse(localStorage.getItem('profile'));
-      this.setLoggedIn(true);
-    }
+    // You can restore an unexpired authentication session on init
+    // by using the checkSession() endpoint from auth0.js:
+    // https://auth0.com/docs/libraries/auth0js/v9#using-checksession-to-acquire-new-tokens
   }
 
-  setLoggedIn(value: boolean) {
+  private _setLoggedIn(value: boolean) {
     // Update login status subject
     this.loggedIn$.next(value);
     this.loggedIn = value;
@@ -130,24 +129,24 @@ export class AuthService {
 
   login() {
     // Auth0 authorize request
-    this.auth0.authorize();
+    this._auth0.authorize();
   }
 
-  handleAuth() {
+  handleLoginCallback() {
     // When Auth0 hash parsed, get profile
-    this.auth0.parseHash((err, authResult) => {
+    this._auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken) {
         window.location.hash = '';
-        this._getProfile(authResult);
+        this.getUserInfo(authResult);
       } else if (err) {
         console.error(`Error: ${err.error}`);
       }
     });
   }
 
-  private _getProfile(authResult) {
+  getUserInfo(authResult) {
     // Use access token to retrieve user's profile and set session
-    this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
+    this._auth0.client.userInfo(authResult.accessToken, (err, profile) => {
       this._setSession(authResult, profile);
     });
   }
@@ -155,26 +154,25 @@ export class AuthService {
   private _setSession(authResult, profile) {
     const expTime = authResult.expiresIn * 1000 + Date.now();
     // Save session data and update login status subject
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('profile', JSON.stringify(profile));
     localStorage.setItem('expires_at', JSON.stringify(expTime));
+    this.accessToken = authResult.accessToken;
     this.userProfile = profile;
-    this.setLoggedIn(true);
+    this._setLoggedIn(true);
   }
 
   logout() {
-    // Remove tokens and profile and update login status subject
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('profile');
+    // Remove token and profile and update login status subject
     localStorage.removeItem('expires_at');
+    this.accessToken = undefined;
     this.userProfile = undefined;
-    this.setLoggedIn(false);
+    this._setLoggedIn(false);
   }
 
   get authenticated(): boolean {
     // Check if current date is greater than expiration
+    // and user is currently logged in
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    return Date.now() < expiresAt;
+    return (Date.now() < expiresAt) && this.loggedIn;
   }
 
 }
@@ -188,17 +186,17 @@ The `login()` method authorizes the authentication request with Auth0 using your
 
 > **Note:** If it's the user's first visit to our app _and_ our callback is on `localhost`, they'll also be presented with a consent screen where they can grant access to our API. A first party client on a non-localhost domain would be highly trusted, so the consent dialog would not be presented in this case. You can modify this by editing your [Auth0 Dashboard API](https://manage.auth0.com/#/apis) **Settings**. Look for the "Allow Skipping User Consent" toggle.
 
-We'll receive `accessToken` and `expiresIn` in the hash from Auth0 when returning to our app. The `handleAuth()` method uses Auth0's `parseHash()` method callback to get the user's profile (`_getProfile()`) and set the session (`_setSession()`) by saving the tokens, profile, and token expiration to local storage and updating the `loggedIn$` subject so that any subscribed components in the app are informed that the user is now authenticated.
+We'll receive `accessToken` and `expiresIn` in the hash from Auth0 when returning to our app. The `handleLoginCallback()` method uses Auth0's `parseHash()` method callback to get the user's profile (`getUserInfo()`) and set the session (`_setSession()`) by saving the token, profile, and token expiration and updating the `loggedIn$` subject so that any subscribed components in the app are informed that the user is now authenticated.
 
 > **Note:** The profile takes the shape of [`profile.model.ts`](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/profile.model.ts) from the [OpenID standard claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims).
 
-Finally, we have a `logout()` method that clears data from local storage and updates the `loggedIn$` subject. We also have an `authenticated` accessor to return current authentication status based on access token expiration.
+Finally, we have a `logout()` method that clears data from and updates the `loggedIn$` subject. We also have an `authenticated` accessor to return current authentication status based on presence of a token and the token's expiration.
 
 Once [`AuthService` is provided in `app.module.ts`](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/app.module.ts#L32), its methods and properties can be used anywhere in our app, such as the [home component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/home).
 
 ### Callback Component
 
-The [callback component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/callback) is where the app is redirected after authentication. This component simply shows a loading message until the login process is completed. It executes the `handleAuth()` method to parse the hash and extract authentication information. It subscribes to the `loggedIn$` Behavior Subject from our Authentication service in order to redirect back to the home page once the user is logged in, like so:
+The [callback component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/callback) is where the app is redirected after authentication. This component simply shows a loading message until the login process is completed. It executes the `handleLoginCallback()` method to parse the hash and extract authentication information. It subscribes to the `loggedIn$` Behavior Subject from our Authentication service in order to redirect back to the home page once the user is logged in, like so:
 
 ```js
 // src/app/callback/callback.component.ts
@@ -217,7 +215,7 @@ export class CallbackComponent implements OnInit, OnDestroy {
 
   constructor(private auth: AuthService, private router: Router) {
     // Parse authentication hash
-    auth.handleAuth();
+    auth.handleLoginCallback();
   }
 
   ngOnInit() {
@@ -244,18 +242,22 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
+import { AuthService } from './auth/auth.service';
 
 @Injectable()
 export class ApiService {
   private baseUrl = 'http://localhost:3001/api/';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private auth: AuthService
+  ) { }
 
   getDragons$(): Observable<any[]> {
     return this.http
       .get(`${this.baseUrl}dragons`, {
         headers: new HttpHeaders().set(
-          'Authorization', `Bearer ${localStorage.getItem('access_token')}`
+          'Authorization', `Bearer ${this.auth.accessToken}`
         )
       })
       .pipe(
