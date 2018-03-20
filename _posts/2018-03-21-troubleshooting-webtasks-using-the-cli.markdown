@@ -2,7 +2,7 @@
 layout: post_extend
 title: "Troubleshooting Webtasks: Using the CLI"
 description: "Learn how to troubleshoot webtasks from monitoring logs in the editor all the way to debugging locally using devtool and visual studio code."
-longdescription: "The Webtasks technology that powers Auth0 Extend, Webtask.io and Auth0 Hooks is a very powerful system. Learn how to troubleshoot webtasks from monitoring logs in the editor all the way to debugging locally using devtool and visual studio code."
+longdescription: "The Webtasks technology that powers Auth0 Extend and Webtask.io is a very powerful system. Learn how to troubleshoot webtasks from monitoring logs in the editor all the way to debugging locally using devtool and visual studio code."
 date: 2018-03-21 08:00
 category: Extend, Technical, Webtasks
 press_release: false
@@ -40,7 +40,7 @@ This post covers the tools built into the WT CLI, here are some shortcuts to hel
 ---
 
 
-The Webtasks technology that powers [Auth0 Extend](https://auth0.com/extend/), [Webtask.io](https://webtask.io/) and [Auth0 Hooks](https://auth0.com/docs/hooks) is a very powerful system. It allows end users to provide the functionality they need by writing simple logic in JavaScript. That JavaScript is then securely sandboxed and executed with extremely low latency while protecting the security and performance of other customers and the technology itself.
+The Webtasks technology that powers [Auth0 Extend](https://auth0.com/extend/) and [Webtask.io](https://webtask.io/) is a very powerful system. It allows end users to provide the functionality they need by writing simple logic in JavaScript. That JavaScript is then securely sandboxed and executed with extremely low latency while protecting the security and performance of other customers and the technology itself.
 
 Whether you are building a fun weekend project, ensuring your authorized users are members of a specific domain or offering your customers an easy way to customize your SaaS; the Webtasks technology allows you to accomplish your goals without placing the burden of hosting, monitoring or scaling on you or your users.
 
@@ -52,9 +52,9 @@ When unexpected events happen, how do you go about troubleshooting the issues? I
 
 The tools built directly into the editor are great for troubleshooting a single webtask; especially if it is simple. But using console log statements to troubleshoot a complex webtask or a set of collaborative tasks would quickly grow tedious.
 
-The webtask CLI offers several tools out of the box to help troubleshoot issues with webtasks. The CLI can be used in this way for Auth0 Hooks, Webtask.io or Auth0 Extend deployments.
+The webtask CLI offers several tools out of the box to help troubleshoot issues with webtasks. The CLI can be used in this way for Webtask.io or Auth0 Extend deployments.
 
-To set up the CLI for use with Webtask.io, visit [this interactive tutorial](https://webtask.io/cli) which will walk you through the process. Auth0 Hooks users can visit [their tenant settings](https://manage.auth0.com/#/tenant/webtasks) in their management dashboard for similar instructions. And finally, Auth0 Extend customers should already have instructions for setting the CLI up to work with your cluster. If you need help, feel free to [join us in our customer Slack](https://auth0-extend.run.webtask.io/slack-signup) for assistance.
+To set up the CLI for use with Webtask.io, visit [this interactive tutorial](https://webtask.io/cli) which will walk you through the process. Auth0 Extend customers should already have instructions for setting the CLI up to work with your cluster. If you need help, feel free to [join us in our customer Slack](https://auth0-extend.run.webtask.io/slack-signup) for assistance.
 
 
 ### <span id="connecting-to-the-log-stream"></span>Connecting to the log stream
