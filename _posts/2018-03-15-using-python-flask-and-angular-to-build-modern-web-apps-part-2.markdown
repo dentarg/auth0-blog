@@ -21,12 +21,12 @@ tags:
 - typescript
 - auth0
 related:
+- 2018-03-13-using-python-flask-and-angular-to-build-modern-apps-part-1
 - 2017-09-28-developing-restful-apis-with-python-and-flask
 - 2017-11-09-sqlalchemy-orm-tutorial-for-python-developers
-- 2018-03-13-using-python-flask-and-angular-to-build-modern-apps-part-1
 ---
 
-**TL;DR:** In this series, you will learn how to create modern web applications with Python, Flask, and Angular. You will use this stack to build a SPA and a backend API to expose exams and questions so users can test their knowledge regarding different technologies. [In this GitHub repository](https://github.com/auth0-blog/online-exam/), you can find the final code created throughout the first part of the series.
+**TL;DR:** In this series, you will learn how to create modern web applications with Python, Flask, and Angular. You will use this stack to build a SPA and a backend API to expose exams and questions so users can test their knowledge regarding different technologies. [In this GitHub repository](https://github.com/auth0-blog/python-flask-angular-2/), you can find the final code created throughout the second part of the series.
 
 ---
 
@@ -210,7 +210,7 @@ That's it! You Flask application is now secured with Auth0. To test it, you can 
 
 ```bash
 # run the app in the background
-./bootstrap &
+./bootstrap.sh &
 
 # good to go, endpoint not secured
 curl http://0.0.0.0:5000/exams
