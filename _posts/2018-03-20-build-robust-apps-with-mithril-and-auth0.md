@@ -2,8 +2,9 @@
 layout: post
 title: "Build Robust Apps with Mithril and Auth0"
 description: "Mithril is a small, fast JavaScript framework for building Single Page Applications, and can be learned in just 10 minutes."
-date: 2018-03-05 8:30
-category: Mithril, JavaScript, Technical guide
+longdescription: Mithril positions itself as a compact but powerful modern client-side JavaScript framework. In this tutorial, we are going to use Mithril to build a fairly complex web interface to store data about conferences and authenticate it with Auth0. 
+date: 2018-03-20 8:30
+category: Technical Guide, Frontend, JavaScript
 banner:
   text: "Auth0 makes it easy to add authentication to your Single Page Application."
 author:
@@ -12,14 +13,18 @@ author:
   mail: ""
   avatar: "https://pbs.twimg.com/profile_images/918124318076256256/wMFapJ1C_400x400.jpg"
 design:
-  image: https://mithril.js.org/logo.svg
-  bg_color: "#1A1A1A"
+  image: https://cdn.auth0.com/blog/mithril/logo.png
+  bg_color: "#222228"
 tags:
 - mithril
 - javascript
+- framework
+- single-page-app
+- spa
 related:
-- 2016-08-11-bootstrapping-a-react-project
-- 2016-02-22-12-steps-to-a-faster-web-app
+- 2018-02-07-oauth2-the-complete-guide
+- 2018-01-09-the-complete-guide-to-deploying-javascript-applications-part-1
+- 2018-02-06-developing-games-with-react-redux-and-svg-part-1
 ---
 
 **TL;DR:** Mithril positions itself as a compact but powerful modern client-side JavaScript framework. Its API is engineered to allow developers to build large single page applications while keeping a very small footprint. With a size of under 8kb as a gzip, Mithril delivers speed and performance without any compromise on functionality. Out of the box, Mithril offers flexible routing and XHR utilities. [Benchmarks](https://mithril.js.org/index.html#what-is-mithril?) provided by the developers of the project show that Mithril is smaller and performs better than the three leading mainstream frameworks: React, Angular, and Vue. In this tutorial, we are going to use Mithril to build a fairly complex web interface to store data about conferences and authenticate it with [Auth0](https://auth0.com). The final code can be found at the [Mithril-Sample-App GitHub repo](https://github.com/getDanArias/Mithril-Sample-App) and a [live demo is here](https://conference-tracker-95127.firebaseapp.com/#!/conferences).
