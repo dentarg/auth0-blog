@@ -20,9 +20,9 @@ tags:
 - partnership
 - company-news
 related:
-- 2017-11-08-auth0-ranked-in-top10-employer-brands
-- 2017-10-05-auth0-expands-leadership-team
-- 2017-06-27-cloud-identity-leader-auth0-adds-30-million-series-c
+- 2018-02-12-auth0-joins-the-google-cloud-partner-platform
+- 2018-02-19-auth0-provides-authentication-to-coinsource
+- 2018-03-05-fubotv-enables-easier-login-with-auth0
 ---
 
 **LONDON, UK - March 20, 2018** – [Auth0](https://auth0.com/), a global leader in Identity-as-a-Service (IDaaS), has announced a new partnership with [AppXite](https://appxite.com/), a global leader in SaaS solutions aggregation and fully owned subsidiary of [Atea](https://www.atea.com/). Auth0’s identity and access management platform will be added to AppXite’s SaaS offering, adding even more value to its global reseller offering. 
