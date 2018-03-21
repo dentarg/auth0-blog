@@ -158,7 +158,7 @@ Then, back in your chosen editor, we need to create some *routes* for our app.  
 
 ~~~ crystal
 get "/auth/login" do |env|
-  env.redirect "https://[YOUR_URL].auth0.com/login?client=[CLIENT_ID]"
+  env.redirect "https://[YOUR_URL].auth0.com/authorize?client=[CLIENT_ID]"
 end
 
 get "/auth/callback" do |env|
