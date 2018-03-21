@@ -2,7 +2,7 @@
 layout: post_extend
 title: "Troubleshooting Webtasks: Using the Editor"
 description: "Learn how to troubleshoot webtasks from monitoring logs in the editor all the way to debugging locally using devtool and visual studio code."
-longdescription: "The Webtasks platform that powers Auth0 Extend, Webtask.io and Auth0 Hooks is a very powerful system. Learn how to troubleshoot webtasks from monitoring logs in the editor all the way to debugging locally using devtool and visual studio code."
+longdescription: "The Webtasks platform that powers Auth0 Extend and Webtask.io is a very powerful system. Learn how to troubleshoot webtasks from monitoring logs in the editor all the way to debugging locally using devtool and visual studio code."
 date: 2018-03-14 08:00
 category: Extend, Technical, Webtasks
 press_release: false
@@ -30,6 +30,11 @@ related:
 
 **TL;DR:** In this series, we will learn how to troubleshoot webtasks from monitoring logs in the editor all the way to debugging locally using devtool and visual studio code.
 
+The full list of posts in this series:
+
+- [Troubleshooting Webtasks: Using the Editor](https://auth0.com/blog/troubleshooting-webtasks-using-the-editor/)
+- [Troubleshooting Webtasks: Using the CLI](https://auth0.com/blog/troubleshooting-webtasks-using-the-cli/)
+
 This post covers the tools built into the Webtasks Editor, here are some shortcuts to help you locate the topics you are interested in quickly.
 
 - <a href="#watching-execution-with-the-logs-panel" target="_self">Watching execution with the editor Logs panel</a>
@@ -38,7 +43,7 @@ This post covers the tools built into the Webtasks Editor, here are some shortcu
 ---
 
 
-The Webtasks technology that powers [Auth0 Extend](https://auth0.com/extend/), [Webtask.io](https://webtask.io/) and [Auth0 Hooks](https://auth0.com/docs/hooks) is a very powerful system. It allows end users to provide the functionality they need by writing simple logic in JavaScript. That JavaScript is then securely sandboxed and executed with extremely low latency while protecting the security and performance of other customers and the technology itself.
+The Webtasks technology that powers [Auth0 Extend](https://auth0.com/extend/) and [Webtask.io](https://webtask.io/) is a very powerful system. It allows end users to provide the functionality they need by writing simple logic in JavaScript. That JavaScript is then securely sandboxed and executed with extremely low latency while protecting the security and performance of other customers and the technology itself.
 
 Whether you are building a fun weekend project, ensuring your authorized users are members of a specific domain or offering your customers an easy way to customize your SaaS; the Webtasks technology allows you to accomplish your goals without placing the burden of hosting, monitoring or scaling on you or your users.
 
@@ -238,6 +243,6 @@ The Runner panel is handy when we have sample data that we know causes a runtime
 
 # Summary
 
-In this post we have covered the various techniques available via the Webtask Editor to troubleshoot failures. These techniques work with all of the products using the Webtasks technology. Feel free to bookmark this post and reference it when you are working on your next project.
+In this post, we have covered the various techniques available via the Webtask Editor to troubleshoot failures. These techniques work with all of the products using the Webtasks technology. Feel free to bookmark this post and reference it when you are working on your next project.
 
-In the next post we will cover using the Webtask CLI to monitor logs and execute webtasks locally.
+In the next post, we will cover [using the Webtask CLI](https://auth0.com/blog/troubleshooting-webtasks-using-the-cli/) to monitor logs and execute webtasks locally.
