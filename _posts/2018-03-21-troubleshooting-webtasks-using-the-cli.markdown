@@ -59,7 +59,7 @@ To set up the CLI for use with Webtask.io, visit [this interactive tutorial](htt
 
 ### <span id="connecting-to-the-log-stream"></span>Connecting to the log stream
 
-Using the Logs panel in the editor, we were able to watch live executions of our webtask in real time. With the CLI we can also connect to the log stream, with the added benefit of seeing the logs for all of our webtasks. This is particularly useful when you have scoped your webtasks functions to do a single thing and build functionality up through collaborative tasks.
+Using the Logs panel in the editor, we were able to watch live executions of our webtask in real time. With the CLI we can also connect to the log stream. This is particularly useful when you have scoped your webtasks functions to do a single thing and build functionality up through collaborative tasks.
 
 Connecting to the log stream is a snap with the CLI.
 
