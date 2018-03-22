@@ -381,11 +381,13 @@ git add . && git commit -m "using Angular Material Cards and CSS Grid layout to 
 
 ## Handling Authorization Through Roles
 
-Now that you enhanced the UI of your application, it's time to add more features like the possibility to update and remove existing exams.
+Now that you enhanced the UI of your application, it's time to enable users to remove existing exams. To do that, you will categorize your users into two groups: `admin` and `user`. To make things easier, you will just define that your own user (i.e. the one that contains your email address) will be the `admin` and everyone else will be set as a normal `user`. You will handle this logic through [Auth0 Rules](https://auth0.com/docs/rules/current).
 
-So, open [the _Rules_ section on your Auth0 dashboard](https://manage.auth0.com/#/rules) and hit the _Create Rule_ button. Then, in the _Pick a rule template_ page, click on the _empty rule_ option. After that, Auth0 will redirect you to a form with two fields, one to input the name of the rule (you can call it _Online Exams Roles_) and one to input its source code.
+> ["Rules are functions written in JavaScript that are executed when a user authenticates to your application. They run once the authentication process is complete and you can use them to customize and extend Auth0's capabilities. They can be chained together for modular coding and can be turned on and off individually." - Auth0](https://auth0.com/docs/rules/current)
 
-After defining a name for your rule, paste the following code to it:
+So, open [the _Rules_ section on your Auth0 dashboard](https://manage.auth0.com/#/rules) and hit the _Create Rule_ button. Then, in the _Pick a rule template_ page, click on the _empty rule_ option. After that, Auth0 will redirect you to a form with two fields, one to input the _name_ of the rule (you can call it _Online Exams Roles_) and one to input its source code.
+
+After defining a name for your new rule, paste the following code into it:
 
 ```javascript
 // Set 'admin' role for bruno.krebs@auth0.com and 'user' for everyone else
@@ -400,20 +402,17 @@ function (user, context, callback) {
     }
   };
 
-  addRolesToUser(user, async (err, roles) => {
+  addRolesToUser(user, (err, roles) => {
     if (err) return callback(err);
-
-    try {
-      user.app_metadata.roles = roles;
-      await auth0.users.updateAppMetadata(user.user_id, user.app_metadata)
+    
+    user.app_metadata.roles = roles;
+    auth0.users.updateAppMetadata(user.user_id, user.app_metadata).then(() => {
       const namespace = 'https://online-exams.com/roles';
       const userRoles = user.app_metadata.roles;
       context.idToken[namespace] = userRoles;
       context.accessToken[namespace] = userRoles;
       callback(null, user, context);
-    } catch(err) {
-      callback(err);
-    }
+    }).catch(callback);
   });
 }
 ```
@@ -421,5 +420,151 @@ function (user, context, callback) {
 This rule is quite simple. It just checks the `email` address of the user that is authenticating and, if it is `bruno.krebs@auth0.com`, it sets the `admin` role to them. If it is not this email address, it sets `user` as the user's role. You will want to replace the email address used in the code snippet above with your own one.
 
 > **Note:** The namespace identifier used above can be any non-Auth0 HTTP or HTTPS URL and does not have to point to an actual resource. Auth0 enforces this recommendation from OIDC regarding additional claims and will _silently exclude_ any claims that do not have a namespace. You can read more about [implementing custom claims with Auth0 here](https://auth0.com/docs/scopes/current#custom-claims).
+
+With this rule in place, you can focus on your source code again. In your backend, the first thing you will do is to create a decorator to facilitate defining which endpoints need which roles. So, open the `auth.py` file (it in the `./backend/src/` directory) and add the following code to it:
+
+```python
+
+def requires_role(required_role):
+    def decorator(f):
+        def wrapper(**args):
+            token = get_token_auth_header()
+            unverified_claims = jwt.get_unverified_claims(token)
+
+            # search current token for the expected role
+            if unverified_claims.get('https://online-exams.com/roles'):
+                roles = unverified_claims['https://online-exams.com/roles']
+                for role in roles:
+                    if role == required_role:
+                        return f(**args)
+
+            raise AuthError({
+                'code': 'insuficient_roles',
+                'description': 'You do not have the roles needed to perform this operation.'
+            }, 401)
+
+        return wrapper
+
+    return decorator
+```
+
+What this code does is to define a decorator called `requires_role` role that takes one argument: `required_role`. Then, with this argument, it creates a wrapper around the annotated function that checks if any request reaching it contains a valid token with the `required_role`.
+
+> **Note:** It is important that you use the same namespace (e.g. `https://online-exams.com/roles`) used while creating your Auth0 rule.
+
+If the token in question contains the expected role, the wrapper calls the original function (the endpoint). Otherwise, it raises an `AuthError` stating that the user lacks privilege.
+
+To use this decorator, you will create a new endpoint that allows administrators (i.e. users with the `admin` role) to delete existing exams. So, open the file that cotains your endpoint definitions (`./backend/src/main.py`) and add the following code to it:
+
+```python
+# coding=utf-8
+
+# ... import statements, app definition, and other endpoints ...
+
+@app.route('/exams/<examId>', methods=['DELETE'])
+@requires_role('admin')
+def delete_exam(examId):
+    session = Session()
+    exam = session.query(Exam).filter_by(id=examId).first()
+    session.delete(exam)
+    session.commit()
+    session.close()
+    return '', 201
+
+# ... error handler ...
+```
+
+Here, you are simply defining a new endpoint that accepts `DELETE` requests to remove exams. These requests must contain the exam id (`<examId>`) and must be issued by a user with the `admin` role (`@requires_role('admin')`). If these premises are fulfilled, the endpoint fetches an instance from the database and use it on the `session.delete` call.
+
+From the backend perspective, that's it. Now, you can refactor your frontend code to support the new feature. To do this, you can start by opening the `exams-api.service.ts` file (it resides in the `./frontend/src/app/exams/` directory) and add the following method to the service:
+
+```typescript
+// ... import statements ...
+
+@Injectable()
+export class ExamsApiService {
+  // ... constructor and other methods ...
+
+  deleteExam(examId: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${Auth0.getAccessToken()}`
+      })
+    };
+    return this.http
+      .delete(`${API_URL}/exams/${examId}`, httpOptions);
+  }
+}
+```
+
+The code in this new method is trivial, right? It just calls the `delete` method, on the `HttpClient` instance, pointing to the endpoint that you created in your backend. As you were probably expecting, you need to add the `access_token` to this call so your backend can validate it and its roles.
+
+Now, to use this new method, open the `exams.component.ts` file and update it as follows:
+
+{% highlight html %}
+{% raw %}
+// ... import statements
+
+@Component({
+  selector: 'exams',
+  template: `
+    <h2>Exams</h2>
+    <p>Choose an exam and start studying.</p>
+    <div class="exams">
+      <mat-card class="example-card" *ngFor="let exam of examsList" class="mat-elevation-z5">
+        <mat-card-content>
+          <mat-card-title>{{exam.title}}</mat-card-title>
+          <mat-card-subtitle>{{exam.description}}</mat-card-subtitle>
+          <p>
+            Etiam enim purus, vehicula nec dapibus quis, egestas eu quam.
+            Nullam eleifend auctor leo, vitae rhoncus mi sodales vel.
+            Aenean fermentum laoreet volutpat. Integer quam orci,
+            molestie non nibh suscipit, faucibus euismod sapien.
+          </p>
+          <button mat-raised-button color="accent">Start Exam</button>
+          <button mat-button color="warn" *ngIf="isAdmin()"
+                  (click)="delete(exam.id)">
+            Delete
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <button mat-fab color="primary" *ngIf="authenticated"
+            class="new-exam" routerLink="/new-exam">
+      <i class="material-icons">note_add</i>
+    </button>
+  `,
+  styleUrls: ['exams.component.css'],
+})
+export class ExamsComponent implements OnInit, OnDestroy {
+  // ... class properties, constructor, and other methods ...
+
+  delete(examId: number) {
+    this.examsApi
+      .deleteExam(examId)
+      .subscribe(() => {
+        this.examsListSubs = this.examsApi
+          .getExams()
+          .subscribe(res => {
+              this.examsList = res;
+            },
+            console.error
+          )
+      }, console.error);
+  }
+
+  isAdmin() {
+    if (!Auth0.isAuthenticated()) return false;
+
+    const roles = Auth0.getProfile()['https://online-exams.com/roles'];
+    return roles.includes('admin');
+  }
+}
+{% endraw %}
+{% endhighlight %}
+
+The only difference on the `template` of this component is that, now, it includes a _Delete_ button that is showed to admins only (`*ngIf="isAdmin()"`). When clicked, this button calls the `delete` method to issue the `DELETE` request to the backend. Then, when the request finishes, this method calls the `getExams` method on `examsApi` to update the list of exams.
+
+That's it! It was easy to use roles to control who can delete exams and who cannot, right?
 
 ## Conclusion and Next Steps
