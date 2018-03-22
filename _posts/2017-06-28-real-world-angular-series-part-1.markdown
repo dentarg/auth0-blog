@@ -417,7 +417,7 @@ Our next order of business is the Node server and API.
 In the _root_ folder of our new Angular app, install the following dependencies with npm, saving them to the `package.json` like so:
 
 ```bash
-$ npm install --save express body-parser express-jwt jwks-rsa method-override mongoose cors --save
+$ npm install express body-parser express-jwt jwks-rsa method-override mongoose cors --save
 ```
 
 ### File Structure
@@ -478,7 +478,7 @@ const config = require('./server/config');
  |--------------------------------------
  */
 
-mongoose.connect(config.MONGO_URI, { useMongoClient: true });
+mongoose.connect(config.MONGO_URI);
 const monDb = mongoose.connection;
 
 monDb.on('error', function() {
