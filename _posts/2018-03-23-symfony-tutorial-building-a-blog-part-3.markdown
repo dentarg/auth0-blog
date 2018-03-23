@@ -3,7 +3,7 @@ layout: post
 title: "Symfony Tutorial: Building a Blog (Part 3)"
 description: "Learn how to create and deploy a secure blog engine with Symfony."
 longdescription: "Creating applications with Symfony is easy and can be scaled to be used in any requirement. The tools that it provides to create and maintain web applications is amazing and replaces repetitive tasks. In this series, you will use Symfony to create a production-ready blog engine and then you will deploy it to Heroku."
-date: 2018-03-06 08:30
+date: 2018-03-23 08:30
 category: Technical Guide, PHP, Symfony
 author:
   name: Greg Holmes
@@ -27,7 +27,6 @@ tags:
 related:
 - 2017-12-28-symfony-tutorial-building-a-blog-part-1
 - 2018-01-04-creating-symfony-blog-part-2
-- 2016-06-23-creating-your-first-laravel-app-and-adding-authentication
 - 2017-05-08-the-ultimate-guide-to-deploying-php-applications
 ---
 
