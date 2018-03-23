@@ -567,4 +567,92 @@ The only difference on the `template` of this component is that, now, it include
 
 That's it! It was easy to use roles to control who can delete exams and who cannot, right?
 
+Hey! Don't forget to save your progress:
+
+```bash
+git add . && git commit -m "enabling admins to delete exams"
+```
+
+## Migrating Databases with Alembic
+
+After dealing with authorization and roles, you will want to improve your application adding new features. As adding new features usually means making changes to your database (so it can support these new features), you will need a database migration tool to upgrade the database schema. Why? Mainly because you don't want to loose your data when upgrading and because you want to keep track of the changes in the long run.
+
+So, in this section, you are going to learn about [Alembic, a migration tool developed by the author of SQLAlchemy](http://alembic.zzzcomputing.com/en/latest/). As you will see, its usage is quite simple. First, you will need to install the `alembic` package in your Python application:
+
+```bash
+# move to the backend directory
+cd ./backend
+
+# make sure pipenv is activated
+pipenv shell
+
+# install alembic
+pipenv install alembic
+```
+
+After installing `alembic`, you can use issue the following command to make it auto-configure itself:
+
+```bash
+# run it in the backend directory
+alembic init migrations
+```
+
+This command will create most of the files in the `migrations` directory. You won't need to touch the files in this directory now. Actually, the one file you will need to change is the `alembic.ini` file that resides outside it (you will find it in the `backend` directory itself).
+
+Opening this file, you will see a property called `sqlalchemy.url`. Replace the value of this property so Alembic can connect to your database. If you followed the instructions to the letter, you can replace it as follows:
+
+```bash
+sqlalchemy.url = postgresql://postgres:0NLIN3-ex4m@localhost:5432/online-exam
+```
+
+Now, Alembic is able to connect itself to your database, so it's time to create your first migration. To illustrate the process, you will create a simple migration to add the `long_description` column to the `exams` table. So, in your terminal, issue the following code:
+
+```bash
+alembic revision -m "add long_description to exams"
+```
+
+This will make Alembic create a new file (under `./backend/migrations/versions`) called something similar to `28bab18a07f0_add_long_description_to_exams.py`. Openining this file you will see that it contains an `import` section, some variable, and two functions: `upgrade` and `downgrade`. For now, you are just interested in the first function, `upgrade`. In this function, you will write a one-liner code to make Alembic and SQLAlchemy add the `long_description` column to the `exams` table:
+
+```python
+# ... imports and other variables ...
+
+def upgrade():
+    op.add_column('exams', sa.Column('long_description', sa.Text))
+
+# ... downgrade ...
+```
+
+Now, to run this migration, issue the following command in your terminal:
+
+```bash
+alembic upgrade head
+```
+
+After running it, you will need to update the `Exam` entity in your Python application. So, open the `exam.py` file and update it as follows:
+
+```python
+# ... import statements ...
+
+class Exam(Entity, Base):
+    # ... __tablename__ and other properties ...
+
+    def __init__(self, title, description, long_description, created_by):
+        # ... __init__ and other properties ...
+        self.long_description = long_description
+
+class ExamSchema(Schema):
+    # ... other fields ...
+    long_description = fields.Str()
+```
+
+With these changes in place, your Python backend application is now ready to persist long descriptions of exams. So, in the next section you will refactor the frontend app to support it as well.
+
+> **Note:** Here, you learned just the basics about Alembic. For a much more complete explanation of how it works and what you can do with this tool, check [the official Alembic documentation](http://alembic.zzzcomputing.com/en/latest/tutorial.html).
+
+Time to save your progress!
+
+```bash
+git add . && git commit -m "configuring alembic and adding the long_description column"
+```
+
 ## Conclusion and Next Steps
