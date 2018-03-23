@@ -622,10 +622,16 @@ This will make Alembic create a new file (under `./backend/migrations/versions`)
 # ... imports and other variables ...
 
 def upgrade():
-    op.add_column('exams', sa.Column('long_description', sa.Text))
+    op.add_column('exams', sa.Column(
+        'long_description',
+        sa.Text,
+        nullable=False,
+        server_default='Default exam description'))
 
 # ... downgrade ...
 ```
+
+> **Note:** This migration defines that the `long_description` column does not accept null values and that its default value is "Default exam description". So, any exam previously persisted in your database will have this value in the `long_description` column.
 
 Now, to run this migration, issue the following command in your terminal:
 
@@ -675,6 +681,133 @@ Time to save your progress!
 
 ```bash
 git add . && git commit -m "configuring alembic and adding the long_description column"
+```
+
+## Refactoring the Exam's Form
+
+In this section, you will make your frontend application support the `long_description` property. Also, you will Angular Material components to make the exam's form look better. So, for starters, you will need to import the `MatInputModule` into your `AppModule`. To do this, open the `app.module.ts` file and update it as follows:
+
+```typescript
+import {
+  MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule
+} from '@angular/material';
+// ... other imports ...
+
+@NgModule({
+  // ... declarations ...
+  imports: [
+    // ... other imports ...
+    MatInputModule,
+  ],
+  // ... providers and bootstrap ...
+})
+// ... export class AppModule ...
+```
+
+After that, you will refactor the `ExamFormComponent`. So, open the `exam-form.component.ts` file and replace its content with this:
+
+{% highlight html %}
+{% raw %}
+import {Component} from '@angular/core';
+import {ExamsApiService} from "./exams-api.service";
+import {Router} from "@angular/router";
+
+@Component({
+  selector: 'exam-form',
+  template: `
+    <mat-card>
+      <h2>New Exam</h2>
+        <mat-form-field class="full-width">
+          <input matInput 
+                 placeholder="Title" 
+                 (keyup)="updateTitle($event)">
+        </mat-form-field>
+        
+        <mat-form-field class="full-width">
+          <input matInput 
+                 placeholder="Description" 
+                 (keyup)="updateDescription($event)">
+        </mat-form-field>
+      
+        <mat-form-field class="full-width">
+          <textarea rows="5" 
+                    matInput 
+                    placeholder="Long Description" 
+                    (keyup)="updateLongDescription($event)"></textarea>
+        </mat-form-field>
+        
+        <button mat-raised-button
+                color="primary"
+                (click)="saveExam()">
+          Save Exam
+        </button>
+    </mat-card>
+  `,
+  styles: [`
+    .exams-form {
+      min-width: 150px;
+      max-width: 500px;
+      width: 100%;
+    }
+    
+    .full-width {
+      width: 100%;
+    }
+  `]
+})
+export class ExamFormComponent {
+  exam = {
+    title: '',
+    description: '',
+    long_description: '',
+  };
+
+  constructor(private examsApi: ExamsApiService, private router: Router) { }
+
+  updateTitle(event: any) {
+    this.exam.title = event.target.value;
+  }
+
+  updateDescription(event: any) {
+    this.exam.description = event.target.value;
+  }
+
+  updateLongDescription(event: any) {
+    this.exam.long_description = event.target.value;
+  }
+
+  saveExam() {
+    this.examsApi
+      .saveExam(this.exam)
+      .subscribe(
+        () => this.router.navigate(['/']),
+        error => alert(error.message)
+      );
+  }
+}
+{% endraw %}
+{% endhighlight %}
+
+The new version of this component includes a whole new `template` where you are using three Angular Material components: Card (`mat-card`), Button (`mat-raised-button`), and Form Field (`mat-form-field`). It also includes a CSS rule to make form fields (`mat-form-field`) fill all the horizontal space (`width: 100%;`). Lastly, it includes the `long_description` field in the `exam` variable and a method called `updateLongDescription` to update this field.
+
+If you run your application now and head to this form, you will see a screen like the following:
+
+![Angular form with Angular Material components.](https://cdn.auth0.com/blog/flask-angular/new-exams-form.png)
+
+So, to wrap up this new property, open the `exams.component.ts` file and replace the long description placeholder (the "Etiam enim purus, vehicula ..." text inside `<p></p>`) with this:
+
+{% highlight html %}
+{% raw %}
+{{exam.long_description}}
+{% endraw %}
+{% endhighlight %}
+
+![Show exams' long description in your Angular app](https://cdn.auth0.com/blog/flask-angular/exams-with-description.png)
+
+Done! Now, both your backend and your frontend support the long description property of exams. So it's time to save your progress:
+
+```bash
+git add . && git commit -m "supporting long_description on the frontend"
 ```
 
 ## Conclusion and Next Steps
