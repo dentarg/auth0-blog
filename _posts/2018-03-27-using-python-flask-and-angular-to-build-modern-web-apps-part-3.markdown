@@ -36,7 +36,7 @@ In this series, you will use Python, Flask, and Angular to build a web applicati
 
 In this part of the series, you will start by installing and configuring [Angular Material](https://material.angular.io) to add a nice interface to your app with ease. Then, you will use Angular Material components like [Button](https://material.angular.io/components/button/overview), [Card](https://material.angular.io/components/card/overview), [Dialog](https://material.angular.io/components/dialog/overview), and [Toolbar](https://material.angular.io/components/tooltip/overview) to enhance the look and feel of your application.
 
-After that, you will refactor both the frontend and the backend apps to support some more features like question management and question answering. Throughout the process, you will learn how you can take advantage of scopes to limit what some type of users can do. For example, although it might be a good idea to let the community help adding new exams and questions, you will want to restrict which users can update and delete existing ones.
+After that, you will refactor both the frontend and the backend apps to support some more features like question management. Throughout the process, you will learn how you can take advantage of roles to limit what some type of users can do. For example, although it might be a good idea to let the community help adding new exams and questions, you will want to restrict which users can update and delete existing ones.
 
 {% include tweet_quote.html quote_text="I'm building modern webapps with Angular, Flask, and Python!" %}
 
@@ -811,3 +811,9 @@ git add . && git commit -m "supporting long_description on the frontend"
 ```
 
 ## Conclusion and Next Steps
+
+In the third part of this series, you learned how to install and configure Angular Material components. Then, you used these components to add a nice interface to your Angular application. After that, you learned how to use Auth0 rules to add roles to your users and made both your backend and frontend projects aware of these roles. In the end, you learned about Alembic, a database migration tool, and used it to add a new property to exams: their long description.
+
+In the upcoming articles, you are going to enable users to add questions to your exams and you will also let them start taking these exams. Also, you will start preparing your code for CI/CD (Continuous Integration and Continuous Delivery) tools. These tools will help you automate the development and release pipeline.
+
+Stay tuned!
