@@ -650,6 +650,23 @@ class ExamSchema(Schema):
     long_description = fields.Str()
 ```
 
+Lastly, you will need to make a small change to the `main.py` file to make your endpoint aware of the new property:
+
+```python
+# ... imports, definitions, and other endpoints ...
+
+@app.route('/exams', methods=['POST'])
+@requires_auth
+def add_exam():
+    # mount exam object
+    posted_exam = ExamSchema(only=('title', 'description', 'long_description')) \
+        .load(request.get_json())
+
+    # ... the rest of the function ...
+
+# ... imports, definitions, and other endpoints ...
+```
+
 With these changes in place, your Python backend application is now ready to persist long descriptions of exams. So, in the next section you will refactor the frontend app to support it as well.
 
 > **Note:** Here, you learned just the basics about Alembic. For a much more complete explanation of how it works and what you can do with this tool, check [the official Alembic documentation](http://alembic.zzzcomputing.com/en/latest/tutorial.html).
