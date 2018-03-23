@@ -44,7 +44,7 @@ After that, you will refactor both the frontend and the backend apps to support 
 
 [The official website contains some good documentation on how to install, configure, and use Angular Material on Angular applications](https://material.angular.io/guide/getting-started). However, for newcomers, the information might look a little scattered. So, in this article, you are going to focus on what is needed to get up and running with this UI (User Interface) component framework as fast as possible.
 
-So, the first thing you will need to do is to install some depedencies:
+So, the first thing you will need to do is to install some dependencies:
 
 ```bash
 # make sure you move the cursor to the frontend directory
@@ -54,7 +54,7 @@ cd frontend
 npm i @angular/material @angular/cdk hammerjs
 ```
 
-You will need the first two libraries in the command above, `@angular/material` and `@angular/cdk`, to use Angular Material in any application. [You will also install the third library, `hammerjs`, to add gesture support on your app](https://material.angular.io/guide/getting-started#step-5-gesture-support).
+You will need the first two libraries in the command above, `@angular/material` and `@angular/cdk`, to use Angular Material in any application. [You will also install the third library, `hammerjs`, to add gesture support to your app](https://material.angular.io/guide/getting-started#step-5-gesture-support).
 
 After installing these dependencies, you will need to update the `index.html` file. The new version of this file will add two other external dependencies ([the Roboto font](https://fonts.google.com/specimen/Roboto) and [Material Icons](https://material.io/icons/)) and will make Angular Material default style apply to all native elements on your app:
 
@@ -132,7 +132,7 @@ import {MatToolbarModule, MatButtonModule} from '@angular/material';
 // ... export class AppModule ...
 ```
 
-> **Note:** In the code snippet above, you are using `NoopAnimationsModule` to avoid adding another dependency to your project. [If you are interested on using animations, check this URL](https://material.angular.io/guide/getting-started#step-2-animations).
+> **Note:** In the code snippet above, you are using `NoopAnimationsModule` to avoid adding another dependency to your project. [If you are interested in using animations, check this URL](https://material.angular.io/guide/getting-started#step-2-animations).
 
 Then, you can refactor the `AppComponent` class to use these components. So, open the `app.component.ts` file and replace its code with the following one:
 
@@ -175,7 +175,7 @@ The new version of this file adds the `mat-toolbar` element to the top of the pa
 
 1. _Online Exams_: You will make this button redirect users to the home page.
 2. _About_: You will create a view called _About_ and make this button redirect users there.
-3. _Sign In_: You added this button to allow visitors to sign in into your application.
+3. _Sign In_: You added this button to allow visitors to sign in to your application.
 4. _Sign Out_: You added this button to allow users to close their current session.
 
 What is interesting about these changes is that, since the `AppComponent` also defines where other views will appear (through the `router-outlet` element), the `mat-toolbar` element will be visible to all your views.
@@ -263,7 +263,7 @@ git add . && git commit -m "adding navbar to the Angular app"
 
 ### Using Angular Material Cards
 
-After adding a nice navigation bar to your Angular application, you can enhance the look and feel of the view that shows existing exams. In this view, you can use [the Card component](https://material.angular.io/components/card/overview) to show each exam in separately and some nice action buttons to enable users to add new exams and to start practicing their knwoledge.
+After adding a nice navigation bar to your Angular application, you can enhance the look and feel of the view that shows existing exams. In this view, you can use [the Card component](https://material.angular.io/components/card/overview) to show each exam in separately and some nice action buttons to enable users to add new exams and to start practicing their knowledge.
 
 To make these changes in your app, you will need to update the `app.module.ts` file as follows:
 
@@ -272,7 +272,7 @@ import {
   MatToolbarModule, MatButtonModule, MatCardModule
 } from '@angular/material';
 
-// ... other imports and appRoutes defintion ...
+// ... other imports and appRoutes definition ...
 
 @NgModule({
   // ... declarations ...
@@ -348,7 +348,7 @@ button.new-exam {
 }
 ```
 
-These CSS rules take advantage of [the Grid layout system](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) to show two colums of exams on large devices and a single column on smaller ones (`max-width: 720px`). It also defines that the button to add new exams will stay fixed on the screen on the bottom right corner.
+These CSS rules take advantage of [the Grid layout system](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) to show two columns of exams on large devices and a single column on smaller ones (`max-width: 720px`). It also defines that the button to add new exams will stay fixed on the screen on the bottom right corner.
 
 After refactoring the `ExamsComponent`, you will need to make a small change to the `AppComponent` to set a maximum width to your views and to make them appear in the middle of the screen on large devices. So, open the `app.component.ts` file and encapsulate the `<router-outlet></router-outlet>` element inside a new `div`:
 
@@ -376,7 +376,7 @@ Now, if you check your Angular application again (remember, you can always start
 
 ![Using Angular Material Cards and CSS Grid layout to make beautiful and modern applications.](https://cdn.auth0.com/blog/flask-angular/exams-list.png)
 
-In the screen, the user is signed in (hence, the _Sign Out_ button and the action button to add new exams) and there are three exams persistend on the backend.
+In the screen, the user is signed in (hence, the _Sign Out_ button and the action button to add new exams) and there are three exams persisted on the backend.
 
 Not bad, huh? Time to save your work:
 
@@ -459,7 +459,7 @@ What this code does is to define a decorator called `requires_role` role that ta
 
 If the token in question contains the expected role, the wrapper calls the original function (the endpoint). Otherwise, it raises an `AuthError` stating that the user lacks privilege.
 
-To use this decorator, you will create a new endpoint that allows administrators (i.e. users with the `admin` role) to delete existing exams. So, open the file that cotains your endpoint definitions (`./backend/src/main.py`) and add the following code to it:
+To use this decorator, you will create a new endpoint that allows administrators (i.e. users with the `admin` role) to delete existing exams. So, open the file that contains your endpoint definitions (`./backend/src/main.py`) and adds the following code to it:
 
 ```python
 # coding=utf-8
@@ -580,7 +580,7 @@ git add . && git commit -m "enabling admins to delete exams"
 
 ## Migrating Databases with Alembic
 
-After dealing with authorization and roles, you will want to improve your application adding new features. As adding new features usually means making changes to your database (so it can support these new features), you will need a database migration tool to upgrade the database schema. Why? Mainly because you don't want to loose your data when upgrading and because you want to keep track of the changes in the long run.
+After dealing with authorization and roles, you will want to improve your application adding new features. As adding new features usually means making changes to your database (so it can support these new features), you will need a database migration tool to upgrade the database schema. Why? Mainly because you don't want to lose your data when upgrading and because you want to keep track of the changes in the long run.
 
 So, in this section, you are going to learn about [Alembic, a migration tool developed by the author of SQLAlchemy](http://alembic.zzzcomputing.com/en/latest/). As you will see, its usage is quite simple. First, you will need to install the `alembic` package in your Python application:
 
@@ -616,7 +616,7 @@ Now, Alembic is able to connect itself to your database, so it's time to create 
 alembic revision -m "add long_description to exams"
 ```
 
-This will make Alembic create a new file (under `./backend/migrations/versions`) called something similar to `28bab18a07f0_add_long_description_to_exams.py`. Openining this file you will see that it contains an `import` section, some variable, and two functions: `upgrade` and `downgrade`. For now, you are just interested in the first function, `upgrade`. In this function, you will write a one-liner code to make Alembic and SQLAlchemy add the `long_description` column to the `exams` table:
+This will make Alembic create a new file (under `./backend/migrations/versions`) called something similar to `28bab18a07f0_add_long_description_to_exams.py`. Opening this file you will see that it contains an `import` section, some variable, and two functions: `upgrade` and `downgrade`. For now, you are just interested in the first function, `upgrade`. In this function, you will write a one-liner code to make Alembic and SQLAlchemy add the `long_description` column to the `exams` table:
 
 ```python
 # ... imports and other variables ...
@@ -673,7 +673,7 @@ def add_exam():
 # ... imports, definitions, and other endpoints ...
 ```
 
-With these changes in place, your Python backend application is now ready to persist long descriptions of exams. So, in the next section you will refactor the frontend app to support it as well.
+With these changes in place, your Python backend application is now ready to persist long descriptions of exams. So, in the next section, you will refactor the frontend app to support it as well.
 
 > **Note:** Here, you learned just the basics about Alembic. For a much more complete explanation of how it works and what you can do with this tool, check [the official Alembic documentation](http://alembic.zzzcomputing.com/en/latest/tutorial.html).
 
