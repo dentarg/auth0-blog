@@ -112,7 +112,9 @@ Now that you finished configuring Angular Material, you can move forward and mak
 To use these components, you will need to add them to your `AppModule`. So, open the `app.module.ts` file and update it as follows:
 
 ```typescript
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {MatToolbarModule, MatButtonModule} from '@angular/material';
+
 // ... other imports ...
 
 // ... const appRoutes
@@ -121,6 +123,7 @@ import {MatToolbarModule, MatButtonModule} from '@angular/material';
   // ... declarations ...
   imports: [
     // ... other imports ...
+    NoopAnimationsModule,
     MatToolbarModule,
     MatButtonModule,
   ],
@@ -128,6 +131,8 @@ import {MatToolbarModule, MatButtonModule} from '@angular/material';
 })
 // ... export class AppModule ...
 ```
+
+> **Note:** In the code snippet above, you are using `NoopAnimationsModule` to avoid adding another dependency to your project. [If you are interested on using animations, check this URL](https://material.angular.io/guide/getting-started#step-2-animations).
 
 Then, you can refactor the `AppComponent` class to use these components. So, open the `app.component.ts` file and replace its code with the following one:
 
