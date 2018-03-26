@@ -15,9 +15,11 @@ design:
   image: https://cdn.auth0.com/blog/python-flask-angular/logo.png
 tags:
 - python
+- alembic
 - flask
 - sqlalchemy
 - angular
+- angular-material
 - typescript
 - auth0
 related:
