@@ -19,10 +19,12 @@ tags:
 - webtasks
 - serverless
 related:
-- <ADD SOME RELATED POSTS FROM AUTH0'S BLOG>
+- https://auth0.com/blog/introducing-auth0-hooks/
 ---
 
-Compilers are easily the most powerful, and perhaps the hardest to grasp, capabilities of Webtask and Auth0 Extend. In a nutshell, compilers provide a way to completely modify, customize, and expand, how you (and if you are using Extend, your users) build serverless extensions. In this post I'm going to demonstrate how to use compilers and give you some ideas of how to use them with Auth0 Extend. 
+Compilers are easily the most powerful, and perhaps the hardest to grasp, capabilities of Webtask and [Auth0 Extend](https://auth0.com/extend). In a nutshell, compilers provide a way to completely modify, customize, and expand, how you (and if you are using Extend, your users) build serverless extensions. In this post I'm going to demonstrate how to use compilers and give you some ideas of how to use them with Auth0 Extend. 
+
+{% include tweet_quote.html quote_text="Compilers are easily the most powerful, and perhaps the hardest to grasp, capabilities of Webtask and Auth0 Extend." %}
 
 The Basics
 ---
@@ -139,25 +141,21 @@ Once run, you'll get an output URL you can then use to test your webtask. Here's
 
 If you actually run the task, you just get the source back out again. That's not too exciting, so let's kick it up a notch. Let's build a compiler that accepts textual input with token attributes inside them. It will then replace those tokens with arguments sent to the web task. So for example, imagine our webtask "source code" is:
 
-```text
-I like to eat {{ food }} and drink {{ drink }}.
-```
+<pre><code class="bash">I like to eat &#123;&#123; food }} and drink &#123;&#123; drink }}.</code></pre>
 
 I want to be able to call this "function" and pass in food and drink arguments. My compiler needs to pick up those arguments and replace the tokens in code. Here's one way of doing it:
 
-```js
-'use strict';
+<pre><code class="js">'use strict';
 module.exports = function (options, cb) {
 
   return cb(null, function (context, req, res) {
     let source = options.script;
-    if(context.query.food) source = source.replace(/{{ food }}/g, context.query.food);
-    if(context.query.drink) source = source.replace(/{{ drink }}/g, context.query.drink);
+    if(context.query.food) source = source.replace(/&#123;&#123; food }}/g, context.query.food);
+    if(context.query.drink) source = source.replace(/&#123;&#123; drink }}/g, context.query.drink);
     res.end(source);
   });
 
-};
-```
+};</code></pre>
 
 There's a few things to notice here. First, I'm using `context.query` to look for query string parameters. That makes for simpler testing, but you could look in `context.body` as well. I've got two hard coded checks (one for `food` and one for `drink`) so as a "template compiler", this isn't terribly powerful, but you could certainly enhance it, or simply make use of one of the many existing template engines that already exist. The last line simply spits out the resultant string.
 
