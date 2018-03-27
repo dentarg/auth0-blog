@@ -3,7 +3,7 @@ layout: post
 title: "React Router 4: A Practical Introduction"
 description: "A gentle introduction to React Router 4 through practical examples."
 longdescription: "React Router 4 uses declarative approach to routing. In this tutorial, you'll learn how to use React Router 4 in your web projects via practical examples."
-date: 2018-03-05 8:30
+date: 2018-03-27 8:30
 category: Technical Guide, JavaScript, React
 design:
   bg_color: "#1A1A1A"
