@@ -1,8 +1,8 @@
 ---
-layout: post
+layout: post_extend
 title: Expanding Auth0 Extend with Compilers
 description: A look at how webtask compilers can open your extensions to new possibilities.
-longdescription: <A LONG DESCRIPTION OF THE POST BETWEEN 230 AND 320 CHARACTERS>
+longdescription: Compilers allow for incredible customizations for your webtasks, allowing for tasks to be created in different languages with completely different behaviors. 
 date: 2018-03-17 08:36
 category: Extend, Technical, Webtasks
 is_non-tech: false
