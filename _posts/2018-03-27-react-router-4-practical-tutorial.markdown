@@ -28,7 +28,7 @@ related:
 - 2017-10-26-whats-new-in-react16
 ---
 
-**TL;DR:** **React Router 4** is a body of navigational components that offers declarative routing in your React apps. In this tutorial, you are going to learn how to use React Router 4 through practical examples. Check out the [repo](https://github.com/auth0-blog/react-router4-examples) to get the code.
+**TL;DR:** **React Router 4** is a body of navigational components that offers declarative routing in your React apps. In this tutorial, you are going to learn how to use React Router 4 through practical examples.
 
 ---
 
