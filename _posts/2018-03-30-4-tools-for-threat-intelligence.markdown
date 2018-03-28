@@ -133,4 +133,4 @@ While all of these tools offer critical strategies and product enhancements to s
 
 Employees are lured by [curiosity, fear, and urgency](https://cofense.com/enterprise-phishing-susceptibility-report) — and phishing emails are increasingly well designed to blend into an inbox. If you don't properly train your employees to recognize and report suspicious emails, the above tools can be irrelevant. If you do, they can provide you with an array of options that are equally as advanced as your adversaries.
 
-{% include tweet_quote.html quote_text="If you don't properly train your employees to recognize and report suspicious emails, security tools won't be enough protect you!" %}
+{% include tweet_quote.html quote_text="If you don't properly train your employees to recognize and report suspicious emails, security tools won't be enough to protect you!" %}
