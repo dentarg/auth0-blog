@@ -2,7 +2,7 @@
 layout: post
 title: "What Are Managed Service Providers?"
 description: "How the right fit can help you source more value from your IT team and secure critical data."
-longdescription: ""
+longdescription: "Understanding the value of managed service providers is key to ensuring success in companies that are scaling. This article describes how, when, and where it is a good idea to use them to maximize success."
 date: 2018-03-30 12:30
 category: Hot Topics, Trends
 author:
