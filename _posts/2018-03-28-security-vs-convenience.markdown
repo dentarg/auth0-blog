@@ -28,7 +28,9 @@ related:
 - 2018-01-26-security-predictions-for-2018-that-go-beyond-gdpr-compliance
 ---
 
-## Security vs. Convenience: To truly keep info safe you need to pull off both — here’s the why and the how
+**TL;DR:** Security vs. Convenience: To truly keep info safe you need to pull off both — here’s the why and the how.
+
+---
 
 In the security industry, everybody used to believe that to be secure, something couldn’t be convenient. Security and convenience functioned only in opposition. Making access hard was the best way to keep info safe.
 
