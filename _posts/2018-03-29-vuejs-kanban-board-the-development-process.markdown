@@ -2,8 +2,8 @@
 layout: post
 title: "Vue.js Kanban Board: The Development Process"
 description: "Let's use Vue.js to build a Kanban board with drag and drop support."
-longdescription: "In this article, we are going to learn how to use Vue.js to develop a Kanban board with drag and drop support."
-date: 2018-03-01 09:00
+longdescription: "In this article we are going to learn how to use Vue.js, a progressive JavaScript framework for building user interfaces on the web, to develop a Kanban board with drag and drop support."
+date: 2018-03-29 09:00
 category: Technical Guide, Frontend, VueJS
 author: 
   name: Steve Hobbs
@@ -11,7 +11,7 @@ author:
   mail: elkdanger@gmail.com
   avatar: https://en.gravatar.com/userimage/3841188/bc8fc1f1ebb326d59bab456cac894bdf.jpeg
 design:
-  bg_color: #35485d
+  bg_color: "#35485d"
   image: "https://cdn2.auth0.com/blog/vuejs/logo.png"
 tags:
 - vuejs
@@ -22,7 +22,8 @@ tags:
 - drag-and-drop
 related:
 - 2017-04-18-vuejs2-authentication-tutorial
-- 2016-07-14-create-an-app-in-vuejs-2
+- 2018-02-06-developing-games-with-react-redux-and-svg-part-1
+- 2017-11-29-5-massive-benefits-of-identity-as-a-service-for-developers
 ---
 
 **TL;DR:** In this article, we're going to use [Vue.js (the progressive
