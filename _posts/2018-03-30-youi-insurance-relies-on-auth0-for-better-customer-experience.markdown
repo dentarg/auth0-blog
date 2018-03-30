@@ -2,7 +2,7 @@
 layout: post
 title: Youi Insurance Relies on Auth0 for Better Customer Experience
 description: Social login capabilities make Youi Rewards app easier to use 
-longdescription: <A LONG DESCRIPTION OF THE POST BETWEEN 230 AND 320 CHARACTERS>
+longdescription: Auth0, a global leader in Identity-as-a-Service (IDaaS), announced that it is providing the identity platform for Youi Insurance. Youi is relying on Auth0’s social login functionality for its Youi Rewards app, a mobile customer platform for earning rewards with policy purchases or file claims.
 date: 2018-03-30 12:33
 category: Announcements, Press
 press_release: true
