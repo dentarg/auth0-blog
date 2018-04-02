@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Security Risk: 20+ Billion IoT Devices by 2020"
-description: "Unprotected IoT devices can make it easy bad guys to cause global damage—botnets increased 140% last year. Auth0 can help safeguard your IoT devices."
+description: "Unprotected IoT devices can make it easy for bad guys to cause global damage—botnets increased 140% last year. Auth0 can help safeguard your IoT devices."
 longdescription: "With more than 20+B connected devices predicted by 2020 and IoT botnets disabling hospitals in the UK and impacting services like Netflix and Github, the UK is advocating global standardization. Auth0 can help safeguard the IoT devices you currently have in use while you’re waiting for secure standards."
 date: 2018-04-02 14:15
 category: Hot Topics, Security, Breaches
@@ -36,7 +36,7 @@ If 2017 was the year of the cyberattack, 2018 could be the year when IoT attacks
 
 Accessing vulnerable IoT devices, cybercriminals can grab photos of your kid; drain your bank account; alter your health records; hold your coffee maker, thermostat or vehicle hostage; and stop your heart (if you have a pacemaker). 
 
-On the business side, they can attack virtually every industry where rapid adoption of low-cost, easily-installed IoT devices has lead Gartner analysts to predict that [more than 20 billion connected things](https://www.gartner.com/newsroom/id/3598917) will be in use by 2020.
+On the business side, they can attack virtually every industry where rapid adoption of low-cost, easily-installed IoT devices has led Gartner analysts to predict that [more than 20 billion connected things](https://www.gartner.com/newsroom/id/3598917) will be in use by 2020.
 
 ## Yes, Your Wearable Could be Involved in a Global Threat
 
@@ -60,7 +60,7 @@ While the FBI lay honeypot traps and worried Mirai was a sign of potential U.S. 
 
 Eventually, all three guys plead guilty, facing up to five years in prison, $250,000 each in fines, and five years of supervised release. 
 
-When Netlab 360 stopped tracking MIrai last summer, [2.7 million devices had been influenced in less than a year](https://www.darkreading.com/perimeter/iot-botnets-by-the-numbers/d/d-id/1330924?image_number=5).
+When Netlab 360 stopped tracking Mirai last summer, [2.7 million devices had been influenced in less than a year](https://www.darkreading.com/perimeter/iot-botnets-by-the-numbers/d/d-id/1330924?image_number=5).
 
 ## Billions of Devices at Risk
 
@@ -83,7 +83,7 @@ Okay, so you’re breached. What’s the impact?
 
 Breaches in that survey were found to cost 13.4% of the total revenues for companies with revenues of under $5 million annually. Of larger companies with revenues of $5 billion or more, 44% reported losses of more than 20 million.
 
-For a more global perspective, Cisco’s [2018 Annual Cybersecurity Report](https://www.cisco.com/c/dam/m/digital/elq-cmcglobal/witb/acr2018/acr2018final.pdf?dtid=odicdc000016&ccid=cc000160&oid=anrsc005679&ecid=8196&elqTrackId=686210143d34494fa27ff73da9690a5b&elqaid=9452&elqat=2)) found that by the time victims added up lost revenues, customers, opportunities, and out-of-pocket costs more than 
+For a more global perspective, Cisco’s [2018 Annual Cybersecurity Report](https://www.cisco.com/c/dam/m/digital/elq-cmcglobal/witb/acr2018/acr2018final.pdf?dtid=odicdc000016&ccid=cc000160&oid=anrsc005679&ecid=8196&elqTrackId=686210143d34494fa27ff73da9690a5b&elqaid=9452&elqat=2) found that by the time victims added up lost revenues, customers, opportunities, and out-of-pocket costs more than 
 50% of attacks results in damages of $500,000 or more. Nearly 40% of surveyed companies reported that attacks resulted in costs of more than a million. 
 
 When [GDPR](https://auth0.com/gdpr) comes into force in May, breached companies serving EU customers could also find themselves faced with additional fines, as well as greater public outcry that they should have been prepared.
@@ -92,9 +92,9 @@ When [GDPR](https://auth0.com/gdpr) comes into force in May, breached companies 
 
 If we know all of this is happening why aren’t we better prepared?
 
-The answer is two-part. One having to deal with with corner-cutting that happens when technologies are rushed to market. The other has to do with clear gaps in cybersecurity readiness which caused Cisco’s report to label IoT a “serious threat vector.”
+The answer is two-part. One having to deal with corner-cutting that happens when technologies are rushed to market. The other has to do with clear gaps in cybersecurity readiness which caused Cisco’s report to label IoT a “serious threat vector.”
 
-IT teams are strained burgeoning cloud responsibilities while also managing the proliferation of IT devices. After surveying 3,600 international security officers and security operations managers and conducting tech partner research, Cisco’s report also concluded that: 
+IT teams are strained with burgeoning cloud responsibilities while also managing the proliferation of IT devices. After surveying 3,600 international security officers and security operations managers and conducting tech partner research, Cisco’s report also concluded that: 
 
 * 83% of devices in their partner sample displayed vulnerabilities
 * IoT devices are called into action without security planning
@@ -106,14 +106,14 @@ Even when organizations do actively patch, they can run into troubles created by
 
 After [WannaCry](https://www.helpnetsecurity.com/2017/05/17/wannacry-iot/), spread globally via a combination of infected computers and IoT zombies to take down everything from hospitals in England and a telecom provider in Spain to computers in the Russian Ministry of Internal Affairs, IT departmartments all over the world were spurred into action. Patching did work for many of the Microsoft computers affected, but not for legacy IoT products that can’t be patched.
 
-In world where neither hackers nor botnets respect borders, no country offers safe haven, which is why the UK is suggesting a more global solution.
+In a world where neither hackers nor botnets respect borders, no country offers safe haven, which is why the UK is suggesting a more global solution.
 
 ## UK Drafts Code of Best Practices, Calls for Input
 
 “IoT security is a global challenge requiring global collaboration.” 
 —UK Government’s [Secure by Design Report](https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/686089/Secure_by_Design_Report_.pdf)
 
-After writing researching serious global threats for several days, encountering the UK’s hope to create a “free, open, peaceful and secure cyberspace” proved remarkably soothing. Part of the conception of this cyberspace means that we’re all participating in a global digital economy. This is part of why the UK reached out to the public and private sectors and academia, and “like-minded countries” for ways to to fight this IoT-driven threat. 
+After researching serious global threats for several days, encountering the UK’s hope to create a “free, open, peaceful and secure cyberspace” proved remarkably soothing. Part of the conception of this cyberspace means that we’re all participating in a global digital economy. This is part of why the UK reached out to the public and private sectors and academia, and “like-minded countries” for ways to fight this IoT-driven threat. 
 
 The UK government’s recent examinations and explorations of best practices could allow us to better protect ourselves. The [Secure by Design Report](https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/686089/Secure_by_Design_Report_.pdf) makes it clear that no one country, organization, or individual can fix this situation by themselves. We’re going to have to do this together.
 
