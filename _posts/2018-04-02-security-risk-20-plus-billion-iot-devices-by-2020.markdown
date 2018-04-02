@@ -3,7 +3,7 @@ layout: post
 title: "Security Risk: 20+ Billion IoT Devices by 2020"
 description: "Unprotected IoT devices can make it easy bad guys to cause global damage—botnets increased 140% last year. Auth0 can help safeguard your IoT devices."
 longdescription: "With more than 20+B connected devices predicted by 2020 and IoT botnets disabling hospitals in the UK and impacting services like Netflix and Github, the UK is advocating global standardization. Auth0 can help safeguard the IoT devices you currently have in use while you’re waiting for secure standards."
-date: 2018-03-23 14:15
+date: 2018-04-02 14:15
 category: Hot Topics, Security, Breaches
 is_non-tech: true
 author:
@@ -12,8 +12,8 @@ author:
   mail: "jennifer.obrien@auth0.com"
   avatar: "https://cdn.auth0.com/blog/avatars/jenny-obrien.png"
 design:
-  bg_color: "#203259"
-  image: https://cdn.auth0.com/blog/cambridge-analytica-facebook/logo.png
+  bg_color: "#22228"
+  image: https://cdn.auth0.com/blog/security-risk-iot/logo.png
 tags:
 - IoT
 - Botnet
@@ -40,7 +40,13 @@ On the business side, they can attack virtually every industry where rapid adopt
 
 ## Yes, Your Wearable Could be Involved in a Global Threat
 
-In addition to personal and business vulnerability where devices can be held hostage for ransom or more directly nefarious intent, unprotected IoT devices can provide easy ways for bad guys to cause global damage. Using malware, they can gain control of the IoT devices and group them together to create a botnet with the IoT devices acting as “zombies” tasked with fulfilling the hackers’ desires. Dark Reading reported that [botnet controllers increased by 140% in 2017](https://www.darkreading.com/perimeter/iot-botnets-by-the-numbers/d/d-id/1330924).
+In addition to personal and business vulnerability where devices can be held hostage for ransom or more directly nefarious intent, unprotected IoT devices can provide easy ways for bad guys to cause global damage, as can the apps that support them. 
+
+Just this week, [Under Armour announced that a data breach had affected 150 million users](https://www.cnbc.com/2018/03/29/under-armour-stock-falls-after-company-admits-data-breach.html) of its fitness and nutrition site, MyFitnessPal, which can sync with wearables like Fitbit, Misfit, and LumoLift, as well as IoT-linked scales and cardio machines. 
+
+![MyFitnessPal Data Breach](https://cdn.auth0.com/blog/security-risk-iot/myfitnesspall-breach.png)
+
+Using malware, they can gain control of the IoT devices and group them together to create a botnet with the IoT devices acting as “zombies” tasked with fulfilling the hackers’ desires. Dark Reading reported that [botnet controllers increased by 140% in 2017](https://www.darkreading.com/perimeter/iot-botnets-by-the-numbers/d/d-id/1330924).
 
 What’s especially shocking about that rise is how fast these troubles can spread.
 
