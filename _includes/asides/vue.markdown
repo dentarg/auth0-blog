@@ -17,7 +17,7 @@ The [sample Vue application and API](https://github.com/auth0-blog/vue-auth0-asi
 
 ### Sign Up for Auth0
 
-You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free account here</a>. Next, set up an Auth0 client app and API so Auth0 can interface with an Angular app and Node API.
+You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free account here</a>. Next, set up an Auth0 client app and API so Auth0 can interface with a Vue.js app and Node API.
 
 ### Set Up a Client App
 
@@ -36,7 +36,7 @@ We're now ready to implement Auth0 authentication on both our Vue client and Nod
 
 ### Dependencies and Setup
 
-The Vue app utilizes the [Angular CLI](https://github.com/vue/vue-cli). Make sure you have the CLI installed globally:
+The Vue app utilizes the [Vue.js CLI](https://github.com/vue/vue-cli). Make sure you have the CLI installed globally:
 
 ```bash
 $ npm install -g vue-cli
@@ -69,7 +69,7 @@ Change the `CLIENT_DOMAIN` variable to your Auth0 client domain and set the `AUT
 
 Our app and API are now set up. They can be served by running `npm run dev` from the root folder and `node server.js` from the `/server` folder.
 
-With the Node API and Angular app running, let's take a look at how authentication is implemented.
+With the Node API and the Vue.js app running, let's take a look at how authentication is implemented.
 
 ### Authentication Service
 
@@ -254,7 +254,7 @@ export default new Router({
 
 ### More Resources
 
-That's it! We have an authenticated Node API and Angular application with login, logout, and protected routes. To learn more, check out the following resources:
+That's it! We have an authenticated Node API and Vue.js application with login, logout, and protected routes. To learn more, check out the following resources:
 
 * [Why You Should Always Use Access Tokens to Secure an API](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/)
 * [Navigating RS256 and JWKS](https://auth0.com/blog/navigating-rs256-and-jwks/)
