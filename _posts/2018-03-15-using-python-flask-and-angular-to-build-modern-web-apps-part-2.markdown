@@ -601,4 +601,6 @@ git commit -m "Integrating Angular with Auth0"
 
 In the second part of this series, you focused on adding Auth0 to act as the identity management service of your Flask and Angular applications. You started by defining an Auth0 API to represent your Flask backend app, then you added a new feature into your project (a form that allows users to add exams), and, finally, you integrated Auth0 into your Angular application.
 
-In the next article, you are going to add even more features to your project and, after that, you will start preparing your code for CI/CD (Continuous Integration and Continuous Delivery) tools. These tools will help you automate the development pipeline. Stay tuned!
+In the next article, you are going to learn how to install and configure Angular Material components, how to use Auth0 roles to control what users can do, and how to use Alembic (a database migration tool) to manage your database schema.
+
+Stay tuned!
