@@ -3,7 +3,7 @@ layout: post
 title: "Using Python, Flask, and Angular to Build Modern Web Apps - Part 3"
 description: "In this series, you will learn how to create modern web applications with Python, Flask, and Angular."
 longdescription: "In this series, you will learn how to create modern web applications with Python, Flask, and Angular. You will create a SPA and a backend API to expose exams and questions so users can test their knowledge regarding different technologies."
-date: 2018-03-27 08:30
+date: 2018-04-03 08:30
 category: Technical Guide, Python
 author:
   name: "Bruno Krebs"
