@@ -817,7 +817,7 @@ Then, we will register the draggable component with our `TaskLane` component:
 // ..
 components: {
   item: TaskLaneItem,
-  draggables: Draggable,
+  draggable: Draggable,
 }
 // ..
 ```
