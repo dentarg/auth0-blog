@@ -912,3 +912,5 @@ In the first part of this series, you have learned about some important topics t
 [In the next article of this series](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-2/), you are going to create these components, then you are going to make some flying discs appear randomly in some predefined positions. After that, you will also make your cannon shoot some cannon balls. This will be awesome!
 
 Stay tuned!
+
+> The community has translated this article into Russian. You can find [part 1 here](https://habrahabr.ru/post/350274/), [part 2 here](https://habrahabr.ru/post/350278/), and [part 3 here](https://habrahabr.ru/post/350946/).
