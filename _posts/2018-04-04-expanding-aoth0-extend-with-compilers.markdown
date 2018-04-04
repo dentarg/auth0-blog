@@ -3,7 +3,7 @@ layout: post_extend
 title: Expanding Auth0 Extend with Compilers
 description: A look at how webtask compilers can open your extensions to new possibilities.
 longdescription: Compilers allow for incredible customizations for your webtasks, allowing for tasks to be created in different languages with completely different behaviors. 
-date: 2018-03-17 08:36
+date: 2018-04-04 12:36
 category: Extend, Technical, Webtasks
 is_non-tech: false
 author:
@@ -12,14 +12,16 @@ author:
   mail: jedimaster@auth0.com
   avatar: "https://static.raymondcamden.com/images/ray3_2017.jpg"
 design:
-  bg_color: "#3445DC"
-  image: <A PATH TO A 200x200 IMAGE>
+  bg_color: "#3445db"
+  image: "https://cdn.auth0.com/website/blog/extend/auth0-extend_avatar.png"
 tags:
 - extend
 - webtasks
 - serverless
 related:
-- https://auth0.com/blog/introducing-auth0-hooks/
+- 2017-02-15-introducing-auth0-hooks
+- 2018-03-14-troubleshooting-webtasks-using-the-editor
+- 2017-12-13-our-journey-toward-saas-customization-and-extensibility-at-auth0
 ---
 
 Compilers are easily the most powerful, and perhaps the hardest to grasp, capabilities of Webtask and [Auth0 Extend](https://auth0.com/extend). In a nutshell, compilers provide a way to completely modify, customize, and expand, how you (and if you are using Extend, your users) build serverless extensions. In this post I'm going to demonstrate how to use compilers and give you some ideas of how to use them with Auth0 Extend. 
