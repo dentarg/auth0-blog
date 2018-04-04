@@ -14,8 +14,8 @@ author:
   mail: "joan.pepin@auth0.com"
   avatar: "https://cdn.auth0.com/blog/meltdown-spectre/joanpepin.jpg"
 design:
-  image: 
-  bg_color: "#222228"
+  image: "https://cdn.auth0.com/blog/auth0-vuln/logo.png"
+  bg_color: "#3F6426"
 tags:
 - security
 - vulnerabilities
@@ -29,9 +29,9 @@ related:
 
 On October 5, 2017, security company [Cinta Infinita](http://www.cintainfinita.com) contacted Auth0 to report a vulnerability in our Legacy Lock API ([CVE-2018-6873](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-6873)). Cinta Infinita discovered the issue while conducting independent research. In specific cases, Cinta Infinita was able to bypass password authentication when logging into Auth0’s Management Dashboard by forging an authentication token. After verifying the vulnerability, we responded immediately, pushing a patch to our cloud service within four hours of initial notification. Our engineers then worked around the clock to patch our Private SaaS Appliance customers over the following two weeks.
  
-During our investigation it became clear that the vulnerability was a special case of a deeper structural problem. The attack exploited an underlying Cross Site Request Forgery (CSRF/XSRF) vulnerability ([CVE-2018-6874](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-6874)). CSRF vulnerabilities are a common structural flaw when embedding a login widget into a web application due to the nature of cross-origin authentication (one of the reasons we’ve been pushing for [Universal Login] (https://auth0.com/blog/authentication-provider-best-practices-centralized-login/)).
+During our investigation it became clear that the vulnerability was a special case of a deeper structural problem. The attack exploited an underlying Cross Site Request Forgery (CSRF/XSRF) vulnerability ([CVE-2018-6874](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-6874)). CSRF vulnerabilities are a common structural flaw when embedding a login widget into a web application due to the nature of cross-origin authentication (one of the reasons we’ve been pushing for [Universal Login](https://auth0.com/blog/authentication-provider-best-practices-centralized-login/)).
  
-To fully remediate this issue and protect our customers, we needed to make a significant change to our [Lock login widget](https://auth0.com/lock) and its [supporting library] (https://auth0.com/docs/libraries/auth0js/). Unlike the fix for the special case discovered by Cinta Infinita, this issue could not be solved without forcing our customers to upgrade the libraries/SDKs on their end, a much more significant undertaking.
+To fully remediate this issue and protect our customers, we needed to make a significant change to our [Lock login widget](https://auth0.com/lock) and its [supporting library](https://auth0.com/docs/libraries/auth0js/). Unlike the fix for the special case discovered by Cinta Infinita, this issue could not be solved without forcing our customers to upgrade the libraries/SDKs on their end, a much more significant undertaking.
  
 We worked with Cinta Infinita to allow us time to address the issue prior to their public release. Neither party wanted the vulnerability to be exposed for a lengthy period of time, so we agreed on an aggressive schedule that still provided ample opportunity for all of our customers to upgrade.
  
