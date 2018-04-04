@@ -117,7 +117,7 @@ Your compiler code must be available on the Internet in **plain text format**. W
 
 How you do that is up to you. A few options are:
 
-* Gists - which allow you to put source code online. Be sure to use the URL for the Raw option. Here is an example: https://gist.githubusercontent.com/cfjedimaster/336b6a96cd7481bee62784e57363ec04/raw/c77d35cc4d9e6af604eb1f6b6f78bc328b85eb3e/compiler1.js. While this is quick and easy, you get a new URL after every edit (specifically when you ask for the raw version). During editing, this can be a bit of a pain. 
+* Gists - which allow you to put source code online. Be sure to use the URL for the Raw option. Here is an example: [https://gist.githubusercontent.com/cfjedimaster/336b6a96cd7481bee62784e57363ec04/raw/c77d35cc4d9e6af604eb1f6b6f78bc328b85eb3e/compiler1.js](https://gist.githubusercontent.com/cfjedimaster/336b6a96cd7481bee62784e57363ec04/raw/c77d35cc4d9e6af604eb1f6b6f78bc328b85eb3e/compiler1.js). While this is quick and easy, you get a new URL after every edit (specifically when you ask for the raw version). During editing, this can be a bit of a pain. 
 * Github - which also allows you to view a "raw" version of a file. The good news here is that the URL won't change when you edit. The bad news is that it can take GitHub a few minutes to reflect your changes. So once again, during development this can be painful.
 * NPM - if you feel comfortable sharing your code on NPM, you can use this option, otherwise you'll want to ensure you use a private submission.
 * A fourth option to consider is slightly more complex, but resolves the issue of changing URLs or waiting for a cache to update. You can use a webtask to simply return the string value of the compiler. My coworker Bobby Johnson describes this approach in a blog post he wrote on securing webtasks with middleware: [Securing Webtasks Part 2: Using Middleware](https://auth0.com/blog/securing-webtasks-part-2-using-middleware/). I think his approach may be the best. It keeps you on the webtask platform and it gives you instant updates. The only real downside would be the lack of syntax checking in your editor, but I'll mention how to debug your compiler in a bit. 
@@ -139,7 +139,7 @@ When deploying this to Webtask.io, I would normally do: `wt create helloWorld.tx
 wt create helloWorld.txt --meta wt-compiler=https://gist.githubusercontent.com/cfjedimaster/336b6a96cd7481bee62784e57363ec04/raw/c77d35cc4d9e6af604eb1f6b6f78bc328b85eb3e/compiler1.js
 ```
 
-Once run, you'll get an output URL you can then use to test your webtask. Here's mine (although there's no guarantee it will be up): https://wt-c2bde7d7dfc8623f121b0eb5a7102930-0.run.webtask.io/helloWorld. 
+Once run, you'll get an output URL you can then use to test your webtask. Here's mine (although there's no guarantee it will be up): [https://wt-c2bde7d7dfc8623f121b0eb5a7102930-0.run.webtask.io/helloWorld](https://wt-c2bde7d7dfc8623f121b0eb5a7102930-0.run.webtask.io/helloWorld). 
 
 If you actually run the task, you just get the source back out again. That's not too exciting, so let's kick it up a notch. Let's build a compiler that accepts textual input with token attributes inside them. It will then replace those tokens with arguments sent to the web task. So for example, imagine our webtask "source code" is:
 
@@ -161,11 +161,11 @@ module.exports = function (options, cb) {
 
 There's a few things to notice here. First, I'm using `context.query` to look for query string parameters. That makes for simpler testing, but you could look in `context.body` as well. I've got two hard coded checks (one for `food` and one for `drink`) so as a "template compiler", this isn't terribly powerful, but you could certainly enhance it, or simply make use of one of the many existing template engines that already exist. The last line simply spits out the resultant string.
 
-This compiler may be found online here: https://gist.githubusercontent.com/cfjedimaster/983cb26e6c36074bc9c061e846bb8aec/raw/41175b830465093169bdd18fe7b04effbfbb6f10/compiler2.js.
+This compiler may be found online here: [https://gist.githubusercontent.com/cfjedimaster/983cb26e6c36074bc9c061e846bb8aec/raw/41175b830465093169bdd18fe7b04effbfbb6f10/compiler2.js](https://gist.githubusercontent.com/cfjedimaster/983cb26e6c36074bc9c061e846bb8aec/raw/41175b830465093169bdd18fe7b04effbfbb6f10/compiler2.js).
 
 I created a new web task with the simple text input shown above, created the web task, and tested it like so:
 
-https://wt-c2bde7d7dfc8623f121b0eb5a7102930-0.run.webtask.io/templateTest?food=meat&drink=coffee
+[https://wt-c2bde7d7dfc8623f121b0eb5a7102930-0.run.webtask.io/templateTest?food=meat&drink=coffee](https://wt-c2bde7d7dfc8623f121b0eb5a7102930-0.run.webtask.io/templateTest?food=meat&drink=coffee)
 
 Feel free to modify the query string variables and notice how the replacements change. Just to recap - what we have here is a compiler that does text substitutions, a task that serves as the base input, and the ability to pass arguments to direct how the substitutions are done.
 
@@ -175,7 +175,7 @@ Cool - But Now What?
 So you've seen how compilers can be used and you probably have a good appreciation for how radically they change the development model for how you work with webtasks. How about a few practical use cases? (Sorry, running Perl in a webtask isn't practical, but I'd love to see you do it!)
 
 * Customizable Email Templates: Typically you may think to use Auth0 Extend as a way to let users write code to add customizations. But you could also use it for more text-based customizations, like email templates. By using a Handlebars compiler, a user could have an extension to allow for customizations of emails sent out by the service.
-* Running Multiple Tasks: Generally, one webtask is just that - one webtask. While you can write code in your task to make HTTP requests to *other* webtasks, that's not very easy to work with. What is there was a compiler that took, as a task input, an array of other tasks to run? It would then run them in parallel and return the result of all the other tasks, once completed. I actually built that and you can see the source for it here: https://github.com/cfjedimaster/Serverless-Examples/blob/master/webtask/parallel.js
+* Running Multiple Tasks: Generally, one webtask is just that - one webtask. While you can write code in your task to make HTTP requests to *other* webtasks, that's not very easy to work with. What is there was a compiler that took, as a task input, an array of other tasks to run? It would then run them in parallel and return the result of all the other tasks, once completed. I actually built that and you can see the source for it here: [https://github.com/cfjedimaster/Serverless-Examples/blob/master/webtask/parallel.js](https://github.com/cfjedimaster/Serverless-Examples/blob/master/webtask/parallel.js)
 * Extensions in TypeScript: And finally - for your power users, you can allow for extensions written in TypeScript. Your compiler would simply transpile it to regular JavaScript and execute it via the NodeJS compiler passed to your compiler.
 
 Hopefully you get the idea. At the end of the day, compilers completely expand what you can do with webtasks and Extend, opening up your development to pretty much anything you can imagine. 
