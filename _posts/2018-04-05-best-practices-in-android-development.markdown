@@ -7,7 +7,7 @@ date: 2018-04-05 08:30
 category: Technical Guide, Mobile, Android
 author:
   name: "Idorenyin Obong"
-  url: "kingidee"
+  url: "https://twitter.com/kingidee"
   mail: "idee4ril@gmail.com"
   avatar: "https://twitter.com/kingidee/profile_image?size=original"
 design:
