@@ -57,7 +57,7 @@ Some patterns practiced while developing Android apps include [dependency inject
 - Constructor injection - where the dependencies are passed through the constructor. 
 - Field injection - where dependencies are sent to the class fields directly, etc.
 
-The last two are quite difficult to implement by self, and so, the use of a DI library [Dagger2](https://github.com/google/dagger) is advised. Below is a quick snippet to showing an instance of dependency injection:
+The last one is quite difficult to implement by self, and so, the use of a DI library [Dagger2](https://github.com/google/dagger) is advised. Below is a quick snippet to showing an instance of dependency injection:
 
 ```kotlin
 class MainActivitySample(private var mainRepo:MainActivityRepo) {
@@ -83,7 +83,7 @@ We will take a brief look at the MVP architecture. This architecture is made up 
 
 A typical MVP flow works like this:
 
-Your app starts off by showing a progress dialog. It is the responsibility of the View to do this. While doing this, it needs to display on the UI, so it informs the Presenter. The Presenter calls the Model and after data is gotten, it is returned to the Presenter who in turn returns the data to the View.
+Your app starts off by showing a progress dialog. It is the responsibility of the View to do this. While showing the dialog, it needs to display data on the UI, so it informs the Presenter. The Presenter calls the Model and after data is gotten, it is returned to the Presenter who in turn returns the data to the View.
 
 While using an architecture, be sure to maintain that structure throughout the app. When you successfully separate your code like this, it becomes easy to maintain, ship new features, and to test. The Android docs provide an in-depth tutorial on a [guide to proper architecture](https://developer.android.com/topic/libraries/architecture/guide.html) using the architecture components. Here is another [guide](https://www.raywenderlich.com/109843/common-design-patterns-for-android) that gives you a good overview of design patterns in Android.
 
@@ -382,10 +382,11 @@ Add the dependencies to the app `build.gradle` file:
 dependencies {
   debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
   releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-    }
+}
 ```
 
 Create an Application class:
+
 ```kotlin
 class ExampleApplication : Application() {
     
@@ -409,6 +410,7 @@ With this, LeakCanary monitors your app and sends you a notification when there 
 Next thing in discussing our app performance concerns our layout performance. Deep nested layout are slow to draw on the UI, therefore, producing a lag in performance in our app. The layout performance of our app can be improved by flattening the layout— make the layout shallow and wide, rather than narrow and deep (deep-nested). This is where the [ConstraintLayout](https://developer.android.com/training/constraint-layout/index.html) comes in. The ConstraintLayout is a pretty new layout released in May 2017. It supports API 9 upwards. It allows you to create large and complex layouts with a flat view hierarchy (no nested view groups). It is a replacement for the relative layout. 
 
 A typical RelativeLayout looks like this:
+
 ```xml
 <RelativeLayout>
   <LinearLayout>
