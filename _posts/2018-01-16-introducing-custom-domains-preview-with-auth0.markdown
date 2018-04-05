@@ -12,7 +12,7 @@ author:
   name: "Justin Hinerman"
   url: "https://www.linkedin.com/in/jhinerman"
   mail: "justin.hinerman@auth0.com"
-  avatar: "https://cdn.auth0.com/blog/custom-domains/justin-hinerman.png"
+  avatar: "https://secure.gravatar.com/avatar/3a5545879176d44b7ee763931ab05a57"
 design:
   image: https://cdn.auth0.com/blog/custom-domains/custom-domains-logo.png
   bg_color: "#222228"
