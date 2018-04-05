@@ -2,7 +2,8 @@
 layout: post
 title: "Best Practices in Android Development"
 description: "We will take a look at some standard practices we should apply when building Android applications."
-date: 2018-04-04 08:30
+longdescription: "Best practices are simply professional standards that are acceptable in a field. In this article, we will take a look at some best practices in Android development to help us build better apps. We will also make use of Kotlin for the snippets."
+date: 2018-04-05 08:30
 category: Technical Guide, Mobile, Android
 author:
   name: "Idorenyin Obong"
@@ -18,6 +19,8 @@ tags:
 - best-practices
 - auth0
 - design-patterns
+- mobile
+- kotlin
 related:
 - 2018-01-31-android-development-15-libraries-you-should-be-using
 - 2017-07-27-authenticating-android-apps-developed-with-kotlin
