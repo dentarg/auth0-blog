@@ -38,7 +38,7 @@ Customers who prefer this experience to be served from their own domain, instead
 
 {% include tweet_quote.html quote_text="You can configure your own custom domain in Auth0. This feature is available for all paid customers." %}
 
-## Authentication Custom Domain Benefits
+## Benefits of Using a Custom Domain for Authentication
 
 ### End-User Benefits
 
@@ -60,7 +60,7 @@ You can mitigate certain phishing attacks when your users expect to run transact
 
 Universal Login also offers you simplicity as an implementation advantage. You don't have to worry about integrating login user interfaces into different applications. When you use Auth0 Universal Login, you get all the features you need in the fastest possible way: redirecting to a common login interface. Adding custom domains to this workflow creates a seamless experience for your developers and end-users.
 
-## Authentication Custom Domain Features
+## Custom Domain Authentication Features
 
 Core Auth0 features and flows support the use of custom domains:
 
