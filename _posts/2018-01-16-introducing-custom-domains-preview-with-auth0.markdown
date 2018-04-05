@@ -38,7 +38,7 @@ Customers who prefer this experience to be served from their own domain, instead
 
 {% include tweet_quote.html quote_text="You can configure your own custom domain in Auth0. This feature is available for all paid customers." %}
 
-## Benefits of Using a Custom Domain for Authentication
+## Benefits of Using a Custom Domain
 
 ### End-User Benefits
 
