@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Take a no-compromise approach with the login experience using custom domains"
+title: "Take a No-Compromise Approach to the Login Experience Using Custom Domains"
 description: "Auth0 now provides your own custom domain for login with a central authorization server."
 longdescription: "Using a central authorization server for login is standards-based and best practice for authentication providers. While Auth0 provides this capability out of the box, you may want your end users to stay in your domain. We are happy to announce that you can now configure your own custom domain in Auth0!"
 date: 2018-01-16 8:30
@@ -48,7 +48,7 @@ For example, if your Auth0 domain is `northwind.auth0.com`, you can have your us
 
 {% include tweet_quote.html quote_text="Using a custom domain with Auth0 allows your users to feel confident that they are providing their credentials to the right party. Authentication happens within the context of your brand." %}
 
-Auth0 support for custom domains allows you to let us do the authentication heavy lifting for you without compromising your branding experience.
+Auth0 support for custom domains allows us to do the authentication heavy lifting for you without compromising your branding experience.
 
 ### Customer Benefits
 
