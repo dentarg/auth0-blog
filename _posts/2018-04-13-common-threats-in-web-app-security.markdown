@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Common threats in web application security
+title: Common Threats in Web Application Security
 description: "Common threats in web application security, how to protect against them and mitigate their impact"
 longdescription: "We attempt to cover a comprehensive security strategy for web applications, to protect against common threats in web application security and mitigate their impact"
-date: 2018-03-01 09:38
+date: 2018-04-13 09:38
 category: Growth, Security
 is_non-tech: true
 author:
@@ -22,10 +22,11 @@ tags:
 - web-app-security
 - csrf
 - xss
+- security
 related:
 - introducing-the-auth0-security-whitepaper
-- for-the-best-security-think-beyond-webhooks
-- cybersecurity-requirements-for-new-york-financial-services-companies
+- 2018-03-28-security-vs-convenience
+- 2018-04-02-security-risk-20-plus-billion-iot-devices-by-2020
 ---
 
 **TL;DR:** In this article we'll attempt to cover a comprehensive security strategy for web applications to protect against common threats in web application security and mitigate their impact.
@@ -45,8 +46,6 @@ Web application security is an ongoing and ever-changing climate you **do not** 
 You must continuously monitor, and work, to ensure that your company doesn't become [another statistic in the world of security breaches](http://breachlevelindex.com/top-data-breaches). Regardless of programming language or framework, there are plenty of generic security practices you could follow from the very start of any project.
 
 In this article I'll introduce you to my biggest tips for top to bottom (Front end to Back end) security for your web applications.
-
-In this article we'll attempt to cover a comprehensive security strategy for web applications to protect against common threats in web application security and mitigate their impact.
 
 ## HTTP Strict Transport Security (HSTS) header
 
