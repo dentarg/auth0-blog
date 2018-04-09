@@ -5,7 +5,7 @@ description: "View, understand, prioritize, and act on the alerts your team rece
 longdescription: "If you have an IT team that is overwhelmed by alerts and competing demands, how can you begin to protect yourself? Getting the right tools to know your users and analyze their behavior can be critical. This article presents four tools that can help your IT team create alerts based on user behavior."
 date: 2018-04-09 12:30
 category: Growth, Security
-author:upload
+author:
   name: "Diego Poza"
   url: "https://twitter.com/diegopoza"
   mail: "diego.poza@auth0.com"
