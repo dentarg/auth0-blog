@@ -13,7 +13,6 @@ author:
 design:
   image: https://cdn.auth0.com/blog/threat-intelligence/logo.png
   bg_color: "#42007D"
-  image_size: "70%"
 tags:
 - threat
 - attacks
