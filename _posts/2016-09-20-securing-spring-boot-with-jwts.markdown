@@ -436,7 +436,7 @@ In our example, we have created a REST service that is self-contained. We could 
 
 Securing Spring Boot APIs with Auth0 is an easy task, as we will see, and brings a lot of great features to the table. With Auth0 we have to write just a few lines of code to get a solid [identity management solution](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (like Facebook, GitHub, Twitter, etc.), enterprise (Active Directory, LDAP, SAML, etc.), and your own database of users.
 
-For starters, if you haven't done so yet, this is a good time to sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free Auth0 account</a>. Having an Auth0 account, the first thing that we must do is to [create a new API on the dashboard](https://manage.auth0.com/#/apis). An API is an entity that represents an external resource, capable of accepting and responding to protected resource requests made by clients. And this is exactly what the Spring Boot app that we just built is, an API.
+For starters, if you haven't done so yet, this is a good time to sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free Auth0 account</a>. Having an Auth0 account, the first thing that we must do is to [create a new API on the dashboard](https://manage.auth0.com/#/apis). An API is an entity that represents an external resource, capable of accepting and responding to protected resource requests made by client applications. And this is exactly what the Spring Boot app that we just built is, an API.
 
 ![Creating an API on Auth0's dashboard](https://cdn.auth0.com/blog/spring-boot-jwts/create-api.png)
 
@@ -558,7 +558,7 @@ After that we can get an access token. For that we need to issue a `POST` reques
 }
 ```
 
-The `client_id` and `client_secret` properties, on both requests, must be changed properly. Their values can be found in the `Spring Boot Users API (Test Client)` client that Auth0 created for us. Head to the [Clients page](https://manage.auth0.com/#/clients) to get them.
+The `client_id` and `client_secret` properties, on both requests, must be changed properly. Their values can be found in the `Spring Boot Users API (Test Client)` client that Auth0 created for us. Head to the [Applications page](https://manage.auth0.com/#/applications) to get them.
 
 Issuing this last request will give us an `access_token`. We will use this token in the header of the `GET` request that we will send to our Spring Boot API, in a similar manner to how we did it before. Now if we query our endpoint again, we get a list of the users. As we see, integrating Auth0 with Spring Boot is an easy process!
 
