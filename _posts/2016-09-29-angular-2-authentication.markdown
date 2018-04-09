@@ -35,13 +35,13 @@ alternate_locale_ja: jp-angular-2-authentication
 
 ---
 
-**TL;DR** Angular has finally been released. In this tutorial we are going to look at how to build applications with Angular as well as how to add token based authentication to Angular apps the right way. Check out the completed code example from our [Github repo](https://github.com/auth0-blog/angular-2-authentication-tutorial).
+**TL;DR** Angular has finally been released. In this tutorial, we are going to look at how to build applications with Angular as well as how to add token-based authentication to Angular apps the right way. Check out the completed code example from our [Github repo](https://github.com/auth0-blog/angular-2-authentication-tutorial).
 
 ---
 
 [Angular](https://angular.io/) finally hit the major [2.0 release](http://angularjs.blogspot.com/2016/09/angular2-final.html) milestone. The final release of Angular did not have many breaking changes. The Release Candidate 5 (RC5) release, made available just a few weeks prior to final, introduced major breaking changes and additions such as the [@NgModule decorator](https://angular.io/docs/ts/latest/guide/ngmodule.html), [Ahead-of-Time (AOT)](http://blog.mgechev.com/2016/08/14/ahead-of-time-compilation-angular-offline-precompilation/) compiler and more.
 
-In today's tutorial, we are going to utilize some of these new features to build an entire Angular application. Components, @NgModule, route guards, services, and more are just some of the topics we'll touch on. Finally, we'll implement token based authentication with [Auth0](https://auth0.com).
+In today's tutorial, we are going to utilize some of these new features to build an entire Angular application. Components, @NgModule, route guards, services, and more are just some of the topics we'll touch on. Finally, we'll implement token-based authentication with [Auth0](https://auth0.com).
 
 ## The Angular Ecosystem
 
@@ -109,7 +109,7 @@ When you are happy with the public and private deals, launch the server by runni
 
 ### Angular Front-End Setup
 
-One of the best ways to start building a new Angular app is with the official Angular CLI. The CLI can take care of scaffolding the initial app, adding additional components, takes care of the build system and much more. In this tutorial we will scaffold our initial app with the CLI.
+One of the best ways to start building a new Angular app is with the official Angular CLI. The CLI can take care of scaffolding the initial app, adding additional components, takes care of the build system and much more. In this tutorial, we will scaffold our initial app with the CLI.
 
 If you don't already have it installed, run:
 
@@ -139,7 +139,7 @@ The `app` directory contains the bulk of our application. By default we are pres
 * `app.module.ts` - Defines our global app dependencies
 * `app-routing.module.ts` - Defines our app's routes
 
-Each Angular component we write will have at a minimum the `*.component.ts` file, the others are optional. Our application is going to have three components. The main or root component, a component to display the public deals, and a component to display private deals. For our root component, we'll inline the template, and styles. Let's make the following edits and run the following CLI commands:
+Each Angular component we write will have at a minimum the `*.component.ts` file, the others are optional. Our application is going to have three components. The main or root component, a component to display the public deals, and a component to display private deals. For our root component, we'll inline the template and styles. Let's make the following edits and run the following CLI commands:
 
 * Delete `app.component.css` and `app.component.html` files. We'll define all we need for our root component in the `app.component.ts` file.
 * Create a `public-deals` component by running `ng g c public-deals --no-spec`. This component will take care of getting and displaying the public deals data.
@@ -280,7 +280,7 @@ We can just navigate to `localhost:4200` in the browser and see our app displaye
 
 ### The Deal Type
 
-[TypeScript](https://www.typescriptlang.org/) allows us to define the structure or type of our objects. This serves a bunch of useful purposes. For one, if we define the structure of an object, we'll be able to get all of the object's data via intellisense. We can additionally test our components easier by knowing the data structure or type of object we are dealing with.
+[TypeScript](https://www.typescriptlang.org/) allows us to define the structure or type of our objects. This serves a bunch of useful purposes. For one, if we define the structure of an object, we'll be able to get all of the object's data via IntelliSense. We can additionally test our components easier by knowing the data structure or type of object we are dealing with.
 
 For our app, we'll create one such type. In the `deal.ts` file, we'll define a type of Deal. Let's see how we'll accomplish this.
 
@@ -343,7 +343,7 @@ export class PublicDealsComponent implements OnInit, OnDestroy {
 }
 ```
 
-We'll use an RxJS [subscription](http://reactivex.io/rxjs/class/es6/Subscription.js~Subscription.html) to _subscribe_ to the observable created by our HTTP request (to be defined in the Deal Service, which we'll create shortly), and take some action once a value is available to either set the `publicDeals` member, or to define an `error`. We need to add the `OnDestroy` lifecycle hook with an `ngOnDestroy()` method that unsubscribes when the component is destroyed to prevent memory leaks.
+We'll use a RxJS [subscription](http://reactivex.io/rxjs/class/es6/Subscription.js~Subscription.html) to _subscribe_ to the observable created by our HTTP request (to be defined in the Deal Service, which we'll create shortly), and take some action once a value is available to either set the `publicDeals` member, or to define an `error`. We need to add the `OnDestroy` lifecycle hook with a `ngOnDestroy()` method that unsubscribes when the component is destroyed to prevent memory leaks.
 
 Next, let's build the view of our public deals component. We'll do this in the `public-deals.component.html` file. Our view will be a mixture of HTML and Angular sugar. Let's take a look at our implementation.
 
@@ -373,7 +373,7 @@ Next, let's build the view of our public deals component. We'll do this in the `
   </div>
 </div>
 
-<!-- We are going to use the authService.isLoggedIn method to see if the user is logged in or not. If they are not logged in we'll encourage them to login, otherwise if they are authenticated, we'll provide a handy link to private deals. We haven't implemented the authService yet, so don't worry about the functionality just yet -->
+<!-- We are going to use the authService.isLoggedIn method to see if the user is logged in or not. If they are not logged in we'll encourage them to log in, otherwise, if they are authenticated, we'll provide a handy link to private deals. We haven't implemented the authService yet, so don't worry about the functionality just yet -->
 <div class="col-sm-12" *ngIf="!authService.isLoggedIn">
   <div class="jumbotron text-center">
     <h2>Get More Deals By Logging In</h2>
@@ -479,9 +479,9 @@ Now the service is available to use throughout our application.
 
 Navigate to `localhost:4200` and you should see be redirected to the deals page automatically. Notice that you can freely navigate to the `/special` route and see the exclusive deals as well. You can do this because we haven't added user authentication yet. Let's do that now.
 
-The majority of apps require some type of authentication. Our application today is no different. In the next section I am going to show you how to add authentication to your Angular application the right way. We are going to be using [Auth0](https://auth0.com) as our identity platform. We'll use Auth0 as it allows us to easily issue [JSON Web Tokens (JWTs)](https://jwt.io), but the concepts we'll cover can be applied to any token based authentication system. If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free one now.
+The majority of apps require some type of authentication. Our application today is no different. In the next section, I am going to show you how to add authentication to your Angular application the right way. We are going to be using [Auth0](https://auth0.com) as our identity platform. We'll use Auth0 as it allows us to easily issue [JSON Web Tokens (JWTs)](https://jwt.io), but the concepts we'll cover can be applied to any token-based authentication system. If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free one now.
 
-From here, click on the [APIs menu item](https://manage.auth0.com/#/apis) and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API **Daily Deals API** and for the identifier I'll set it as **http://localhost:3001**. We'll leave the signing algorithm as RS256 and click on the **Create API** button.
+From here, click on the [APIs menu item](https://manage.auth0.com/#/apis) and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API **Daily Deals API** and for the identifier, I'll set it as **http://localhost:3001**. We'll leave the signing algorithm as RS256 and click on the **Create API** button.
 
 ![Creating Auth0 API](https://cdn.auth0.com/blog/angular2-auth-dd/creating-api-fixed.png)
 
@@ -491,7 +491,7 @@ This is all we need to do for now. Let's secure our server using this new API th
 
 Before we implement authentication on the front end in our Angular application, let's secure our backend server.
 
-First we'll install dependencies:
+First, we'll install dependencies:
 
 ```bash
 npm install express-jwt jwks-rsa --save
@@ -554,9 +554,9 @@ That's all we'll need to do on the server. Restart the server and try to navigat
 
 ### Adding Authentication to the Front-end
 
-Log into your Auth0 [management dashboard](https://manage.auth0.com) and let's make some updates to our [client](https://manage.auth0.com/#/clients) by clicking the Clients item in the sidebar. Find the test client that was created automatically when we made our API. It should be called something like `Daily Deals (Test Client)`.
+Log into your Auth0 [management dashboard](https://manage.auth0.com) and let's make some updates to our [Application](https://manage.auth0.com/#/applications) by clicking the Applications item in the sidebar. Find the test application that was created automatically when we made our API. It should be called something like `Daily Deals (Test Application)`.
 
-Change the **Client Type** to `Single Page Application`. Then add `http://localhost:4200/callback` to the **Allowed Callback URLs** field.
+Change the **Application Type** to `Single Page Application`. Then add `http://localhost:4200/callback` to the **Allowed Callback URLs** field.
 
 Finally, click on the **Advanced Settings** link at the bottom and select the **OAuth** tab. Make sure that the **JsonWebToken Signature Algorithm** is set to `RS256`.
 
@@ -588,11 +588,11 @@ export const environment = {
 };
 ```
 
-This file provides the authentication configuration variables so we can use Auth0 to secure our front end. Be sure to update the `YOUR-AUTH0-CLIENT-ID`, `YOUR-AUTH0-DOMAIN`, and `YOUR-AUTH0-API-IDENTIFIER` to your own information from your Auth0 Client and API settings.
+This file provides the authentication configuration variables so we can use Auth0 to secure our front end. Be sure to update the `YOUR-AUTH0-CLIENT-ID`, `YOUR-AUTH0-DOMAIN`, and `YOUR-AUTH0-API-IDENTIFIER` to your own information from your Auth0 Application and API settings.
 
 ### Authentication Service
 
-Next we'll create an authentication service that we can use throughout our app:
+Next, we'll create an authentication service that we can use throughout our app:
 
 ```bash
 ng g s auth/auth --no-spec
@@ -839,11 +839,11 @@ export class AppComponent {
 
 We imported the `AuthService` and made it publicly available in our constructor (it needs to be `public` in order for the template to use its methods).
 
-We added `*ngIf="authService.isLoggedIn` to our link to private deals so it will not be rendered if the user is not logged in. We also added `*ngIf` logic to our login and logout links to show the appropriate link depending on the user's authentication state. When the user clicks on the login link now, they will be taken to a centralized login page on the Auth0 domain. They will enter their credentials here and if correct, they will be redirected back to the application.
+We added `*ngIf="authService.isLoggedIn` to our link to private deals so it will not be rendered if the user is not logged in. We also added `*ngIf` logic to our login and logout links to show the appropriate link depending on the user's authentication state. When the user clicks on the login link now, they will be taken to a login page on the Auth0 domain. They will enter their credentials here and if correct, they will be redirected back to the application.
 
 ### Callback Component
 
-We'll now code up the callback component that we generated at the beginning of the tutorial. This component will be activated when the `localhost:4200/callback` route is called and it will process the redirect from Auth0 and ensure we recieved the right data back in the hash after a successful authentication. To do this, the component will make use of the `AuthService` we created earlier. Let's take a look at the implementation:
+We'll now code up the callback component that we generated at the beginning of the tutorial. This component will be activated when the `localhost:4200/callback` route is called and it will process the redirect from Auth0 and ensure we received the right data back in the hash after a successful authentication. To do this, the component will make use of the `AuthService` we created earlier. Let's take a look at the implementation:
 
 ```typescript
 // callback.component.ts
@@ -870,7 +870,7 @@ export class CallbackComponent implements OnInit {
 }
 ```
 
-Once a user is authenticated, Auth0 will redirect back to our application and call the `/callback` route. Auth0 will also append the access token to this request, and our CallbackComponent will make sure to properly process and store the token and profile. If all is well, meaning we recieved an access token, we will be redirected back to the homepage and will be in a logged in state.
+Once a user is authenticated, Auth0 will redirect back to our application and call the `/callback` route. Auth0 will also append the access token to this request, and our CallbackComponent will make sure to properly process and store the token and profile. If all is well, meaning we received an access token, we will be redirected back to the homepage and will be in a logged in state.
 
 ### Updating the Deal Service
 
@@ -908,17 +908,17 @@ We will add an `Authorization` header to our `getPrivateDeals()` request using t
 
 ### Putting it all Together
 
-![Auth0 centralized login](https://cdn.auth0.com/blog/angular2-auth-dd/hosted-lock.png)
+![Auth0 universal login](https://cdn.auth0.com/blog/angular2-auth-dd/hosted-lock.png)
 
 That's it. We are now ready to test our application. If your Node.js server is not running, make sure to start it up first. Head over to `localhost:4200` and you should automatically be redirected to `localhost:4200/deals` and see the list of public deals.
 
 ![Daily Deals Authenticated](https://cdn.auth0.com/blog/angular2-auth-dd/authenticated.png)
 
-Next, click on the login screen and you will be redirected to your Auth0 domain and the login widget will be displayed. Log in or sign up and you will be redirected back to the callback route, and then the deals page, but now the UI will look slightly different. The main menu will have a new option for Private Deals, and the message at the bottom will also show you a link to the private deals. Instead of the Log In link in the navbar, you'll also be presented with a Log Out link instead. Finally, click on the Private Deals link to see our list of exclusive private deals.
+Next, click on the login screen and you will be redirected to your Auth0 domain and the login widget will be displayed. Log in or sign up and you will be redirected back to the callback route, and then the deals page, but now the UI will look slightly different. The main menu will have a new option for Private Deals, and the message at the bottom will also show you a link to the private deals. Instead of the login link in the navbar, you'll also be presented with a logout link instead. Finally, click on the Private Deals link to see our list of exclusive private deals.
 
 ![Consent Dialog](https://cdn.auth0.com/blog/angular2-auth-dd/consent.png)
 
-**Note:** Since we are using `localhost` for our domain, once a user logs in the first time, or if the scope changes in the future, a consent dialog will be displayed asking the user if they wish to grant access to the API. This consent dialog will not be displayed if you are using a non-localhost domain, and the client is a first-party client.
+**Note:** Since we are using `localhost` for our domain, once a user logs in the first time, or if the scope changes in the future, a consent dialog will be displayed asking the user if they wish to grant access to the API. This consent dialog will not be displayed if you are using a non-localhost domain, and the application is a first-party application.
 
 ![Exclusive Daily Deals](https://cdn.auth0.com/blog/angular2-auth-dd/secret-deals.png)
 
@@ -926,6 +926,6 @@ You just wrote and authenticated an Angular app. Congrats!
 
 ## Conclusion
 
-Angular is out and ready for prime time. It's been a long time coming, but it's finally here and I couldn't be more excited. In this tutorial, we looked at some of the ways you can write Angular components and services. We implemented token based authentication with Auth0. But that's just scratching the surface.
+Angular is out and ready for prime time. It's been a long time coming, but it's finally here and I couldn't be more excited. In this tutorial, we looked at some of the ways you can write Angular components and services. We implemented token-based authentication with Auth0. But that's just scratching the surface.
 
 Angular provides a lot of great features out of the box like pipes, i18n, and much more. Auth0 can help secure your Angular apps with not just state of the art authentication, but enhanced features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> today so you can focus on building features unique to your app.
