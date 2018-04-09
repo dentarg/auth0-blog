@@ -3,16 +3,16 @@ layout: post
 title: "4 Tools To Improve Your Team's Threat Intelligence"
 description: "View, understand, prioritize, and act on the alerts your team receives."
 longdescription: "If you have an IT team that is overwhelmed by alerts and competing demands, how can you begin to protect yourself? Getting the right tools to know your users and analyze their behavior can be critical. This article presents four tools that can help your IT team create alerts based on user behavior."
-date: 2018-03-30 12:30
-category: Hot Topics, Trends
-author:
-  name: CHANGE ME
-  url: http://twitter.com/change.me
-  mail: change.me@auth0.com
-  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
+date: 2018-04-09 12:30
+category: Growth, Security
+author:upload
+  name: "Diego Poza"
+  url: "https://twitter.com/diegopoza"
+  mail: "diego.poza@auth0.com"
+  avatar: "https://avatars3.githubusercontent.com/u/604869?v=3&s=200"
 design:
-  image: https://cdn.auth0.com/blog/idaas-in-2018/logo.png
-  bg_color: "#222228"
+  image: https://cdn.auth0.com/blog/threat-intelligence/logo.png
+  bg_color: "#42007D"
   image_size: "70%"
 tags:
 - threat
