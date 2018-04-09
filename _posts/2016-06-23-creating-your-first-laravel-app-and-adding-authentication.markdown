@@ -200,6 +200,7 @@ Now, the views needed for authentication are in the `resources/views/auth` direc
 Open up your `welcome.blade.php` and configure it like so:
 
 {% highlight html %}
+{% raw %}
 @extends('layouts.app')
 
 @section('content')
@@ -233,6 +234,7 @@ Open up your `welcome.blade.php` and configure it like so:
     </div>
 </div>
 @endsection
+{% endraw %}
 {% endhighlight %}
 
 Here, we are looping through the `$characters` array data passed from the `ListController` for appropriate rendering in the `welcome` view.
@@ -331,6 +333,7 @@ Route::get('/auth0/callback', function() {
 Open up `welcome.blade.php` and configure it like so:
 
 {% highlight php %}
+{% raw %}
 @extends('layouts.app')
 
 @section('content')
@@ -350,6 +353,7 @@ Open up `welcome.blade.php` and configure it like so:
 </script>
 <button onclick="window.signin();">Login</button>
 @endsection
+{% endraw %}
 {% endhighlight %}
 
 When the login button is clicked, users are redirected to Auth0's Centralized Login Page.
