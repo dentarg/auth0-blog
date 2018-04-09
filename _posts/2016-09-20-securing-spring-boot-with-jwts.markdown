@@ -444,7 +444,7 @@ For starters, if you haven't done so yet, this is a good time to sign up for a <
 
 When creating an API, we must define three fields: `Name`, which is just a friendly name for our new API; `Identifier`, which is a `String` that we will use when requesting an `access_token`; and the `Signing Algorithm`, which defines if this API will use a [symmetric or asymmetric algorithm](https://auth0.com/blog/json-web-token-signing-algorithms-overview/) to sign the `access_token`. In our case, we will fill this fields, respectively, with: `Spring Boot Users API`; `spring-boot-jwts`; and `RS256` (i.e. we will use an asymmetric algorithm).
 
-Auth0 supports different [OAuth 2.0 flows to request access tokens](https://auth0.com/docs/api-auth). In our particular case, to keep the example simple, we are going to use the [APIs & Trusted Clients flow](https://auth0.com/docs/api-auth/grant/password). Keep in mind that this flow, although being the easiest one to implement, is the less secure one and must be used **only** when the the client app is **absolutely trusted**. Most situations will require other flows, and the ["Which OAuth 2.0 flow should I use?"](https://auth0.com/docs/api-auth/which-oauth-flow-to-use) article on Auth0 can help on deciding which is the best approach.
+Auth0 supports different [OAuth 2.0 flows to request access tokens](https://auth0.com/docs/api-auth). In our particular case, to keep the example simple, we are going to use the [APIs & Trusted Clients flow](https://auth0.com/docs/api-auth/grant/password). Keep in mind that this flow, although being the easiest one to implement, is the less secure one and must be used **only** when the the client application is **absolutely trusted**. Most situations will require other flows, and the ["Which OAuth 2.0 flow should I use?"](https://auth0.com/docs/api-auth/which-oauth-flow-to-use) article on Auth0 can help on deciding which is the best approach.
 
 To use the *APIs & Trusted Clients* flow, we must first configure the `Default Directory` property on our Auth0 account. To do so, head to the [Account settings](https://manage.auth0.com/#/account) page and add `Username-Password-Authentication` as the value of the `Default Directory` property.
 
@@ -558,7 +558,7 @@ After that we can get an access token. For that we need to issue a `POST` reques
 }
 ```
 
-The `client_id` and `client_secret` properties, on both requests, must be changed properly. Their values can be found in the `Spring Boot Users API (Test Client)` client that Auth0 created for us. Head to the [Applications page](https://manage.auth0.com/#/applications) to get them.
+The `client_id` and `client_secret` properties, on both requests, must be changed properly. Their values can be found in the `Spring Boot Users API (Test Application)` application that Auth0 created for us. Head to the [Applications page](https://manage.auth0.com/#/applications) to get them.
 
 Issuing this last request will give us an `access_token`. We will use this token in the header of the `GET` request that we will send to our Spring Boot API, in a similar manner to how we did it before. Now if we query our endpoint again, we get a list of the users. As we see, integrating Auth0 with Spring Boot is an easy process!
 
