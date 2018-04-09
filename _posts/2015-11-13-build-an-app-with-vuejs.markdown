@@ -554,9 +554,9 @@ Vue.http.headers.common['Authorization'] = auth.getAuthHeader();
 
 Auth0 issues [JSON Web Tokens](http://jwt.io) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
-We can easily set up authentication in our Vue.js apps with [Auth0's Centralized Login Page](https://auth0.com/docs/hosted-pages/login). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with **Vue.js**.
+We can easily set up authentication in our Vue.js apps with [Auth0's Login Page](https://auth0.com/docs/hosted-pages/login). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with **Vue.js**.
 
-{% include tweet_quote.html quote_text="We can easily set up authentication in our Vue.js apps with Auth0's Centralized Login Page" %}
+{% include tweet_quote.html quote_text="We can easily set up authentication in our Vue.js apps with Auth0's Login Page" %}
 
 ### Step 1: Include auth0.js
 
@@ -621,7 +621,7 @@ export var webAuth = new auth0.WebAuth({
     },
     methods: {
       login() {
-        // Redirect to the centralized login page
+        // Redirect to the login page
         webAuth.authorize();
       },
       logout() {
