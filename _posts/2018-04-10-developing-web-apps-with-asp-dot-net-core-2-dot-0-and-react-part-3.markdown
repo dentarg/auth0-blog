@@ -3,7 +3,7 @@ layout: post
 title: "Developing Web Apps with ASP.NET Core 2.0 and React - Part 3"
 description: "A practical tutorial showing how to setup and develop a modern Web application based on ASP.NET Core 2.0 and React."
 longdescription: "In this series of posts, you will build a Web application based on ASP.NET Core 2.0 and React. To solve the identity management feature, you will integrate this stack with Auth0. In this third part of the series, you are going to integrate the existing ASP.NET Core API and React client with scopes and authorization management."
-date: 2018-03-22 08:30
+date: 2018-04-10 08:30
 category: Technical Guide, Microsoft, ASP Net Core
 author:
   name: "Andrea Chiarelli"
@@ -27,7 +27,6 @@ related:
 - developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-2
 - developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-1
 - securing-asp-dot-net-core-2-applications-with-jwts
-- 2018-02-06-developing-games-with-react-redux-and-svg-part-1
 ---
 
 **TL;DR:** This is the third part of the series about developing a Web application based on ASP.NET Core 2.0 and React. [In the first post](http://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-1), you built a secured Web API application that provides a list of books with ASP.NET Core 2.0. [In the second post](https://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-2/), you created a *Single Page Application* (SPA) client based on React to consume this API. In this post, you will integrate the client-server system with scopes and authorization management by using Auth0. You can find [the final code of both the React client and the ASP.NET server in this GitHub repository](https://github.com/andychiare/react-netcore2-auth0-scopes).
