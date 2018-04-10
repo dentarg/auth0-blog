@@ -28,6 +28,12 @@ related:
 
 **TL;DR:** In this series, you will learn how to create modern web applications with Python, Flask, and Angular. You will use this stack to build a SPA and a backend API to expose exams and questions so users can test their knowledge regarding different technologies. [In this GitHub repository](https://github.com/auth0-blog/python-flask-angular-2/), you can find the final code created throughout the second part of the series.
 
+So far, this series contains three parts:
+
+1. [Part 1 includes topics like bootstrapping the Flask application, managing Entities with SQLAlchemy ORM, and bootstrapping the Angular application](https://auth0.com/blog/using-python-flask-and-angular-to-build-modern-apps-part-1/).
+2. [Part 2 (this one) includes topics like securing Flask Apps, handling Angular forms, and securing Angular Apps](https://auth0.com/blog/using-python-flask-and-angular-to-build-modern-web-apps-part-2/).
+3. [Part 3 includes topics like configuring Angular Material, handling Authorization, and migrating Databases with Alembic](https://auth0.com/blog/using-python-flask-and-angular-to-build-modern-web-apps-part-3/).
+
 ---
 
 ## What You Will Build
