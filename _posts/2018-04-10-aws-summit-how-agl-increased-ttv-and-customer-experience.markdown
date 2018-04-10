@@ -1,8 +1,8 @@
 ---
 layout: post
-title: AWS Summit: How AGL Increased Time-to-Value, Improved Customer Experience with Auth0
-description: Join AGL Enterprise Security Architect Heng Mok at the AWS Summit to learn of digital transformation challenges and wins (with the help of Auth0).
-longdescription: AGL Enterprise Security Architect Heng Mok’s made a career out of being at the start of transformation programs. Join him at the AWS Summit as he shares AGL’s digital transformation challenges and wins (with the help of Auth0).
+title: "AWS Summit: How AGL Increased Time-to-Value, Improved Customer Experience with Auth0"
+description: "Join AGL Enterprise Security Architect Heng Mok at the AWS Summit to learn of digital transformation challenges and wins (with the help of Auth0)."
+longdescription: "AGL Enterprise Security Architect Heng Mok’s made a career out of being at the start of transformation programs. Join him at the AWS Summit as he shares AGL’s digital transformation challenges and wins (with the help of Auth0)."
 date: 2018-04-10 00:52
 category: Announcements, Press
 is_non-tech: true
@@ -15,10 +15,10 @@ design:
   bg_color: "#222228"
   image: https://cdn.auth0.com/blog/series-c/auth0-logo.png
 tags:
-- AWSSummit
+- aws-summit
 - digital-transformation
-- AGL
-- AWS
+- agl
+- aws
 related:
 - 2018-02-12-auth0-joins-the-google-cloud-partner-platform
 - 2017-07-21-the-role-of-identity-in-application-modernization
