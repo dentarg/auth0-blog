@@ -4,7 +4,7 @@ title: AWS Summit: How AGL Increased Time-to-Value, Improved Customer Experience
 description: Join AGL Enterprise Security Architect Heng Mok at the AWS Summit to learn of digital transformation challenges and wins (with the help of Auth0).
 longdescription: AGL Enterprise Security Architect Heng Mok’s made a career out of being at the start of transformation programs. Join him at the AWS Summit as he shares AGL’s digital transformation challenges and wins (with the help of Auth0).
 date: 2018-04-10 00:52
-category: <FROM HERE: https://docs.google.com/spreadsheets/d/1e_RKzi8kVwzqPG8si8kyDOWPiBk9tI-XNGh0KgRIF7Q>
+category: Announcements, Press
 is_non-tech: true
 author:
   name: "Jenny O'Brien"
@@ -15,9 +15,14 @@ design:
   bg_color: "#222228"
   image: https://cdn.auth0.com/blog/series-c/auth0-logo.png
 tags:
-- foo
+- AWSSummit
+- digital-transformation
+- AGL
+- AWS
 related:
-- <ADD SOME RELATED POSTS FROM AUTH0'S BLOG>
+- 2018-02-12-auth0-joins-the-google-cloud-partner-platform
+- 2017-07-21-the-role-of-identity-in-application-modernization
+- 2017-10-13-how-do-i-modernize-my-legacy-system
 ---
 
 AGL Enterprise Security Architect [Heng Mok](https://www.linkedin.com/in/hengmok/)’s made a career out of being at the start of transformation programs. After building his deep knowledge of cybersecurity strategy and architecture in the banking industry, he shifted to energy, joining one of Australia’s leading providers of integrated energy at just the right time.
@@ -25,6 +30,8 @@ AGL Enterprise Security Architect [Heng Mok](https://www.linkedin.com/in/hengmok
 _“The energy market is going from centralized to distributed,”_ Mok says. ‘There are number of things that need to change. In a distributed world, you have to have more of a focus on what the customer wants and the platform to orchestrate that new energy concept.”
 
 At the [AWS Summit](https://aws.amazon.com/summits/sydney/) in Sydney this week, Mok will share lessons learned during the first stage of [AGL Energy](https://www.agl.com.au/about-agl)’s digital transformation journey — re-architecting customer identity and authentication for AGL’s applications with the help of Auth0. 
+
+![AWS Summit Sydney](https://cdn.auth0.com/blog/aws-summit-sydney-agl-auth0/identity.png)
 
 Before the change, AGL customers faced poor sign-up and login experiences as well as the need to navigate to disconnected sites. Mok and his team were looking to partner with a third-party provider who could rapidly deliver secure speed-to-value as well as key features. This is why AGL chose Auth0, Mok says. Also critical was the ability to maintain local data sovereignty — easily handled thanks to Auth0’s data center presence through AWS.
 
