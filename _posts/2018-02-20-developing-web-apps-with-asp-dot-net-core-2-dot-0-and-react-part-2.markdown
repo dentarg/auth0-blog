@@ -79,23 +79,23 @@ After a few seconds, your default browser will be opened and you will see the fo
 
 This means that the app is working and that you are ready to start enhancing it.
 
-## Creating an Auth0 SPA Client
+## Creating an Auth0 Application
 
-Since you need to access a Web API secured with *Auth0*, the first thing you have to do is to create and configure an [Auth0 Client](https://auth0.com/docs/clients). In the previous part, you have used `curl` as a non-interactive client. Besides that, you have used the same client type for the integration tests.
+Since you need to access a Web API secured with *Auth0*, the first thing you have to do is to create and configure an [Auth0 Application](https://auth0.com/docs/applications). In the previous part, you have used `curl` as a _Machine to Machine Application_. Besides that, you have used the same application type for the integration tests.
 
-Now, you are building a React SPA client. That is, your client is going to be guided by user interaction. As such, you need to head to [the Clients page on the Auth0 dashboard](https://manage.auth0.com/#/clients) and hit the *Create Client* button.
+Now, you are building a React SPA client. That is, your client is going to be guided by user interaction. As such, you need to head to [the Applications page on the Auth0 dashboard](https://manage.auth0.com/#/applications) and hit the *Create Application* button.
 
-After clicking on this button, the dashboard will present to you a form where you will have to type a *Name* to your client and select its *type*. For this tutorial, you can set the name of your client as *React Auth0* and choose *Single Page Web Applications* as its type.
+After clicking on this button, the dashboard will present to you a form where you will have to type a *Name* to your application and select its *type*. For this tutorial, you can set the name of your application as *React Auth0* and choose *Single Page Web Applications* as its type.
 
-![Creating a React SPA client on Auth0](https://cdn.auth0.com/blog/react-aspnet-core/creating-an-auth0-client.png)
+![Creating a React application on Auth0](https://cdn.auth0.com/blog/react-aspnet-core/creating-an-auth0-client.png)
 
-After that, you can click on the *Create* button. Clicking on it will make the dashboard redirect you to a tab called *Quick Start* inside your new client. As you are going to learn how to integrate your React app with the ASP.NET Core 2.0 API in this tutorial, you won't need to follow the instructions there. For now, what you will need to do is to set the *Allowed Callback URLs* field to `http://localhost:3000` in the *Settings* tab.
+After that, you can click on the *Create* button. Clicking on it will make the dashboard redirect you to a tab called *Quick Start* inside your new application. As you are going to learn how to integrate your React app with the ASP.NET Core 2.0 API in this tutorial, you won't need to follow the instructions there. For now, what you will need to do is to set the *Allowed Callback URLs* field to `http://localhost:3000` in the *Settings* tab.
 
-![Settings tab of a React SPA client on Auth0](https://cdn.auth0.com/blog/react-aspnet-core/settings-tab-on-auth0-client.png)
+![Settings tab of a React application on Auth0](https://cdn.auth0.com/blog/react-aspnet-core/settings-tab-on-auth0-client.png)
 
 ## Integrate the React App with Auth0
 
-Now that you have created an Auth0 Client, you are ready to integrate your React application with Auth0.
+Now that you have created an Auth0 Application, you are ready to integrate your React application with Auth0.
 
 As a first step, you will need to install the [`auth0.js`](https://github.com/auth0/auth0.js) NPM package. You can do this by typing the following command in the root directory of your project:
 
@@ -116,7 +116,7 @@ export const AUTH_CONFIG = {
 };
 ```
 
-As you can see, you are defining an object that contains the configuration properties of your Auth0 Client in this file. **Note that**, you will need to replace `YOUR_AUTH0_DOMAIN` and `YOUR_CLIENT_ID` placeholders with the corresponding values from your Auth0 Client. So, head to [the Clients page on the Auth0 Management Dashboard](https://manage.auth0.com/#/clients), choose the client that you have created in the previous section, select the *Settings* tab, and use the *Client ID* and the *Domain* values to replace these placeholders.
+As you can see, you are defining an object that contains the configuration properties of your Auth0 Application in this file. **Note that**, you will need to replace `YOUR_AUTH0_DOMAIN` and `YOUR_CLIENT_ID` placeholders with the corresponding values from your Auth0 Application. So, head to [the Applications page on the Auth0 Management Dashboard](https://manage.auth0.com/#/applications), choose the application that you have created in the previous section, select the *Settings* tab, and use the *Client ID* and the *Domain* values to replace these placeholders.
 
 This file also contains another two properties:
 
@@ -147,7 +147,7 @@ export default class AuthService {
 }
 ```
 
-As you can see, you imported the `auth0` namespace from the `auth0-js` package and the `AUTH_CONFIG` object from the module defined in the previous section. Then, you used the `auth0.WebAuth()` constructor to create an instance of the `auth0` client. To create this instance, you provided your Auth0 Client properties to this constructor. Alongside with these properties, you also provided values for the `responseType` property (which defines the type of response you want from the authorization server) and for the `scope` (which defines that you are expecting the server to send [the `sub` claim back to your app](https://auth0.com/docs/scopes/current#standard-claims)).
+As you can see, you imported the `auth0` namespace from the `auth0-js` package and the `AUTH_CONFIG` object from the module defined in the previous section. Then, you used the `auth0.WebAuth()` constructor to create an instance of the `auth0` client. To create this instance, you provided your Auth0 Application properties to this constructor. Alongside with these properties, you also provided values for the `responseType` property (which defines the type of response you want from the authorization server) and for the `scope` (which defines that you are expecting the server to send [the `sub` claim back to your app](https://auth0.com/docs/scopes/current#standard-claims)).
 
 Finally, you defined a `login()` method that wraps the `auth0.authorize()` one.
 
@@ -193,7 +193,7 @@ Now, when running the app, you will no longer see the standard `create-react-app
 
 ## Create Users for the React App
 
-You might be wondering: how can you add authorized users to your application? With Auth0, you have two options. First, which is the most common option, is to let visitors register themselves by submitting the *Sign Up* form shown by Auth0 or [by choosing one of the multiple identity providers that you can easily configure in your Auth0 clients](https://auth0.com/docs/identityproviders).
+You might be wondering: how can you add authorized users to your application? With Auth0, you have two options. First, which is the most common option, is to let visitors register themselves by submitting the *Sign Up* form shown by Auth0 or [by choosing one of the multiple identity providers that you can easily configure in your Auth0 applications](https://auth0.com/docs/identityproviders).
 
 The second option is to manually register users through the Auth0 dashboard. You can do this by heading to the *Users* page on the Auth0 management dashboard. There, you will need to click on the *Create User* button in the upper right corner. This will make the dashboard show a form where you can provide the credentials for the new user.
 
@@ -246,7 +246,7 @@ The last method, called `isAuthenticated()`, checks if the session data stored i
 
 Before you can use your new methods, you need to add routing support to your application. This allows you to separate the session creation route from the application's real point of access. In other words, you need to specify a different URL to which the authentication service (Auth0) will redirect your users.
 
-To do this, you need to provide another callback URL in your Auth0 Client configuration. So, [head to the Client page on the Auth0 management dashboard](https://manage.auth0.com/#/clients), choose your client again, and replace the value on the *Allowed Callback URLs* field to `http://localhost:3000/startSession`.
+To do this, you need to provide another callback URL in your Auth0 Application configuration. So, [head to the Applications page on the Auth0 management dashboard](https://manage.auth0.com/#/applications), choose your application again, and replace the value on the *Allowed Callback URLs* field to `http://localhost:3000/startSession`.
 
 With this configuration you are saying to Auth0 that the provided URL is a valid place to redirect your users to after the authentication process. This is a security measure to avoid unauthorized redirections.
 
