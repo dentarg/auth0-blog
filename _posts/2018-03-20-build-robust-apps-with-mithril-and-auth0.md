@@ -2277,15 +2277,15 @@ Auth0's universal login is the most secure way to easily authenticate users for 
 </p>
 
 
-To get started, if you have not done so already, you need to [sign up for an Auth0 account](https://auth0.com/signup). Once signed up, you are going to create a tenant to host different clients.
+To get started, if you have not done so already, you need to [sign up for an Auth0 account](https://auth0.com/signup). Once signed up, you are going to create a tenant to host different applications.
 
-To set up a client, follow these easy steps:
+To set up an application, follow these easy steps:
 
-1. In the Auth0 Dashboard click on "New Client".
+1. In the Auth0 Dashboard click on "New Application".
 
-2. Give the client a name.
+2. Give the application a name.
 
-3. Choose "Single Page Web Applications" as the client type.
+3. Choose "Single Page Web Applications" as the application type.
 
 4. Choose "React" as the web app technology since it has a similar architecture to Mithril.
 
@@ -2312,7 +2312,7 @@ export default AUTH0;
 
 8. As an important step, add `auth0-variables.js` to the `.gitignore` file so that it's never committed to source control.
 
-9. Back in the Auth0 Dashboard, click on `Settings` under the client's name and scroll down till you find "Allowed Callback URLs".
+9. Back in the Auth0 Dashboard, click on `Settings` under the application's name and scroll down till you find "Allowed Callback URLs".
 
 10. Paste your desired callback URL here. That URL may be your localhost address where the project is being run locally. Make sure that you save the settings.
 
@@ -2503,9 +2503,9 @@ const WelcomeView = () => [
 // ...
 ```
 
-Before testing it, be sure that your `CALLBACKURL` in `auth0-variables.js` has been whitelisted in the Client Settings in the Auth0 dashboard and that it's set up to `http://localhost:8080/#!/conferences`. This callback URL is for development usage only. For production, you'd need to use something else, for example, your Firebase or GitHub pages base URL.
+Before testing it, be sure that your `CALLBACKURL` in `auth0-variables.js` has been whitelisted in the Application Settings in the Auth0 dashboard and that it's set up to `http://localhost:8080/#!/conferences`. This callback URL is for development usage only. For production, you'd need to use something else, for example, your Firebase or GitHub pages base URL.
 
-Let's click the "LOGIN" button. Auth0's Universal Login page should have come up! Enter your credentials or sign up if you have not yet created any user for your Auth0 client. Once that's done, Auth0 will redirect you to `http://localhost:8080/#!/conferences` effectively.
+Let's click the "LOGIN" button. Auth0's Universal Login page should have come up! Enter your credentials or sign up if you have not yet created any user for your Auth0 application. Once that's done, Auth0 will redirect you to `http://localhost:8080/#!/conferences` effectively.
 
 
 Next, let's wire Auth0's `logout()` function with our `LogoutButton`. To do so, we need to change the `StageBanner` `action` attribute of each view: `ConferenceView`, `CFPView`, and `FormView` from:

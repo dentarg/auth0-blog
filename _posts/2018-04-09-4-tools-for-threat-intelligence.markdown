@@ -31,7 +31,7 @@ related:
 
 2018 will inevitably bring more and more sophisticated cyber attacks. As with all industries, the technology used continues to push the boundaries of what we previously thought was possible. 
 
-It continues to be critical that your company takes every precaution to protect itself. Knowing your users (https://auth0.com/user-management) and managing their behaviors in your network are just some of the strategies you should employ in this increasingly complex landscape.
+It continues to be critical that your company takes every precaution to protect itself. Knowing your users and managing their behaviors in your network are just some of the strategies you should employ in this increasingly complex landscape.
 
 But if you, like many of your peer companies, have an IT team that is overwhelmed by alerts and competing demands, where do you begin?
 

@@ -266,11 +266,11 @@ This is the latest Android Lock library released recently with some bug fixes. U
 </manifest>
 ```
 
-Next, you create an account at [Auth0.com](https://auth0.com/signup). It is free and easy to setup. When you get to your dashboard, create a new client by clicking the CREATE CLIENT button. Insert a name for the client and choose native as the app type. Here is how a newly created client looks
+Next, you create an account at [Auth0.com](https://auth0.com/signup). It is free and easy to setup. When you get to your dashboard, create a new application by clicking the _Create Application_ button. Insert a name for the application and choose native as its type. Here is how a newly created application looks
 
 ![](https://cdn2.auth0.com/docs/media/articles/angularjs/app_dashboard.png)
 
-After this, we need to configure our callbacks. Go to the settings tab of your newly created client and add the URL:
+After this, we need to configure our callbacks. Go to the settings tab of your newly created application and add the URL:
 
 ```
 demo://YOUR_AUTH0_DOMAIN/android/YOUR_APP_PACKAGE_NAME/callback
@@ -284,7 +284,7 @@ This is a sample callback `URL` which contains:
 - Our app package name: you can get this from your `AndroidManifest.xml` file.
 - And the callback directory - `/callback`
 
-Next, we copy the credentials of your Auth0 client to `strings.xml` resource file in your Android project like this:
+Next, we copy the credentials of your Auth0 application to `strings.xml` resource file in your Android project like this:
 
 ```xml
 <resources>
@@ -334,7 +334,7 @@ WebAuthProvider.init(auth0)
  
 Here we initialized the `Auth0` object with the app context. This is because we have already provided the details in the `AndroidManifest.xml` file. We also set it to be [ODI comformant](https://auth0.com/docs/api-auth/intro). And we used the same scheme as we used in our callback URL and manifest holders. The schemes should always match.
 
-We have been able to integrate a secure backend service for our apps.  You can go further than this to [add more identity providers](https://auth0.com/learn/social-login/) for your Auth0 client or even decide to go [passwordless](https://auth0.com/docs/connections/passwordless). 
+We have been able to integrate a secure backend service for our apps.  You can go further than this to [add more identity providers](https://auth0.com/learn/social-login/) for your Auth0 application or even decide to go [passwordless](https://auth0.com/docs/connections/passwordless). 
  
 ### Permissions
 
