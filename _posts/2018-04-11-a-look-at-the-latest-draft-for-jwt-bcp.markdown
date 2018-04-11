@@ -3,8 +3,8 @@ layout: post
 title: "A Look at The Draft for JWT Best Current Practices"
 description: "Learn the best practices for keeping your JWTs secure."
 longdescription: "We take a look at the IETF OAuth Working Group's current draft for the JSON Web Token Best Current Practices document and explore each recommendation in detail. Learn how to keep your JWTs secure!"
-date: 2018-03-15 12:30
-category: JWT
+date: 2018-04-11 12:30
+category: Technical Guide, JWT
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en
