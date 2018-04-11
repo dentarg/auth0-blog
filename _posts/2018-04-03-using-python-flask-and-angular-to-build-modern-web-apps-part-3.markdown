@@ -30,6 +30,12 @@ related:
 
 **TL;DR:** In this series, you will learn how to create modern web applications with Python, Flask, and Angular. You will use this stack to build a SPA and a backend API to expose exams and questions so users can test their knowledge regarding different technologies. [In this GitHub repository](https://github.com/auth0-blog/python-flask-angular-3/), you can find the final code created throughout the third part of the series (this one).
 
+So far, this series contains three parts:
+
+1. [Part 1 includes topics like bootstrapping the Flask application, managing Entities with SQLAlchemy ORM, and bootstrapping the Angular application](https://auth0.com/blog/using-python-flask-and-angular-to-build-modern-apps-part-1/).
+2. [Part 2 includes topics like securing Flask Apps, handling Angular forms, and securing Angular Apps](https://auth0.com/blog/using-python-flask-and-angular-to-build-modern-web-apps-part-2/).
+3. [Part 3 (this one) includes topics like configuring Angular Material, handling Authorization, and migrating Databases with Alembic](https://auth0.com/blog/using-python-flask-and-angular-to-build-modern-web-apps-part-3/).
+
 ---
 
 ## What You Will Build
@@ -148,14 +154,14 @@ import * as Auth0 from 'auth0-web';
     <mat-toolbar color="primary" class="mat-elevation-z10">
       <button mat-button>Online Exams</button>
       <button mat-button>About</button>
-    
+
       <!-- This fills the remaining space of the current row -->
       <span class="fill-remaining-space"></span>
-    
+
       <button mat-button (click)="signIn()" *ngIf="!authenticated">Sign In</button>
       <button mat-button (click)="signOut()" *ngIf="authenticated">Sign Out</button>
     </mat-toolbar>
-    
+
     <router-outlet></router-outlet>
   `,
   styleUrls: ['./app.component.css']
@@ -411,7 +417,7 @@ function (user, context, callback) {
 
   addRolesToUser(user, (err, roles) => {
     if (err) return callback(err);
-    
+
     user.app_metadata.roles = roles;
     auth0.users.updateAppMetadata(user.user_id, user.app_metadata).then(() => {
       const namespace = 'https://online-exams.com/roles';
@@ -720,24 +726,24 @@ import {Router} from "@angular/router";
     <mat-card>
       <h2>New Exam</h2>
         <mat-form-field class="full-width">
-          <input matInput 
-                 placeholder="Title" 
+          <input matInput
+                 placeholder="Title"
                  (keyup)="updateTitle($event)">
         </mat-form-field>
-        
+
         <mat-form-field class="full-width">
-          <input matInput 
-                 placeholder="Description" 
+          <input matInput
+                 placeholder="Description"
                  (keyup)="updateDescription($event)">
         </mat-form-field>
-      
+
         <mat-form-field class="full-width">
-          <textarea rows="5" 
-                    matInput 
-                    placeholder="Long Description" 
+          <textarea rows="5"
+                    matInput
+                    placeholder="Long Description"
                     (keyup)="updateLongDescription($event)"></textarea>
         </mat-form-field>
-        
+
         <button mat-raised-button
                 color="primary"
                 (click)="saveExam()">
@@ -751,7 +757,7 @@ import {Router} from "@angular/router";
       max-width: 500px;
       width: 100%;
     }
-    
+
     .full-width {
       width: 100%;
     }
