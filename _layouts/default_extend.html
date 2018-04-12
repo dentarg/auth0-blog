@@ -220,6 +220,22 @@
     }
     </script>
     <script type="text/javascript">
+      function executeABExperiment(experimentName, callback) {
+        var path = window.location.pathname;
+        var experiments = window.experiments;
+        if (!experimentName) {
+          return callback && callback(null);
+        }
+
+        var experiment = abTestingLib.experiments.findByName(experimentName);
+        if (!experiment) {
+          return callback && callback(null);
+        }
+
+        var variant = experiment.run();
+        return callback && callback(variant);
+
+      }
     function executeABExperiments () {
       var path = window.location.pathname;
       var experiments = window.experiments;

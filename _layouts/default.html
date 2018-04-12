@@ -9,6 +9,136 @@
   <div id="header"></div>
     <aside id="popup"></aside>
     {% include popup_notification.html %}
+    <script type="text/javascript">
+      try {
+        window.abTestingLib.load({ fetchFn: function () { return $.get('https://ab.it.auth0.com/?application=website'); } });
+        window.abTestingLib.integration('auth0metrics').start({ metrics: window.metricsLib });
+        window.abTestingLib.start().then(enhanceAnalytics).then(function () {
+          try {
+            window.abLoaded = true;
+            // Save experiments on the global scope
+            window.experiments = window.abTestingLib.getExperiments();
+            executeABExperiments();
+
+          } catch (e) {
+            console.error('Error running AB experiments.');
+            $('#pjax').css('visibility', 'visible');
+            window.abLoaded = true;
+          }
+        });
+
+        function enhanceAnalytics() {
+          var analytics = window.abTestingLib.analytics;
+
+          var originalSetCurrentVariantName = analytics.setCurrentVariantName.bind(analytics);
+          var originalGetCurrentVariantName = analytics.getCurrentVariantName.bind(analytics);
+
+          window.setVariant = enhancedSetCurrentVariantName;
+          window.getVariant = enhancedGetCurrentVariantName;
+
+          var enhancedSetCurrentVariantName = function (variantName, value) {
+            setCurrentVariantName(variantName, value);
+            originalSetCurrentVariantName(variantName, value);
+          };
+
+          var enhancedGetCurrentVariantName = function (variantName) {
+            var originalValue = originalGetCurrentVariantName(variantName);
+            var cookieValue = getCurrentVariantName(variantName);
+
+            if (originalValue != cookieValue) {
+              originalSetCurrentVariantName(variantName, cookieValue);
+            }
+
+            return cookieValue;
+          };
+
+          analytics.setCurrentVariantName = enhancedSetCurrentVariantName;
+          analytics.getCurrentVariantName = enhancedGetCurrentVariantName;
+          window.setVariant = enhancedSetCurrentVariantName;
+          window.getVariant = enhancedGetCurrentVariantName;
+        }
+
+        function setCurrentVariantName(variantName, value) {
+          var variants = loadCookieVariants();
+          variants[variantName] = value;
+          saveCookieVariants(variants);
+        }
+
+        function getCurrentVariantName(variantName) {
+          var variants = loadCookieVariants();
+          return variants[variantName];
+        }
+
+        function loadCookieVariants() {
+          return JSON.parse(Cookies.get('ajs_ab.traits') || '{}');
+        }
+
+        function saveCookieVariants(variants) {
+          return Cookies.set('ajs_ab.traits', JSON.stringify(variants), {
+            expires: 365,
+            path: '/'
+          });
+        }
+      } catch (e) {
+        console.error('Error initializing ABTesting lib. ABTesting will be disabled');
+        $('#pjax').css('visibility', 'visible');
+        window.abLoaded = true;
+      }
+    </script>
+    <script type="text/javascript">
+      function executeABExperiment(experimentName, callback) {
+        var path = window.location.pathname;
+        var experiments = window.experiments;
+        if (!experimentName) {
+          return callback && callback(null);
+        }
+
+        var experiment = abTestingLib.experiments.findByName(experimentName);
+        if (!experiment) {
+          return callback && callback(null);
+        }
+
+        var variant = experiment.run();
+        return callback && callback(variant);
+
+      }
+
+      function executeABExperiments() {
+        var path = window.location.pathname;
+        var experiments = window.experiments;
+
+        if (!window.abLoaded) {
+          return;
+        }
+
+        if (!experiments) {
+          // Restore content
+          $('#pjax').css('visibility', 'visible');
+          return;
+        }
+
+        try {
+          var experimentsForPath = experiments.runAllByPath(path);
+          var winningVariants = [];
+
+          experimentsForPath.experiments.forEach(function (e) {
+            winningVariants = winningVariants.concat(e.getCurrentVariant().getPropertiesByType('js'));
+          });
+
+          var variantContext = {};
+          variantContext.$ = $;
+
+          winningVariants.forEach(function (v) {
+            v.runInContext(variantContext);
+          });
+        } catch (e) {
+          console && console.error("Error running experiments for path:%s", path);
+        } finally {
+          // Restore content
+          $('#pjax').css('visibility', 'visible');
+        }
+      }
+    </script>
     <script>
     (function () {
       var config = {
@@ -35,6 +165,13 @@
         metricsLib.track('click:signup', getBasicInfo());
         window.location.href = '/signup';
       }
+
+      // TODO remove code when this experiment is finished
+      setTimeout(() => {
+        executeABExperiment('links-developer-dropdown-menu-header', (variant) => { 
+          window.abVariantHeader= variant.name;
+        })
+      }, 1000)
 
       // Header
       var React = window.React;
@@ -79,7 +216,7 @@
         render: function () {
           var HeaderProps = {
             logged: this.state.logged,
-            showContactForm: this.state.showContactForm
+            showContactForm: this.state.showContactForm,
           };
           var Auth0WebHeaderProps = toAuth0WebHeaderProps(HeaderProps);
 
@@ -88,11 +225,13 @@
       });
 
       function toAuth0WebHeaderProps(props) {
+        var abExperiment = () => window.abVariantHeader;
         var Auth0WebHeaderProps = {
           theme: 'dark',
           talkToSalesButtonLink: null,
           talkToSalesButtonOnClick: props.showContactForm,
-          loginButtonOnClick: window.login
+          loginButtonOnClick: window.login,
+          getAbVariantHeader: abExperiment
         };
 
         if (props.logged) {
@@ -191,118 +330,6 @@
       });
 
     </script>
-
-    <script type="text/javascript">
-    try {
-      window.abTestingLib.load({ fetchFn: function () { return $.get('https://ab.it.auth0.com/?application=website'); }});
-      window.abTestingLib.integration('auth0metrics').start({ metrics: window.metricsLib});
-      window.abTestingLib.start().then(enhanceAnalytics).then(function () {
-        try {
-          window.abLoaded = true;
-          // Save experiments on the global scope
-          window.experiments = window.abTestingLib.getExperiments();
-          executeABExperiments();
-
-        } catch (e) {
-          console.error('Error running AB experiments.');
-          $('#pjax').css('visibility', 'visible');
-          window.abLoaded = true;
-        }
-      });
-
-      function enhanceAnalytics() {
-        var analytics = window.abTestingLib.analytics;
-
-        var originalSetCurrentVariantName = analytics.setCurrentVariantName.bind(analytics);
-        var originalGetCurrentVariantName = analytics.getCurrentVariantName.bind(analytics);
-
-        var enhancedSetCurrentVariantName = function (variantName, value) {
-          setCurrentVariantName(variantName, value);
-          originalSetCurrentVariantName(variantName, value);
-        };
-
-        var enhancedGetCurrentVariantName = function (variantName) {
-          var originalValue = originalGetCurrentVariantName(variantName);
-          var cookieValue = getCurrentVariantName(variantName);
-
-          if (originalValue != cookieValue) {
-            originalSetCurrentVariantName(variantName, cookieValue);
-          }
-
-          return cookieValue;
-        };
-
-        analytics.setCurrentVariantName = enhancedSetCurrentVariantName;
-        analytics.getCurrentVariantName = enhancedGetCurrentVariantName;
-        window.setVariant = enhancedSetCurrentVariantName;
-        window.getVariant = enhancedGetCurrentVariantName;
-      }
-
-      function setCurrentVariantName(variantName, value) {
-        var variants = loadCookieVariants();
-        variants[variantName] = value;
-        saveCookieVariants(variants);
-      }
-
-      function getCurrentVariantName(variantName) {
-        var variants = loadCookieVariants();
-        return variants[variantName];
-      }
-
-      function loadCookieVariants() {
-        return JSON.parse(Cookies.get('ajs_ab.traits') || '{}');
-      }
-
-      function saveCookieVariants(variants) {
-        return Cookies.set('ajs_ab.traits', JSON.stringify(variants), {
-          expires: 365,
-          path: '/'
-        });
-      }
-    } catch (e) {
-      console.error('Error initializing ABTesting lib. ABTesting will be disabled');
-      $('#pjax').css('visibility', 'visible');
-      window.abLoaded = true;
-    }
-    </script>
-    <script type="text/javascript">
-    function executeABExperiments () {
-      var path = window.location.pathname;
-      var experiments = window.experiments;
-
-      if(!window.abLoaded) {
-        return;
-      }
-
-      if(!experiments) {
-        // Restore content
-        $('#pjax').css('visibility', 'visible');
-        return;
-      }
-
-      try {
-        var experimentsForPath = experiments.runAllByPath(path);
-        var winningVariants = [];
-
-        experimentsForPath.experiments.forEach(function (e) {
-          winningVariants = winningVariants.concat(e.getCurrentVariant().getPropertiesByType('js'));
-        });
-
-        var variantContext = {};
-        variantContext.$ = $;
-
-        winningVariants.forEach(function(v) {
-          v.runInContext(variantContext);
-        });
-      } catch (e) {
-        console && console.error("Error running experiments for path:%s", path);
-      } finally {
-        // Restore content
-        $('#pjax').css('visibility', 'visible');
-      }
-    }
-    </script>
-
     <script type="text/javascript">
       // ab-watchdog, after 1500ms, show the site content no matter the state
       // of the experiments
