@@ -659,13 +659,13 @@ Since your users send their tokens with every request, you do not need to use co
 
 This is where [Auth0](https://auth0.com/) comes into play, because Auth0 is **identity management as a service**. This way you can make use of JWT and OpenID Connect without the need to setup all the identity infrastructure by yourself. If you don't have an account yet, now is a good time to <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account</a>.
 
-In your account, you need to create a new client first. For that, log in and go to the [dashboard](https://manage.auth0.com/). Then, click the *New Client* button in the upper right corner to create a new client:
+In your account, you need to create a new application first. For that, log in and go to the [dashboard](https://manage.auth0.com/). Then, click the *New Application* button in the upper right corner to create a new application:
 
-![Use the Auth0 dashboard to create a new client](https://cdn.auth0.com/blog/wolkenkit/auth0-dashboard.png)
+![Use the Auth0 dashboard to create a new application](https://cdn.auth0.com/blog/wolkenkit/auth0-dashboard.png)
 
 Now enter a name for the application, such as `chat`, and select *Single Page Web Applications* as the type. Confirming your input takes you to the quick start page of your newly created application. Open the *Settings* tab:
 
-![Open the settings tab of the newly created client](https://cdn.auth0.com/blog/wolkenkit/auth0-client-settings.png)
+![Open the settings tab of the newly created application](https://cdn.auth0.com/blog/wolkenkit/auth0-client-settings.png)
 
 Make a note of the following data, as you will need them later for configuring the application:
 
@@ -676,7 +676,7 @@ Scroll down to *Allowed Callback URLs* and set it to `http://localhost:8080`. If
 
 Next, click *Show Advanced Settings* (this is directly above the *Save Changes* button). In the *OAuth* tab, make sure that `RS256` is selected as signature algorithm. Disable the *OIDC Conformant* setting, and save your changes.
 
-Now, still in the *Advanced Settings* section, open the *Certificates* tab, click the *Download Certificate* button to download the certificate in `.pem` format (the button is right above the *Save Changes* button), and then **save the client**. With the client ID, the domain, and the certificate you have everything you need to setup authentication for your wolkenkit application.
+Now, still in the *Advanced Settings* section, open the *Certificates* tab, click the *Download Certificate* button to download the certificate in `.pem` format (the button is right above the *Save Changes* button), and then **save the application**. With the client ID, the domain, and the certificate you have everything you need to setup authentication for your wolkenkit application.
 
 However, before you can do this, you need to configure which strategies your users can use to authenticate themselves. Therefore, open the client's *Connections* tab. By default, Auth0 uses a database to store your users' credentials. Also, the social `google-oauth2` strategy is enabled by default, which allows your users to authenticate using their Google account:
 

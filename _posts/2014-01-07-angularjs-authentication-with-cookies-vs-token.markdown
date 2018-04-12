@@ -37,7 +37,6 @@ tags:
 There are basically two different ways of implementing server side authentication for apps with a frontend and an API:
 
 * The most adopted one, is **Cookie-Based Authentication** (you can find an example [here](http://frederiknakstad.com/authentication-in-single-page-applications-with-angular-js/)) that uses server side cookies to authenticate the user on every request.
-
 * A newer approach, [**Token-Based Authentication**](https://auth0.com/learn/token-based-authentication-made-easy/), relies on a signed token that is sent to the server on each request.
 
 <!-- more -->
@@ -46,7 +45,7 @@ There are basically two different ways of implementing server side authenticatio
 
 The following diagram explains how both of these methods work.
 
-<a target="_new" href="https://docs.google.com/drawings/d/1wtiF_UK2e4sZVorvfBUZh2UCaZq9sTCGoaDojSdwp7I/edit?usp=sharing"><img src="https://dl.dropboxusercontent.com/u/21665105/cookie-token-auth.png" alt="cookie-based vs. modern token-based auth"></a>
+![Traditional cookied-based authentication vs modern token-based authentication.](https://cdn.auth0.com/blog/cookies-tokens/angularjs.png)
 
 What are the benefits of using a token-based approach?
 
@@ -70,10 +69,13 @@ Asuming you have a node.js app, below you can find the components of this archit
 
 Let's start by installing `express-jwt` and `jsonwebtoken`:
 
-    $ npm install express-jwt jsonwebtoken
+```bash
+npm install express-jwt jsonwebtoken
+```
 
 Configure the express middleware to protect every call to `/api`.
 
+```javascript
     var expressJwt = require('express-jwt');
     var jwt = require('jsonwebtoken');
 
@@ -82,110 +84,127 @@ Configure the express middleware to protect every call to `/api`.
 
     app.use(express.json());
     app.use(express.urlencoded());
+```
 
 The angular app will perform a POST through AJAX with the user's credentials:
 
-    app.post('/authenticate', function (req, res) {
-      //TODO validate req.body.username and req.body.password
-      //if is invalid, return 401
-      if (!(req.body.username === 'john.doe' && req.body.password === 'foobar')) {
-        res.send(401, 'Wrong user or password');
-        return;
-      }
+```javascript
+app.post('/authenticate', function (req, res) {
+  //TODO validate req.body.username and req.body.password
+  //if is invalid, return 401
+  if (!(req.body.username === 'john.doe' && req.body.password === 'foobar')) {
+    res.send(401, 'Wrong user or password');
+    return;
+  }
 
-      var profile = {
-        first_name: 'John',
-        last_name: 'Doe',
-        email: 'john@doe.com',
-        id: 123
-      };
+  var profile = {
+    first_name: 'John',
+    last_name: 'Doe',
+    email: 'john@doe.com',
+    id: 123
+  };
 
-      // We are sending the profile inside the token
-      var token = jwt.sign(profile, secret, { expiresInMinutes: 60*5 });
+  // We are sending the profile inside the token
+  var token = jwt.sign(profile, secret, { expiresInMinutes: 60*5 });
 
-      res.json({ token: token });
-    });
+  res.json({ token: token });
+});
+```
 
 GET'ing a resource named `/api/restricted` is straight forward. Notice that the credentials check is performed by the `expressJwt` middleware.
 
-    app.get('/api/restricted', function (req, res) {
-      console.log('user ' + req.user.email + ' is calling /api/restricted');
-      res.json({
-        name: 'foo'
-      });
-    });
+```javascript
+app.get('/api/restricted', function (req, res) {
+  console.log('user ' + req.user.email + ' is calling /api/restricted');
+  res.json({
+    name: 'foo'
+  });
+});
+```
 
 ### Angular Side
 
 The first step on the client side using AngularJS is to retrieve the JWT Token. In order to do that we will need user credentials. We will start by creating a view with a form where the user can input its username and password.
 
-    <div ng-controller="UserCtrl">
-      <span>{{message}}</span>
-      <form ng-submit="submit()">
-        <input ng-model="user.username" type="text" name="user" placeholder="Username" />
-        <input ng-model="user.password" type="password" name="pass" placeholder="Password" />
-        <input type="submit" value="Login" />
-      </form>
-    </div>
+{% highlight html %}
+{% raw %}
+<div ng-controller="UserCtrl">
+  <span>{{message}}</span>
+  <form ng-submit="submit()">
+    <input ng-model="user.username" type="text" name="user" placeholder="Username" />
+    <input ng-model="user.password" type="password" name="pass" placeholder="Password" />
+    <input type="submit" value="Login" />
+  </form>
+</div>
+{% endraw %}
+{% endhighlight %}
 
 And a controller where to handle the submit action:
 
-    myApp.controller('UserCtrl', function ($scope, $http, $window) {
-      $scope.user = {username: 'john.doe', password: 'foobar'};
-      $scope.message = '';
-      $scope.submit = function () {
-        $http
-          .post('/authenticate', $scope.user)
-          .success(function (data, status, headers, config) {
-            $window.sessionStorage.token = data.token;
-            $scope.message = 'Welcome';
-          })
-          .error(function (data, status, headers, config) {
-            // Erase the token if the user fails to log in
-            delete $window.sessionStorage.token;
+```javascript
+myApp.controller('UserCtrl', function ($scope, $http, $window) {
+  $scope.user = {username: 'john.doe', password: 'foobar'};
+  $scope.message = '';
+  $scope.submit = function () {
+    $http
+      .post('/authenticate', $scope.user)
+      .success(function (data, status, headers, config) {
+        $window.sessionStorage.token = data.token;
+        $scope.message = 'Welcome';
+      })
+      .error(function (data, status, headers, config) {
+        // Erase the token if the user fails to log in
+        delete $window.sessionStorage.token;
 
-            // Handle login errors here
-            $scope.message = 'Error: Invalid user or password';
-          });
-      };
-    });
+        // Handle login errors here
+        $scope.message = 'Error: Invalid user or password';
+      });
+  };
+});
+```
 
 Now we have the JWT saved on `sessionStorage`. If the token is set, we are going to set the `Authorization` header for every outgoing request done using `$http`. As value part of that header we are going to use `Bearer <token>`.
 
 > `sessionStorage`: Although is not supported in all browsers (you can use a [polyfill](https://github.com/inexorabletash/polyfill/blob/master/storage.js)) is a good idea to use it instead of cookies (`$cookies`, `$cookieStore`) and `localStorage`: The data persisted there lives until the browser tab is closed.
 
-    myApp.factory('authInterceptor', function ($rootScope, $q, $window) {
-      return {
-        request: function (config) {
-          config.headers = config.headers || {};
-          if ($window.sessionStorage.token) {
-            config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
-          }
-          return config;
-        },
-        response: function (response) {
-          if (response.status === 401) {
-            // handle the case where the user is not authenticated
-          }
-          return response || $q.when(response);
-        }
-      };
-    });
+```javascript
+myApp.factory('authInterceptor', function ($rootScope, $q, $window) {
+  return {
+    request: function (config) {
+      config.headers = config.headers || {};
+      if ($window.sessionStorage.token) {
+        config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+      }
+      return config;
+    },
+    response: function (response) {
+      if (response.status === 401) {
+        // handle the case where the user is not authenticated
+      }
+      return response || $q.when(response);
+    }
+  };
+});
 
-    myApp.config(function ($httpProvider) {
-      $httpProvider.interceptors.push('authInterceptor');
-    });
+myApp.config(function ($httpProvider) {
+  $httpProvider.interceptors.push('authInterceptor');
+});
+```
 
 After that, we can send a request to a restricted resource:
 
-    $http({url: '/api/restricted', method: 'GET'})
-    .success(function (data, status, headers, config) {
-      console.log(data.name); // Should log 'foo'
-    });
+```javascript
+$http({url: '/api/restricted', method: 'GET'})
+.success(function (data, status, headers, config) {
+  console.log(data.name); // Should log 'foo'
+});
+```
 
 The server logged to the console:
 
-    user foo@bar.com is calling /api/restricted
+```bash
+user foo@bar.com is calling /api/restricted
+```
 
 The [source code is here](https://github.com/auth0/angular-token-auth) together with an AngularJS seed app.
 
@@ -207,10 +226,9 @@ In upcoming posts we will revisit:
 When building Single Page Applications, consider using a token-based authentication design over cookie-based authentication. Leave a comment or [discuss on HN](https://news.ycombinator.com/item?id=7018529).
 Learn more about [AngularJS Authentication](https://auth0.com/learn/angularjs-authentication/).
 
-### Aside: how it works with Auth0?
+### Aside: Securing AngularJS Apps with Auth0
 
-Auth0 issue **JSON Web Tokens** on every login. That means that you can have a solid identity infrastructure, including **Single Sign On**, **User Management**, support for **Social**, **Enterprise** and **your own database** of users with just a few lines of code. We implemented a tight integration with Angular: <https://github.com/auth0/auth0-angular>
+Securing applications with Auth0 is very easy and brings a lot of great features to the table. With Auth0, we only have to write a few lines of code to get solid [identity management solution](https://auth0.com/user-management),
+[single sign-on](https://auth0.com/docs/sso/single-sign-on), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), and support for [enterprise identity providers (Active Directory, LDAP, SAML, custom, etc.)](https://auth0.com/enterprise).
 
-<a href="https://docs.google.com/a/auth10.com/drawings/d/1ErB68gFj55Yg-ck1_CZByEwN5ql0Pj2Mzd-6S5umv2o/edit"><img src="https://docs.google.com/drawings/d/1ErB68gFj55Yg-ck1_CZByEwN5ql0Pj2Mzd-6S5umv2o/pub?w=1219&amp;h=559" style="border: 1px solid #ccc;padding: 10px;"></a>
-
-More about Auth0 and Angular: <https://github.com/auth0/auth0-angular>
+[To learn about how easy it is to secure AngularJS applications with Auth0, this guide walks you through setting up authentication and authorization](https://auth0.com/docs/quickstart/spa/angularjs/01-login).

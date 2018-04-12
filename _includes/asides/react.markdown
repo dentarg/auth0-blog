@@ -4,14 +4,14 @@ We can protect our applications and APIs so that only authenticated users can ac
 
 ![Auth0 login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
 
-We'll need an [Auth0](https://auth0.com) account to manage authentication. [To sign up for a free account, we can follow this link](https://auth0.com/signup). Next, let's set up an Auth0 client app and API so Auth0 can interface with a React App.
+We'll need an [Auth0](https://auth0.com) account to manage authentication. [To sign up for a free account, we can follow this link](https://auth0.com/signup). Next, let's set up an Auth0 application and API so Auth0 can interface with a React App.
 
-### Setting Up a Client App
+### Setting Up an Auth0 Application
 
-1. Let's go to our [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[create a new client](https://manage.auth0.com/#/clients/create)" button.
+1. Let's go to our [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[create a new application](https://manage.auth0.com/#/applications/create)" button.
 2. Let's call our app as "React Demo" and select "Single Page Web Applications".
-3. In the **Settings** for our new Auth0 client app, let's add `http://localhost:3000/callback` to the **Allowed Callback URLs**.
-4. If desired, we can [set up some social connections](https://manage.auth0.com/#/connections/social). We can then enable them for our app in the **Client** options under the **Connections** tab. The example shown in the screenshot above utilizes username/password database, Facebook, Google, and Twitter. For production, make sure to set up the correct social keys and do not leave social connections set to use Auth0 dev keys.
+3. In the **Settings** for our new Auth0 application, let's add `http://localhost:3000/callback` to the **Allowed Callback URLs**.
+4. If desired, we can [set up some social connections](https://manage.auth0.com/#/connections/social). We can then enable them for our app in the **Application** options under the **Connections** tab. The example shown in the screenshot above utilizes username/password database, Facebook, Google, and Twitter. For production, make sure to set up the correct social keys and do not leave social connections set to use Auth0 dev keys.
 
 ### Set Up an API
 
@@ -100,7 +100,7 @@ The `Auth` service just created contains functions to deal with various steps of
 - `logout`: removes the user's tokens and expiry time from browser storage;
 - `isAuthenticated`: checks whether the expiry time for the user's access token has passed;
 
-Besides these functions, the class contains a field called `auth0` that is initialized with values extracted from the Auth0 client. Let's keep in mind that we need to update them accordingly before proceeding.
+Besides these functions, the class contains a field called `auth0` that is initialized with values extracted from the Auth0 application. Let's keep in mind that we need to update them accordingly before proceeding.
 
 Attentive readers probably noticed that the `Auth` service also imports a module called `history` that we haven't talked about. We can define this module in only two lines, but let's define it in a file to provide reusability. Let's call this file `./src/history/history.js` and add the following code:
 
