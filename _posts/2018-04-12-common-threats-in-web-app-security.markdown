@@ -3,7 +3,7 @@ layout: post
 title: Common Threats in Web Application Security
 description: "Common threats in web application security, how to protect against them and mitigate their impact"
 longdescription: "We attempt to cover a comprehensive security strategy for web applications, to protect against common threats in web application security and mitigate their impact"
-date: 2018-04-13 09:38
+date: 2018-04-12 09:38
 category: Growth, Security
 is_non-tech: true
 author:
