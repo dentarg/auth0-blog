@@ -17,15 +17,15 @@ The [sample Vue application and API](https://github.com/auth0-blog/vue-auth0-asi
 
 ### Sign Up for Auth0
 
-You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free account here</a>. Next, set up an Auth0 client app and API so Auth0 can interface with a Vue.js app and Node API.
+You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free account here</a>. Next, set up an Auth0 application and API so Auth0 can interface with a Vue.js app and Node API.
 
-### Set Up a Client App
+### Set Up an Auth0 Application
 
-1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[create a new client](https://manage.auth0.com/#/clients/create)" button.
+1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[create a new application](https://manage.auth0.com/#/applications/create)" button.
 2. Name your new app and select "Single Page Web Applications".
-3. In the **Settings** for your new Auth0 client app, add `http://localhost:8080/callback` to the **Allowed Callback URLs**.
+3. In the **Settings** for your new Auth0 application, add `http://localhost:8080/callback` to the **Allowed Callback URLs**.
 4. Scroll down to the bottom of the **Settings** section and click "Show Advanced Settings". Choose the **OAuth** tab and verify that the **JsonWebToken Signature Algorithm** is set to `RS256`.
-5. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Client** options under the **Connections** tab. The example shown in the screenshot above utilizes username/password database, Facebook, Google, and Twitter. For production, make sure you set up your own social keys and do not leave social connections set to use Auth0 dev keys.
+5. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Application** options under the **Connections** tab. The example shown in the screenshot above utilizes username/password database, Facebook, Google, and Twitter. For production, make sure you set up your own social keys and do not leave social connections set to use Auth0 dev keys.
 
 ### Set Up an API
 
@@ -63,7 +63,7 @@ module.exports = {
 };
 ```
 
-Change the `CLIENT_DOMAIN` variable to your Auth0 client domain and set the `AUTH0_AUDIENCE` to your audience (in this example, this is `http://meetupapi.com`). The `/api/examples/private` route will be protected with [express-jwt](https://github.com/auth0/express-jwt) and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
+Change the `CLIENT_DOMAIN` variable to your Auth0 application domain and set the `AUTH0_AUDIENCE` to your audience (in this example, this is `http://meetupapi.com`). The `/api/examples/private` route will be protected with [express-jwt](https://github.com/auth0/express-jwt) and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
 
 > **Note:** To learn more about RS256 and JSON Web Key Set, read [Navigating RS256 and JWKS](https://auth0.com/blog/navigating-rs256-and-jwks/).
 
@@ -151,9 +151,9 @@ export default class Auth {
 
 Replace the constants, `AUTH0_DOMAIN`, `AUTH0_CLIENT_ID`, `AUTH0_API_AUDIENCE` with values from your Auth0 dashboard. Replace `CALLBACK_URL` with `http://localhost:8080/callback`.
 
-The `login()` method authorizes the authentication request with Auth0. An Auth0 centralized login page will be shown to the user and they can then log in.
+The `login()` method authorizes the authentication request with Auth0. An Auth0 login page will be shown to the user and they can then log in.
 
-> **Note:** If it's the user's first visit to our app _and_ our callback is on `localhost`, they'll also be presented with a consent screen where they can grant access to our API. A first party client on a non-localhost domain would be highly trusted, so the consent dialog would not be presented in this case. You can modify this by editing your [Auth0 Dashboard API](https://manage.auth0.com/#/apis) **Settings**. Look for the "Allow Skipping User Consent" toggle.
+> **Note:** If it's the user's first visit to our app _and_ our callback is on `localhost`, they'll also be presented with a consent screen where they can grant access to our API. A first party application on a non-localhost domain would be highly trusted, so the consent dialog would not be presented in this case. You can modify this by editing your [Auth0 Dashboard API](https://manage.auth0.com/#/apis) **Settings**. Look for the "Allow Skipping User Consent" toggle.
 
 We'll receive `accessToken` and `expiresIn` in the hash from Auth0 when returning to our app. The `handleAuthentication()` method uses Auth0's `parseHash()` method callback to set the session (`setSession()`) by saving the tokens, and token expiration to local storage. The `isAuthenticated` method informs the components in the app about the user's authentication status via checking the access token's expiry time.
 

@@ -587,15 +587,15 @@ var AddFeedbackHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 })
 ```
 
-The major difference you'll notice is that we are no longer generating the token ourself. We have a new `authMiddleware` middleware function that will validate tokens coming from Auth0. If you haven't already, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free Auth0 account. Navigate to the [APIs](https://manage.auth0.com/#/apis) section and create a new API client by clicking the **Create API** button.
+The major difference you'll notice is that we are no longer generating the token ourself. We have a new `authMiddleware` middleware function that will validate tokens coming from Auth0. If you haven't already, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free Auth0 account. Navigate to the [APIs](https://manage.auth0.com/#/apis) section and create a new Auth0 API by clicking the **Create API** button.
 
-![Create We-R-VR API Client](https://cdn2.auth0.com/blog/go-auth/create-api-client.png)
+![Create We-R-VR Auth0 API](https://cdn2.auth0.com/blog/go-auth/create-api-client.png)
 
-Give your API a **name** and an **identifier**. The identifier you give the API will be the **audience** for the middleware we've written above. Change the **Signing Algorithm** to **HS256** and click the **Create** button to finalize the creation of the API client.
+Give your Auth0 API a **name** and an **identifier**. The identifier you give the API will be the **audience** for the middleware we've written above. Change the **Signing Algorithm** to **HS256** and click the **Create** button to finalize the creation of the Auth0 API.
 
-Once your client is created copy it's **secret** and **audience** fields and replace the accompanying placeholders in your `main.go` file. Notice that `/products` and `/products/{slug}/feedback` route are protected with the `authMiddleware` middleware function we've written. If you try to access these now without a proper `access_token`, you will get a `401 Unauthorized` error.
+Once your API is created copy it's **secret** and **audience** fields and replace the accompanying placeholders in your `main.go` file. Notice that `/products` and `/products/{slug}/feedback` route are protected with the `authMiddleware` middleware function we've written. If you try to access these now without a proper `access_token`, you will get a `401 Unauthorized` error.
 
-When you created the API client, another client was created that will allow your frontend to authenticate and get the appropriate keys. Find this client, change it's **client type** to **single page application** and copy its `Client ID` as you will need it later.
+When you created the Auth0 API, an (Auth0 application)[https://manage.auth0.com/#/applications] was created that will allow your frontend to authenticate and get the appropriate keys. Find this application, change it's **application type** to **single page application** and copy its `Client ID` as you will need it later.
 
 Next, we'll implement the login functionality on the frontend. Feel free to remove to the `/get-token` route as it is no longer necessary. We will get the token from Auth0.
 
