@@ -817,7 +817,7 @@ Then, we will register the draggable component with our `TaskLane` component:
 // ..
 components: {
   item: TaskLaneItem,
-  draggables: Draggable,
+  draggable: Draggable,
 }
 // ..
 ```
@@ -835,6 +835,16 @@ Now, we can wrap our task lane inside a Draggable component to enable the items 
 {% endhighlight %}
 
 Here, the existing `<div v-for...>` element is wrapped in this new draggable component. We've set the model for this to be this thing called `draggables` and we've also set an option for the group to be the value `default`. These options are simply passed straight through to the underlying SortableJS instance (with the exception of some event handlers). Setting the group name is what allows items to be dragged from one list to another (from [the SortableJS documentation](https://github.com/RubaXa/Sortable#group-option)). Since we've got multiple task lanes all with their own `Draggable` component but with the same group name, we're able to drag task items between them! If we wanted to prevent tasks from being dragged into specific lanes, it follows that we would give them different group names to facilitate that feature.
+
+One last thing we need to do is fix a small styling issue. If you were to play around with the drag-drop feature now, you'll find that you won't be able to drag anything into any columns that are empty, because the empty columns have no height. We can fix that now by adding some styling to the bottom of the file that contains the `TaskLane` component, like so:
+
+{% highlight html %}
+<style>
+  .card-body > * {
+    min-height: 50px;
+  }
+</style>
+{% endhighlight %}
 
 If we load up the app now, we'll find that we'll be able to drag items from one lane to another - neat! However, notice that when you switch back to the Backlog view then return to the Kanban board, it hasn't remembered the positions of the tasks and you'll see them all sitting back in the To-Do lane, as they were originally. Let's fix that now by using a computed property to fetch the items.
 

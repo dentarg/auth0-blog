@@ -133,11 +133,11 @@ As you are creating a backend API that enables users to browse an online booksto
 
 When you complete this form, you can hit the *Create* button.
 
-### Creating an Auth0 Client
+### Creating an Auth0 Application
 
-Your goal is to control your API access by authorizing only trusted clients. To do that, you will also need a client configuration on Auth0. Usually, you would need to create a new client to represent your front-end app. The type of the front-end app would help you decide the type of the Auth0 Client to create. However, as in this first part you will not create the front-end yet, you can use the client that was automatically created for your Auth0 API.
+Your goal is to control your API access by authorizing only trusted clients. To do that, you will also need an application configuration on Auth0. Usually, you would need to create a new application to represent your front-end app. The type of the front-end app would help you decide the type of the Auth0 Application to create. However, as in this first part you will not create the front-end yet, you can use the application that was automatically created for your Auth0 API.
 
-If you chose *Online Bookstore* as the name of your API, then [you will see a client called *Online Bookstore (Test Client)* in the Client section of the Auth0 dashboard](https://manage.auth0.com/#/clients). Click on this client and head over to the *Settings* tab. In this tab, you will see three properties that you will need:
+If you chose *Online Bookstore* as the name of your API, then [you will see an application called *Online Bookstore (Test Application)* in the Application section of the Auth0 dashboard](https://manage.auth0.com/#/applications). Click on this application and head over to the *Settings* tab. In this tab, you will see three properties that you will need:
 
 - the *Domain* of your Auth0 tenant;
 - the *Client ID* key;
@@ -258,7 +258,7 @@ The last command will generate a response like the following one:
 
 ### Getting an Access Token
 
-Now that you have secured your endpoints with Auth0, you will learn how to authenticate a non-interactive client to be able to get the list of books again. You can use any HTTP client, but in this section, you will see how to achieve that by using `curl`.
+Now that you have secured your endpoints with Auth0, you will learn how to authenticate a machine to machine application to be able to get the list of books again. You can use any HTTP client, but in this section, you will see how to achieve that by using `curl`.
 
 The first step is to get an authorization token from Auth0. You can do that by issuing a POST request to [the `/oauth/token` endpoint](https://auth0.com/docs/api/authentication#authorization-code) of your Auth0 domain, as follows:
 
@@ -276,7 +276,7 @@ curl -X POST -H 'content-type: application/json' -d '{
 }' https://$AUTH0_DOMAIN/oauth/token
 ```
 
-Note that you will have to replace `<YOUR_AUTH0_CLIENT_ID>`, `<YOUR_AUTH0_CLIENT_SECRET>`, `<YOUR_AUTH0_AUDIENCE>`, and `<YOUR_AUTH0_DOMAIN>` in the commands above with the values corresponding to the Auth0 API and Client that you have created before.
+Note that you will have to replace `<YOUR_AUTH0_CLIENT_ID>`, `<YOUR_AUTH0_CLIENT_SECRET>`, `<YOUR_AUTH0_AUDIENCE>`, and `<YOUR_AUTH0_DOMAIN>` in the commands above with the values corresponding to the Auth0 API and Application that you have created before.
 
 The response to this request will be something similar to the following:
 
@@ -310,9 +310,9 @@ This request will generate the following response:
 
 {% include tweet_quote.html quote_text="Adding identity management to an ASP.NET Core 2.0 is really easy with Auth0." %}
 
-### Creating Integration Tests as a Non-Interactive Client
+### Creating Integration Tests as a Machine to Machine Applications
 
-The test performed with `curl` in the previous section should only verify that the Auth0 configuration data and that the API implemented by our application work well together. This is a test performed on the fly that should not be persisted. In fact, the type of client that Auth0 automatically created was a non-interactive client. This type of client is intended for a server to server or unattended interaction. You **must never** store the *Client Secret* on the client side, since it will compromise the application security.
+The test performed with `curl` in the previous section should only verify that the Auth0 configuration data and that the API implemented by our application work well together. This is a test performed on the fly that should not be persisted. In fact, the type of application that Auth0 automatically created was _Machine to Machine Application_. This type of application is intended for a server to server or unattended interaction. You **must never** store the *Client Secret* on the client side, since it will compromise the application security.
 
 The implementation of the integration test may be a case where you can use the *Client Secret* since this information will not be exposed to the client but remains in the development environment.
 

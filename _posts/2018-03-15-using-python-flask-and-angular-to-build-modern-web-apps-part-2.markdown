@@ -28,13 +28,19 @@ related:
 
 **TL;DR:** In this series, you will learn how to create modern web applications with Python, Flask, and Angular. You will use this stack to build a SPA and a backend API to expose exams and questions so users can test their knowledge regarding different technologies. [In this GitHub repository](https://github.com/auth0-blog/python-flask-angular-2/), you can find the final code created throughout the second part of the series.
 
+So far, this series contains three parts:
+
+1. [Part 1 includes topics like bootstrapping the Flask application, managing Entities with SQLAlchemy ORM, and bootstrapping the Angular application](https://auth0.com/blog/using-python-flask-and-angular-to-build-modern-apps-part-1/).
+2. [Part 2 (this one) includes topics like securing Flask Apps, handling Angular forms, and securing Angular Apps](https://auth0.com/blog/using-python-flask-and-angular-to-build-modern-web-apps-part-2/).
+3. [Part 3 includes topics like configuring Angular Material, handling Authorization, and migrating Databases with Alembic](https://auth0.com/blog/using-python-flask-and-angular-to-build-modern-web-apps-part-3/).
+
 ---
 
 ## What You Will Build
 
 In this series, you will use Python, Flask, and Angular to build a web application based on a modern architecture. With Angular, you will build a SPA (Single Page App) that allows users to browse through exams and questions. These users, when authenticated, will be able to test their knowledge regarding a specific topic by choosing one of the multiple choices that a question exposes. Then, when your users submit their answers, your backend will check if they are right or wrong, record the result, and send back this result to users.
 
-In this part of the series, you will start by configuring Auth0 as the identity management system of your app. You will configure an Auth0 API to represent and secure your Flask application and you will configure an Auth0 Client to represent and secure your Angular SPA. After securing your app with Auth0, you are going to enhance the application to allow users to test their knowledge.
+In this part of the series, you will start by configuring Auth0 as the identity management system of your app. You will configure an Auth0 API to represent and secure your Flask application and you will configure an Auth0 Application to represent and secure your Angular SPA. After securing your app with Auth0, you are going to enhance the application to allow users to test their knowledge.
 
 {% include tweet_quote.html quote_text="I'm building modern webapps with Angular, Flask, and Python!" %}
 
@@ -420,14 +426,14 @@ With these changes in place, you can open a terminal, move to the `frontend` dir
 
 ## Securing Angular Apps with Auth0
 
-To solve the `401 UNAUTHORIZED` issue, the first thing you will have to do is to create an [Auth0 Client](https://auth0.com/docs/clients) to represent your Angular app. To do so, browse to [the Client page on the Auth0 dashboard](https://manage.auth0.com/#/clients) and click on the *Create Client* button. This time, you will have to provide only two things to Auth0:
+To solve the `401 UNAUTHORIZED` issue, the first thing you will have to do is to create an [Auth0 Application](https://auth0.com/docs/applications) to represent your Angular app. To do so, browse to [the Applications page on the Auth0 dashboard](https://manage.auth0.com/#/applications) and click on the *Create Application* button. This time, you will have to provide only two things to Auth0:
 
-1. *Name*: Another friendly reminder, this time to your Auth0 Client. Here, you can add something like "Online Exam Client".
-2. *Client Type*: The type of the client that you are creating. In this case, as you are using Angular to create a SPA, you will choose *Single Page Web Applications*.
+1. *Name*: Another friendly reminder, this time to your Auth0 Application. Here, you can add something like "Online Exam Application".
+2. *Application Type*: The type of the application that you are creating. In this case, as you are using Angular to create a SPA, you will choose *Single Page Web Applications*.
 
-![Creating an Auth0 Client to represent the Angular app.](https://cdn.auth0.com/blog/flask-angular/creating-auth0-client.png)
+![Creating an Auth0 Application to represent the Angular app.](https://cdn.auth0.com/blog/flask-angular/creating-auth0-client.png)
 
-Having filled out this form, click on the *Create* button. When finished creating your client (it takes just a second or two), Auth0 will redirect you to the *Quick Start* tab of the new client. From there, click on the *Settings* tab to inform to Auth0 what the *Allowed Callback URLs* are. As for the moment you are only running your app locally, you can simply add the `http://localhost:4200/callback` URL to this field. Now, you can hit the *Save Changes* button at the bottom of the page and leave it open (you will need to copy some properties from it soon).
+Having filled out this form, click on the *Create* button. When finished creating your application (it takes just a second or two), Auth0 will redirect you to the *Quick Start* tab of the new application. From there, click on the *Settings* tab to inform to Auth0 what the *Allowed Callback URLs* are. As for the moment you are only running your app locally, you can simply add the `http://localhost:4200/callback` URL to this field. Now, you can hit the *Save Changes* button at the bottom of the page and leave it open (you will need to copy some properties from it soon).
 
 Now, you can go back to your Angular project and integrate it with Auth0. To do so, you will have to install the [`auth0-web` NPM package](https://github.com/brunokrebs/auth0-web). So, open a terminal, move to the `frontend` directory, and issue the following command:
 
@@ -582,7 +588,7 @@ export class AppModule {
 }
 ```
 
-**Note that** you will have to replace the `domain`, `audience`, and `clientID` properties on this code with values from your Auth0 account. So, head back to your Auth0 management dashboard and copy the `domain` and `clientID` from the Auth0 Client created before and `audience` from the Auth0 API (that is, copy the API identifier and paste it here).
+**Note that** you will have to replace the `domain`, `audience`, and `clientID` properties on this code with values from your Auth0 account. So, head back to your Auth0 management dashboard and copy the `domain` and `clientID` from the Auth0 Application created before and `audience` from the Auth0 API (that is, copy the API identifier and paste it here).
 
 That's it! If you run your Angular application now, you will be able to create new exams.
 
@@ -601,4 +607,6 @@ git commit -m "Integrating Angular with Auth0"
 
 In the second part of this series, you focused on adding Auth0 to act as the identity management service of your Flask and Angular applications. You started by defining an Auth0 API to represent your Flask backend app, then you added a new feature into your project (a form that allows users to add exams), and, finally, you integrated Auth0 into your Angular application.
 
-In the next article, you are going to add even more features to your project and, after that, you will start preparing your code for CI/CD (Continuous Integration and Continuous Delivery) tools. These tools will help you automate the development pipeline. Stay tuned!
+In the next article, you are going to learn how to install and configure Angular Material components, how to use Auth0 roles to control what users can do, and how to use Alembic (a database migration tool) to manage your database schema.
+
+Stay tuned!

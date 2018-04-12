@@ -575,7 +575,7 @@ We will test our APIs using [cURL](https://curl.haxx.se/). We need an `access_to
 
 ### Fetching Access Tokens
 
-To a token from Auth0 for any of our authorized client applications, let's issue a `POST` request to the `/oauth/token` endpoint. This request will also have a payload in the following format:
+To a token from Auth0 for any of our authorized applications, let's issue a `POST` request to the `/oauth/token` endpoint. This request will also have a payload in the following format:
 
 ```sh
 CLIENT_ID="<SOME-AUTH0-CLIENT-ID>";
@@ -587,13 +587,13 @@ JWT=$(curl --request POST \
   --data '{"client_id":"'$CLIENT_ID'","client_secret":"'$CLIENT_SECRET'","audience":"https://spotify-app.mycompany.com/","grant_type":"client_credentials"}' | jq .access_token);
 ```
 
-> Let's not forget [to replace `<SOME-AUTH0-CLIENT-ID>` and `<SOME-AUTH0-CLIENT-SECRET>` with real values from an Auth0 client](https://auth0.com/docs/clients). We also have to replace `<OUR-AUTH0-DOMAIN>` with our Auth0 domain (something like `bk-samples.auth0.com`).
+> Let's not forget [to replace `<SOME-AUTH0-CLIENT-ID>` and `<SOME-AUTH0-CLIENT-SECRET>` with real values from an Auth0 application](https://auth0.com/docs/applications). We also have to replace `<OUR-AUTH0-DOMAIN>` with our Auth0 domain (something like `bk-samples.auth0.com`).
 
 Where:
 
 * `grant_type`: This must be `client_credentials`.
-* `client_id`: Our application's Client ID. We can find this value in the [Settings tab of an Auth0 client](https://manage.auth0.com/#/clients).
-* `client_secret`: Our application's Client Secret. We can find this value in the [Settings tab of an Auth0 client](https://manage.auth0.com/#/clients).
+* `client_id`: Our application's Client ID. We can find this value in the [Settings tab of an Auth0 application](https://manage.auth0.com/#/applications).
+* `client_secret`: Our application's Client Secret. We can find this value in the [Settings tab of an Auth0 application](https://manage.auth0.com/#/applications).
 * `audience`: The Identifier value in the [Settings](https://manage.auth0.com/#/apis) tab of our Auth0 API.
 
 The response contains a [signed JSON Web Token](https://auth0.com/docs/jwt), the token's type (which is `Bearer`), and in how much time it will expire (`86400` seconds, which means `24` hours).

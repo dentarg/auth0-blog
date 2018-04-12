@@ -200,6 +200,7 @@ Now, the views needed for authentication are in the `resources/views/auth` direc
 Open up your `welcome.blade.php` and configure it like so:
 
 {% highlight html %}
+{% raw %}
 @extends('layouts.app')
 
 @section('content')
@@ -233,6 +234,7 @@ Open up your `welcome.blade.php` and configure it like so:
     </div>
 </div>
 @endsection
+{% endraw %}
 {% endhighlight %}
 
 Here, we are looping through the `$characters` array data passed from the `ListController` for appropriate rendering in the `welcome` view.
@@ -308,7 +310,7 @@ Now, log out, then try to access that route, you will be redirected back to the 
 
 **Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
-We can easily set up authentication in our Laravel apps with [Auth0's Centralized Login Page](https://auth0.com/docs/hosted-pages/login). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with **Laravel**.
+We can easily set up authentication in our Laravel apps with [Auth0's Login Page](https://auth0.com/docs/hosted-pages/login). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with **Laravel**.
 
 ### Step 1: Install and Configure Auth0 plugin
 
@@ -326,11 +328,12 @@ Route::get('/auth0/callback', function() {
 });
 ```
 
-### Step 3: Include Auth0's Centralized Login Page
+### Step 3: Include the Auth0 Login Page
 
 Open up `welcome.blade.php` and configure it like so:
 
 {% highlight php %}
+{% raw %}
 @extends('layouts.app')
 
 @section('content')
@@ -350,11 +353,12 @@ Open up `welcome.blade.php` and configure it like so:
 </script>
 <button onclick="window.signin();">Login</button>
 @endsection
+{% endraw %}
 {% endhighlight %}
 
-When the login button is clicked, users are redirected to Auth0's Centralized Login Page.
+When the login button is clicked, users are redirected to Auth0's Login Page.
 
-![Auth0 centralized login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
+![Auth0 login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
 
 
 ### Step 4: Configure Routes.php

@@ -862,9 +862,7 @@ Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't 
 
 > [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
-Login to your Auth0 [management dashboard](https://manage.auth0.com) and let's create a new API client. If you don't already have the APIs menu item, you can enable it by going to your [Account Settings](https://manage.auth0.com/#/account/advanced) and in the **Advanced** tab, scroll down until you see **Enable APIs Section** and flip the switch.
-
-From here, click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API **Startup Battle API** and for the identifier I'll set it as **http://startupbattle.com**. We'll leave the signing algorithm as RS256 and click on the **Create API** button.
+Login to your Auth0 [management dashboard](https://manage.auth0.com) and let's create a new Auth0 API. To do so, click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API **Startup Battle API** and for the identifier I'll set it as **http://startupbattle.com**. We'll leave the signing algorithm as RS256 and click on the **Create API** button.
 
 ![Creating the startupbattle API](https://cdn2.auth0.com/blog/startupbattle/api.png)
 _Creating the Startup battle API_
@@ -1024,22 +1022,22 @@ function isTokenExpired(token) {
 }
 ```
 
-In the code above, we are using Auth0's [Centralized Login Page](https://auth0.com/docs/hosted-pages/login) in the `login` method and passed in our credentials.
+In the code above, we are using Auth0's [Login Page](https://auth0.com/docs/hosted-pages/login) in the `login` method and passed in our credentials.
 
 The auth0 package calls the Auth0's authorize endpoint. With all the details we passed to the method, our client app will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the authorize method [here](https://auth0.com/docs/libraries/auth0js).
 
-The parameters that you do not have yet are the `{YOUR-AUTH0-CLIENT-ID}` and the `{YOUR-CALLBACK-URL}`. This will be an Auth0 client that will hold your users. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients).
+The parameters that you do not have yet are the `{YOUR-AUTH0-CLIENT-ID}` and the `{YOUR-CALLBACK-URL}`. This will be an Auth0 application that will hold your users. When you created your API, Auth0 also created a test application which you can use. Additionally, you can use any existing Auth0 application found in Applications section of your [management dashboard](https://manage.auth0.com/#/applications).
 
-Check the `Test` panel of your API from the dashboard. You'll see the test client like so:
+Check the `Test` panel of your API from the dashboard. You'll see the test application like so:
 
-![Startup Client](https://cdn2.auth0.com/blog/app/startupclient.png)
-_Startup API Client_
+![Startup Application](https://cdn2.auth0.com/blog/app/startupclient.png)
+_Startup API Application_
 
-Now, go to the clients area and check for the test client. You should see it in your list of clients like so:
+Now, go to the Applications area and check for the test application. You should see it in your list of applications like so:
 
-![Startup Battle Client](https://cdn2.auth0.com/blog/startupbattleapi/client.png)
+![Startup Battle Application](https://cdn2.auth0.com/blog/startupbattleapi/client.png)
 
-Open the client and change the **Client Type** from `Non Interactive Client` to `Single Page Application`.
+Open the application and change the **Appication Type** from `Non Interactive Application` to `Single Page Application`.
 
 Copy the **CLIENT ID** and replace it with the value of `YOUR-AUTH0-CLIENT-ID` in the login URL. Replace your callback url with `http://localhost:8080/callback`.
 
@@ -1289,7 +1287,7 @@ For the first time, the user will be shown a user consent dialog that will show 
 ![User consent dialog](https://cdn2.auth0.com/blog/startupbattle/authorize.png)
 _User presented with an option to authorize_
 
-**Note:** Since we are using `localhost` for our domain, once a user logs in the first time, subsequent logins will not need a user consent authorization dialog. This consent dialog will not be displayed if you are using a non-localhost domain, and the client is a first-party client.
+**Note:** Since we are using `localhost` for our domain, once a user logs in the first time, subsequent logins will not need a user consent authorization dialog. This consent dialog will not be displayed if you are using a non-localhost domain, and the application is a first-party application.
 
 ![Logged In and Unauthorized to see the Private Startup Battle](https://cdn2.auth0.com/blog/startupbattle/unauthorized.png)
 _Logged In, but unauthorized to see the Private Startup Battle_
