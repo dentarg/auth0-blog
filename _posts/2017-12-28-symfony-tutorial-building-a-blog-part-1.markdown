@@ -920,22 +920,22 @@ class Auth0ResourceOwner extends GenericOAuth2ResourceOwner
 
 We're going to need API keys for Auth0, so <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">create your free account</a>. Once signed up:
 
-- In the dashboard, click `Clients` on the left:
-  * Create Client
+- In the dashboard, click `Applications` on the left:
+  * Create Application
   * Add a name
   * Choose _Regular Web Applications_ type
 - Configure callback URL:
-  * In the new Auth0 `Client`, go to the settings tab.
+  * In the new Auth0 `Application`, go to the settings tab.
   * Find the text box labeled `Allowed Callback URLs`.
   * Paste the following in: `http://127.0.0.1:8000/auth0/callback`.
-- Configure Auth0 Client to require usernames:
+- Configure Auth0 Application to require usernames:
   * In the navigation bar find and click `Connections`
   * Then click `Database`
   * Click on `Username-Password-Authentication`
   * Toggle `Requires Username` to on.
-- Go to the [Clients](https://manage.auth0.com/#/clients) section again and pick your `Client`.
+- Go to the [Applications](https://manage.auth0.com/#/applications) section again and pick your `Application`.
 
-Then in your `.env` file paste the following, but replace the brackets and their contents with the details found in your client:
+Then in your `.env` file paste the following, but replace the brackets and their contents with the details found in your application:
 
 ```
 AUTH0_CLIENT_ID=(Client ID on Auth0)

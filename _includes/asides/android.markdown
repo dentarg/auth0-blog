@@ -23,27 +23,27 @@ After that, we need to open our app's `AndroidManifest.xml` file and add the fol
 <uses-permission android:name="android.permission.INTERNET" />
 ```
 
-### Create a Client
+### Create an Auth0 Application
 
-After importing the library and adding the permission, we need to create a new client application in our Auth0 dashboard. By the way, if we don't have an Auth0 account, this is a great time to <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">create a **free** one</a>.
+After importing the library and adding the permission, we need to register the application in our Auth0 dashboard. By the way, if we don't have an Auth0 account, this is a great time to <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">create a **free** one</a>.
 
-In the Auth0 dashboard, we have to go to _Clients_ and then click on the _Create Client_ button. In the form that is shown, we have to define a name for our client and select the _Native_ type for it. After that, we can hit the _Create_ button. This will lead us to a screen similar to the following one:
+In the Auth0 dashboard, we have to go to _Applications_ and then click on the _Create Application_ button. In the form that is shown, we have to define a name for the application and select the _Native_ type for it. After that, we can hit the _Create_ button. This will lead us to a screen similar to the following one:
 
-![Android Client on Auth0's dashboard](https://cdn2.auth0.com/docs/media/articles/angularjs/app_dashboard.png)
+![Android application on Auth0's dashboard](https://cdn2.auth0.com/docs/media/articles/angularjs/app_dashboard.png)
 
-On this screen, we have to configure a callback URL. This is a URL in our application where Auth0 redirects the user after they have authenticated.
+On this screen, we have to configure a callback URL. This is a URL in our Android app where Auth0 redirects the user after they have authenticated.
 
-We need to whitelist the callback URL for our app in the _Allowed Callback URLs_ field in our client _Settings_ page. If we do not set any callback URL, our users will see a mismatch error when they log in.
+We need to whitelist the callback URL for our Android app in the _Allowed Callback URLs_ field in the _Settings_ page of our Auth0 application. If we do not set any callback URL, our users will see a mismatch error when they log in.
 
 ```bash
 demo://bkrebs.auth0.com/android/OUR_APP_PACKAGE_NAME/callback
 ```
 
-Let's not forget to replace OUR_APP_PACKAGE_NAME with our application's package name. We can find this name in the `applicationId` attribute of the `app/build.gradle` file.
+Let's not forget to replace OUR_APP_PACKAGE_NAME with our Android application's package name. We can find this name in the `applicationId` attribute of the `app/build.gradle` file.
 
 ### Set Credentials
 
-Our application needs some details about our client to communicate with Auth0. We can get these details from the _Settings_ section for our client in the [Auth0 dashboard](https://manage.auth0.com/).
+Our Android application needs some details from Auth0 to communicate with it. We can get these details from the _Settings_ section for our Auth0 application in the [Auth0 dashboard](https://manage.auth0.com/#applications).
 
 We need the following information:
 
@@ -61,11 +61,11 @@ Let's edit our `res/values/strings.xml` file as follows:
 </resources>
 ```
 
-These values have to be replaced by those found in the _Settings_ section of our client.
+These values have to be replaced by those found in the _Settings_ section of our Auth0 application.
 
 ### Android Login
 
-To implement the login functionality in our app, we need to add manifest placeholders required by the SDK. These placeholders are used internally to define an `intent-filter` that captures the authentication callback URL configured previously.
+To implement the login functionality in our Android app, we need to add manifest placeholders required by the SDK. These placeholders are used internally to define an `intent-filter` that captures the authentication callback URL configured previously.
 
 To add the manifest placeholders, let's add the next line:
 
@@ -127,7 +127,7 @@ As we can see, we had to create a new instance of the Auth0 class to hold user c
 - `R.string.com_auth0_client_id`
 - `R.string.com_auth0_domain`
 
-If we prefer to hardcode the resources, we can use the constructor that receives both strings. Then, we can use the `WebAuthProvider` class to authenticate with any connection enabled on our client in the [Auth0 dashboard](https://manage.auth0.com/).
+If we prefer to hardcode the resources, we can use the constructor that receives both strings. Then, we can use the `WebAuthProvider` class to authenticate with any connection enabled on our application in the [Auth0 dashboard](https://manage.auth0.com/#applications).
 
 After we call the `WebAuthProvider#start` function, the browser launches and shows the Auth0 login page. Once the user authenticates, the callback URL is called. The callback URL contains the final result of the authentication process.
 

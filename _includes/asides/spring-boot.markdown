@@ -119,22 +119,22 @@ public class ContactController {
 
 Note that the integration allows us to use [the `hasAuthority` Spring EL Expression](https://docs.spring.io/spring-security/site/docs/current/reference/html/el-access.html) to restrict access to endpoints based on the `scope` of the `access_token`. Let's see how to get this token now.
 
-### Creating an Auth0 Client
+### Creating an Auth0 Application
 
-As the focus of this section is to secure Spring APIs with Auth0, [we are going to use a live Angular app that has a configurable Auth0 client](http://auth0.digituz.com.br/?clientID=ssII6Fu1qfFI4emuNeXeadMv8iTQn1hJ&domain=bk-samples.auth0.com&audience=https:%2F%2Fcontacts.mycompany.com%2F&scope=read:contacts). To use this app we need to create an Auth0 Client that represents it. Let's head to the [Clients section of the management dashboard](https://manage.auth0.com/#/clients) and click on the "Create Client" button to create this client.
+As the focus of this section is to secure Spring APIs with Auth0, [we are going to use a live Angular app that has a configurable Auth0 application](http://auth0.digituz.com.br/?clientID=ssII6Fu1qfFI4emuNeXeadMv8iTQn1hJ&domain=bk-samples.auth0.com&audience=https:%2F%2Fcontacts.mycompany.com%2F&scope=read:contacts). To use this app we need to create an Auth0 application that represents it. Let's head to the [_Applications_ section of the management dashboard](https://manage.auth0.com/#/applications) and click on the "Create Application" button to create this application.
 
-On the popup shown, let's set the name of this new client as "Contacts Client" and choose "Single Page Web App" as the client type. After hitting the "Create" button, we have to go to the "Settings" tab of this client and change two properties. First, we have to set `http://auth0.digituz.com.br/` in the "Allowed Web Origins" property. Second, we have to set `http://auth0.digituz.com.br/callback` in the "Allowed Callback URLs" property.
+On the popup shown, let's set the name of this new application as "Contacts Application" and choose "Single Page Web App" as the application type. After hitting the "Create" button, we have to go to the "Settings" tab of this application and change two properties. First, we have to set `http://auth0.digituz.com.br/` in the "Allowed Web Origins" property. Second, we have to set `http://auth0.digituz.com.br/callback` in the "Allowed Callback URLs" property.
 
-That's it, we can save the client and head to [the sample Angular app secured with Auth0](http://auth0.digituz.com.br/?clientID=ssII6Fu1qfFI4emuNeXeadMv8iTQn1hJ&domain=bk-samples.auth0.com&audience=https:%2F%2Fcontacts.mycompany.com%2F&scope=read:contacts). On it, we just need to set the correct values to the four properties:
+That's it, we can save the application and head to [the sample Angular app secured with Auth0](http://auth0.digituz.com.br/?clientID=ssII6Fu1qfFI4emuNeXeadMv8iTQn1hJ&domain=bk-samples.auth0.com&audience=https:%2F%2Fcontacts.mycompany.com%2F&scope=read:contacts). On it, we just need to set the correct values to the four properties:
 
-- `clientID`: We have to copy this value from the "Client ID" field of the "Settings" tab of "Contacts Client".
-- `domain`: We can also copy this value from the "Settings" tab of "Contacts Client".
+- `clientID`: We have to copy this value from the "Client ID" field of the "Settings" tab of "Contacts Application".
+- `domain`: We can also copy this value from the "Settings" tab of "Contacts Application".
 - `audience`: We have to set this property to meet the identifier of the "Contacts API" that we created earlier.
 - `scope`: This property will define the `authority` that the `access_token` will get access to in the backend API. For example: `read:contacts` or both `read:contacts add:contacts`.
 
 Then we can hit the "Sign In with Auth0" button.
 
-![Using the Angular app with the configurable Auth0 Client](https://cdn.auth0.com/blog/angular-generic-client/signing-in.png)
+![Using the Angular app with the configurable Auth0 application](https://cdn.auth0.com/blog/angular-generic-client/signing-in.png)
 
 After signing in, we can use the application to submit requests to our secured Spring API. For example, if we issue a GET request to `http://localhost:8080/contacts/`, the Angular app will include the `access_token` in the `Authorization` header and our API will respond with a list of contacts.
 

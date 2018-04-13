@@ -1,4 +1,4 @@
-### Aside: Configure Express Gateway to use Auth0 as system of record
+### Aside: Configure Express Gateway to use Auth0 Identity Management
 
 Express Gateway and Auth0 play very well together when it comes to security.
 
@@ -45,7 +45,7 @@ $ Unauthorized
 
 You can see that the first request has been denied with `Unauthorized` status. That's because we didn't provide any JWT with the request, so it didn't go through.
 
-Now grab any HTTP client and let's configure it to start an OAuth 2.0 authorization process against Auth0. We can grab all the necessary parameters going on _Clients_ -> _Billings (Test Client)_ -> _Settings_
+Now grab any HTTP client and let's configure it to start an OAuth 2.0 authorization process against Auth0. We can grab all the necessary parameters going on _Applications_ -> _Billings (Test Application)_ -> _Settings_
 
 In my case, I am going to use `curl`, but you can use the client you prefer:
 

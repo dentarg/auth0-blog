@@ -63,11 +63,11 @@ The first thing you will do to make your game look like a real game is to implem
 
 To make Auth0 manage the identity of your players, you have to have an Auth0 account. If you don't have one yet, you can <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">**sign up for a free Auth0 account** here</a>.
 
-After creating your account, you just have to create an [Auth0 Client](https://auth0.com/docs/clients) to represent your game. To do this, head to [the Clients page on the Auth0 dashboard](https://manage.auth0.com/#/clients) and click on the *Create Client* button. The dashboard will show you a form where you will have to inform the *name* of your client and its *type*. You can type *Aliens, Go Home!* as the name and choose the *Single Page Web Application* type (your game is an SPA based on React after all). Then, you can click on *Create*.
+After creating your account, you just have to create an [Auth0 Application](https://auth0.com/docs/applications) to represent your game. To do this, head to [the Applications page on the Auth0 dashboard](https://manage.auth0.com/#/applications) and click on the *Create Application* button. The dashboard will show you a form where you will have to inform the *name* of your application and its *type*. You can type *Aliens, Go Home!* as the name and choose the *Single Page Web Application* type (your game is an SPA based on React after all). Then, you can click on *Create*.
 
-![Creating the Auth0 Client to represent your React game.](https://cdn.auth0.com/blog/aliens-go-home/creating-the-auth0-client-for-your-react-game.png)
+![Creating the Auth0 Application to represent your React game.](https://cdn.auth0.com/blog/aliens-go-home/creating-the-auth0-client-for-your-react-game.png)
 
-When you click this button, the dashboard will redirect you to the *Quick Start* tab of your new client. As you will learn how to integrate React and Auth0 in this article, you won't need to use this tab. Instead, you will need to use the *Settings* tab, so head to it.
+When you click this button, the dashboard will redirect you to the *Quick Start* tab of your new application. As you will learn how to integrate React and Auth0 in this article, you won't need to use this tab. Instead, you will need to use the *Settings* tab, so head to it.
 
 There are three things that you will need to do in this tab. The first one is to add the `http://localhost:3000` value to the field called *Allowed Callback URLs*. As the dashboard explains, *after the player authenticates, Auth0 will only call back one of the URLs in this field*. So, if you are going to publish your game on the web, be sure to add its public URL there as well (e.g. `http://aliens-go-home.digituz.com.br`).
 
@@ -161,7 +161,7 @@ const Canvas = (props) => {
 
 As you can see, in this new version, you have imported the `Login` component and the `signIn` function of the `auth0-web` package. Then, you have added your new component to the block of code that is shown only if players have not started the game. Also, you have indicated that, when clicked, the login button must trigger the `signIn` function.
 
-With these changes in place, the last thing you will have to do is to configure the `auth0-web` with your Auth0 Client properties. To do this, open the `App.js` file and update it as follows:
+With these changes in place, the last thing you will have to do is to configure the `auth0-web` with your Auth0 Application properties. To do this, open the `App.js` file and update it as follows:
 
 ```js
 // ... other import statements
@@ -196,11 +196,11 @@ class App extends Component {
 // ... propTypes definition and export statement
 ```
 
-> **Note:** You have to replace `YOUR_AUTH0_DOMAIN` and `YOUR_AUTH0_CLIENT_ID` with the values copied from the *Domain* and *Client ID* fields of your Auth0 client. Besides that, when publishing your game to the web, you will have to replace the `redirectUri` value as well.
+> **Note:** You have to replace `YOUR_AUTH0_DOMAIN` and `YOUR_AUTH0_CLIENT_ID` with the values copied from the *Domain* and *Client ID* fields of your Auth0 application. Besides that, when publishing your game to the web, you will have to replace the `redirectUri` value as well.
 
 The enhancements in this file are quite simple. This list summarizes them:
 
-1. `configure`: You used this function to configure the `auth0-web` package with your Auth0 Client properties.
+1. `configure`: You used this function to configure the `auth0-web` package with your Auth0 application properties.
 2. `handleAuthCallback`: You triggered this function in [the `componentDidMount` lifecycle hook](https://reactjs.org/docs/react-component.html#componentdidmount) to evaluate if the player is returning from Auth0 after authenticating. This function simply tries to fetch tokens from the URL and, if it succeeds, fetches the player profile and persists everything in the `localstorage`.
 3. `subscribe`: You used this function to log if the player is authenticated or not (`true` for authenticated and `false` otherwise).
 

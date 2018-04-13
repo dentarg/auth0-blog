@@ -20,14 +20,14 @@ To include an Auth0 Aside in your post markdown, use the following syntax:
 
 Technical Auth0 Asides **must**:
 
-* have instructions on how to set up an Auth0 Client
-* authenticate the app using centralized login
+* have instructions on how to set up an Auth0 application
+* authenticate the app using universal login page
 * have a supporting sample repo at [auth0-blog](https://github.com/auth0-blog)
 
 Technical Auth0 Asides **should**:
 
 * have one image, [such as the one here](https://cdn2.auth0.com/blog/angular-aside/angular-aside-login.jpg)
-* show authentication of an API as well as a Client, if reasonable
+* show authentication of an API as well as an Application, if reasonable
 * have links to supporting documentation or articles where users can find more information on Auth0 and how it works
 
 ## Maintenance

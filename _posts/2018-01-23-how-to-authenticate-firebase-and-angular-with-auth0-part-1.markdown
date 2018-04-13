@@ -45,7 +45,7 @@ Part 1 of our tutorial will cover:
 1. <a href="#firebase-auth0" target="_self">Firebase and Auth0</a>
 2. <a href="#what-well-build" target="_self">What We'll Build</a>
 3. <a href="#angular-cli" target="_self">Angular CLI</a>
-4. <a href="#auth0-client-api" target="_self">Auth0 Client and API</a>
+4. <a href="#auth0-client-api" target="_self">Auth0 Application and API</a>
 5. <a href="#firebase-project-service-account" target="_self">Firebase Project with Service Account</a>
 6. <a href="#node-api" target="_self">Node API</a>
 7. <a href="#set-up-angular-app" target="_self">Set Up Angular App</a>
@@ -106,7 +106,7 @@ We'll also build an Angular front end app called "Popular Dogs" that displays in
 To implement the app, you will need the following:
 
 * Angular CLI
-* A free Auth0 account with a Client and an API configured
+* A free Auth0 account with an Application and an API configured
 * A free Firebase project with a service account
 
 Let's get started!
@@ -121,22 +121,22 @@ $ npm install -g @angular/cli@latest
 
 We will generate our Angular app and nearly all of its architecture using the CLI.
 
-## <span id="auth0-client-api"></span>Auth0 Client and API
+## <span id="auth0-client-api"></span>Auth0 Application and API
 
 You'll need an [Auth0](https://auth0.com) account to manage authentication. You can <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free account here</a>.
 
 ![Auth0 login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
 
-Next, set up an Auth0 client app and API so Auth0 can interface with the Angular app and Node API.
+Next, set up an Auth0 Application and API so Auth0 can interface with the Angular app and Node API.
 
-### Set Up an Auth0 Client
+### Set Up an Auth0 Application
 
-1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[Create a New Client](https://manage.auth0.com/#/clients/create)" button.
+1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[Create a New Application](https://manage.auth0.com/#/applications/create)" button.
 2. Name your new app (something like `Angular Firebase`) and select "Single Page Web Applications".
-3. In the **Settings** for your new Auth0 client app, add `http://localhost:4200/callback` to the **Allowed Callback URLs**.
+3. In the **Settings** for your new Auth0 application app, add `http://localhost:4200/callback` to the **Allowed Callback URLs**.
 4. Enable the toggle for **Use Auth0 instead of the IdP to do Single Sign On**. 
 5. At the bottom of the **Settings** section, click "Show Advanced Settings". Choose the **OAuth** tab and verify that the **JsonWebToken Signature Algorithm** is set to "RS256".
-6. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Client** options under the **Connections** tab. The example shown in the screenshot above uses username/password database, Facebook, Google, and Twitter. 
+6. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Application** options under the **Connections** tab. The example shown in the screenshot above uses username/password database, Facebook, Google, and Twitter. 
 
 > **Note:** For production, make sure you set up your own social keys and do not leave social connections set to use Auth0 dev keys.
 
@@ -613,7 +613,7 @@ export const environment = {
 
 Replace placeholders in `<angle brackets>` with your appropriate Auth0, Firebase, and API information. 
 
-You can find your Auth0 configuration in your [Auth0 Dashboard](https://manage.auth0.com) in the settings for the client and API you created for this tutorial.
+You can find your Auth0 configuration in your [Auth0 Dashboard](https://manage.auth0.com) in the settings for the application and API you created for this tutorial.
 
 You can find your Firebase configuration in the [Firebase Console Project Overview](https://console.firebase.google.com/u/0/project/_/overview) after clicking the large icon labeled **Add Firebase to your web app**, as shown below:
 

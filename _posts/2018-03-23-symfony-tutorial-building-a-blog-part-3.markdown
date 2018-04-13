@@ -211,7 +211,7 @@ heroku config:set AUTH0_DOMAIN=(Your Auth0 Domain)
 heroku config:set DATABASE_NAME=(Your database name, as shown by the heroku addons:add command)
 ```
 
-**Note:** You will need to replace the values after `AUTH0_CLIENT_ID`, `AUTH0_CLIENT_SECRET`, and `AUTH0_DOMAIN` with the properties of your Auth0 Client and `DATABASE_NAME` with the `CLEARDB_DATABASE_URL` provided by the Heroku CLI (something like `cleardb-regular-32216`).
+**Note:** You will need to replace the values after `AUTH0_CLIENT_ID`, `AUTH0_CLIENT_SECRET`, and `AUTH0_DOMAIN` with the properties of your Auth0 application and `DATABASE_NAME` with the `CLEARDB_DATABASE_URL` provided by the Heroku CLI (something like `cleardb-regular-32216`).
 
 ### Installing Travis CI
 
@@ -485,11 +485,11 @@ git commit -m "Added file changes to prepare for pushing to production"
 git push
 ```
 
-In order to see your blog via the URL of your space hosted on Heroku, you will need to update your Auth0 Client to accept callbacks from this URL.
+In order to see your blog via the URL of your space hosted on Heroku, you will need to update your Auth0 Application to accept callbacks from this URL.
 
-So, Head over to the [Auth0 Dashboard](https://manage.auth0.com/#/clients), choose your production client and carry out the following instructions:
+So, Head over to the [Auth0 Dashboard](https://manage.auth0.com/#/applications), choose your production application and carry out the following instructions:
 
-* In the production Auth0 `Client`, go to the settings tab.
+* In the production Auth0 application, go to the settings tab.
 * Find the text box labeled `Allowed Callback URLs`.
 * The url you need to put in the text box is your space url, for example: `https://space-name-here.herokuapp.com/` followed by: `auth0/callback`. So it will look like: `https://space-name-here.herokuapp.com/auth0/callback`.
 * Click the `Save Changes` button at the bottom of the page
@@ -530,7 +530,7 @@ You will need to replace this with branch specific configurations:
       staging: space-name-here-staging
 ```
 
-After that, you are going to need to create a staging area on Auth0, [log into your account here](https://manage.auth0.com/#/clients), then click the "Create Client" button. You can call it whatever you want. I would suggest calling it the same as your current client but append "-staging" to the end of it.
+After that, you are going to need to create a staging area on Auth0, [log into your account here](https://manage.auth0.com/#/applications), then click the "Create Application" button. You can call it whatever you want. I would suggest calling it the same as your current application but append "-staging" to the end of it.
 
 Once created, you need to make use of the Auth0 client Id, secret, and domain. You also need to make use of the database name returned to you when you ran the `cleardb:ignite` command. Replace the contents of the brackets in the examples below with these details. Then, run each of these commands:
 
@@ -615,9 +615,9 @@ git checkout -b staging
 git push --set-upstream origin staging
 ```
 
-Time to add the staging URL to the allowed callback URLs for your staging client. Head over to the [Auth0 Dashboard](https://manage.auth0.com/#/clients), choose your staging client and carry out the following instructions:
+Time to add the staging URL to the allowed callback URLs for your staging application. Head over to the [Auth0 Dashboard](https://manage.auth0.com/#/applications), choose your staging application and carry out the following instructions:
 
-* In the staging Auth0 `Client`, go to the settings tab.
+* In the staging Auth0 application, go to the settings tab.
 * Find the text box labelled `Allowed Callback URLs`.
 * The URL you need to put in the text box is your space URL, for example: `https://space-name-here-staging.herokuapp.com/` followed by: `auth0/callback`. So it will look like: `https://space-name-here-staging.herokuapp.com/auth0/callback`.
 * Click the `Save Changes` button at the bottom of the page

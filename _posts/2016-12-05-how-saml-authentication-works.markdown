@@ -121,17 +121,17 @@ You can switch back and forth between the accounts by going to the upper right c
 
 ## 2. Set up the Auth0 IDP (account 2)
 
-In this section you will configure one Auth0 account (account 2) to serve as an Identity Provider. You will do this by registering a client, but in this case, the 'client' you register is really a representation of account 1, the SAML Service Provider.
+In this section you will configure one Auth0 account (account 2) to serve as an Identity Provider. You will do this by registering an application, but in this case, the 'application' you register is really a representation of account 1, the SAML Service Provider.
 
 Log into **Account 2**
 
 **In the Auth0 dashboard:**
 
-* Click on **"Clients"** link at left.
+* Click on **"Applications"** link at left.
 
-* Click on the red **"+ CREATE CLIENT"** button on the right.
+* Click on the red **"+ CREATE APPLICATION"** button on the right.
 
-![Create Client Button](https://cdn.auth0.com/docs/media/articles/saml/samlsso-auth0-to-auth0/samlsso-auth0-02.png)
+![Create Application Button](https://cdn.auth0.com/docs/media/articles/saml/samlsso-auth0-to-auth0/samlsso-auth0-02.png)
 
 * In the **Name** field, enter a name like "My-Auth0-IDP".
 
@@ -233,9 +233,9 @@ In this section you will go back and add some information about the Service Prov
 
 **In the Auth0 dashboard:** for Account 2
 
-* Click on **"Clients"** link at left.
+* Click on **"Applications"** link at left.
 
-* Find the row for the client you created earlier, and click on the **"Add Ons"** icon to the right of the client name. (the angle bracket and slash icon)
+* Find the row for the application you created earlier, and click on the **"Add Ons"** icon to the right of the application name. (the angle bracket and slash icon)
 
 * Locate the box with the **"SAML2 WEB APP"** label and click on the circle toggle to turn it green.
 
@@ -282,9 +282,9 @@ In this section, you will register an application in Auth0 that will use the SAM
 
 Make sure you are logged into the **Account 1 Auth0 dashboard**.
 
-* In the **Auth0 dashboard**, click on the **"Clients"** link at left.
+* In the **Auth0 dashboard**, click on the **"Applications"** link at left.
 
-* Click on the red **"+ CREATE APP"** button on the right.
+* Click on the red **"+ CREATE APPLICATION"** button on the right.
 
 * In the **Name** field, enter a name like "My-HTML-SAML-App".
 
@@ -360,7 +360,7 @@ Create an HTML page and insert the following:
 </HTML>
 {% endhighlight %}
 
-Make sure you replace *YOUR-APP-CLIENT-ID* with the actual value of the app you registered in step 7 above. The client ID for your client can be found in the *Auth0 dashboard* for *Account 1* by going to "Clients" link and clicking on the "Settings" (gear) icon to the right of your client's name.
+Make sure you replace *YOUR-APP-CLIENT-ID* with the actual value of the app you registered in step 7 above. The client ID for your application can be found in the *Auth0 dashboard* for *Account 1* by going to "Applications" link and clicking on the "Settings" (gear) icon to the right of your application's name.
 
 Save this file in a place where you can access it via a browser. For this example, we'll call it **"hello-saml.html"*.
 
@@ -380,7 +380,7 @@ The **Auth0 Lock** widget should appear with one login option.
 ![Test Sample Application](https://cdn.auth0.com/docs/media/articles/saml/samlsso-auth0-to-auth0/samlsso-auth0-18.png)
 
 
-If you have other connections turned on for your client, your **Auth0 Lock Widget** may look slightly different. If you are prompted to enter an email address, make sure the email address you enter has the same domain name as the domain(s) you entered in the **Settings** tab for the client in the Account 1 Auth0 dashboard. (**Apps/APIs -> Settings**)
+If you have other connections turned on for your application, your **Auth0 Lock Widget** may look slightly different. If you are prompted to enter an email address, make sure the email address you enter has the same domain name as the domain(s) you entered in the **Settings** tab for the application in the Account 1 Auth0 dashboard. (**Apps/APIs -> Settings**)
 
 ![SAML SSO Auth0](https://cdn.auth0.com/docs/media/articles/saml/samlsso-auth0-to-auth0/samlsso-auth0-19.png)
 
@@ -389,7 +389,7 @@ After entering your email address, the blue button on the Lock widget may have a
 
 * You will be redirected to the Identity Provider to log in.
 
-Note that whether you are prompted for credentials at this point depends on whether you still have an active session at the Identity Provider. From the "try me" test you did earlier, you may still have an active session at the Identity Provider. If this is the case, you will not be prompted to log in again and will simply be redirected to the callback URL specified in the HTML file. (Remember that this callback URL must also be in the **Allowed Callback URLs** in the client's Settings tab in the Auth0 dashboard.)
+Note that whether you are prompted for credentials at this point depends on whether you still have an active session at the Identity Provider. From the "try me" test you did earlier, you may still have an active session at the Identity Provider. If this is the case, you will not be prompted to log in again and will simply be redirected to the callback URL specified in the HTML file. (Remember that this callback URL must also be in the **Allowed Callback URLs** in the application's Settings tab in the Auth0 dashboard.)
 
 If sufficient time has passed, or if you delete your browser cookies before initiating the test, then you will be prompted to login when redirected to the Identity Provider. Log in to the Identity Provider using the credentials for the test user you created in Auth0 Account 2.
 
@@ -401,11 +401,11 @@ This section has a few ideas for things to check if your sample doesn't work.
 
 Note that if your application doesn't work the first time, you should clear your browser history and ideally cookies each time before you test again. Otherwise, the browser may not be picking up the latest version of your html page or it may have stale cookies that impact execution.
 
-When troubleshooting SSO, it is often helpful to capture an HTTP trace of the interaction. There are many tools that will capture the HTTP traffic from your browser for analysis. Search for "HTTP Trace" to find some. Once you have an http trace tool, capture the login sequence from start to finish and analyze the trace to see the sequence of GETs to see how far in the expected sequence you get. You should see a redirect from your original site to the Service Provider, and then to the Identity Provider, a post of credentials if you had to log in, and then a redirect back to the callback URL or the Service Provider and then finally a redirect to the callback URL specified in your client.
+When troubleshooting SSO, it is often helpful to capture an HTTP trace of the interaction. There are many tools that will capture the HTTP traffic from your browser for analysis. Search for "HTTP Trace" to find some. Once you have an http trace tool, capture the login sequence from start to finish and analyze the trace to see the sequence of GETs to see how far in the expected sequence you get. You should see a redirect from your original site to the Service Provider, and then to the Identity Provider, a post of credentials if you had to log in, and then a redirect back to the callback URL or the Service Provider and then finally a redirect to the callback URL specified in your application.
 
 Be sure to check to make sure cookies and javascript are enabled for your browser.
 
-Check to make sure that the callback URL specified in the HTML file is also listed in the Allowed Callback URLs field in the "Settings" tab of the client registered in the Auth0 Dashboard. (In dashboard, Click on Clients link, then on the "Settings" icon to the right of the client's name.)
+Check to make sure that the callback URL specified in the HTML file is also listed in the Allowed Callback URLs field in the "Settings" tab of the application registered in the Auth0 Dashboard. (In dashboard, Click on Applications link, then on the "Settings" icon to the right of the application's name.)
 
 The [http://samltool.io](http://samltool.io) tool can decode a SAML assertion and is a useful debugging tool.
 

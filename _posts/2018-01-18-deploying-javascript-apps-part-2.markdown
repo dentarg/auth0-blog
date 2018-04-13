@@ -108,9 +108,9 @@ Let's ensure everything works well. We are using Auth0 for authentication.
 Ensure Auth0 is configured properly.
 
 - You need to have an account with [Auth0](https://auth0.com/signup).
-- Go to your [Auth0 Dashboard](https://manage.auth0.com/#/) and click the "create a new client" button.
+- Go to your [Auth0 Dashboard](https://manage.auth0.com/#/) and click the "create a new application" button.
 - Name your new app and select "Single Page Web Applications".
-- In the Settings for your new Auth0 client app, add your URL, in my case `https://agitated-davinci-4df0c1.netlify.com/callback` to the Allowed Callback URLs.
+- In the Settings for your new Auth0 application, add your URL, in my case `https://agitated-davinci-4df0c1.netlify.com/callback` to the Allowed Callback URLs.
 - Replace the **clientID** in the SPA with the *client id* from your Auth0 dashboard.  
 - Replace `redirectUri` in the SPA with the Allowed callback URL from your Auth0 dashboard.
 - Ensure the **Allowed Web Origins**, **Allowed Origins(CORS)** in your Auth0 dashboard is set to your live URL. In my case, `https://agitated-davinci-4df0c1.netlify.com`.
