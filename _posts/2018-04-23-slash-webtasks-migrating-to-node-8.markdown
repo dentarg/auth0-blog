@@ -1,26 +1,36 @@
 ---
-layout: post
+layout: post_extend
 title: Slash Webtasks Migrating to Node 8
-description: <A SHORT DESCRIPTION OF THE POST <= 200 CHARACTERS >
-longdescription: <A LONG DESCRIPTION OF THE POST BETWEEN 230 AND 320 CHARACTERS>
+description: "A SHORT DESCRIPTION OF THE POST <= 200 CHARACTERS "
+longdescription: "A LONG DESCRIPTION OF THE POST BETWEEN 230 AND 320 CHARACTERS"
 date: 2018-04-25 12:00
-category: <FROM HERE: https://docs.google.com/spreadsheets/d/1e_RKzi8kVwzqPG8si8kyDOWPiBk9tI-XNGh0KgRIF7Q>
-press_release: <true|false (FOR FALSE YOU COULD ALSO REMOVE THIS LINE)>
-is_non-tech: <true|false (FOR FALSE YOU COULD ALSO REMOVE THIS LINE)>
+category: Technical, Webtasks
+press_release: false
+is_non-tech: false
 author:
-  name: <YOUR NAME>
-  url: <YOUR URL>
-  mail: <YOUR MAIL>
-  avatar: <LINK TO PROFILE PIC>
+  name: "Bobby Johnson"
+  url: "https://twitter.com/NotMyself"
+  mail: "bobby.johnson@auth0.com"
+  avatar: "https://cdn.auth0.com/website/blog/profiles/bobbyjohnson.png"
 design:
-  bg_color: <A HEX BACKGROUND COLOR>
-  image: <A PATH TO A 200x200 IMAGE>
+  bg_color: "#3445DC"
+  image: https://cdn.auth0.com/blog/troubleshooting-webtasks/logo.png
 tags:
-- foo
+- webtasks
+- slack
+- node 8
 related:
-- <ADD SOME RELATED POSTS FROM AUTH0'S BLOG>
+- 2016-10-19-slash-webtasks-all-your-chatops-belong-to-you
+- 2016-09-14-build-a-serverless-slack-bot-with-webtask
+- 2016-06-28-building-serverless-apps-with-webtask
 ---
 
 **TL;DR:** A brief synopsis that includes link to a [github repo](http://www.github.com/).
 
 ---
+ TODO:
+  X ask to get on the blog schedule
+  X ask for art assets
+  - write outline
+  - write post
+  - possibly do a short video showing the migration
