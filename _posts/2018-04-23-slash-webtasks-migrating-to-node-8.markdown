@@ -28,9 +28,14 @@ related:
 **TL;DR:** A brief synopsis that includes link to a [github repo](http://www.github.com/).
 
 ---
- TODO:
-  X ask to get on the blog schedule
-  X ask for art assets
-  - write outline
-  - write post
-  - possibly do a short video showing the migration
+
+## Introduction
+## Detecting Webtasks to Migrate
+
+## Migrating a Webtask to Node 8
+
+## Testing a Webtask on Node 8
+
+## Promoting a Webtask to Node 8
+
+## Summary
