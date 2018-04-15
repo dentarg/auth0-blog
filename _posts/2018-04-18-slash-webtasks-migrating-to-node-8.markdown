@@ -3,7 +3,7 @@ layout: post_extend
 title: Slash Webtasks Migrating to Node 8
 description: "A SHORT DESCRIPTION OF THE POST <= 200 CHARACTERS "
 longdescription: "A LONG DESCRIPTION OF THE POST BETWEEN 230 AND 320 CHARACTERS"
-date: 2018-04-25 12:00
+date: 2018-04-18 12:00
 category: Technical, Webtasks
 press_release: false
 is_non-tech: false
@@ -26,6 +26,12 @@ related:
 ---
 
 **TL;DR:** A brief synopsis that includes link to a [github repo](http://www.github.com/).
+
+https://auth0.com/blog/slash-webtasks-all-your-chatops-belong-to-you/
+
+https://slack.com/apps/A2KQYJD3M-slash-webtask
+
+https://www.producthunt.com/posts/slash-webtask
 
 ---
 
