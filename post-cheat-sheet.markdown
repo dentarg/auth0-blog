@@ -37,6 +37,14 @@ related:
 ![Image alt text](image path)
 ```
 
+Center an image:
+
+```
+<p style="text-align: center;">
+  <img src="source of the image / CDN link" alt="SEO/Accessibility friendly description of the image">
+</p>
+```
+
 ### Link
 
 ```
