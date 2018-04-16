@@ -25,11 +25,11 @@ related:
 - 2016-06-28-building-serverless-apps-with-webtask
 ---
 
-Back in October of 2016 we [introduced Slash Webtasks](https://auth0.com/blog/slash-webtasks-all-your-chatops-belong-to-you/), our powerful ChatOps app for Slack. Slash Webtasks is an amazingly simple way to author custom Slack commands using Webtasks right from within Slack. The app was so popular that over 1300 teams have installed it and authored over 2500 Webtasks that can be called directly using the simiple `/wt task_name` interface.
+Today we've shipped Node 8 support for Slash Webtasks! Slash Webtasks is an amazingly simple way to author custom Slack commands using Webtasks right from within Slack. The app was so popular that over 1300 teams have installed it and authored over 2500 Webtasks that can be called directly using the simiple `/wt task_name` interface.
 
-All newly created Slash Webtasks will be created in the new Node 8 environment. Teams can immediatly start taking advantage of new features and modules that rely on Node 8.
+All newly created Slash Webtasks will be created in the new Node 8 environment. Teams can immediatly start taking advantage of new features including full ES6 support and async/await.
 
-But what about existing webtasks? There are some actions that you can take to proactively migrate and test your commands. The migration process is simple and this post will walk you through all you need to know.
+But what about existing Slash Webtasks? There are some actions that you can take to proactively migrate and test your commands. The migration process is simple and this post will walk you through all you need to know.
 
 ## Detecting Slash Webtasks to Migrate
 
@@ -49,7 +49,7 @@ In this example, the **eq** and **meetup** tasks have be successfully migrated, 
 
 ## Migrating a Slash Webtask
 
-To migrate a task to Node 8, all you need to do is execute the command `/wt node8 {name}`. This will copy the task and all of it's associated data to the new Node 8 environment leaving the Node 4 version intact. 
+To migrate a task to Node 8, you must have permission to edit the existing task. Execute the command `/wt node8 {name}`. This will copy the task and all of it's associated data to the new Node 8 environment leaving the Node 4 version intact. 
 
 **Note:** The Node 4 version can be executed using `/wt {name}` and the new Node 8 version with `/wt node8 {name}`.
 
@@ -80,6 +80,10 @@ Once you are satisfied that your webtask executes as expected in the Node 8 envi
 [![Promote Node 8 Webtask](https://cdn.auth0.com/website/blog/extend/slash-webtasks-migrating-to-node-8/slash-webtasks-promote-node8.png)](https://cdn.auth0.com/website/blog/extend/slash-webtasks-migrating-to-node-8/slash-webtasks-promote-node8.png)
 
 It is that simple! Now repeat the process for each of your Node 4 based Webtasks and you will no longer have to worry about the April 30th end of life of Node 4.
+
+## Migration Deadline
+
+On April 30th, Node 4 will officially reach it's end of life. On that date all remaining Slash Webtasks executing in the Node 4 environment will be automaticlly migrated. There is a chance this will cause your tasks to fail. Please migrate and test your tasks before this date.
 
 ## What About Webtask.io
 
