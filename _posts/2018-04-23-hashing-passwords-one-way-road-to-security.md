@@ -5,9 +5,9 @@ description: "A strong password storage strategy is critical to mitigating data 
 longdescription: "A strong password storage strategy is critical to mitigating data breaches that could put the reputation of any organization in danger. Hashing is the foundation of secure password storage. When a database is breached, cleartext passwords let attackers gain access to user accounts right away. If the passwords are hashed, breaking in into user accounts is much more difficult."
 date: 2018-04-23 8:30
 category: Security Authentication Breaches
-design::
-  bg_color: "#001D3"
-  image:
+design:
+  image: https://cdn.auth0.com/blog/hashing-one-way-road-to-security/hashing.png
+  bg_color: "#4B673E"
 author:
   name: Dan Arias
   url: http://twitter.com/getDanArias
