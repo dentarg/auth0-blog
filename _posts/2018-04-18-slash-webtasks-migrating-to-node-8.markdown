@@ -2,7 +2,7 @@
 layout: post_extend
 title: Slash Webtasks Migrating to Node 8
 description: "Slash Webtasks is moving to Node 8. See how to migrate your commands to ensure they keep running as expected."
-longdescription: "A LONG DESCRIPTION OF THE POST BETWEEN 230 AND 320 CHARACTERS"
+longdescription: "Slash Webtasks is moving to Node 8. See how to migrate your commands to ensure they keep running as expected."
 date: 2018-04-18 12:00
 category: Technical, Webtasks
 press_release: false
@@ -87,7 +87,7 @@ On April 30th, Node 4 will officially reach it's end of life. On that date all r
 
 ## What About Webtask.io
 
-Our free serverless sandbox [Webtask.io](https://webtask.io/) also currently runs on Node 4. Migration to Node 8 is next on our list and is coming soon. Keep an eye on this blog for details.
+Our free serverless sandbox [Webtask.io](https://webtask.io/) also currently runs on Node 4. Migration to Node 8 is next on our list and is coming VERY soon. Keep an eye on this blog for details.
 
 ## Summary
 
