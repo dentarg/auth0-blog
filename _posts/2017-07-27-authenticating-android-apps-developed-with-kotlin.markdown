@@ -87,9 +87,9 @@ As our RESTful API will be protected by Auth0, we are going to <a href="https://
 
 The first field in this form, called *Name*, is just a friendly name in the tool and its value won't matter to us. The second field, *Identifier*, is the audience of our API. We are going to use this value when configuring our backend and also on our Kotlin Android app. The last field, *Signing Algorithm*, defines how our tokens will be signed. *RS256* uses a private key to sign tokens and a public key to validate it. To learn more about how the signing process works, [take a look at this article](https://auth0.com/blog/navigating-rs256-and-jwks/).
 
-Auth0 will also create a test client when we finish creating our API. If we head to the [*Clients*](https://manage.auth0.com/#/clients) menu we will see a client called *Kotlin To Do App (Test Client)*. Let's access this client to copy the *Domain* value from it.
+Auth0 will also create a test application when we finish creating our API. If we head to the [*Applications*](https://manage.auth0.com/#/applications) menu we will see an application called *Kotlin To Do App (Test Application)*. Let's open this application to copy the *Domain* value from it.
 
-![Test client created by Auth0](https://cdn.auth0.com/blog/kotlin-android/test-client.png)
+![Test application created by Auth0](https://cdn.auth0.com/blog/kotlin-android/test-application.png)
 
 With this value we will be able to run our RESTful API. In the root directory of the cloned repository, let's issue the following commands:
 
@@ -388,9 +388,9 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-The `onCreate` function was changed to get a reference to the binding object related to the layout, in order to initialize the `loggedIn` variable as false, and to set the listener to the `loginButton`. The login function, which is called when the user clicks on the login button, triggers the `WebAuthProvider` component exposed by Auth0's library. This component has to be initialized with an instance of `Auth0`, which depends on the *Client ID* of the *Kotlin To Do App (Test Client)* and on our Auth0 domain. This is the same domain that we exported as an environment variable before running the backend application.
+The `onCreate` function was changed to get a reference to the binding object related to the layout, in order to initialize the `loggedIn` variable as false, and to set the listener to the `loginButton`. The login function, which is called when the user clicks on the login button, triggers the `WebAuthProvider` component exposed by Auth0's library. This component has to be initialized with an instance of `Auth0`, which depends on the *Client ID* of the *Kotlin To Do App (Test Application)* and on our Auth0 domain. This is the same domain that we exported as an environment variable before running the backend application.
 
-Both of these properties, `auth0_client_id` and `auth0_domain`, are read from the `strings.xml` file. Let's open this file and add them with the values that we find in the *Kotlin To Do App (Test Client)* that was created for us on Auth0:
+Both of these properties, `auth0_client_id` and `auth0_domain`, are read from the `strings.xml` file. Let's open this file and add them with the values that we find in the *Kotlin To Do App (Test Application)* that was created for us on Auth0:
 
 ```xml
 <resources>
@@ -480,7 +480,7 @@ To wrap the changes in our project, we need to register an intent filter inside 
 </manifest>
 ```
 
-Before testing the integration with Auth0, we need to go back to [the *Clients* page in the management tool](https://manage.auth0.com/#/clients) and do two modifications. First, we have to configure the *Allowed Callback URLs* option of our client to accept the following url:
+Before testing the integration with Auth0, we need to go back to [the *Application* page in the management tool](https://manage.auth0.com/#/applications) and do two modifications. First, we have to configure the *Allowed Callback URLs* option of our application to accept the following url:
 
 ```bash
 demo://krebshaus.auth0.com/android/com.auth0.samples.kotlinapp/callback
@@ -488,7 +488,7 @@ demo://krebshaus.auth0.com/android/com.auth0.samples.kotlinapp/callback
 
 Of course, `krebshaus.auth0.com` domain in this URL must be changed accordingly to your domain on Auth0.
 
-Second, we have to change the *Client Type* to *Native* to enable [PKCE](https://auth0.com/docs/api-auth/tutorials/authorization-code-grant-pkce).
+Second, we have to change the *Application Type* to *Native* to enable [PKCE](https://auth0.com/docs/api-auth/tutorials/authorization-code-grant-pkce).
 
 Running our app now will show the list of to-do items, and above it the login button saying *Please, Identify Yourself.*. If we click it, we will see the default sign-in & sign-up screen of Auth0.
 
