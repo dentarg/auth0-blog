@@ -138,11 +138,11 @@ To solve these issues, we are going to use Pipenv. [Pipenv is a dependency manag
 pip install pipenv
 ```
 
-Now, to start creating a serious Flask application, let's create a new directory that will hold our source code. In this article, we will create *Cashman*, a small RESTful API that allows users to manage incomes and expenses. Therefore, we will create a directory called `cashman`. After that, we will use `pipenv` to start our project and manage our dependencies.
+Now, to start creating a serious Flask application, let's create a new directory that will hold our source code. In this article, we will create *Cashman*, a small RESTful API that allows users to manage incomes and expenses. Therefore, we will create a directory called `cashman-flask-project`. After that, we will use `pipenv` to start our project and manage our dependencies.
 
 ```bash
 # create our project directory and move to it
-mkdir cashman && cd cashman
+mkdir cashman-flask-project && cd cashman-flask-project
 
 # use pipenv to create a Python 3 (--three) virtualenv for our project
 pipenv --three
@@ -160,7 +160,7 @@ The second command creates our virtual environment, where all our dependencies w
 
 Like other mainstream programming languages, [Python also has the concept of modules](https://docs.python.org/3/tutorial/modules.html) to enable developers to organize source code according to subjects/functionalities. Similar to Java packages and C# namespaces, modules in Python are files organized in directories that can be imported by other Python scripts. To create a module on a Python application, we just need to create a folder and add an empty file called `__init__.py` to it.
 
-Let's create our first module on our application. This is going to be our main module, with all our RESTful endpoints. Inside the directory that we created for our application, let's create another one with the same name, `cashman`. The main `cashman` directory created before will hold metadata about our project, like what dependencies it has, while this new one will be our module with our Python scripts.
+Let's create our first module on our application. This is going to be our main module, with all our RESTful endpoints. Inside the directory that we created for our application, let's create another one with the same name, `cashman`. The main `cashman-flask-project` directory created before will hold metadata about our project, like what dependencies it has, while this new one will be our module with our Python scripts.
 
 ```bash
 # create source code's root
@@ -267,7 +267,7 @@ curl localhost:5000/incomes
 
 Using dictionaries in a very simple use case like the one above is enough. However, for more complex applications that deal with different entities and have multiple business rules and validations, we might need to encapsulate our data into [Python classes](https://docs.python.org/3/tutorial/classes.html).
 
-To learn the process of mapping entities (like incomes) as classes, we will refactor our application. The first thing that we will do is create a submodule to hold all our entities. Let's create a directory called `model` inside the `cashman` module (we are talking about the `cashman` subdirectory, not the main one) and add an empty file called `__init__.py` on it.
+To learn the process of mapping entities (like incomes) as classes, we will refactor our application. The first thing that we will do is create a submodule to hold all our entities. Let's create a directory called `model` inside the `cashman` module and add an empty file called `__init__.py` on it.
 
 ```bash
 # create model directory inside the cashman module

@@ -649,7 +649,7 @@ glendale_stars = session.query(Actor) \
     .filter(ContactDetails.address.ilike('%glendale%')) \
     .all()
 
-print('### Dwayne Johnson movies:')
+print('### Actors that live in Glendale:')
 for actor in glendale_stars:
     print(f'{actor.name} has a house in Glendale')
 print('')
@@ -672,7 +672,7 @@ Furious 7 was released after 2015
 The Rock starred in No Pain No Gain
 The Rock starred in Furious 7
 
-### Dwayne Johnson movies:
+### Actors that live in Glendale:
 Dwayne Johnson has a house in Glendale
 Mark Wahlberg has a house in Glendale
 ```
