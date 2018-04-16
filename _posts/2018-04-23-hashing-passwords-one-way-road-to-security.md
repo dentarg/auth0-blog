@@ -49,6 +49,16 @@ By dictionary definition, [hashing](https://en.wiktionary.org/wiki/hash) refers 
 
 Hashing is the act of using a function to turn an input into gibberish. In cryptography, a [hash function](https://en.wikipedia.org/wiki/Cryptographic_hash_function) is a mathematical algorithm that maps data of any size to a [bit string](http://www.gnu.org/software/mit-scheme/documentation/mit-scheme-ref/Bit-Strings.html) of a fixed size. The function input is known as the ***pre-image*** and the fixed-size string output is known as the ***hash***. In contrast to encryption, hashing is a one-way mechanism. The data that is hashed cannot be practically "unhashed".
 
+
+<p style="text-align: center;">
+  <img src="https://cdn.auth0.com/blog/hashing-one-way-road-to-security/encryption-flow.png" alt="The encryption flow can be reversed. It's two-way">
+</p>
+
+<p style="text-align: center;">
+  <img src="https://cdn.auth0.com/blog/hashing-one-way-road-to-security/hash-flow.png" alt="The hashing flow cannot be reversed. It's one-way.">
+</p>
+
+
 Let's look at a hashing example using the SHA-256 algorithm from the [Secure Hash Algorithm 2](https://en.wikipedia.org/wiki/SHA-2) family.
 
 Pre-image: `python1990K0OL`
