@@ -5,7 +5,7 @@ description: "A strong password storage strategy is critical to mitigating data 
 longdescription: "A strong password storage strategy is critical to mitigating data breaches that could put the reputation of any organization in danger. Hashing is the foundation of secure password storage. When a database is breached, cleartext passwords let attackers gain access to user accounts right away. If the passwords are hashed, breaking in into user accounts is much more difficult."
 date: 2018-04-23 8:30
 category: Security Authentication Breaches
-design:
+design::
   image: https://cdn.auth0.com/blog/hashing-one-way-road-to-security/hashing.png
   bg_color: "#4B673E"
 author:
@@ -135,7 +135,7 @@ Additionally, through a ***rainbow table attack***, an attacker can use a large 
 
 With a salt, the hash is not based on the value of the password alone. The pre-image is made up of the password plus the salt. A rainbow table is built for a set of predicted passwords. If the hashing of those passwords doesn't include the salt, the rainbow table is useless. If the attacker gets a hold of the salt, the rainbow table now needs to be re-computed, which ideally would take a very long time, further mitigating this attack vector.
 
-> "The trick is to ensure the effort to “break” the hashing exceeds the value that the perpetrators will gain by doing so. None of this is about being “unhackable”; it’s about making the difficulty of doing so not worth the effort." [Troy Hunt](https://twitter.com/troyhunt)
+> _"The trick is to ensure the effort to “break” the hashing exceeds the value that the perpetrators will gain by doing so. None of this is about being “unhackable”; it’s about making the difficulty of doing so not worth the effort."_ - [Troy Hunt](https://twitter.com/troyhunt)
 
 ## No Need for Speed
 
