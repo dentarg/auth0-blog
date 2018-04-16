@@ -27,15 +27,15 @@ related:
 
 Today we've shipped Node 8 support for Slash Webtasks! Slash Webtasks is an amazingly simple way to author custom Slack commands using Webtasks right from within Slack. The app was so popular that over 1300 teams have installed it and authored over 2500 Webtasks that can be called directly using the simiple `/wt task_name` interface.
 
-All newly created Slash Webtasks will be created in the new Node 8 environment. Teams can immediatly start taking advantage of new features including full ES6 support and async/await.
+All newly created Slash Webtasks will be created in the new Node 8 environment. Teams can immediately start taking advantage of new features including full ES6 support and async/await.
 
 But what about existing Slash Webtasks? There are some actions that you can take to proactively migrate and test your commands. The migration process is simple and this post will walk you through all you need to know.
 
 ## Detecting Slash Webtasks to Migrate
 
-Starting now every time the Slash Webtask command is executed on the legacy Node 4 environment, the system will display a warning message with instructions on how to migrate the task to the new Node 8 environment.
+Every time the Slash Webtask command is executed on the legacy Node 4 environment the system will display a warning message with instructions on how to migrate the task to the new Node 8 environment.
 
-The webtask will continue to execute normally, the warning is to allow your team time to migrate your tasks to the new environment.
+The webtask will continue to execute normally. The warning is to allow your team time to migrate your tasks to the new environment.
 
 [![Execution Warning](https://cdn.auth0.com/website/blog/extend/slash-webtasks-migrating-to-node-8/slash-webtasks-execute-migrate.png)](https://cdn.auth0.com/website/blog/extend/slash-webtasks-migrating-to-node-8/slash-webtasks-execute-migrate.png)
 
@@ -67,15 +67,15 @@ See [Troubleshooting Webtasks: Using the Editor](https://auth0.com/blog/troubles
 
 Once edited, you can run the webtask again using the command `/wt node8 {name}` to verify the issue is resolved.
 
-**Note:** The most common issues encounted while migrating to the Node 8 environment are implicit node module dependencies. 
+**Note:** The most common issues encounted while migrating to the Node 8 environment are implicit Node module dependencies. 
 
-Some older Node 4 based webtasks use node modules that were preloaded to the execution environment's images. The Node 8 environment may not have these modules available. Simply add an explicit referrence to any needed modules using the **NPM Modules** panel located in the **Wrench** menu.
+Some older Node 4 based webtasks use Node modules that were preloaded to the execution environment's images. The Node 8 environment may not have these modules available. Simply add an explicit referrence to any needed modules using the **NPM Modules** panel located in the **Wrench** menu.
 
 
 
 ## Promoting a Slash Webtask
 
-Once you are satisfied that your webtask executes as expected in the Node 8 environment, you can use the command `/wt node8 promote {name}` to make the Node 8 version the default. This means that executing `/wt {name}` will now execute the Node 8 version of the webtask. The Node 4 version will no longer be avaiable and will be removed completely once the migration is complete.
+Once you are satisfied that your webtask executes as expected in the Node 8 environment, you can use the command `/wt node8 promote {name}` to make the Node 8 version the default. This means that executing `/wt {name}` will now execute the Node 8 version of the webtask. The Node 4 version will no longer be available and will be removed completely once the migration is complete.
 
 [![Promote Node 8 Webtask](https://cdn.auth0.com/website/blog/extend/slash-webtasks-migrating-to-node-8/slash-webtasks-promote-node8.png)](https://cdn.auth0.com/website/blog/extend/slash-webtasks-migrating-to-node-8/slash-webtasks-promote-node8.png)
 
@@ -87,7 +87,7 @@ On April 30th, Node 4 will officially reach it's end of life. On that date all r
 
 ## What About Webtask.io
 
-Our free serverless sandbox [Webtask.io](https://webtask.io/) also currently runs on Node 4. Migration to Node 8 is next on our list and is coming VERY soon. Keep an eye on this blog for details.
+Our free serverless sandbox [Webtask.io](https://webtask.io/) also currently runs on Node 4. Migration to Node 8 is next on our list and is coming very soon. Keep an eye on this blog for details.
 
 ## Summary
 
