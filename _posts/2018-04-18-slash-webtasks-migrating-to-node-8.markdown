@@ -14,7 +14,7 @@ author:
   avatar: "https://cdn.auth0.com/website/blog/profiles/bobbyjohnson.png"
 design:
   bg_color: "#3445DC"
-  image: https://cdn.auth0.com/blog/slash-webtask-all-your-chatops-are-belong-to-you/logo-webtask-slack.png
+  image: https://cdn.auth0.com/website/blog/extend/slash-webtasks-migrating-to-node-8/slash-webtasks-node8-logo.png
 tags:
 - webtasks
 - slack
