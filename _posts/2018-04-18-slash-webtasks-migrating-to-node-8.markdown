@@ -87,7 +87,7 @@ On April 30th, Node 4 will officially reach it's end of life. On that date all r
 
 ## What About Webtask.io
 
-Our free serverless sandbox [Webtask.io](https://webtask.io/) also currently runs on Node 4. Migration to Node 8 is next on our list and is coming very soon. Keep an eye on this blog for details.
+Our free serverless sandbox [Webtask.io](https://webtask.io/) also currently runs on Node 4. Migration to Node 8 is next on our list and is coming **very** soon. Keep an eye on this blog for details.
 
 ## Summary
 
