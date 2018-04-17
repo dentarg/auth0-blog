@@ -3,17 +3,16 @@ layout: post
 title: "What Are Managed Service Providers?"
 description: "How the right fit can help you source more value from your IT team and secure critical data."
 longdescription: "Understanding the value of managed service providers is key to ensuring success in companies that are scaling. This article describes how, when, and where it is a good idea to use them to maximize success."
-date: 2018-03-30 12:30
-category: Hot Topics, Trends
+date: 2018-04-17 12:30
+category: Hot Topic, Trends
 author:
-  name: CHANGE ME
-  url: http://twitter.com/change.me
-  mail: change.me@auth0.com
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
   avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
-  image: https://cdn.auth0.com/blog/idaas-in-2018/logo.png
-  bg_color: "#222228"
-  image_size: "70%"
+  image: https://cdn.auth0.com/blog/what-are-msp/logo.png
+  bg_color: "#29335C"
 tags:
 - service
 - provider
@@ -21,7 +20,7 @@ tags:
 - managed-service-provider
 - business
 related:
-- 2018-01-26-security-predictions-for-2018-that-go-beyond-gdpr-compliance
+- 2018-02-05-managed-service-providers-myths
 - 2018-02-02-3-ways-to-get-an-iam-budget-in-2018
 - 2017-12-08-how-poor-identity-access-management-equals-security-breaches
 ---
