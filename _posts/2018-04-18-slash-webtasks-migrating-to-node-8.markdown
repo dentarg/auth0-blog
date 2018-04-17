@@ -25,15 +25,15 @@ related:
 - 2016-06-28-building-serverless-apps-with-webtask
 ---
 
-Today we've shipped Node 8 support for Slash Webtasks! Slash Webtasks is an amazingly simple way to author custom Slack commands using Webtasks right from within Slack. The app was so popular that over 1300 teams have installed it and authored over 2500 Webtasks that can be called directly using the simiple `/wt task_name` interface.
+Today we've shipped Node 8 support for Slash Webtasks! Slash Webtasks is an amazingly simple way to author custom Slack commands using Webtasks right from within Slack. The app was so popular that over 1300 teams have installed it and authored over 2500 Webtasks that can be called directly using the simple `/wt task_name` interface.
 
 All newly created Slash Webtasks will be created in the new Node 8 environment. Teams can immediately start taking advantage of new features including full ES6 support and async/await.
 
-But what about existing Slash Webtasks? There are some actions that you can take to proactively migrate and test your commands. The migration process is simple and this post will walk you through all you need to know.
+However, what about existing Slash Webtasks? There are some actions that you can take to migrate and test your commands proactively. The migration process is simple, and this post will walk you through all you need to know.
 
 ## Detecting Slash Webtasks to Migrate
 
-Every time the Slash Webtask command is executed on the legacy Node 4 environment the system will display a warning message with instructions on how to migrate the task to the new Node 8 environment.
+Every time the Slash Webtask command is executed on the legacy Node 4 environment, the system will display a warning message with instructions on how to migrate the task to the new Node 8 environment.
 
 The webtask will continue to execute normally. The warning is to allow your team time to migrate your tasks to the new environment.
 
@@ -45,7 +45,7 @@ To see a list of all the Slash Webtasks your team has created, use the `/wt ls` 
 
 [![List Warning Display](https://cdn.auth0.com/website/blog/extend/slash-webtasks-migrating-to-node-8/slash-webtasks-list-migrate.png)](https://cdn.auth0.com/website/blog/extend/slash-webtasks-migrating-to-node-8/slash-webtasks-list-migrate.png)
 
-In this example, the **eq** and **meetup** tasks have be successfully migrated, but the **stackoverflow** task is still executing on Node 4.
+In this example, the **eq** and **meetup** tasks have been successfully migrated, but the **stackoverflow** task is still executing on Node 4.
 
 ## Migrating a Slash Webtask
 
@@ -55,7 +55,7 @@ To migrate a task to Node 8, you must have permission to edit the existing task.
 
 [![Migrate a Task](https://cdn.auth0.com/website/blog/extend/slash-webtasks-migrating-to-node-8/slash-webtasks-migrate-task.png)](https://cdn.auth0.com/website/blog/extend/slash-webtasks-migrating-to-node-8/slash-webtasks-migrate-task.png)
 
-In this example, the **stackoverflow** task has been successfully migrated. The task is immediately executed in the new environment after migration. If it succeeds normally, you can jump to the promition process to make the Node 8 version the default.
+In this example, the **stackoverflow** task has been successfully migrated. The task is immediately executed in the new environment after migration. If it succeeds normally, you can jump to the promotion process to make the Node 8 version the default.
 
 ## Testing a Slash Webtask
 
@@ -67,9 +67,9 @@ See [Troubleshooting Webtasks: Using the Editor](https://auth0.com/blog/troubles
 
 Once edited, you can run the webtask again using the command `/wt node8 {name}` to verify the issue is resolved.
 
-**Note:** The most common issues encounted while migrating to the Node 8 environment are implicit Node module dependencies. 
+**Note:** The most common issues encountered while migrating to the Node 8 environment are implicit Node module dependencies. 
 
-Some older Node 4 based webtasks use Node modules that were preloaded to the execution environment's images. The Node 8 environment may not have these modules available. Simply add an explicit referrence to any needed modules using the **NPM Modules** panel located in the **Wrench** menu.
+Some older Node 4 based webtasks use Node modules that were preloaded to the execution environment's images. The Node 8 environment may not have these modules available. Simply add an explicit reference to any needed modules using the **NPM Modules** panel located in the **Wrench** menu.
 
 
 
@@ -83,7 +83,7 @@ It is that simple! Now repeat the process for each of your Node 4 based Webtasks
 
 ## Migration Deadline
 
-On April 30th, Node 4 will officially reach it's end of life. On that date all remaining Slash Webtasks executing in the Node 4 environment will be automaticlly migrated. There is a chance this will cause your tasks to fail. Please migrate and test your tasks before this date.
+On April 30th, Node 4 will officially reach it's end of life. On that date, all remaining Slash Webtasks executing in the Node 4 environment will be automatically migrated. There is a chance this will cause your tasks to fail. Please migrate and test your tasks before this date.
 
 ## What About Webtask.io
 
