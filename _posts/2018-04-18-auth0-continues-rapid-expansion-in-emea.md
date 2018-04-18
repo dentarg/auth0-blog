@@ -24,7 +24,7 @@ related:
 ---
 
 
-**BELLEVUE, Wash. -- April 18, 2018** --  –[_Auth0_](https://auth0.com/), a global leader in Identity-as-a-Service (IDaaS), today announced rapid expansion across EMEA, a region which has already seen 550% year-over-year growth. Key contributors to Auth0’s momentum include contracts signed with well-known brands in retail, travel, transport, and financial services, as well as EMEA-wide agreements with key partners, such as [_AppXite_](https://globenewswire.com/news-release/2018/03/20/1442485/0/en/Auth0-Announces-Key-Distribution-Partnership-with-AppXite.html).
+**BELLEVUE, Wash. -- April 18, 2018** -- [_Auth0_](https://auth0.com/), a global leader in Identity-as-a-Service (IDaaS), today announced rapid expansion across EMEA, a region which has already seen 550% year-over-year growth. Key contributors to Auth0’s momentum include contracts signed with well-known brands in retail, travel, transport, and financial services, as well as EMEA-wide agreements with key partners, such as [_AppXite_](https://globenewswire.com/news-release/2018/03/20/1442485/0/en/Auth0-Announces-Key-Distribution-Partnership-with-AppXite.html).
 
 “In today's world with cloud computing services and microservices, integrating with other packages which specialize in a specific industry is usually a lot more cost- and time-efficient than just doing it all by yourself,” says Auth0 customer, Nicolas Dormont, Vice President of Information Systems, abas USA and Corporate Product Manager, abas AG. “We would have had to probably delay the projects at least six months to get to a point where we are with Auth0. To implement Auth0, we are talking days, not even weeks.” 
 
