@@ -58,7 +58,7 @@ Fortunately, despite choosing the same password, `alice` and `bob` chose a passw
  Both dictionary attacks and brute-force attacks require the real-time computation of the hash. Since a good hash function is _slow_, this would take a lot of time. To circumvent this problem, the attacker may rely on a rainbow table.
  
 
-A *rainbow table* can make the exploitation of unsalted passwords easier. A [rainbow table](https://en.wikipedia.org/wiki/Rainbow_table) is essentially a _pre-computed_ database of hashes. Dictionaries and random strings are run through a selected hash function and the pre-image/hash mapping is stored in a table. The attacker can then simply d o a password reverse lookup by using the stolen hashes. 
+A *rainbow table* can make the exploitation of unsalted passwords easier. A [rainbow table](https://en.wikipedia.org/wiki/Rainbow_table) is essentially a _pre-computed_ database of hashes. Dictionaries and random strings are run through a selected hash function and the pre-image/hash mapping is stored in a table. The attacker can then simply do a password reverse lookup by using the stolen hashes. 
 
 The main difference between a rainbow table attack and a dictionary and brute-force attack is _pre-computation_. Rainbow table attacks are fast because the attacker doesn't have to spend any time computing any hashes. The trade-off for the speed gained is the immense amount of space required to host a rainbow table. We could say that a rainbow table attack is a pre-computed dictionary and/or brute-force attack.
 
@@ -105,6 +105,9 @@ Each **unique salt** extends the password `farm1990M0O` and transforms it into a
 
 In practice, we store the salt in cleartext along with the hash in our database. We would store `f1nd1ngn3m0` and `b7d5f95f03261f201b78f7a133f50848f2389f032b4fec9be07f80b34ae89e09` together so that when the user logs in, we can append the salt to the provided password, hash it, and then verify if the stored hash matches the computed hash. 
 
+<p style="text-align: center;">
+  <img src="https://cdn.auth0.com/blog/adding-salt-to-hashing-a-better-way-to-store-passwords/password-salt-flow.png" alt="Workflow that shows how salts fit in the process of hashing and authentication.">
+</p>
 
 Now we can see why it is very important that each pre-image is salted with unique random data:
 
@@ -113,6 +116,10 @@ Now we can see why it is very important that each pre-image is salted with uniqu
 2. If the salt is `f1nd1ngn3m0` for all passwords, we don't gain much other than hashing a much larger password with duplicate hashes still occurring. We may also force the attacker to have to recompute a rainbow table that salts every entry in the table. This would slow down the attacker, but not for too long. Modern hardware is capable of computing rainbow tables very fast!
 
 3. When the salt is unique for hash, we inconvenience the attacker by now having to compute a rainbow table for each user hash. This creates a big bottleneck for the attacker. Ideally, we want the salt to be truly random and unpredictable to bring the attacker to a halt.
+
+<p style="text-align: center;">
+  <img src="https://cdn.auth0.com/blog/adding-salt-to-hashing-a-better-way-to-store-passwords/password-salt-example.png" alt="Example showing how using a salt with hashing produces unique hashes.">
+</p>
 
 While the attacker may be able to crack one password, cracking all passwords will be unfeasible. Regardless, when we experience a data breach, we may not be able to determine which passwords could have been cracked and therefore we must consider all passwords cracked and request all of our users to change their password.  
 
