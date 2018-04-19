@@ -1,9 +1,9 @@
 ---
 layout: post_extend
 title: Webtask.io Migrating to Node 8
-description: ""
-longdescription: ""
-date: 2018-04-19 12:02
+description: "Webtask.io is migrating to Node 8. Find out how that impacts your projects and how to prepare."
+longdescription: "Webtask.io is migrating to Node 8. Find out how that impacts your projects and how to prepare. Migration tools are available directly in the editor and wt-cli."
+date: 2018-04-20 12:00
 category: Technical, Webtasks
 press_release: false
 is_non-tech: false
