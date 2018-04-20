@@ -25,12 +25,13 @@ related:
 - 2016-06-28-building-serverless-apps-with-webtask
 ---
 
+**TL;DR:** Webtask.io is migrating to Node 8 on **May 15, 2018**! Learn how to easily migrate your projects with our new tools.
+
+---
+
 Today we've shipped Node 8 support for [Webtask.io](https://webtask.io)! Webtask.io is our free serverless sandbox that allows you to build applications without thinking about infrastructure. Over the last five years, Webtask.io has become very popular due to its ease of use and focus on quick HTTP response times. To date, 20,000+ developers have built their project using Webtask.io.
 
 Luckily, we have also released some new tools to help make the migration process a snap. I will briefly describe them in this post and point you to other sources of detailed information.
-
-Be sure to migrate your webtasks by **May 15th, 2018**, read on for details.
-
 
 ## Why Node 8
 
