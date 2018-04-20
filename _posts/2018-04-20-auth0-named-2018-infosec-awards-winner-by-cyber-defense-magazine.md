@@ -3,7 +3,7 @@ layout: post
 title: "Auth0 Named 2018 InfoSec Awards Winner by Cyber Defense Magazine"
 description: "Auth0 wins “Editor’s Choice” in Identity and Access Management category"
 longdescription: "Auth0 wins “Editor’s Choice” in Identity and Access Management category"
-date: 2018-04-18 8:30
+date: 2018-04-20 8:30
 category: Announcements, Press
 press_release: true
 is_non-tech: true
@@ -16,10 +16,13 @@ design:
   bg_color: "#222228"
   image: https://cdn.auth0.com/blog/series-c/auth0-logo.png
 tags:
-- foo
+- awards
+- cybersecurity
+- infosec
+- cyber-defense-magazine
 related:
-- 2018-03-20-auth0-announces-key-distribution-partnership-with-appxite
-- 2018-02-19-auth0-provides-authentication-to-coinsource
+- 2017-11-08-auth0-ranked-in-top10-employer-brands
+- 2018-01-29-auth0-announces-record-year
 - 2018-03-05-fubotv-enables-easier-login-with-auth0
 ---
 
