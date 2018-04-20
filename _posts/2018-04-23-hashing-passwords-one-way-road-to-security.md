@@ -18,15 +18,17 @@ tags:
   - salting
   - password-storage
   - security
+  - hash
+  - password
+  - salt
+  - digest
 related:
   - 2017-02-24-sha-1-collision-attack
   - 2017-03-29-is-passwordless-authentication-more-secure-than-passwords
   - 2016-03-02-the-new-trend-of-artisanal-spam/
 ---
 
-The gist of authentication is to provide users with a set of credentials, such a username, and a password, and to verify that they provide the correct credentials whenever they want access to the application. Hence, we need a way to store these credentials in our database for future comparisons.
-
-When it comes to the users, storing a password ideally is limited to memorizing it or using a secure password manager. Writing down our passwords is a sure way to have them compromised. When it comes to the application, storing the user password is much trickier.
+The gist of authentication is to provide users with a set of credentials, such a username, and a password, and to verify that they provide the correct credentials whenever they want access to the application. Hence, we need a way to store these credentials in our database for future comparisons. However, storing passwords on the server side for authentication is a difficult task.
 
 ## Storing Passwords is Risky and Complex
 
@@ -34,11 +36,13 @@ A simple approach to storing passwords is to create a table in our database that
 
 The security strength and resilience of this model depends on _how_ the password is stored. The most basic, but also the least secure, password storage format is ***cleartext***.
 
-***Cleartext*** is a term used to refer to something that you can openly read in plain text. This blog post is presented to you in cleartext. You don't need to do anything special to read it as nothing is being hidden, scrambled or obfuscated. However, storing passwords in cleartext is the equivalent of writing them down in a piece of digital paper. If an attacker was to break into the database and steal the passwords table, the attacker could then access each user account. That sounds like a security nightmare!
+As explained by [Dan Cornell from the Denim Group](https://denimgroup.com/resources/blog/2007/10/cleartext-vs-pl/), ***cleartext*** refers to "readable data transmitted or stored _in the clear_", for example, unencrypted. You may have also seen the terms ***plaintext*** and ***plain text***. What's the difference? According to Cornell, plaintext refers to data that will serve as the input to an encryption algorithm, while plain text refers to unformatted text, such as the content of a plain text file or `.txt`. It's important to know the distinction between these terms as we move forward.
+
+Storing passwords in cleartext is the equivalent of writing them down in a piece of digital paper. If an attacker was to break into the database and steal the passwords table, the attacker could then access each user account. This problem is compounded by the fact that many users re-use or use variations of a single password, potentially allowing the attacker to access other services different from the one being compromised. That all sounds like a security nightmare!
 
 The attack could come from within the organization. A rogue software engineer with access to the database could abuse that access power, retrieve the cleartext credentials, and access any account.
 
-A more secure way to store a password is to transform it into random data that cannot be converted back to the original password. This mechanism is known as ***hashing***. Let's learn more about the theory behind hashing, its benefits, and its limitations.
+A more secure way to store a password is to transform it into data that cannot be converted back to the original password. This mechanism is known as ***hashing***. Let's learn more about the theory behind hashing, its benefits, and its limitations.
 
 {% include tweet_quote.html quote_text="We must guard user accounts from both internal and external unauthorized access. Cleartext storage must never be an option for passwords. Hashing and salting should always be part of a password management strategy." %}
 
@@ -47,7 +51,12 @@ A more secure way to store a password is to transform it into random data that c
 
 By dictionary definition, [hashing](https://en.wiktionary.org/wiki/hash) refers to "chopping something into small pieces" to make it look like a "confused mess". That definition closely applies to what hashing represents in cryptography.
 
-Hashing is the act of using a function to turn an input into gibberish. In cryptography, a [hash function](https://en.wikipedia.org/wiki/Cryptographic_hash_function) is a mathematical algorithm that maps data of any size to a [bit string](http://www.gnu.org/software/mit-scheme/documentation/mit-scheme-ref/Bit-Strings.html) of a fixed size. The function input is known as the ***pre-image*** and the fixed-size string output is known as the ***hash***. In contrast to encryption, hashing is a one-way mechanism. The data that is hashed cannot be practically "unhashed".
+In cryptography, a [hash function](https://en.wikipedia.org/wiki/Cryptographic_hash_function) is a mathematical algorithm that maps data of any size to a [bit string](http://www.gnu.org/software/mit-scheme/documentation/mit-scheme-ref/Bit-Strings.html) of a fixed size. We can refer to the function input as ***message*** or simply as input. The fixed-size string function output is known as the ***hash*** or the ***message digest***. As stated by [OWASP](https://www.owasp.org/index.php/Guide_to_Cryptography#Hashes), hash functions used in cryptography have the following key properties:
+
+* It's easy and practical to compute the hash, but "difficult or impossible to re-generate the original input if only the hash value is known."
+* It's difficult to create an initial input that would match a specific desired output.
+
+Thus, in contrast to encryption, hashing is a one-way mechanism. The data that is hashed cannot be practically "unhashed".
 
 
 <p style="text-align: center;">
@@ -59,21 +68,27 @@ Hashing is the act of using a function to turn an input into gibberish. In crypt
 </p>
 
 
-Let's look at a hashing example using the SHA-256 algorithm from the [Secure Hash Algorithm 2](https://en.wikipedia.org/wiki/SHA-2) family.
+In bitcoin, [integrity and block-chaining](https://en.bitcoin.it/wiki/How_bitcoin_works) use the [SHA-256 algorithm](https://en.wikipedia.org/wiki/SHA-2) as the underlying cryptographic hash function. Let's look at a hashing example using SHA-256: 
 
-Pre-image: `python1990K0OL`
+Input: `python1990K0OL`
 
 Hash (SHA-256): `3c9c93e0f8eb2161e5787f7cd3e4b67f8d98fbd80b7d237cc757583b06daa3e3`
 
-Pre-image: `python`
+Input: `python`
 
 Hash (SHA-256): `98eadd540e6c0579a1bcbe375c8d1ae2863beacdfb9af803e5f4d6dd1f8926c2`
 
-Notice how, despite the length difference between `python1990K0OL` and `python`, each pre-image produces a hash of the same length.
 
-Even if we were to find the details on how the pre-image gets computed into the hash, we could not possibly reverse engineer the hash back into the pre-image. Why's that?
+{% include tweet_quote.html quote_text="Understanding blockchains and cryptocurrency, such as bitcoin, is easier when you understand how cryptographic hash functions work." %}
 
-## Hash Functions are Practically Irreversible
+Notice how, despite the length difference between `python1990K0OL` and `python`, each input produces a hash of the same length.
+
+Even if we were to find the details on how the input gets computed into the hash, we could not possibly reverse the hash back into the input. Why's that?
+
+***Note***: Outside of cryptography, hash functions are widely used but their properties and requirements are different and do not provide security. For example, [cyclic redundancy check (CRC)](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) is a hash function used in network applications to detect errors but it is easily reversible, which makes it unsuitable for use in security applications such as digital signatures.
+
+
+## Cryptographic Hash Functions are Practically Irreversible
 
 Hash functions behave as one-way functions by using mathematical operations that are extremely difficult and cumbersome to revert such as the [modulo operator](https://en.wikipedia.org/wiki/Modulo_operation).
 
@@ -89,27 +104,27 @@ Knowing that the result of a modulo operation is `2` only tells us that `x` divi
 ...
 ```
 
-Additionally, since the output of the hash function is a fixed-sized string, data from the original input may be discarded making it even more difficult, by an astronomical scale, to find the string that was hashed. An input string that is larger than the required output size is reduced to that size by performing a consecutive set of one-way operations. This process makes working back through the hashing algorithm an extremely difficult task as there is an infinite number of possible combinations that could work at each stage of the process.
+Hence, a hash function is designed to be resistant to [pre-image attacks](https://en.wikipedia.org/wiki/Preimage_attack); it must be ***pre-image resistant***. When using a hash function, we must not be able to find a ***pre-image*** by looking at a ***hash***. A pre-image is what we call a value that produces a certain specific hash when used as input to a hash function. 
 
-Hence, a hash function is designed to be resistant to [pre-image attacks](https://en.wikipedia.org/wiki/Preimage_attack); it must be ***pre-image resistant***. When using a hash function, we must not be able to find a ***pre-image*** by looking at a ***hash***. This is extremely important given that the implementation of most hash functions is public!
-
-> This [Wikipedia article](https://en.wikipedia.org/wiki/SHA-2) provides all the details about how the Secure Hash Algorithm 2 (SHA-2) works.
+> If you are curious about how a hash function works, this [Wikipedia article](https://en.wikipedia.org/wiki/SHA-2) provides all the details about how the Secure Hash Algorithm 2 (SHA-2) works.
 
 ## A Small Change Has a Big Impact
 
-Another virtue of a strong hash function is that its output is not easy to serialize. The hash for `dontpwnme4` would be very different than the hash of `dontpwnme5`, even though only the last character in the string changed and both strings would be adjacent in an alphabetically sorted list:
+Another virtue of a secure hash function is that its output is not easy to predict. The hash for `dontpwnme4` would be very different than the hash of `dontpwnme5`, even though only the last character in the string changed and both strings would be adjacent in an alphabetically sorted list:
 
-Pre-image: `dontpwnme4`
+Input: `dontpwnme4`
 
 Hash (SHA-256): `665ec59d7fb01f6070622780e744040239f0aaa993eae1d088bc4f0137d270ef`
 
-Pre-image: `dontpwnme5`
+Input: `dontpwnme5`
 
 Hash (SHA-256): `7ae89eb10a765ec2459bee59ed1d3ed97dbb9f31ec5c7bd13d19380bc39f5288`
 
+Additionally, there is no feasible way for us to determine what the hash of `dontpwnme6` would be based on the two previous hashes.
+
 This property is known as the [avalanche effect](https://en.wikipedia.org/wiki/Avalanche_effect) and it has the desirable effect that if an input is changed slightly, the output is changed significantly.
 
-## Using Hashing for More Secure Password Storage
+## Using Cryptographic Hashing for More Secure Password Storage
 
 The irreversible mathematical properties of hashing make it a phenomenal mechanism to conceal password at rest and in motion. Another critical property that makes hash functions suitable for password storage is that they are deterministic.
 
@@ -121,25 +136,23 @@ To integrate hashing in the password storage workflow, when the user is created,
 
 ## Limitations of Hash Functions
 
-Hashing seems pretty robust. If an attacker breaks into the server and steals the password hashes, all that the attacker can see is gibberish that can't be reversed to cleartext due to the architecture of hash functions. An attacker would need to provide a password to the server to create a hash that could then be used for authentication.
+Hashing seems pretty robust. But, as one of many scenarios, if an attacker breaks into the server and steals the password hashes, all that the attacker can see is random data that can't be reversed to cleartext due to the architecture of hash functions. An attacker would need to provide an input to the hash function to create a hash that could then be used for authentication, which could be done offline without raising any red flags on the server.
 
-The attacker can then either steal the cleartext password from the user through [modern phishing and spoofing techniques](https://auth0.com/blog/the-new-trend-of-artisanal-spam/) or try a ***brute force attack*** where the attacker provides a random password to the server until access is granted.
+The attacker could then either steal the cleartext password from the user through [modern phishing and spoofing techniques](https://auth0.com/blog/the-new-trend-of-artisanal-spam/) or try a ***brute force attack*** where the attacker inputs random passwords into the hash function until a matching hash is found.
 
-To prevent the brute force attack, we could limit the number of login attempts that a user can perform before we lock their accounts. Once the account is locked, any further attempts to log in are disregarded. This greatly reduces the chances of a brute force breach.
-
-Does attacker have any other options?
+A brute-force attack is largely inefficient. Does the attacker have any other options?
 
 Since hash functions are deterministic (the same function input always results in the same hash), if a couple of users were to use the same password, their hash would be identical. If a significant amount of people are mapped to the same hash that could be an indicator to the attacker that the hash represents a commonly used password and allow the attacker to significantly narrow the pool of passwords to use to break in by brute force.
 
-Additionally, through a ***rainbow table attack***, an attacker can use a large database of precomputed hashes to find the pre-image of stolen password hashes. We can mitigate a rainbow table attack by boosting hashing with a procedure that adds unique random data to each input. This practice is known as ***adding salt to a hash*** and it produces ***salted passwords***.
+Additionally, through a ***rainbow table attack***, an attacker can use a large database of precomputed hashes to find the input of stolen password hashes. We can mitigate a rainbow table attack by boosting hashing with a procedure that adds unique random data to each input at the moment they are stored. This practice is known as ***adding salt to a hash*** and it produces ***salted password hashes***.
 
-With a salt, the hash is not based on the value of the password alone. The pre-image is made up of the password plus the salt. A rainbow table is built for a set of predicted passwords. If the hashing of those passwords doesn't include the salt, the rainbow table is useless. If the attacker gets a hold of the salt, the rainbow table now needs to be re-computed, which ideally would take a very long time, further mitigating this attack vector.
+With a salt, the hash is not based on the value of the password alone. The input is made up of the password plus the salt. A rainbow table is built for a set of predicted passwords. If the hashing of those passwords doesn't include the salt, the rainbow table is useless. When the attacker gets a hold of the salt, the rainbow table now needs to be re-computed, which ideally would take a very long time, further mitigating this attack vector.
 
 > _"The trick is to ensure the effort to “break” the hashing exceeds the value that the perpetrators will gain by doing so. None of this is about being “unhackable”; it’s about making the difficulty of doing so not worth the effort."_ - [Troy Hunt](https://twitter.com/troyhunt)
 
 ## No Need for Speed
 
-A hash function should be slow to compute. We can achieve this by making the hash calculation slow by using a lot of internal iterations or by making the calculation memory intensive.
+A cryptographic hash function used for password hashing needs to be slow to compute. We can achieve this by making the hash calculation slow by using a lot of internal iterations or by making the calculation memory intensive.
 
 A fast hash function would make it easier and feasible for an attacker to generate hashes for large random sets of passwords in a short time, especially with the rapidly evolving power of modern hardware. The attacker then can leverage that speed into different attack vectors to breach the server.
 
@@ -149,18 +162,20 @@ It's important to achieve a good balance of speed and usability for hashing func
 
 ## Collision Attacks Deprecate Hash Functions
 
-We discussed that hash functions must be pre-image resistant. However, they also should be resistant to a ***collision attack***. A cryptographic collision occurs when two unique pieces of data produce the same result. A [collision attack](https://en.wikipedia.org/wiki/Collision_attack) is an attempt to find two pre-images that produce the same hash. The attacker could use this collision to fool systems that rely on hashes values by forging a valid hash using incorrect or malicious data.
+Since hash functions can take an input of any size but produce hashes that are fixed-size strings, the set of all possible inputs is infinite while the set of all possible outputs is finite. This makes it possible for multiple inputs to map to the same hash. Therefore, even if we were able to reverse a hash, we would not know for sure that the result was the selected input. This is known as a collision, and despite sounding like a protective mechanism, it's not a desirable effect. 
 
-{% include tweet_quote.html quote_text="Since pre-images can be of infinite length but hashes are of a fixed length, collisions are possible. Despite a collision risk being statistically very low, collisions have been found in commonly used hash functions." %}
+A cryptographic collision occurs when two unique inputs produce the same hash. Consequently, a [***collision attack***](https://en.wikipedia.org/wiki/Collision_attack) is an attempt to find two pre-images that produce the same hash. The attacker could use this collision to fool systems that rely on hashed values by forging a valid hash using incorrect or malicious data. Therefore, cryptographic hash functions must also be resistant to a collision attack by making it very difficult for attackers to find these unique values.
+
+{% include tweet_quote.html quote_text="Since inputs can be of infinite length but hashes are of a fixed length, collisions are possible. Despite a collision risk being statistically very low, collisions have been found in commonly used hash functions." %}
 
 For simple hashing algorithms, a simple Google search will allow us to find tools that convert a hash back to its cleartext input. The [MD5](https://security.googleblog.com/2014/09/gradually-sunsetting-sha-1.html) algorithm and the [SHA1](https://security.googleblog.com/2017/02/announcing-first-sha1-collision.html) algorithm have been deemed unsafe to use and deprecated by Google due to the occurrence of cryptographic collisions.
 
-Google recommends using stronger hashing algorithms such as SHA-256 and SHA-3. However, as we've explored earlier, hashing alone is not sufficient and should be combined with salts.
+Google recommends using stronger hashing algorithms such as SHA-256 and SHA-3. Other options commonly used in practice are `bcrypt`, `scrypt`, `PBKDF2`, among many others that you can [find in this list of cryptographic algorithms](https://en.wikipedia.org/wiki/List_of_algorithms#Cryptography). However, as we've explored earlier, hashing alone is not sufficient and should be combined with salts, which we'll explore in a future post.
 
 ## Simplifying Password Management with Auth0
 
 You can minimize the overhead of hashing, salting and password management through [Auth0](https://auth0.com/). We solve the most complex identity use cases with an extensible and easy to integrate platform that secures billions of logins every month.
 
-Auth0 helps you prevent critical identity data from falling into the wrong hands. We never store passwords in cleartext. Passwords are always hashed and salted using [bcrypt](https://en.wikipedia.org/wiki/Bcrypt). Additionally, data at rest and in motion is always encrypted by using TSL with at least 128-bit AES encryption. We've built state-of-the-art security into our product, to protect your business and your users.
+Auth0 helps you prevent critical identity data from falling into the wrong hands. We never store passwords in cleartext. Passwords are always hashed and salted using [bcrypt](https://en.wikipedia.org/wiki/Bcrypt). Additionally, data at rest and in motion is always encrypted by using TLS with at least 128-bit AES encryption. We've built state-of-the-art security into our product, to protect your business and your users.
 
 Make the internet safer, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account</a> today.
