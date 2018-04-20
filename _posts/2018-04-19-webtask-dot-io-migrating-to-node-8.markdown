@@ -40,8 +40,6 @@ Webtasks have been happily running on Node 4 for years. But Node 4 reaches it's 
 - Full ES6 support
 - Async/Await support
 - Access to even more NPM modules
-- **Need more examples**
-
 
 ## Webtask.io Migration Tools
 
