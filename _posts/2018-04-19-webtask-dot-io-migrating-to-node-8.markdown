@@ -29,6 +29,8 @@ Today we've shipped Node 8 support for [Webtask.io](https://webtask.io)! Webtask
 
 Luckily, we have also released some new tools to help make the migration process a snap. I will briefly describe them in this post and point you to other sources of detailed information.
 
+Be sure to migrate your webtasks by **May 15th, 2018**, read on for details.
+
 
 ## Why Node 8
 
@@ -49,7 +51,7 @@ The next time users log in to [Webtask.io/make](https://webtask.io/make), they w
 
 [![Import Node 4 Webtasks](https://cdn.auth0.com/website/blog/extend/webtask-io-migrating-to-node-8/node-8-import.png)](https://cdn.auth0.com/website/blog/extend/webtask-io-migrating-to-node-8/node-8-import.png)
 
-The editor will switch to the Node 8 environment and  **Import From Node 4** dialog will be displayed. The import tool allows you to select a set of webtasks and both simulate and execute the import process that copies your webtask code, secrets, data and CRON schedules to the Node 8 environment.
+The editor will switch to the Node 8 environment and the **Import From Node 4** dialog will be displayed. The import tool allows you to select a set of webtasks and both simulate and execute the import process that copies your webtask code, secrets, data and CRON schedules to the Node 8 environment.
 
 **Note:** None of the actions available in the import tool are destructive. Your Node 4 webtasks will be left intact until you choose to complete the migration by clicking the **Permanently switch to Node 8** button. Completing the migration will cause all webtasks on the Node 4 environment to be permanently deleted.
 
@@ -60,7 +62,9 @@ For detailed instructions on the migration process, please review the [Webtask.i
 
 After updating to the latest version of the wt-cli, any command a user issues using a Node 4 based profile will produce a warning about the impending end of life for Node 4. We have added a whole set of migration commands that will perform the migration process.
 
-- Update to the latest version by executing `npm update -g wt-cli`
+Starting the migration process with the CLI is easy:
+
+- Update to the latest version of the CLI by executing `npm update -g wt-cli`
 - Ensure you have been updated to  wt-cli@9.3 or later by executing `wt -v`
 - Run the migration dry run by executing `wt profile migrate`
 
