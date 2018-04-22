@@ -71,7 +71,7 @@ Starting the migration process with the CLI is easy:
 
 The wt-cli will run the dry run simulation and display the results for all webtasks in the Node 4 environment. Execute `wt profile migrate --yes` to perform the migration. The wt-cli will copy your webtask code, secrets, data and CRON schedules to the Node 8 environment.
 
-**Note:** None of the migrate commands are destructive. Your Node 4 webtasks will be left intact until you choose to complete the migration by executing `wt init --node8`. Completing the migration will cause all webtasks on the Node 4 environment to be permanently deleted.
+**Note:** None of the migrate commands are destructive. Your Node 4 webtasks will be left intact until you choose to complete the migration by executing `wt init --finalize`. Completing the migration will cause all webtasks on the Node 4 environment to be permanently deleted.
 
 For detailed instructions on the migration process, please review the [wt-cli Migration Guide](https://github.com/auth0/wt-cli/wiki/Node8---wt-cli).
 
