@@ -22,6 +22,7 @@ related:
 - angular-2-ngmodules
 - introducing-angular2-jwt-a-library-for-angular2-authentication
 - create-a-desktop-app-with-angular-2-and-electron
+lang: en
 alternate_locale_ja: jp-building-and-authenticating-nodejs-apps
 ---
 

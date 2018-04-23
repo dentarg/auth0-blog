@@ -25,6 +25,8 @@ related:
 - 2015-09-23-what-is-and-how-does-single-sign-on-work
 - 2014-08-22-sso-for-legacy-apps-with-auth0-openid-connect-and-apache
 - 2014-07-02-wordpress-single-sign-on
+lang: en
+alternate_locale_ja: jp-sso-login-key-benefits-and-implementation
 ---
 
 <div class="alert alert-info alert-icon">
