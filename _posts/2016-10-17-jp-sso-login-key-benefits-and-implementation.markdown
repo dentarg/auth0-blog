@@ -85,7 +85,7 @@ SSO ログイン統合にはさまざまなものがあります。これらは�
 
 セントラル認証サーバーとして Auth0 を使ったプロセスフローは以下の通りです。
 
-![Using Auth0 as the central authentication domain](https://cdn.auth0.com/blog/auth0-sso-flow.png)
+![Using Auth0 as the central authentication domain](https://cdn.auth0.com/blog/auth0-sso-flow/japanese.png)
 _セントラル認証ドメインとして Auth0 を使用する_
 
 Auth0 を使用すると、数回のクリックでSSOログインが可能です。 **Auth0** は、以 **Microsoft Azure Active Directory** 、 **Box** 、 **CloudBees** 、 **Concur** 、 **Dropbox** 、 **Microsoft Dynamics CRM** 、 **Adobe Echosign** 、 **Egnyte** 、 **New Relic** 、 **Office 365** 、 **Salesforce** 、 **SharePoint** 、 **Slack** , **Springcm** 、 **Zendesk** 、および **Zoom** などを含む15以上のクラウドアプリケーションを標準サポートしています。
