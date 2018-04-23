@@ -52,7 +52,7 @@ The attacker can better predict the password that legitimate maps to that hash. 
 
 ## Attacking Unsalted Passwords
 
-To start, the attacker could try a [dictionary attack](https://en.wikipedia.org/wiki/Dictionary_attack). Using a list of words with their pre-computed hash, the attacker easily compares the hashes from our table with every hash on the list. If a match is found, the password then can be deduced.
+To start, the attacker could try a [dictionary attack](https://en.wikipedia.org/wiki/Dictionary_attack). Using a pre-arranged listing of words, such as the entries from the English dictionary, with their computed hash, the attacker easily compares the hashes from a stolen passwords table with every hash on the list. If a match is found, the password then can be deduced.
 
 > Two _different_ hash functions can produce the same hash; however, the risk of this happening is extremely low. But, how do attackers know which hash function to use? [It's not too hard](https://security.stackexchange.com/a/180536).
 
