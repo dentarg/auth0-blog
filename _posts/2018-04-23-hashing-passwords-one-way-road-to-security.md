@@ -28,7 +28,7 @@ related:
   - 2016-03-02-the-new-trend-of-artisanal-spam/
 ---
 
-The gist of authentication is to provide users with a set of credentials, such a username and a password, and to verify that they provide the correct credentials whenever they want access to the application. Hence, we need a way to store these credentials in our database for future comparisons. However, storing passwords on the server side for authentication is a difficult task. Let's explore one of the mechanisms that makes password storage secure and easier: hashing.  
+The gist of authentication is to provide users with a set of credentials, such a username and a password, and to verify that they provide the correct credentials whenever they want access to the application. Hence, we need a way to store these credentials in our database for future comparisons. However, storing passwords on the server side for authentication is a difficult task. Let's explore one of the mechanisms that make password storage secure and easier: hashing.  
 
 ## Storing Passwords is Risky and Complex
 
@@ -67,7 +67,7 @@ Thus, in contrast to encryption, hashing is a one-way mechanism. The data that i
   <img src="https://cdn.auth0.com/blog/hashing-one-way-road-to-security/hash-flow.png" alt="The hashing flow cannot be reversed. It's one-way.">
 </p>
 
-Commonly used hashing algorithms include Message Digest (MDx) algorithms, such as MD5, and Secure Hash Algorithms (SHA), such as SHA-1 and the SHA-2 family that includes the widely used SHA-256 algorithm. Later on, we are going to learn about the strength of these algorithms and how some of them have been deprecated or have fallen out of use due to security vulnerabilities.
+Commonly used hashing algorithms include Message Digest (MDx) algorithms, such as [MD5](https://en.wikipedia.org/wiki/MD5), and [Secure Hash Algorithms (SHA)](https://en.wikipedia.org/wiki/Secure_Hash_Algorithms), such as SHA-1 and the SHA-2 family that includes the widely used SHA-256 algorithm. Later on, we are going to learn about the strength of these algorithms and how some of them have been deprecated or have fallen out of use due to security vulnerabilities.
 
 In bitcoin, [integrity and block-chaining](https://en.bitcoin.it/wiki/How_bitcoin_works) use the [SHA-256 algorithm](https://en.wikipedia.org/wiki/SHA-2) as the underlying cryptographic hash function. Let's look at a hashing example using SHA-256:
 
@@ -84,7 +84,7 @@ Hash (SHA-256): `98eadd540e6c0579a1bcbe375c8d1ae2863beacdfb9af803e5f4d6dd1f8926c
 
 Using SHA-256, we have transformed a random-size input into a fixed-size bit string. Notice how, despite the length difference between `python1990K0OL` and `python`, each input produces a hash of the same length. Using a [hexadecimal representation](http://mathworld.wolfram.com/Hexadecimal.html), each hash has 64 digits that represent a 256-bit long string; each hexadecimal digit represents 4 bits.
 
-Outside of cryptography, hash functions are widely used but their properties and requirements are different and do not provide security. For example, [cyclic redundancy check (CRC)](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) is a hash function used in network applications to detect errors but it is easily reversible, which makes it unsuitable for use in security applications such as digital signatures.
+Outside of cryptography, hash functions are widely used but their properties and requirements are different and do not provide security. For example, [cyclic redundancy check (CRC)](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) is a hash function used in network applications to detect errors but it is not pre-image resistant, which makes it unsuitable for use in security applications such as digital signatures.
 
 Throughout this article, we are going to explore what are the required properties that make a hash function suitable for usage in cryptography. To start, we should know that even if we were to find the details on how the input to a cryptographic hash function gets computed into a hash, it would not be practical for us to reverse the hash back into the input. Why's that?
 
@@ -104,7 +104,7 @@ Knowing that the result of a modulo operation is `2` only tells us that `x` divi
 ...
 ```
 
-When using a cryptographic hash function, we must not be able to find a ***pre-image*** by looking at a ***hash***. A pre-image is what we call a value that produces a certain specific hash when used as input to a hash function. Hence, a cryptographic hash function is designed to be resistant to [pre-image attacks](https://en.wikipedia.org/wiki/Preimage_attack); it must be ***pre-image resistant***. So if an attacker knows a hash, it is computationally infeasible to find any input that hashes to that given output.
+When using a cryptographic hash function, we must not be able to find a ***pre-image*** by looking at a ***hash***. A pre-image is what we call a value that produces a certain specific hash when used as input to a hash function. Hence, a cryptographic hash function is designed to be resistant to [pre-image attacks](https://en.wikipedia.org/wiki/Preimage_attack); it must be ***pre-image resistant***. So if an attacker knows a hash, it is computationally infeasible to find any input that hashes to that given output. This property is what makes hashing one of the [foundations of bitcoin and blockchains](https://auth0.com/blog/an-introduction-to-ethereum-and-smart-contracts/).
 
 > If you are curious about how a hash function works, this [Wikipedia article](https://en.wikipedia.org/wiki/SHA-2) provides all the details about how the Secure Hash Algorithm 2 (SHA-2) works.
 
@@ -172,7 +172,7 @@ Google recommends using stronger hashing algorithms such as SHA-256 and SHA-3. O
 
 Let's recap what we've learned through this article:
 
-* The core purpose of hashing is to create a fingerprint of data which can be used to easily assess its integrity.
+* The core purpose of hashing is to create a fingerprint of data to assess data integrity, not confidentiality. Confidentiality is gained through encryption.
 * A hashing function takes arbitrary inputs and transforms them into outputs of a fixed length.
 * To qualify as a cryptographic hash function, a hash function must be pre-image resistant and collision resistant.
 * Due to rainbow tables, hashing alone is not sufficient to protect passwords for mass exploitation. To mitigate this attack vector, hashing must integrate the use of cryptographic salts.
