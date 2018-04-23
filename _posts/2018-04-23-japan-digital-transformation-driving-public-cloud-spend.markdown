@@ -3,7 +3,7 @@ layout: post
 title: "Japan's Digital Transformation Driving Public Cloud Spend"
 description: "Japan’s public cloud spend is expected to reach $5.8 billion by the end of 2018, but cyberattacks are on the rise. Auth0 authentication can help."
 longdescription: "Public cloud spend in Japan is expected to reach $5.8 billion by the end of 2018. With increased reliance on cloud services, comes an increased awareness of the potential for cyberattacks. “Authentication — making sure that users are who they claim to be — is a foundational security control,” says Auth0 CISO Joan Pepin."
-date: 2018-04-23 14:33
+date: 2018-04-23 08:33
 category: Hot Topics, Security
 is_non-tech: true
 author:
@@ -13,7 +13,7 @@ author:
   avatar: "https://cdn.auth0.com/blog/avatars/jenny-obrien.png"
 design:
   bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/series-c/auth0-logo.png
+  image: https://cdn.auth0.com/blog/japan-digital-transformation/logo.png
 tags:
 - cyber-attacks
 - cybersecurity
@@ -23,7 +23,7 @@ tags:
 - security
 related:
 - 2018-04-10-aws-summit-how-agl-increased-ttv-and-customer-experience
-- 2018-01-08-meltdown-and-spectre-what-auth0-customers-need-to-know
+- 2018-03-28-security-vs-convenience
 - 2018-04-02-security-risk-20-plus-billion-iot-devices-by-2020
 ---
 
