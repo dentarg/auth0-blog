@@ -1,34 +1,30 @@
 ---
 layout: post
-title: "Developing AngularJS Applications - Part 1: Component-Based Architecture"
+title: "New Features for Developing AngularJS Applications - Part 1: Component-Based Architecture"
 description: "Learn how to develop applications in AngularJS using a component-based architecture."
 longdescription: "Learn about the latest recipes in building AngularJS applications. The use of component directives, one-way dataflow, advanced directives, single-slot and multi-slot transclusions, and lifecycle hooks."
-date: 2018-01-10 08:30
+date: 2018-04-24 08:30
 category: Technical guide, Frontend, AngularJS
 design:
-  bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/jsdeploy/logo.png
+  image: https://cdn.auth0.com/blog/angular/logo3.png
+  bg_color: "#012C6C"
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
   mail: prosper.otemuyiwa@auth0.com
   avatar: https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200
 tags:
-- b2c
-- sso
+- angular
+- angularjs
 - identity
 - auth0
-- user-experience
-- ux
-- use-case
-- single-sign-on
-- digital-transformation
-- retail
-- modernization
+- component
+- authentication
+- javascript
 related:
-- 2017-12-18-retail-analytics-past-present-and-future
-- 2017-10-12-consolidating-multiple-identity-sources-with-auth0
-- 2017-10-13-how-do-i-modernize-my-legacy-system
+- 2016-01-04-secure-your-react-and-redux-app-with-jwt-authentication
+- 2016-09-29-angular-2-authentication
+- 2017-02-21-reactjs-authentication-tutorial
 ---
 
 **TL;DR:** AngularJS 1.5+ has undergone major updates. In this article, you'll learn how to develop AngularJS applications using a component-based architecture and leverage the API changes that will help you write your AngularJS applications in an Angular(v2+) style.
@@ -37,7 +33,9 @@ The Component-based Architecture is prevalent in frontend development today. Jav
 
 {% include tweet_quote.html quote_text="The Component-based Architecture is prevalent in frontend development today." %}
 
-A typical example of an application built applying the component architecture involves developing several features of the application as modules with reusable components. For example, let's use a Music Player application. A required feature for this product could be a Music Player widget. A developer designing their app in a component-based architecture style can model this feature as a *Module*.
+A typical example of an application built applying the component architecture involves developing several features of the application as modules with reusable components. 
+
+For example, let's use a Music Player application. A required feature for this product could be a Music Player widget. A developer designing their app in a component-based architecture style can model this feature as a *Module*.
 
 Let's call it the _Music Player Widget_ Module. Inside the module, we can have the following components:
 
@@ -51,7 +49,11 @@ In a Component-based Architecture, we usually have _Parent_ and _Child_ componen
 
 The Angular team introduced the `.component()` method in AngularJS 1.5. This method allows developers to write their applications using the component-based architecture. How do we use the `.component()` ?
 
-Before Angular 1.5, we only had directives, Angular directives such as `ngHide`, `ngHref`, `ngRepeat`, and custom directives. Directives are a unique and powerful feature that allows you create custom HTML-like tags, specific to your application. In this article, we'll examine a directive, and convert it to a component using the `.component()` method.
+Before Angular 1.5, we only had directives, Angular directives such as `ngHide`, `ngHref`, `ngRepeat`, and custom directives. 
+
+Directives are a unique and powerful feature that allows you create custom HTML-like tags, specific to your application. In this article, we'll examine a directive, and convert it to a component using the `.component()` method.
+
+{% include tweet_quote.html quote_text="Directives are a unique and powerful feature that allows you create custom HTML-like tags, specific to your application" %}
 
 ```js
 angular.module('tutorial', [])
@@ -73,7 +75,7 @@ angular.module('tutorial', [])
       },
       controllerAs: 'abacus',
       template: `
-        <div class="todo">
+        <div>
           <input type="text" ng-model="$ctrl.count">
           <button type="button" ng-click="$ctrl.decrement();">-</button>
           <button type="button" ng-click="$ctrl.increment();">+</button>
@@ -107,7 +109,9 @@ Nice and simple. Essentially the return `{};` statement inside the `.directive()
 
 ## Bindings
 
-In a `.directive()`, the scope property allows us to define whether we want to isolate the `$scope` or inherit it, this has now become a sensible default to always make our Directives have isolate scope. So repeating ourselves each time just creates excess boilerplate. With the introduction of `bindToController`, we can explicitly define which properties we want to pass into our isolate scope and bind directly to the Controller.
+In a `.directive()`, the scope property allows us to define whether we want to isolate the `$scope` or inherit it, this has now become a sensible default to always make our directives have isolated scope. So repeating ourselves each time just creates excess boilerplate. 
+
+With the introduction of `bindToController`, we can explicitly define which properties we want to pass into our isolate scope and bind directly to the Controller.
 
 With the bindings property on `.component()` we can remove this boilerplate and simply define what we want to pass down to the component, under the assumption that the component will have an isolated scope.
 
@@ -179,7 +183,9 @@ This then allows us to use something like `vm.title` inside our template to talk
 }
 ```
 
-This helps us minimize our code by preventing the use of `controllerAs` property. However, we can add the `controllerAs` property to maintain backwards compatibility or keep it if that’s within your style for writing directives or components. There is another option that completely eliminates the need for `controllerAs`, and Angular automatically uses the property, `$ctrl`. For instance:
+This helps us minimize our code by preventing the use of `controllerAs` property. However, we can add the `controllerAs` property to maintain backwards compatibility or keep it if that’s within your style for writing directives or components. 
+
+There is another option that completely eliminates the need for `controllerAs`, and Angular automatically uses the property, `$ctrl`. For instance:
 
 ```js
 .component('bet', {
@@ -255,7 +261,7 @@ Look at the code below, and how the template property is defined.
     this.decrement = decrement;
   },
   template: `
-    <div class="todo">
+    <div>
       <input type="text" ng-model="$ctrl.count">
       <button type="button" ng-click="$ctrl.decrement();">-</button>
       <button type="button" ng-click="$ctrl.increment();">+</button>
@@ -272,7 +278,7 @@ The template property can be defined as a function injected with `$element` and 
   template: function ($element, $attrs) {
     // access to $element and $attrs
     return `
-      <div class="todo">
+      <div>
         <input type="text" ng-model="$ctrl.count">
         <button type="button" ng-click="$ctrl.decrement();">-</button>
         <button type="button" ng-click="$ctrl.increment();">+</button>
@@ -358,7 +364,8 @@ angular
   .controller('ExampleController', ExampleController);
 ```
 
-```bash
+{% highlight html %}
+{% raw %}
 <div ng-app="app">
   <div ng-controller="ExampleController as example">
     <h3>
@@ -381,7 +388,8 @@ angular
     <sample firstObj="example.exfirstObj" secondObj="example.exSecondObj"></sample>
   </div>
 </div>
-```
+{% endraw %}
+{% endhighlight %}
 
 One-way data binding allows changes to propagate down and flow into the component to update it with new data.
 
