@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Developing AngularJS Applications - Part 2: Component-Based Application"
-description: "Learn how to develop applications in AngularJS using a component-based architecture.""
+title: "New Features for Developing AngularJS Applications - Part 2"
+description: "Learn how to develop applications in AngularJS  using a component-based architecture."
 longdescription: "Build AngularJS applications using newer features such as one-way dataflow, component-based architecture, lifecycle hooks, updated UI router flow. Components all the way."
 date: 2018-04-22 8:30
 category: Technical Guide, Frontend, AngularJS
@@ -28,7 +28,7 @@ related:
 
 ---
 
-**TL;DR:** In this article, you'll develop a simple application in AngularJS 1.5. This application will show you how to use some of the features discussed in [Part 1 of this tutorial](#) to build component-based AngularJS applications. If you want to skip the tutorial and dive straight into the code, the [repo](https://github.com/auth0-blog/speakerhang) is publicly available.
+**TL;DR:** In this article, you'll develop a simple application in AngularJS 1.5. This application will show you how to use some of the features discussed in [Part 1 of this tutorial]() to build component-based AngularJS applications. If you want to skip the tutorial and dive straight into the code, the [repo](https://github.com/auth0-blog/speakerhang) is publicly available.
 
 ---
 
@@ -36,9 +36,11 @@ Before AngularJS 1.5, developers relied solely on directives to be able to build
 
 ## Introducing SpeakerHang
 
-I admire several developers in the community because of their works, and one of them is [Nadia Odunayo](http://twitter.com/nodunayo). She's a Ruby developer and regular conference speaker. She built a pretty popular side project called [Speakerline](http://speakerline.io). Speakerline is an open source project to help demystify the tech conference CFP process for new speakers. The project is built in Rails. 
+I admire several developers in the community, and one of them is [Nadia Odunayo](http://twitter.com/nodunayo). She's a Ruby developer and regular conference speaker. She built a pretty popular side project called [Speakerline](http://speakerline.io). Speakerline is an open source project to help demystify the tech conference CFP process for new speakers. The project is built in Rails. 
 
-SpeakerHang, the project we'll build in this tutorial is largely inspired by Speakerline. It's a simpler version. SpeakerHang displays a list of conference speakers and their details. It also allows you to add a speaker. Worthy of note here is that there is no database or external REST API. The Speakers are added to a temporary in-memory store, array. The crux of this guide is to teach you how to build a component-based AngularJS application easily.
+**SpeakerHang**, the project we'll build in this tutorial is largely inspired by **Speakerline**. It's a simpler version. **SpeakerHang** displays a list of conference speakers, their details and allows you to add a speaker. 
+
+Worthy of note here is that there is no database or external REST API. The speakers are added to a temporary in-memory store, array. The crux of this guide is to teach you how to build a component-based AngularJS application easily.
 
 ## Visualizing SpeakerHang
 
@@ -149,16 +151,17 @@ gulp component --name navbar
 
 This command will generate a new component, `navbar`, inside the `components` folder with the following files:
 
-* navar.component.js - The navbar component itself
-* navbar.html - The navbar template
-* navbar.scss - The style for the navbar template
-* navbar.js - The navbar module that ties everything together
-* navbar.controller.js - The navbar controller that defines the business logic
-* navbar.spec.js - The navbar test file
+* _navar.component.js_ - The navbar component itself
+* _navbar.html_ - The navbar template
+* _navbar.scss_ - The style for the navbar template
+* _navbar.js_ - The navbar module that ties everything together
+* _navbar.controller.js_ - The navbar controller that defines the business logic
+* _navbar.spec.js_ - The navbar test file
 
 The first step is to add meat to the navbar template. Replace the content with this:
 
-```html
+{% highlight html %}
+{% raw %}
 <div class="navigation">
   <ul>
     <li><a href="#" class="heading">SpeakerHang</a></li>
@@ -169,7 +172,8 @@ The first step is to add meat to the navbar template. Replace the content with t
   </ul>
 </div>
 <hr>
-```
+{% endraw %}
+{% endhighlight %}
 
 Head over to `app.js` to import the navbar component.
 
@@ -188,22 +192,25 @@ angular.module('app', [
   .component('app', AppComponent);
 ```
 
-We have imported the Navbar component and registered it with our app's module. However, we need to take one more step to make sure it reflects on the page.
+We have imported the navbar component and registered it with our app's module. However, we need to take one more step to make sure it reflects on the page.
 
 Call the `navbar` component in `app/app.html`.
 
 _app/app.html_
-```html
+
+{% highlight html %}
+{% raw %}
 <!-- Place all UI elements intended to be present across all routes in this file -->
 <div class="container">
   <navbar></navbar>
   <div ui-view></div>
 </div>
-```
+{% endraw %}
+{% endhighlight %}
 
 Your app should show the navbar now. Awesome!!!
 
-#### Speaker List component
+### Speaker List Component
 
 Let's create the speaker list component. Run the component creation command in the terminal like so:
 
@@ -342,7 +349,8 @@ Update the speaker view, `speakerlist.html`, to have the necessary code to displ
 
 _speakerlist.html_
 
-```html
+{% highlight html %}
+{% raw %}
 <section>
   <div class="row">
     <div class="row" ng-repeat="speaker in vm.speakers">
@@ -364,7 +372,8 @@ _speakerlist.html_
     </div>
   </div>
 </section>
-```
+{% endraw %}
+{% endhighlight %}
 
 Now, we need to import the speaker list component in the `app.js` file and define a route for `/speakers`.
 
@@ -426,7 +435,7 @@ Your app should look like this now:
 ![SpeakerHang - List of speakers](https://cdn.auth0.com/blog/speakerhang/speakerlist.png)
 _SpeakerHang - List of speakers_
 
-####Add Speaker component
+### Add Speaker Component
 
 Let's create the add speaker component. Run the component creation command in the terminal like so:
 
@@ -467,7 +476,7 @@ Click on the `Add A Speaker` link on the navbar. You'll be directed to the `/add
 
 **Note:** We need to add a speaker form to the template of the `addspeaker` component, but we'll come back to it once we are done with creating the speaker form component.
 
-#### Speaker Form component
+### Speaker Form Component
 
 Let's create the speaker form component. Run the component creation command in the terminal like so:
 
@@ -477,7 +486,8 @@ gulp component --name speakerform
 
 Open up `app/components/speakerform/speakerform.html` and add the form code to it like so:
 
-```html
+{% highlight html %}
+{% raw %}
 <form role="form" ng-submit="vm.addSpeaker()">
   <div class="row">
     <div class="six columns">
@@ -498,7 +508,8 @@ Open up `app/components/speakerform/speakerform.html` and add the form code to i
   
   <input class="button-primary" type="submit" value="Submit">
 </form>
-```
+{% endraw %}
+{% endhighlight %}
 
 In the code above, we have the `addSpeaker()` function that will be invoked when the form is submitted. The data of each input type will be submitted to the `speaker` object, made possible via `ng-model`.
 
@@ -585,11 +596,14 @@ One more thing, remember the `app/components/addspeaker/addspeaker.html` file? i
 
 _app/components/addspeaker/addspeaker.html_
 
-```html
+
+{% highlight html %}
+{% raw %}
 <div>
   <speaker-form></speaker-form>
 </div>
-```
+{% endraw %}
+{% endhighlight %}
 
 Try to add a speaker now. The speaker form works and it adds a new speaker to the list of speakers. Yaay!!!
 
@@ -598,437 +612,6 @@ _SpeakerHang - Add Speaker_
 
 ## Adding Authentication to Your AngularJS App
 
-The majority of the apps we use on a daily basis have a means of authenticating users. I'll show you how to easily add authentication to our **AngularJS 1.5** application. We'll use [Auth0](https://auth0.com/) as our authentication service.
-
-Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free one now.
-
-> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
-
-Login to your Auth0 [management dashboard](https://manage.auth0.com) and let's create a new Auth0 API. To do so, click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API **Startup Battle API** and for the identifier I'll set it as **http://startupbattle.com**. We'll leave the signing algorithm as RS256 and click on the **Create API** button.
-
-![Creating the startupbattle API](https://cdn2.auth0.com/blog/startupbattle/api.png)
-_Creating the Startup battle API_
-
-Next, let's define some scopes for our API. Scopes allow us to manage access to our API. We can define as few or as many scopes as we want. For our simple example, we'll just create a single scope that will grant users full access to the API.
-
-![Locate scopes bar](https://cdn2.auth0.com/blog/startupbattles/scope.png)
-_Locate Scopes bar_
-
-![Adding Scope to API](https://cdn2.auth0.com/blog/startupbattles/scopes.png)
-_Adding scope_
-
-We'll create an authentication helper to handle everything about authentication in our app. Go ahead and create an `auth.js` file inside the `utils` directory.
-
-Before we add code, you need to install `jwt-decode` and `auth0-js` node package like so:
-
-```bash
-npm install jwt-decode auth0-js --save
-
-```
-
-Open up the `auth.js` file and add code to it like so:
-
-```js
-import decode from 'jwt-decode';
-import axios from 'axios';
-import auth0 from 'auth0-js';
-import Router from 'vue-router';
-import Auth0Lock from 'auth0-lock';
-const ID_TOKEN_KEY = 'id_token';
-const ACCESS_TOKEN_KEY = 'access_token';
-
-const CLIENT_ID = '{AUTH0_CLIENT_ID}';
-const CLIENT_DOMAIN = '{AUTH0_DOMAIN}';
-const REDIRECT = 'YOUR_CALLBACK_URL';
-const SCOPE = '{SCOPE}';
-const AUDIENCE = 'AUDIENCE_ATTRIBUTE';
-
-var auth = new auth0.WebAuth({
-  clientID: CLIENT_ID,
-  domain: CLIENT_DOMAIN
-});
-
-export function login() {
-  auth.authorize({
-    responseType: 'token id_token',
-    redirectUri: REDIRECT,
-    audience: AUDIENCE,
-    scope: SCOPE
-  });
-}
-
-var router = new Router({
-   mode: 'history',
-});
-
-export function logout() {
-  clearIdToken();
-  clearAccessToken();
-  router.go('/');
-}
-
-export function requireAuth(to, from, next) {
-  if (!isLoggedIn()) {
-    next({
-      path: '/',
-      query: { redirect: to.fullPath }
-    });
-  } else {
-    next();
-  }
-}
-
-export function getIdToken() {
-  return localStorage.getItem(ID_TOKEN_KEY);
-}
-
-export function getAccessToken() {
-  return localStorage.getItem(ACCESS_TOKEN_KEY);
-}
-
-function clearIdToken() {
-  localStorage.removeItem(ID_TOKEN_KEY);
-}
-
-function clearAccessToken() {
-  localStorage.removeItem(ACCESS_TOKEN_KEY);
-}
-
-// Helper function that will allow us to extract the access_token and id_token
-function getParameterByName(name) {
-  let match = RegExp('[#&]' + name + '=([^&]*)').exec(window.location.hash);
-  return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-}
-
-// Get and store access_token in local storage
-export function setAccessToken() {
-  let accessToken = getParameterByName('access_token');
-  localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
-}
-
-// Get and store id_token in local storage
-export function setIdToken() {
-  let idToken = getParameterByName('id_token');
-  localStorage.setItem(ID_TOKEN_KEY, idToken);
-}
-
-export function isLoggedIn() {
-  const idToken = getIdToken();
-  return !!idToken && !isTokenExpired(idToken);
-}
-
-function getTokenExpirationDate(encodedToken) {
-  const token = decode(encodedToken);
-  if (!token.exp) { return null; }
-
-  const date = new Date(0);
-  date.setUTCSeconds(token.exp);
-
-  return date;
-}
-
-function isTokenExpired(token) {
-  const expirationDate = getTokenExpirationDate(token);
-  return expirationDate < new Date();
-}
-```
-
-In the code above, we are using Auth0's [Login Page](https://auth0.com/docs/hosted-pages/login) in the `login` method and passed in our credentials.
-
-The auth0 package calls the Auth0's authorize endpoint. With all the details we passed to the method, our client app will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the authorize method [here](https://auth0.com/docs/libraries/auth0js).
-
-The parameters that you do not have yet are the `{YOUR-AUTH0-CLIENT-ID}` and the `{YOUR-CALLBACK-URL}`. This will be an Auth0 application that will hold your users. When you created your API, Auth0 also created a test application which you can use. Additionally, you can use any existing Auth0 application found in Applications section of your [management dashboard](https://manage.auth0.com/#/applications).
-
-Check the `Test` panel of your API from the dashboard. You'll see the test application like so:
-
-![Startup Application](https://cdn2.auth0.com/blog/app/startupclient.png)
-_Startup API Application_
-
-Now, go to the Applications area and check for the test application. You should see it in your list of applications like so:
-
-![Startup Battle Application](https://cdn2.auth0.com/blog/startupbattleapi/client.png)
-
-Open the application and change the **Appication Type** from `Non Interactive Application` to `Single Page Application`.
-
-Copy the **CLIENT ID** and replace it with the value of `YOUR-AUTH0-CLIENT-ID` in the login URL. Replace your callback url with `http://localhost:8080/callback`.
-
-We also checked whether the token has expired via the `getTokenExpirationDate` and `isTokenExpired` methods. The `isLoggedIn` method returns `true` or `false` based on the presence and validity of a user `id_token`.
-
-We imported the Vue router and created an instance of it. We need it for redirection after login and logout.
-
-Finally, we implemented a middleware, the `requireAuth` method. We'll use this method to protect the `/private-battles` route from being accessed for non-loggedIn users.
-
-Let's go update the `AppNav` component to hide/show the `login` and `logout` buttons based on the user's authentication status.
-
-Now, your `AppNav` component should look like this:
-
-{% highlight html %}
-{% raw %}
-<template>
-  <nav class="navbar navbar-default">
-    <div class="navbar-header">
-      <router-link to="/" class="navbar-brand"> The Ultimate Startup Battle Ground</router-link>
-    </div>
-    <ul class="nav navbar-nav navbar-right">
-      <li>
-        <button class="btn btn-danger log" v-show="isLoggedIn()" @click="handleLogout()">Log out </button>
-        <button class="btn btn-info log" v-show="!isLoggedIn()" @click="handleLogin()">Log In</button>
-      </li>
-    </ul>
-  </nav>
-</template>
-
-<script>
-import { isLoggedIn, login, logout } from '../../utils/auth';
-
-export default {
-  name: 'app-nav',
-  methods: {
-    handleLogin() {
-      login();
-    },
-    handleLogout() {
-      logout();
-    },
-    isLoggedIn() {
-      return isLoggedIn();
-    },
-  },
-};
-</script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.navbar-right { margin-right: 0px !important}
-
-.log {
-  margin: 5px 10px 0 0;
-}
-</style>
-{% endraw %}
-{% endhighlight %}
-
-_AppNav.vue_
-
-We imported `login`, `logout` and `isLoggedIn` functions from the `auth` helper file. Then, we attached the `login()` and `logout()` functions to the `login` and `logout` buttons respectively.
-
-Open up the `PublicBattles` Component and modify it like so:
-
-{% highlight html %}
-{% raw %}
-<template>
-  <div>
-    <app-nav></app-nav>
-    <h3 class="text-center">Daily Startup Battles</h3>
-    <hr/>
-
-    <div class="col-sm-4" v-for="battle in publicBattles">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title"> {{ battle.name }} </h3>
-        </div>
-        <div class="panel-body">
-          <p><span class="badge alert-info"> Sponsor: </span> {{ battle.sponsor }} </p>
-          <p><span class="badge alert-danger"> SeedFund: </span><strong> ${{ battle.seedFund }} </strong></p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-12">
-      <div class="jumbotron text-center" v-if="isLoggedIn()">
-        <h2>View Private Startup Battles</h2>
-        <router-link class="btn btn-lg btn-success" to="/private-battles">Private Startup Battles</router-link>
-      </div>
-      <div class="jumbotron text-center" v-else>
-        <h2>Get Access to Private Startup Battles by Logging In</h2>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script>
-import AppNav from './AppNav';
-import { isLoggedIn } from '../../utils/auth';
-import { getPublicStartupBattles } from '../../utils/battles-api';
-
-export default {
-  name: 'publicBattles',
-  components: {
-    AppNav,
-  },
-  data() {
-    return {
-      publicBattles: '',
-    };
-  },
-  methods: {
-    isLoggedIn() {
-      return isLoggedIn();
-    },
-    getPublicStartupBattles() {
-      getPublicStartupBattles().then((battles) => {
-        this.publicBattles = battles;
-      });
-    },
-  },
-  mounted() {
-    this.getPublicStartupBattles();
-  },
-};
-</script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>
-{% endraw %}
-{% endhighlight %}
-
-_publicBattles.vue_
-
-We are enabling the link to private startup battles based on the login status of a user via the `isLoggedIn()` method.
-
-### Add A Callback Component
-
-We will create a new component and call it `callback.vue`. This component will be activated when the `localhost:8080/callback` route is called and it will process the redirect from Auth0 and ensure we recieved the right data back after a successful authentication. The component will store the `access_token` and `id_token`.
-
-_callback.vue_
-
-{% highlight html %}
-<template>
-</template>
-<script>
-
-import { setIdToken, setAccessToken } from '../../utils/auth';
-
-export default {
-  name: '',
-  mounted() {
-    this.$nextTick(() => {
-      setAccessToken();
-      setIdToken();
-      window.location.href = '/';
-    });
-  },
-};
-</script>
-
-{% endhighlight %}
-
-Once a user is authenticated, Auth0 will redirect back to our application and call the `/callback` route. Auth0 will also append the `id_token` as well as the `access_token` to this request, and our Callback  component will make sure to properly process and store those tokens in localStorage. If all is well, meaning we recieved an `id_token`, `access_token`, and verified the `nonce`, we will be redirected back to the `/` page and will be in a logged in state.
-
-### Add some values to Auth0 Dashboard
-
-Just before you try to log in or sign up, head over to your [Auth0 dashboard](https://manage.auth0.com/#/) and add `http://localhost:8080/callback` to the **Allowed Callback URLs** and `http://localhost:8080` to **Allowed Origins (CORS)**.
-
-### Secure The Private Battles Route
-
-We need to ensure that no one can go to the browser and just type `/private-battles` to access the private battles route.
-
-Open up `router/index.js` and modify it to import the `requireAuth` function and also add a `beforeEnter` property with a value of `requireAuth` to the `/private-battles` route like so:
-
-```js
-import Vue from 'vue';
-import Router from 'vue-router';
-import PrivateBattles from '@/components/privateBattles';
-import PublicBattles from '@/components/publicBattles';
-import { requireAuth } from '../../utils/auth';
-
-Vue.use(Router);
-
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'PublicBattles',
-      component: PublicBattles,
-    },
-    {
-      path: '/private-battles',
-      name: 'PrivateBattles',
-      beforeEnter: requireAuth,
-      component: PrivateBattles,
-    },
-  ],
-});
-
-```
-_index.js_
-
-One more thing. Now, let's register the `/callback` route in our routes file like so:
-
-```js
-import Vue from 'vue';
-import Router from 'vue-router';
-import PrivateBattles from '@/components/privateBattles';
-import PublicBattles from '@/components/publicBattles';
-import Callback from '@/components/callback';
-import { requireAuth } from '../../utils/auth';
-
-Vue.use(Router);
-
-export default new Router({
-  mode: 'history',
-  routes: [
-    {
-      path: '/',
-      name: 'PublicBattles',
-      component: PublicBattles,
-    },
-    {
-      path: '/private-battles',
-      name: 'PrivateBattles',
-      beforeEnter: requireAuth,
-      component: PrivateBattles,
-    },
-    {
-      path: '/callback',
-      component: Callback,
-    },
-  ],
-});
-```
-
-Now, try to log in.
-
-![Lock Login Widget](https://cdn2.auth0.com/blog/startupbattle/login.png)
-_Lock Login Widget_
-
-For the first time, the user will be shown a user consent dialog that will show the scope available. Once a user authorizes, it goes ahead to login the user and give him access based on the scopes.
-
-![User consent dialog](https://cdn2.auth0.com/blog/startupbattle/authorize.png)
-_User presented with an option to authorize_
-
-**Note:** Since we are using `localhost` for our domain, once a user logs in the first time, subsequent logins will not need a user consent authorization dialog. This consent dialog will not be displayed if you are using a non-localhost domain, and the application is a first-party application.
-
-![Logged In and Unauthorized to see the Private Startup Battle](https://cdn2.auth0.com/blog/startupbattle/unauthorized.png)
-_Logged In, but unauthorized to see the Private Startup Battle_
-
-We have successfully logged in but the content of the private startup battle is not showing up and in the console, we are getting a `401 Unauthorized` error. Why?
-
-It's simple! We secured our endpoint earlier, but right now we are not passing the JWT to the backend yet. We need to send the JWT along with our request as a header to enable the secured endpoint's recognition of the logged-in user.
-
-### Updating the Auth & Battles API helper
-
-Go ahead and open up the `utils/battles-api.js` file. We will tweak the `getPrivateStartupBattles` function a bit. Currently, it initiates a `GET` request only to fetch data from the API.
-
-Now, we will pass an option to send an `Authorization` header with a Bearer access_token along with the `GET` request like so:
-
-```js
-
-import { getAccessToken } from './auth';
-
-function getPrivateStartupBattles() {
-  const url = `${BASE_URL}/api/battles/private`;
-  return axios.get(url, { headers: { Authorization: `Bearer ${getAccessToken()}` }}).then(response => response.data);
-}
-
-```
-
-The `/api/battles/private` endpoint will receive the token in the header and validate the user. If it is valid, the content will be provided to us.
-
-Now, try to log in again.
-
-Everything should work fine. Pat yourself on the back. You have just successfully built a **Vuejs 2** app and added authentication to it!
 
 ## Conclusion
 
