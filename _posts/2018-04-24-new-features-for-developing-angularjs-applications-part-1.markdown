@@ -4,10 +4,10 @@ title: "New Features for Developing AngularJS Applications - Part 1: Component-B
 description: "Learn how to develop applications in AngularJS using a component-based architecture."
 longdescription: "Learn about the latest recipes in building AngularJS applications. The use of component directives, one-way dataflow, advanced directives, single-slot and multi-slot transclusions, and lifecycle hooks."
 date: 2018-04-24 08:30
-category: Technical guide, Frontend, AngularJS
+category: Technical Guide, Frontend, AngularJS
 design:
-  image: https://cdn.auth0.com/blog/angular/logo3.png
-  bg_color: "#012C6C"
+  image: https://cdn.auth0.com/blog/logos/angularjs.png
+  bg_color: "#072858"
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
@@ -22,7 +22,7 @@ tags:
 - authentication
 - javascript
 related:
-- 2016-01-04-secure-your-react-and-redux-app-with-jwt-authentication
+- 2017-06-28-real-world-angular-series-part-1
 - 2016-09-29-angular-2-authentication
 - 2017-02-21-reactjs-authentication-tutorial
 ---
