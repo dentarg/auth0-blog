@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "New Features for Developing AngularJS Applications - Part 2"
+title: "New Features for Developing AngularJS Applications - Part 2: Build An App"
 description: "Learn how to develop applications in AngularJS  using a component-based architecture."
 longdescription: "Build AngularJS applications using newer features such as one-way dataflow, component-based architecture, lifecycle hooks, updated UI router flow. Components all the way."
-date: 2018-04-22 8:30
+date: 2018-04-26 8:30
 category: Technical Guide, Frontend, AngularJS
 author:
   name: Prosper Otemuyiwa
@@ -11,8 +11,8 @@ author:
   avatar: https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200
   mail: prosper.otemuyiwa@auth0.com
 design:
-  bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/jsdeploy/logo.png
+  image: https://cdn.auth0.com/blog/angular/logo3.png
+  bg_color: "#012C6C"
 tags:
 - angularjs
 - javascript
@@ -28,7 +28,7 @@ related:
 
 ---
 
-**TL;DR:** In this article, you'll develop a simple application in AngularJS 1.5. This application will show you how to use some of the features discussed in [Part 1 of this tutorial]() to build component-based AngularJS applications. If you want to skip the tutorial and dive straight into the code, the [repo](https://github.com/auth0-blog/speakerhang) is publicly available.
+**TL;DR:** In this article, you'll develop a simple application in AngularJS 1.5. This application will show you how to use some of the features discussed in [Part 1 of this tutorial](#) to build component-based AngularJS applications. If you want to skip the tutorial and dive straight into the code, the [repo](https://github.com/auth0-blog/speakerhang) is publicly available.
 
 ---
 
@@ -88,7 +88,7 @@ Now, your app should show a blank page. If there are no errors, then you are on 
 
 ### Set Up Routes
 
-We'll nake use of the efficient [UIRouter](https://ui-router.github.io/ng1/). Open up `app.js` and replace the content with the code below:
+We'll make use of the efficient [UIRouter](https://ui-router.github.io/ng1/). Open up `app.js` and replace the content with the code below:
 
 ```js
 import angular from 'angular';
@@ -127,7 +127,7 @@ In the code above, we defined the `home` and `app` state. We also configured the
 
 **Note:** The template can be a component or simply a string.
 
-Your app should render look like this below:
+Your app should render like this below:
 
 ![SpeakerHang - Home Index](https://cdn.auth0.com/blog/speakerhang/homeindex.png)
 _SpeakerHang - Home Index_
@@ -136,12 +136,12 @@ _SpeakerHang - Home Index_
 
 It's time to build our components. Earlier, we visualized the SpeakerHang app and came up with four components. 
 
-* NavBar component
-* Add Speaker Container component
-* Speaker form component
-* Speaker list component
+* _NavBar_ component
+* _Add Speaker_ container component
+* _Speaker form_ component
+* _Speaker list_ component
 
-Let's start with the NavBar component. 
+Let's start with the navbar component. 
 
 Run the following command in your terminal to generate a component:
 
@@ -175,7 +175,7 @@ The first step is to add meat to the navbar template. Replace the content with t
 {% endraw %}
 {% endhighlight %}
 
-Head over to `app.js` to import the navbar component.
+Next, head over to `app.js` to import the navbar component.
 
 _app/app.js_
 
@@ -220,11 +220,13 @@ gulp component --name speakerlist
 
 Now, we have the `speakerlist` components folder. Take a brief pause here. 
 
-The speaker list component should list all the speakers on the platform. The question now is, *Where are the speakers?*, *Where will that data come from?* In a production app, these data will be made available to our app from an API. However, we'll simply make use of an array and use a service.
+The speaker list component should list all the speakers on the platform. The question now is, *Where are the speakers?*, *Where will that data come from?* 
+
+In a production app, the data will be made available to our app from an API. In the absence of an API, we'll simply make use of an array and use a service.
 
 Let's create the speaker service. Create a new folder, `services`, inside the `app` directory. And create a `speakerservice.js` file inside the `services` folder. 
 
-Add code to the file:
+Add code to the file like so:
 
 _services/speakerservice.js_
 
@@ -286,7 +288,9 @@ export default SpeakerService;
 
 In the service above, we have a factory with two functions, `getAllSpeakers` responsible for returning a list of speakers and `addASpeaker`, responsible for adding a speaker.
 
-Now, let's get back to the `speakerlist` component. Open up `app/components/speakerlist/speakerlist.component.js` file. In the `speakerlistComponent` object, we have `bindings`, `template`, `controller`, and `restrict`.
+Now, let's get back to the `speakerlist` component. Open up `app/components/speakerlist/speakerlist.component.js` file. 
+
+In the `speakerlistComponent` object, we have `bindings`, `template`, `controller`, and `restrict`.
 
 ```js
 ...
@@ -301,8 +305,8 @@ let speakerlistComponent = {
 
 * `restrict` - This means the component should be restricted to an element.
 * `bindings` - This helps specify the binding option whether it's a one-way or two-way data binding. It's represented with a symbol. E.g `<` represents a one-way data binding.
-* `template` - This is where we specify the view for the component
-* `controller` - This is where we specify the controller which holds the logic for the component. by default, it ships with `$ctrl` as an alias that can be used in the view to invoke controller methods.
+* `template` - This is where we specify the view for the component.
+* `controller` - This is where we specify the controller which holds the logic for the component. By default, it ships with `$ctrl` as an alias that can be used in the view to invoke controller methods.
 * `controllerAs`- This allows developers to specify their alias, e.g `vm` as commonly used in a lot of apps.
 
 Update the `speakerlistComponent` object to have a `controllerAs` key and value like so:
@@ -343,7 +347,9 @@ class SpeakerlistController {
 export default SpeakerlistController;
 ```
 
-In the code above, we injected the `SpeakerService` into the controller and assigned it to an instance variable. The `$onInit()` lifecycle hook was invoked to initialize the speakers array with the list of speakers from the speaker service. The `$onInit()` hook is good for a controller's initialization code.
+In the code above, we injected the `SpeakerService` into the controller and assigned it to an instance variable. 
+
+The `$onInit()` lifecycle hook was invoked to initialize the speakers array with the list of speakers from the speaker service. The `$onInit()` hook is good for a controller's initialization code.
 
 Update the speaker view, `speakerlist.html`, to have the necessary code to display the list of speakers.
 
@@ -474,7 +480,7 @@ angular.module('app', [
 
 Click on the `Add A Speaker` link on the navbar. You'll be directed to the `/addspeaker` route. Right now, it's empty but everything is working perfectly.
 
-**Note:** We need to add a speaker form to the template of the `addspeaker` component, but we'll come back to it once we are done with creating the speaker form component.
+**Note:** We need to add a speaker form to the template of the `addspeaker` component. We'll come back to it once we are done with creating the speaker form component.
 
 ### Speaker Form Component
 
