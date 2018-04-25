@@ -21,14 +21,14 @@ tags:
 - auth0
 - components
 related:
-- 2016-01-04-secure-your-react-and-redux-app-with-jwt-authentication
-- 2016-09-29-angular-2-authentication
+- 2018-04-24-new-features-for-developing-angularjs-applications-part-1
 - 2017-02-21-reactjs-authentication-tutorial
+- 2016-09-29-angular-2-authentication
 ---
 
 ---
 
-**TL;DR:** In this article, you'll develop a simple application in AngularJS 1.5. This application will show you how to use some of the features discussed in [Part 1 of this tutorial](#) to build component-based AngularJS applications. If you want to skip the tutorial and dive straight into the code, the [repo](https://github.com/auth0-blog/speakerhang) is publicly available.
+**TL;DR:** In this article, you'll develop a simple application in AngularJS 1.5. This application will show you how to use some of the features discussed in [Part 1 of this tutorial](https://auth0.com/blog/new-features-for-developing-angularjs-applications-part-1/) to build component-based AngularJS applications. If you want to skip the tutorial and dive straight into the code, the [repo](https://github.com/auth0-blog/speakerhang) is publicly available.
 
 ---
 
@@ -57,17 +57,17 @@ From the diagram above, our visualization produced four components.
 * First component for navigation.
 * Second component for **Add Speaker** form.
 * Third component for **Add Speaker** container.
-* Fourth component for list of speakers.
+* Fourth component for a list of speakers.
 
-**NOTE:** You can break up your app into as many components as you want, but be careful not to overengineer the process.
+**NOTE:** You can break up your app into as many components as you want, but be careful not to complicate the process.
 
 ## Build SpeakerHang
 
-I have a [starterpack](https://github.com/unicodeveloper/angularjs-starter) already configured for building AngularJS 1.5+ apps. The starterpack ships with webpack, sass compilation, autoreload, ES6 transpiling, component generation, angularjs uirouter, and test files generator. It's a forked and enhanced version of [NG6-Starter](https://github.com/gebidesign/NG6-starter-sass).
+I have a [starter pack](https://github.com/unicodeveloper/angularjs-starter) already configured for building AngularJS 1.5+ apps. The starter pack ships with webpack, sass compilation, autoreload, ES6 transpiling, component generation, angularjs uirouter, and test files generator. It's a forked and enhanced version of [NG6-Starter](https://github.com/gebidesign/NG6-starter-sass).
 
-Clone the AngularJS starterpack, `cd` into the directory and run `npm install` to install all the dependencies.
+Clone the AngularJS starter pack, `cd` into the directory and run `npm install` to install all the dependencies.
 
-Run `gulp serve` to start the starterpack app.
+Run `gulp serve` to start the app.
 
 Your app should look like the diagram below:
 
@@ -304,7 +304,7 @@ let speakerlistComponent = {
 ```
 
 * `restrict` - This means the component should be restricted to an element.
-* `bindings` - This helps specify the binding option whether it's a one-way or two-way data binding. It's represented with a symbol. E.g `<` represents a one-way data binding.
+* `bindings` - This helps specify the binding option whether it's a one-way or two-way data binding. It's represented by a symbol. E.g `<` represents a one-way data binding.
 * `template` - This is where we specify the view for the component.
 * `controller` - This is where we specify the controller which holds the logic for the component. By default, it ships with `$ctrl` as an alias that can be used in the view to invoke controller methods.
 * `controllerAs`- This allows developers to specify their alias, e.g `vm` as commonly used in a lot of apps.
@@ -349,7 +349,7 @@ export default SpeakerlistController;
 
 In the code above, we injected the `SpeakerService` into the controller and assigned it to an instance variable. 
 
-The `$onInit()` lifecycle hook was invoked to initialize the speakers array with the list of speakers from the speaker service. The `$onInit()` hook is good for a controller's initialization code.
+The `$onInit()` lifecycle hook was invoked to initialize the speakers' array with the list of speakers from the speaker service. The `$onInit()` hook is good for a controller's initialization code.
 
 Update the speaker view, `speakerlist.html`, to have the necessary code to display the list of speakers.
 
@@ -536,7 +536,7 @@ class SpeakerformController {
 
   // will handle the form submission,
   // validates the required field and then adds the goat to the service.
-  // once added, we will go to the next page.
+  // once added, we'll be directed to the next page.
   addSpeaker() {
     if(!this.speaker.name) return alert('Speaker Name is Required');
     if(!this.speaker.noOfConf) return alert('No. Of Conferences Attended is required');
