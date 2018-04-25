@@ -66,11 +66,11 @@ self.addEventListener('activate', event => {
 });
 ```
 
-## 2. Goodbye Template Tag
+## 2. Goodbye Template Element
 
-The `<template>` tag was deprecated long ago, precisely in Angular 4. It has been removed completely in Angular 6.
+The `<template>` element was deprecated long ago, precisely in Angular 4. It has been removed completely in Angular 6.
 
-The `<ng-template>` tag should be used instead.
+The `<ng-template>` element should be used instead.
 
 **Before:**
 
