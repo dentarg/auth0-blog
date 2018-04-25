@@ -31,16 +31,16 @@ related:
 
 ---
 
-Angular is actively [maintained by Google.](https://developers.google.com/experts/all/technology/angular). It's a very popular framework that has gotten the attention of the majority of frontend developers. And it keeps evolving and getting better by the day. Angular powers a lot of web platforms such as _Google Adwords_, _Google Fiber_, _Adsense_, and _Winc_.
+Angular is a very popular framework that is actively [maintained by Google](https://developers.google.com/experts/all/technology/angular). Its popularity and wide adoption have been driven by how it keeps evolving and getting better by the day. Angular powers a lot of web platforms such as _Google Adwords_, _Google Fiber_, _Adsense_, and _Winc_.
 
-The previous major Angular version was Angular 5. I covered the [major features and bug fixes that shipped with Angular 5](https://auth0.com/blog/whats-new-in-angular5/). This release is also focused on making Angular smaller and faster to use.
+The previous major Angular version was Angular 5. We covered the [major features and bug fixes that shipped with Angular 5 before](https://auth0.com/blog/whats-new-in-angular5/). Now, we are going to cover the latest major release, Angular 6, which focuses on making Angular smaller and faster to use.
 
 Let's go through the major changes in Angular 6.
 
 
 ## 1. Improved Service Worker Support 
 
-Angular 6 now supports configuration of navigation URLs in Service Workers. The service worker will redirect navigation requests that don't match any `asset` or `data` group to the specified index file. 
+Angular 6 now supports the configuration of navigation URLs in Service Workers. The service worker will redirect navigation requests that don't match any `asset` or `data` group to the specified index file. 
 
 {% include tweet_quote.html quote_text="Angular 6 now supports configuration of navigation URLs in Service Workers." %}
 
@@ -167,7 +167,7 @@ export class AppComponent {
 
 Before now, `ngModelChange` was always emitted before the underlying form control was updated. 
 
-If you had a handler for the `ngModelChange` event that checked the value through the control, the old value will be logged instead of the updated value. This is not the case if you pass the value through the `$event` keyword directly. 
+If you had a handler for the `ngModelChange` event that checked the value through the control, the old value would be logged instead of the updated value. This is not the case if you pass the value through the `$event` keyword directly. 
 
 Check out this example:
 
@@ -212,9 +212,9 @@ onChange(ngModel: NgModel) {
 
 ## 6. Multiple Validators for Form Builder Array
 
-In previous versions of Angular, you can set only one validator on `FormArray` field with the `FormBuilder.array` method.
+In previous versions of Angular, you could set only one validator on a `FormArray` field with the `FormBuilder.array` method.
 
-In Angular 6, you can set multiple validators for the `FormBuilder.array` method:
+In Angular 6, you can set multiple validators with the `FormBuilder.array` method:
 
 ```js
 ...
@@ -232,7 +232,7 @@ In Angular 6, it's now possible to determine which animation context is used for
 
 ## 8. Hello Schematics
 
-**Schematics** is a new scaffolding library that's used by the Angular CLI to generate custom templates. The Angular team has always been keen on improving developer productivity, thus the birth of **schematics**.
+**Schematics** is a new scaffolding library that's used by the Angular CLI to generate custom templates. The Angular team has always been keen on improving developer productivity, which explains the birth of **schematics**.
 
 With Schematics, you can easily create Angular libraries like so:
 
@@ -260,7 +260,7 @@ Check out this [deep and excellent guide to Schematics](https://blog.angular.io/
 
 ## Deprecations and Other Updates
 
-* Angular 6 ships with Rxjs 6.0.0.
+* Angular 6 ships with [Rxjs 6.0.0.](https://github.com/ReactiveX/rxjs)
 * `@Injectable` now supports tree-shakeable tokens.
 * Service workers now properly handle invalid hashes in all scenarios.
 * The router sometimes hits a race condition while a route is being instantiated and a new navigation request arrives. This issue has been solved in Angular 6.
