@@ -130,34 +130,31 @@ The `login()` method authorizes the authentication request with Auth0 using your
 
 Provide a component with controls for the user to log in and log out.
 
+_app/navbar/navbar.html_
+
 {% highlight html %}
 {% raw %}
-<!-- app/navbar/navbar.html -->
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">Auth0 - AngularJS</a>
-
       <button
         class="btn btn-primary btn-margin"
         ui-sref="home">
           Home
       </button>
-
       <button
         class="btn btn-primary btn-margin"
         ng-if="!vm.auth.isAuthenticated()"
         ng-click="vm.auth.login()">
           Log In
       </button>
-
       <button
         class="btn btn-primary btn-margin"
         ng-if="vm.auth.isAuthenticated()"
         ng-click="vm.auth.logout()">
           Log Out
       </button>
-
     </div>
   </div>
 </nav>
@@ -218,7 +215,9 @@ The [callback component](https://github.com/auth0-samples/auth0-angularjs-sample
 })();
 ```
 
-<!-- app/callback/callback.html -->
+
+_app/callback/callback.html_
+
 {% highlight html %}
 {% raw %}
 <div class="loading">
