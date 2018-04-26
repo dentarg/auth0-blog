@@ -11,8 +11,8 @@ author:
   avatar: https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200
   mail: prosper.otemuyiwa@auth0.com
 design:
-  image: https://cdn.auth0.com/blog/angular/logo3.png
-  bg_color: "#012C6C"
+  image: https://cdn.auth0.com/blog/logos/angularjs.png
+  bg_color: "#072858"
 tags:
 - angularjs
 - javascript
