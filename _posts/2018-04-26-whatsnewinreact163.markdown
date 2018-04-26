@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "React 16.3: What’s New?"
-description: "Learn about the new features in React 16.3. New Lifecycles, Context, Strict Mode, createRef and forwardRef"
-longdescription: "React 16 keeps evolving. It's important to understand these changes to enable you build ergonomic React applications. Learn what's new in React 16.3!"
+description: "Learn about the new features in React 16.3. New Lifecycles, Context, Strict Mode, createRef, and forwardRef"
+longdescription: "React 16 keeps evolving. It's important to understand the changes that enable you to build ergonomic React applications. Learn what's new in React 16.3!"
 date: 2018-04-26 08:30
 category: Technical Guide, Angular, ReactJS
 design:
@@ -33,7 +33,7 @@ related:
 
 ---
 
-[ReactJS 16 shipped with a lot of new features](https://auth0.com/blog/whats-new-in-react16). And since the release, a lot more features have been shipped.
+[ReactJS 16 shipped with a lot of new features](https://auth0.com/blog/whats-new-in-react16). Since then, even more features have been introduced to the library.
 
 _React 16.3_ ships with a few major changes that I'll like to highlight in this article. Let's dive in!
 
@@ -44,7 +44,7 @@ JavaScript developers are very familiar with the `strict` keyword. This keyword 
 
 _React 16.3_ ships with a `StrictMode` component that highlights potential problems in your ReactJS codebase. 
 
-This component runs a check in development mode to determine if there are issues with the descendant components such as using an unsafe lifecycle method, legacy ref API, e.t.c.
+This component runs a check in development mode to determine if there are issues with the descendant components such as using an unsafe lifecycle method, legacy ref API, etc.
 
 ```js
 import React from 'react';
@@ -69,7 +69,7 @@ function WokeAlarm() {
 
 _React 16.3_ ships with new lifecycle methods such as `getDerivedStateFromProps`, and `getSnapshotBeforeUpdate`. 
 
-These existing lifecycle methods, `componentWillMount`, `componentWillReceiveProps`, and `componentWillUpdate` will be deprecated in a future ReactJS 16.x release because they have been known to be problematic and behave in unintended ways. These methods would still be available for use in future _React 17_.
+The current lifecycle methods `componentWillMount`, `componentWillReceiveProps`, and `componentWillUpdate` will be deprecated in a future ReactJS 16.x release because they have been known to be problematic and behave in unintended ways. These methods will continue to be available for use in the next major release, _React 17_.
 
 * **getDerivedStateFromProps** can be used instead of `componentWillReceiveProps`.
 * **componentDidMount** can be used instead of **componentWillMount**.
@@ -110,7 +110,7 @@ componentDidUpdate(prevProps, prevState, snapshot) {
 
 ## forwardRef
 
-**Refs** provide a way to access ReactJS elements or DOM nodes created in the render method. They are great for getting values from input elements, working with third-party DOM libraries, et al. However, there were some challenges with **refs** as regards component encapsulation.
+**Refs** provide a way to access ReactJS elements or DOM nodes created in the render method. They are great for getting values from input elements, working with third-party DOM libraries, et al. However, there were some challenges with **refs** as regarding component encapsulation.
 
 `forwardRef` automatically passes a `ref` received by a parent component to its children. It's great for reusable components in component libraries. As the name implies, the component is forwarding the `ref` to its child.
 
@@ -141,11 +141,11 @@ class Display extends Component {
 } 
 ```
 
-The use of `forwardRef` is more valuable in Higher Order Components. The [ReactJS blog](https://reactjs.org/docs/forwarding-refs.html) has the perfect example for this scenario.
+The use of `forwardRef` is more valuable in Higher Order Components. The [ReactJS blog](https://reactjs.org/docs/forwarding-refs.html) has the perfect example of this scenario.
 
 ## createRef
 
-Before now, ReactJS developers had two ways of using refs. You either make use of the callback API or the legacy string ref API.
+Previously, ReactJS developers had two ways of using refs: You either made use of the callback API or the legacy string ref API.
 
 With _React 16.3_, you can make use of the `createRef` API for managing refs without any negative implications. It's simpler and developer friendly too. Check out the example below:
 
@@ -230,7 +230,7 @@ class App extends Component {
 export default App;
 ```
 
-This is a simple example, but the way we pass data from component to component with the use of props is not developer friendly and could get out of hand very quickly! At this point, most developers quickly reach out to a data store or state management library to manage this process efficiently. However, the new Context API in _React 16.3_ can be used to eliminate the challenge.
+This is a simple example, but the way we pass data from component to component with the use of props is not developer friendly and could get out of hand very quickly! At this point, most developers quickly reach out for a data store or state management library to manage this process efficiently. However, the new Context API in _React 16.3_ can be used to eliminate this challenge.
 
 With this new API, we'll need a **Provider** and a **Consumer**. The data will live in the **Provider** while the **Consumer** represents where the data needs to be accessed.
 
