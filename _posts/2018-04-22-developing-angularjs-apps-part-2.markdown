@@ -618,6 +618,7 @@ _SpeakerHang - Add Speaker_
 
 ## Adding Authentication to Your AngularJS App
 
+{% include asides/angularjs.markdown %}
 
 ## Conclusion
 
