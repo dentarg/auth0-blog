@@ -31,7 +31,7 @@ related:
 - ten-things-you-should-know-about-tokens-and-cookies
 ---
 
-We have released another round of updates for our [JWT.io](https://jwt.io/) website and the JWT Debugger extensions ([Chrome]((https://chrome.google.com/webstore/detail/jwt-debugger/ppmmlchacdbknfphdeafcbmklcghghmd)), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/jwtio-debugger)). Among the new features are HMAC secret length hints, common claim descriptions, simplified library updates for the website, a share button for the website, support for plain RSA public keys, and more token types can be passed in the URL! In this post, we will go over these new features.
+We have released another round of updates for our [JWT.io](https://jwt.io/) website and the JWT Debugger extensions ([Chrome]((https://chrome.google.com/webstore/detail/jwt-debugger/ppmmlchacdbknfphdeafcbmklcghghmd)), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/jwtio-debugger)). Among the new features are [HMAC](https://en.wikipedia.org/wiki/HMAC) secret length hints, common claim descriptions, simplified library updates for the website, a share button for the website, support for plain RSA public keys, and more token types can be passed in the URL! In this post, we will go over these new features.
 
 {% include tweet_quote.html quote_text="A new round of updates for JWT.io and the JWT Debugger extensions have been released!" %}
 
@@ -64,7 +64,7 @@ A `share button` to easily pass tokens in URL form has been requested many times
 <video src="https://cdn.auth0.com/blog/jwt-io-updates-2/3-share-button.mp4" controls autoplay loop></video>
 
 ### Easy Library Updates
-Since its inception, adding a new library to the library list at JWT.io has been a cumbersome process. Several [Pug](https://pugjs.org/) and CSS files needed to be edited. Furthermore, editing an existing library had its problems: to change features one had to remember class names, for example. We have finally modernized the process. Now libraries are located in the `views/website/libraries` folder. There, you will find a JSON file for each language or framework. Inside the JSON file you'll see something like this:
+Since its inception, adding a new library to the library list at JWT.io has been a cumbersome process. Several [Pug](https://pugjs.org/) and CSS files needed to be edited. Furthermore, editing an existing library had its problems too: to change features one had to remember class names, for example. We have finally modernized the process. Now libraries are located in the `views/website/libraries` folder. There, you will find a JSON file for each language or framework. Inside the JSON file you'll see something like this:
 
 ```json
 {
@@ -105,14 +105,14 @@ Since its inception, adding a new library to the library list at JWT.io has been
 }
 ```
 
-Multiple libraries go in the `libs` array. Most of the JSON file is self-explanatory, but some values are optional. For full details, check the [README](https://github.com/jsonwebtoken/jsonwebtoken.github.io/blob/master/README.md) file.
+Multiple libraries go in the `libs` array. Most of the JSON file is self-explanatory, but some values are optional. For full details, check out the [README](https://github.com/jsonwebtoken/jsonwebtoken.github.io/blob/master/README.md) file.
 
 To add a language or framework, a new JSON file must be created. The name of the file should start with a number, followed by a name, and end with `.json`. No further changes are required (other than editing the contents of the file).
 
 It really is that simple!
 
 ### JWT.io as OpenID Connect Callback
-One of the uses that JWT.io originally supported, was to be set as the callback for OpenID Connect operations (you can do this from the Auth0 Dashboard). This way, after a successful login, developers could be sent automatically to JWT.io with the returned token in the editor. This was disabled a long time ago during refactors. Now the feature is back!
+One of the uses that JWT.io originally supported, was to be set as the callback for OpenID Connect operations (you can do this from the Auth0 Dashboard). That way, after a successful login, developers could be sent automatically to JWT.io with the returned token in the editor. This was disabled a long time ago during refactors. But now, that feature is back!
 
 <video src="https://cdn.auth0.com/blog/jwt-io-updates-2/4-jwt-io-callback.mp4" controls autoplay loop></video>
 
@@ -136,7 +136,7 @@ Of course, not every change in this release is related to new features. In this 
 - Merged **all PRs**.
 - Added **6 new libraries** (thanks to external contributors!).
 - Updates **12 libraries** (thanks again to external contributors!).
-- Improved the README file.
+- Improved the [README file](https://github.com/jsonwebtoken/jsonwebtoken.github.io/blob/master/README.md).
 - Implemented some **design changes**.
 - Passed the **100 combined tests** mark!
 - And fixed a good deal of bugs.
