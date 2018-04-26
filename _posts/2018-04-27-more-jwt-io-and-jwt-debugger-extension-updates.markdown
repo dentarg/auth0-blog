@@ -46,7 +46,7 @@ Now, let's go over the new features of this release!
 
 ## New Features
 ### HMAC Secret Length Hints
-As [we have seen in our blog before](https://auth0.com/blog/brute-forcing-hs256-is-possible-the-importance-of-using-strong-keys-to-sign-jwts/), the length of the HMAC secret is one of the fundamental properties to ensure it cannot be brute forced. For this reason we have added two hints:
+As [we have seen on our blog before](https://auth0.com/blog/brute-forcing-hs256-is-possible-the-importance-of-using-strong-keys-to-sign-jwts/), the length of the HMAC secret is one of the fundamental properties to ensure it cannot be brute forced. For this reason, we have added two hints:
 
 - The default secret for all HMAC token examples now hints at the minimum required length.
 
@@ -59,7 +59,7 @@ As [we have seen in our blog before](https://auth0.com/blog/brute-forcing-hs256-
 Do note, however, that length is not the only thing that is important for secrets. They must also be hard to guess, or, in other words, completely random.
 
 ### Share Button
-A `share button` to easily pass tokens in URL form has been requested many times, and indeed, it was already available in the extension. Now it is also available in the website!
+A `share button` to easily pass tokens in URL form has been requested many times, and indeed, it was already available in the extension. Now it is also available on the website!
 
 <video src="https://cdn.auth0.com/blog/jwt-io-updates-2/3-share-button.mp4" controls autoplay loop></video>
 
@@ -105,7 +105,7 @@ Since its inception, adding a new library to the library list at JWT.io has been
 }
 ```
 
-Multiple libraries go in the `libs` array. Most of the JSON file is self explanatory, but some values are optional. For full details, check the [README](https://github.com/jsonwebtoken/jsonwebtoken.github.io/blob/master/README.md) file.
+Multiple libraries go in the `libs` array. Most of the JSON file is self-explanatory, but some values are optional. For full details, check the [README](https://github.com/jsonwebtoken/jsonwebtoken.github.io/blob/master/README.md) file.
 
 To add a language or framework, a new JSON file must be created. The name of the file should start with a number, followed by a name, and end with `.json`. No further changes are required (other than editing the contents of the file).
 
@@ -123,10 +123,10 @@ In our previous update, we had enabled tooltips for dates in claims. This time, 
 
 <video src="https://cdn.auth0.com/blog/jwt-io-updates-2/5-claims-tooltips.mp4" controls autoplay loop></video>
 
-Of course, human readable dates still work.
+Of course, human-readable dates still work.
 
 ### Plain RSA Public Keys
-Some RSA implementations work using the [old PEM-encoded RSA public key without the X.509 `SubjectPublicKeyInfo` header](https://stackoverflow.com/questions/18039401/how-can-i-transform-between-the-two-styles-of-public-key-format-one-begin-rsa) that is much more common nowadays. Unfortunately, old versions of JWT.io did not support these keys. But that's no longer the case! Plain RSA keys from yore are now supported, try it out!
+Some RSA implementations work using the [old PEM-encoded RSA public key without the X.509 `SubjectPublicKeyInfo` header](https://stackoverflow.com/questions/18039401/how-can-i-transform-between-the-two-styles-of-public-key-format-one-begin-rsa) that is much more common nowadays. Unfortunately, old versions of JWT.io did not support these keys. But that's no longer the case! Plain RSA keys of yore are now supported, try it out!
 
 {% include tweet_quote.html quote_text="The new round of features for JWT.io include: HMAC secret length hints, a share button, easy library updates, JWT.io as OIDC callback, common claim tooltips, and plain RSA pubkeys!" %}
 
@@ -142,7 +142,7 @@ Of course, not every change in this release is related to new features. In this 
 - And fixed a good deal of bugs.
 
 ## What's Next
-After all these changes, we will now let the codebase stabilize for awhile. Of course, if you find any bugs, please report them in [the bug tracker](https://github.com/jsonwebtoken/jsonwebtoken.github.io/issues).
+After all these changes, we will now let the codebase stabilize for a while. Of course, if you find any bugs, please report them in [the bug tracker](https://github.com/jsonwebtoken/jsonwebtoken.github.io/issues).
 
 But that is not all! We are also thinking of more ways of improving JWT.io. Here are some of the ideas we are considering at the moment:
 
