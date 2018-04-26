@@ -110,7 +110,7 @@ componentDidUpdate(prevProps, prevState, snapshot) {
 
 ## forwardRef
 
-**Refs** provide a way to access ReactJS elements or DOM nodes created in the render method. They are great for getting values from input elements, working with third-party DOM libraries, et al. However, there were some challenges with **refs** as regarding component encapsulation.
+**Refs** provide a way to access ReactJS elements or DOM nodes created in the render method. They are great for getting values from input elements, working with third-party DOM libraries, et al. However, there were some challenges with **refs** regarding component encapsulation.
 
 `forwardRef` automatically passes a `ref` received by a parent component to its children. It's great for reusable components in component libraries. As the name implies, the component is forwarding the `ref` to its child.
 
