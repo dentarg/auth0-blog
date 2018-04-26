@@ -2,7 +2,7 @@
 layout: post
 title: "New Features for Developing AngularJS Applications - Part 2: Build An App"
 description: "Learn how to develop applications in AngularJS  using a component-based architecture."
-longdescription: "Build AngularJS applications using newer features such as one-way dataflow, component-based architecture, lifecycle hooks, updated UI router flow. Components all the way."
+longdescription: "Build AngularJS applications using newer features such as one-way data flow, component-based architecture, lifecycle hooks, updated UI router flow. Components all the way."
 date: 2018-04-26 8:30
 category: Technical Guide, Frontend, AngularJS
 author:
@@ -40,7 +40,7 @@ I admire several developers in the community, and one of them is [Nadia Odunayo]
 
 **SpeakerHang**, the project we'll build in this tutorial is largely inspired by **Speakerline**. It's a simpler version. **SpeakerHang** displays a list of conference speakers, their details and allows you to add a speaker. 
 
-Worthy of note here is that there is no database or external REST API. The speakers are added to a temporary in-memory store, array. The crux of this guide is to teach you how to build a component-based AngularJS application easily.
+Worthy of note here is that there is no database or external REST API. The speakers are added to an array. The crux of this guide is to teach you how to build a component-based AngularJS application easily.
 
 ## Visualizing SpeakerHang
 
@@ -63,7 +63,7 @@ From the diagram above, our visualization produced four components.
 
 ## Build SpeakerHang
 
-I have a [starter pack](https://github.com/unicodeveloper/angularjs-starter) already configured for building AngularJS 1.5+ apps. The starter pack ships with webpack, sass compilation, autoreload, ES6 transpiling, component generation, angularjs uirouter, and test files generator. It's a forked and enhanced version of [NG6-Starter](https://github.com/gebidesign/NG6-starter-sass).
+I have a [starter pack](https://github.com/unicodeveloper/angularjs-starter) already configured for building AngularJS 1.5+ apps. The starter pack ships with webpack, Sass compilation, autoreload, ES6 transpiling, component generation, [Angularjs UI-Router](https://github.com/angular-ui/ui-router), and test files generator. It's a forked and enhanced version of [NG6-Starter](https://github.com/gebidesign/NG6-starter-sass).
 
 Clone the AngularJS starter pack, `cd` into the directory and run `npm install` to install all the dependencies.
 
@@ -88,7 +88,7 @@ Now, your app should show a blank page. If there are no errors, then you are on 
 
 ### Set Up Routes
 
-We'll make use of the efficient [UIRouter](https://ui-router.github.io/ng1/). Open up `app.js` and replace the content with the code below:
+We'll make use of the efficient [UI-Router](https://ui-router.github.io/ng1/). Open up `app.js` and replace the content with the code below:
 
 ```js
 import angular from 'angular';
@@ -123,7 +123,7 @@ angular.module('app', [
   .component('app', AppComponent);
 ```
 
-In the code above, we defined the `home` and `app` state. We also configured the default page for the app. The default page that will be rendered when a user visits the app is the `/home` route. The `/home` route renders the template. 
+In the code above, we defined the `home` and `app` state. We also configured the default page for the app. The default page that will be rendered when a user visits the app is the `/home` route which renders the template. 
 
 **Note:** The template can be a component or simply a string.
 
@@ -407,7 +407,7 @@ angular.module('app', [
   .component('app', AppComponent);
 ```
 
-One more step before we can see the list of speakers on the page. Open up `app/app.js` and import the speaker service.
+There is one more step before we can see the list of speakers on the page. Open up `app/app.js` and import the speaker service.
 
 ```js
 ...
@@ -556,7 +556,7 @@ class SpeakerformController {
 export default SpeakerformController;
 ```
 
-In the code above, we injected the `state` and `SpeakerService` into the controller. The `addSpeaker()` function collects the values of the form and sends to the `addSpeaker` function.
+In the code above, we injected the `state` and `SpeakerService` into the controller. The `addSpeaker()` function collects the values of the form and sends them to the `addSpeaker` function.
 
 Quickly add the `controllerAs` key with the value of `vm` to the `speakerform` component.
 
@@ -598,7 +598,7 @@ export default addspeakerModule;
 
 **Note:** Make sure it is `speakerForm`, not `speakerform` in `.component('speakerForm', speakerformComponent)` section of the `app/components/speakerform/speakerform.js` file.
 
-One more thing, remember the `app/components/addspeaker/addspeaker.html` file? it's time to add the `<speaker-form>` component to it.
+One more thing, remember the `app/components/addspeaker/addspeaker.html` file? It's time to add the `<speaker-form>` component to it.
 
 _app/components/addspeaker/addspeaker.html_
 
@@ -622,8 +622,8 @@ _SpeakerHang - Add Speaker_
 
 ## Conclusion
 
-**AngularJS 1.5+** provides a component-based technique to build apps similar to React and Angular style way of building applications. In this tutorial, you've learned how to build and secure an app using the `.component` method and the new APIs introduced to the framework.
+**AngularJS 1.5+** provides a component-based architecture to build apps similar to React and Angular. In this tutorial, you've learned how to build and secure an app using the `.component` method and the new APIs included in the framework.
 
 In addition, Auth0 can help secure your **AngularJS** apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> today so you can focus on building features unique to your app.
 
-> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
+> Auth0 provides simple and easy to use [interfaces to help administrators manage user identities](https://auth0.com/user-management) including password resets, as well as creating, provisioning, blocking and deleting users.
