@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "React 16.3: What’s New?"
-description: "Learn about the new features in React 16.3. New Lifecycles, Context, Strict Mode, createRef and forward Ref"
-longdescription: "React 16 keeps evolving. It's important to understand these changes to enable you build ergonomic applications with React. Learn what's new in React 16!"
+description: "Learn about the new features in React 16.3. New Lifecycles, Context, Strict Mode, createRef and forwardRef"
+longdescription: "React 16 keeps evolving. It's important to understand these changes to enable you build ergonomic React applications. Learn what's new in React 16.3!"
 date: 2018-04-26 08:30
 category: Technical Guide, Angular, ReactJS
 design:
@@ -17,9 +17,9 @@ tags:
 - react
 - reactjs
 - javascript
-- reactfiber
-- fiber
-- frontend
+- ref
+- context
+- forwardref
 - authentication
 related:
 - 2017-02-21-reactjs-authentication-tutorial
@@ -29,11 +29,13 @@ related:
 
 ---
 
-**TL;DR:** In this article, I'll cover the new  major features in React 16.3.
+**TL;DR:** In this article, I'll cover the new major features in React 16.3.
 
 ---
 
-ReactJS 16 shipped with a lot of new features and paramount changes to the framework. And since the release, a lot more features have been shipped. React 16.3 ships with a few major changes I'll like to highlight in this article. Let's dive in!
+[ReactJS 16 shipped with a lot of new features](https://auth0.com/blog/whats-new-in-react16). And since the release, a lot more features have been shipped.
+
+_React 16.3_ ships with a few major changes that I'll like to highlight in this article. Let's dive in!
 
 
 ## StrictMode Component
@@ -61,40 +63,107 @@ function WokeAlarm() {
 }
 ```
 
-## New Lifecycles
+## New Lifecycle Methods
 
 _React 16.3_ ships with new lifecycle methods such as `getDerivedStateFromProps`, and `getSnapshotBeforeUpdate`. 
 
-These existing lifecycle methods, `componentWillMount`, `componentWillReceiveProps`, and `componentWillUpdate` will be deprecated in a future ReactJS 16.x release. These methods would still be available for use in future _React 17_.
+These existing lifecycle methods, `componentWillMount`, `componentWillReceiveProps`, and `componentWillUpdate` will be deprecated in a future ReactJS 16.x release because they have been known to be problematic and behave in unintended ways. These methods would still be available for use in future _React 17_.
 
-* **getDerivedStateFromProps** is an alternative to `componentWillReceiveProps`.
-* **getSnapshotBeforeUpdate**
+* **getDerivedStateFromProps** can be used instead of `componentWillReceiveProps`.
+* **componentDidMount** can be used instead of **componentWillMount**.
+* **componentDidUpdate** can be used instead of **componentWillUpdate**.
 
+The new `getDerivedStateFromProps` method is static and will be called on the initial mounting of the component and also when the component is re-rendered.
+
+{% include tweet_quote.html quote_text="The new getDerivedStateFromProps method is static and will be called on the initial mounting of the component." %}
+
+```js
+class Speaker extends Component {
+  static getDerivedStateFromProps() {
+    if (nextProps.value !== prevState.value) {
+      return ({ value: nextProps.value });
+    }
+  }
+}
+```
+
+The new `getSnapshotBeforeUpdate` method is called before any DOM mutations happen. It's great to perform any sort of calculations needed for your component here and then pass it to `componentDidUpdate` as the third argument like so:
+
+{% include tweet_quote.html quote_text="The new getSnapshotBeforeUpdate method is called before any DOM mutations happen." %}
+
+```js
+...
+getSnapShotBeforeUpdate(prevProps, prevState) {
+  return prevProps.list.length < this.props.list.length ? this.listRef.scrollHeight : null;
+}
+
+componentDidUpdate(prevProps, prevState, snapshot) {
+  if (snapshot !== null) {
+    const listRef = this.listRef;
+    listRef.scrollTop += listRef.scrollHeight - snapshot;
+  }
+}
+...
+```
 
 ## forwardRef
 
-**Refs** provide a way to access ReactJS elements or DOM nodes created in the render method. They are great for text selection, working with third-party libraries, et al. However, as with anything, there were some challenges with **refs** as regards component encapsulation.
+**Refs** provide a way to access ReactJS elements or DOM nodes created in the render method. They are great for getting values from input elements, working with third-party DOM libraries, et al. However, as with anything, there were some challenges with **refs** as regards component encapsulation.
 
 The premise of `forwardRef` is to automatically pass a `ref` received by a parent component to its children. It's great for reusable components in component libraries. As the name implies, the component is forwarding the `ref` to its child.
 
 Check out the example below:
 
 ```js
-const Login = React.forwardRef((props, ref) => (
+import React, { Component } from 'react';
+
+const LoginButton = React.forwardRef((props, ref) => (
   <button ref={ref} class="Login"> {props.children} </button>
 ));
 
-// You can now get a ref directly to the DOM button:
-const ref = React.createRef();
 
-<Login ref={ref}> Get In! </Login>;
+class Display extends Component {
+  myRef = React.createRef();
+
+  componentDidMount() {
+    this.myRef.current.focus();
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <LoginButton ref={this.myRef}> Get In! </LoginButton>
+      </div>
+    ) 
+  }
+} 
 ```
+
+The use of `forwardRef` is more valuable in Higher Order Components. The [ReactJS blog](https://reactjs.org/docs/forwarding-refs.html) has the perfect example for this scenario.
 
 ## createRef
 
 Before now, ReactJS developers had two ways of using refs. You either make use of the callback API or the legacy string ref API.
 
-With _React 16.3_, you can make use of the `createRef` API for managing refs without any negative implications. Check out the example below:
+With _React 16.3_, you can make use of the `createRef` API for managing refs without any negative implications. It's simpler and developer friendly too. Check out the example below:
+
+_without createRef API_
+
+```js
+class SpeakerComponent extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return <input type="text" ref={(input) => {
+      this.inputRef = input;
+    }} />;
+  }
+}
+```
+
+_with createRef API_
 
 ```js
 class SpeakerComponent extends React.Component {
@@ -116,8 +185,118 @@ class SpeakerComponent extends React.Component {
 
 ## Context API
 
-The `Context` API has been available for a while, but in experimental mode. _React 16.3_ ships with an ergonomic context API that supports static type checking and deep updates.
+The `Context` API has been available for a while but in experimental mode. _React 16.3_ ships with an ergonomic Context API that supports static type checking and deep updates. This API solves the challenge most developers experience, that makes them quickly reach out for [Redux](https://redux.js.org). 
 
+Check out this example below:
+
+```js
+import React, { Component } from 'react';
+
+const Dog = (props) => (
+  <div>
+    <Animal name={props.name} />
+  </div>
+);
+
+}
+class Animal extends Component {
+  render() {
+    return (
+      <div>
+        <p> Hey, I'm a {this.props.name} </p>
+      </div>
+    )
+  }
+}
+
+
+class App extends Component {
+  state = {
+    name: 'Casanova',
+    food: 'bone',
+  }
+
+  render() {
+    return (
+      <div>
+        <Dog name={this.state.name} />
+      </div>
+    )
+  }
+}
+
+export default App;
+```
+
+This is a simple example, but the way we pass data from component to component with the use of props is not developer friendly and could get out of hand very quickly! At this point, most developers quickly reach out to a data store or state management library to manage this process efficiently. However, the new Context API in _React 16.3_ can be used to eliminate the challenge.
+
+With this new API, we'll need a **Provider** and a **Consumer**. The data will live in the **Provider** while the **Consumer** represents where the data needs to be accessed.
+
+```js
+import React, { Component } from 'react';
+
+// create a new context
+const MyContext = React.createContext();
+
+// create a provider component
+class MyProvider extents Component {
+  state = {
+    name: 'Casanova',
+    food: 'bone'
+  }
+
+  render() {
+    return (
+      <MyContext.Provider value={{
+          state: this.state
+        }}>
+        { this.props.children }
+      </MyContext.Provider>
+    )
+  }
+}
+
+const Dog = (props) => (
+  <div>
+    <Animal />
+  </div>
+);
+
+class Animal extends Component {
+  render() {
+    return (
+      <div>
+        <MyContext.Consumer>
+          {(context) => (
+            <React.Fragment>
+              <h3> Food: { context.state.food } </h3>
+              <h3> Name: { context.state.name } </h3>
+            </React.Fragment>
+          )}
+        </MyContext.Consumer>
+      </div>
+    )
+  }
+}
+
+class App extends Component {
+  render() {
+    return (
+      <MyProvider>
+        <div>
+          <Dog />
+        </div>
+      </MyProvider>
+    )
+  }
+}
+
+export default App;
+```
+
+In the code above, there is a provider, `<MyProvider />`that houses the state and renders a Context provider. 
+
+The Context provider provides the ability to render children components as evident in the `<App />` component. We just simply called the consumer, `<MyContext.Consumer />` in the Animal component to render the data we needed. This is more organized, and avoids the case of _props drilling hell_!
 
 {% include asides/react.markdown %}
 
