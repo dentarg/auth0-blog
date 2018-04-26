@@ -247,9 +247,7 @@ class MyProvider extents Component {
 
   render() {
     return (
-      <MyContext.Provider value={{
-          state: this.state
-        }}>
+      <MyContext.Provider value={{ state: this.state }}>
         { this.props.children }
       </MyContext.Provider>
     )
