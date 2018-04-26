@@ -187,7 +187,7 @@ class SpeakerComponent extends React.Component {
 
 ## Context API
 
-The `Context` API has been available for a while but in experimental mode. _React 16.3_ ships with an ergonomic Context API that supports static type checking and deep updates. This API solves the challenge most developers experience, that makes them quickly reach out for [Redux](https://redux.js.org). 
+The `Context` API has been available for a while but in experimental mode. _React 16.3_ ships with an ergonomic Context API that supports static type checking and deep updates. This API solves the challenge most developers experience which is the complexity of passing data from child to parent and back and make them quickly reach out for [Redux](https://redux.js.org). 
 
 Check out this example below:
 
