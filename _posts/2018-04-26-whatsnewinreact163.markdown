@@ -42,7 +42,9 @@ _React 16.3_ ships with a few major changes that I'll like to highlight in this 
 
 JavaScript developers are very familiar with the `strict` keyword. This keyword keeps you in check while developing your apps and raises an alarm during development to let you know about potential problems in your codebase.
 
-_React 16.3_ ships with a `StrictMode` component that highlights potential problems in your ReactJS codebase. This component runs a check in development mode to determine if there are issues with the descendant components such as using an unsafe lifecycle method, legacy ref API, e.t.c.
+_React 16.3_ ships with a `StrictMode` component that highlights potential problems in your ReactJS codebase. 
+
+This component runs a check in development mode to determine if there are issues with the descendant components such as using an unsafe lifecycle method, legacy ref API, e.t.c.
 
 ```js
 import React from 'react';
@@ -108,9 +110,9 @@ componentDidUpdate(prevProps, prevState, snapshot) {
 
 ## forwardRef
 
-**Refs** provide a way to access ReactJS elements or DOM nodes created in the render method. They are great for getting values from input elements, working with third-party DOM libraries, et al. However, as with anything, there were some challenges with **refs** as regards component encapsulation.
+**Refs** provide a way to access ReactJS elements or DOM nodes created in the render method. They are great for getting values from input elements, working with third-party DOM libraries, et al. However, there were some challenges with **refs** as regards component encapsulation.
 
-The premise of `forwardRef` is to automatically pass a `ref` received by a parent component to its children. It's great for reusable components in component libraries. As the name implies, the component is forwarding the `ref` to its child.
+`forwardRef` automatically passes a `ref` received by a parent component to its children. It's great for reusable components in component libraries. As the name implies, the component is forwarding the `ref` to its child.
 
 Check out the example below:
 
@@ -247,9 +249,11 @@ class MyProvider extents Component {
 
   render() {
     return (
+      {% raw %}
       <MyContext.Provider value={{ state: this.state }}>
         { this.props.children }
       </MyContext.Provider>
+      {% endraw %}
     )
   }
 }
@@ -292,14 +296,14 @@ class App extends Component {
 export default App;
 ```
 
-In the code above, there is a provider, `<MyProvider />`that houses the state and renders a Context provider. 
+In the code above, there is a provider, `<MyProvider />`, that houses the state and renders a Context provider. 
 
-The Context provider provides the ability to render children components as evident in the `<App />` component. We just simply called the consumer, `<MyContext.Consumer />` in the Animal component to render the data we needed. This is more organized, and avoids the case of _props drilling hell_!
+The Context provider provides the ability to render children components as evident in the `<App />` component. We simply called the consumer, `<MyContext.Consumer />`, in the Animal component to render the data we needed. This is more organized, and avoids the case of _props drilling hell_!
 
 {% include asides/react.markdown %}
 
 ## Conclusion
 
-_ React 16_ has been on a roller-coaster. And it's amazing how ReactJS is becoming more of a way of life than a library, in my opinion.
+_React 16_ has been on a roller-coaster. And it's amazing how ReactJS is becoming more of a way of life than a library, in my opinion.
 
 Have you upgraded to _React 16.3_ yet? What are your thoughts? Let me know in the comments section! 😊
