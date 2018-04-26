@@ -31,7 +31,7 @@ related:
 - ten-things-you-should-know-about-tokens-and-cookies
 ---
 
-We have released another round of updates for our [JWT.io](https://jwt.io/) website and the JWT Debugger extensions ([Chrome]((https://chrome.google.com/webstore/detail/jwt-debugger/ppmmlchacdbknfphdeafcbmklcghghmd)), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/jwtio-debugger)). Among the new features are [HMAC](https://en.wikipedia.org/wiki/HMAC) secret length hints, common claim descriptions, simplified library updates for the website, a share button for the website, support for plain RSA public keys, and more token types can be passed in the URL! In this post, we will go over these new features.
+We have released another round of updates for our [JWT.io](https://jwt.io/) website and the JWT Debugger extensions ([Chrome](https://chrome.google.com/webstore/detail/jwt-debugger/ppmmlchacdbknfphdeafcbmklcghghmd), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/jwtio-debugger)). Among the new features are [HMAC](https://en.wikipedia.org/wiki/HMAC) secret length hints, common claim descriptions, simplified library updates for the website, a share button for the website, support for plain RSA public keys, and more token types can be passed in the URL! In this post, we will go over these new features.
 
 {% include tweet_quote.html quote_text="A new round of updates for JWT.io and the JWT Debugger extensions have been released!" %}
 
@@ -40,7 +40,7 @@ We have released another round of updates for our [JWT.io](https://jwt.io/) webs
 ## JWT.io and the JWT Debugger extension
 [JSON Web Tokens (JWTs)](https://jwt.io/introduction/) are a convenient way to exchange claims between parties. The key features of JWTs are their simple format (Base64-encoded JSON) and the use of signatures and/or encryption. [JWT.io](https://jwt.io/) provides a convenient way to debug and inspect [JSON Web Tokens (JWTs)](https://auth0.com/e-books/jwt-handbook), along with an introduction to some of the key concepts behind them. It also provides a list of libraries and frameworks that can be used with them in many different programming languages.
 
-The JWT Debugger extensions ([Chrome]((https://chrome.google.com/webstore/detail/jwt-debugger/ppmmlchacdbknfphdeafcbmklcghghmd)), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/jwtio-debugger)) are the [Web Extension](https://browserext.github.io/browserext/) versions of JWT.io. The debugger has the same features as the website but can be used offline. It also provides additional features like automatic inspection of web storage and cookies to easily find and edit JWTs in websites!
+The JWT Debugger extensions ([Chrome](https://chrome.google.com/webstore/detail/jwt-debugger/ppmmlchacdbknfphdeafcbmklcghghmd), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/jwtio-debugger)) are the [Web Extension](https://browserext.github.io/browserext/) versions of JWT.io. The debugger has the same features as the website but can be used offline. It also provides additional features like automatic inspection of web storage and cookies to easily find and edit JWTs in websites!
 
 Now, let's go over the new features of this release!
 
