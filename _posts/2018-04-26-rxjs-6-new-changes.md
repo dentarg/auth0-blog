@@ -63,7 +63,7 @@ There are only two breaking changes that are not covered by the `rxjs-compat` pa
 
 In the rare instance that your codebase defines its own TypeScript prototype operators and modifies the `Observable` namespace, your operator code would need to be updated in order for TypeScript to compile.
 
-A user-defined prototype operator can be created as follows:
+From the release notes examples, a user-defined prototype operator can be created as follows:
 
 ```javascript
 Observable.prototype.userDefined = () => {
@@ -99,6 +99,8 @@ source$.pipe(
 ### Synchronous error handling
 
 Calling `Observable.subscribe()` within a `try/catch` block is no longer supported. Instead, replace the `try/catch` block with asynchronous error handling done with the `error` callback in the `Observable.subscribe()` method.
+
+As shown in the release notes:
 
 ```javascript
 // deprecated
@@ -182,6 +184,8 @@ import { map, filter, catchError, mergeMap } from 'rxjs/operators';
 
 * Attach a [`pipe()`](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-pipe) method to the source and wrap all the operators within it. Ensure that the `.` is removed from each operator name and that they are comma-delimited. Remember that some operators need to change their names.
 
+The following is an example of a pipeable refactoring from the release notes:
+
 ```javascript
 // an operator chain
 source
@@ -253,6 +257,7 @@ For more details on this rare implementation, please visit the [RxJS documentati
 
 [`Observable.if`](http://reactivex.io/rxjs/file/es6/observable/if.js.html) has been replaced by [`iif()`](https://github.com/ReactiveX/rxjs/blob/master/src/internal/observable/iif.ts) and [`Observable.throw`](http://reactivex.io/rxjs/file/es6/observable/throw.js.html) is now [`throwError()`](https://github.com/ReactiveX/rxjs/blob/master/src/internal/observable/throwError.ts). You can use `rxjs-tslint` to convert these deprecated `Observable` method calls into function calls.
 
+The release notes gives us the following example:
 
 #### Observable.if > iif()
 
@@ -278,7 +283,7 @@ throwError(new Error());
 
 ### Deprecated Methods
 
-Some other methods have been deprecated and refactored:
+According to the migration guide, other methods have been deprecated and refactored:
 
 
 **merge**
