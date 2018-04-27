@@ -154,13 +154,21 @@ import { ajax } from 'rxjs/ajax';
 import { TestScheduler } from 'rxjs/testing';
 ```
 
-{% include tweet_quote.html quote_text="RxJS 6 gives us easy to reason and to deduce import paths. No more guesswork, just follow the import patterns in place." %}
+<blockquote class="twitter-tweet" data-conversation="none" data-lang="en"><p lang="en" dir="ltr">Have you tried updating your app using rxjs-tslint?</p>&mdash; Ben Lesh 🛋️👑🔥 (@BenLesh) <a href="https://twitter.com/BenLesh/status/989268922556862464?ref_src=twsrc%5Etfw">April 25, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 
 ### Use Piping Instead of Chaining
 
 Use piping instead of chaining as new operator syntax. The result of one operator is piped into another operator.
 
 Don't remove `rxjs-compat` until you have refactored all chained operators into piped operators. If you are a TypeScript user, `ts-lint` can automate this refactoring to some extent for well-typed code.
+
+During [ng-conf 2018](https://www.ng-conf.org/sessions/introducing-rxjs6/), Ben Lesh explained [why we should use pipeable operators](https://youtu.be/JCXZhe6KsxQ?t=2m30s):
+
+<p style="text-align: center;">
+  <img src="https://cdn.auth0.com/blog/rxjs6/ng-conf-ben-lesh-rxjs-6.png" alt="Ben Lesh explains why developers should use pipeable operators">
+</p>
 
 Follow these steps to reactor your operator chains into pipes:
 
@@ -338,6 +346,12 @@ zip(a$, b$, c$);
 RxJS 6 brings some breaking changes but they are mitigated by the addition of the `rxjs-compat` package that allows you to gradually migrate while keeping your `v5` code operational. For TypeScript users, which cover the majority of Angular developers, `tslint` offers a great deal of automated refactoring to make the transition even easier.
 
 As always, any upgrades and code changes may invite bugs into the codebase or even make elusive ones resurface. Solid testing practices should always be in place to ensure that your users keep receiving the same quality experience that you were providing them when `v5` was part of your codebase.
+
+Watch the complete introduction to RxJS 6 by Ben Lesh:
+
+<p style="text-align: center;">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/JCXZhe6KsxQ?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</p>
 
 
 {% include asides/about-auth0.markdown %}
