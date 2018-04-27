@@ -118,6 +118,8 @@ One of the uses that JWT.io originally supported, was to be set as the callback 
 
 The following URL parameters are recognized: `access_token`, `id_token`, `token`, and `value`.
 
+<a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up for a free Auth0 account</a> to try this out!
+
 ### Common Claims Tooltips
 In our previous update, we had enabled tooltips for dates in claims. This time, we have extended tooltips to also show a short description of what the claim means.
 
