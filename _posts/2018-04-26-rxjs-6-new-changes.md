@@ -122,7 +122,7 @@ As mentioned earlier, `rxjs-compat` provides a temporary compatibility layer bet
 
 The recommendation for TypeScript developers is to use [`rxjs-tslint`](https://github.com/reactivex/rxjs-tslint) to refactor `import` paths.
 
-The following rules have been designed by the RxJS team to help JavaScript developer refactor `import` paths:
+The following rules have been designed by the RxJS team to help JavaScript developers refactor `import` paths:
 
 * `rxjs`: Contains creation methods, types, schedulers, and utilities.
 
@@ -140,7 +140,6 @@ import { map, filter, scan } from 'rxjs/operators';
 
 ```javascript
 import { webSocket } from 'rxjs/webSocket';
-import { map, filter, scan } from 'rxjs/operators';
 ```
 
 * `rxjs/ajax`: Contains the Rx ajax implementation.
@@ -223,8 +222,8 @@ For a complete list of the `v6` creation functions that replace `v5` classes, pl
 
 **Special case:**
 
-* [`ConnectableObservable`](https://github.com/ReactiveX/rxjs/blob/master/src/internal/observable/ConnectableObservable.ts) is hidden from direct use in `v6`. To access it,   use the operators [`multicast`](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-multicast), [`publish`](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-publish), [`publishReplay`](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-publishReplay), [`publishLast`](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-publishLast).
-* [`SubscribeOnObservable`](https://github.com/ReactiveX/rxjs/blob/master/spec/observables/SubscribeOnObservable-spec.ts) is hidden from direct use in `v6`. To access it, us the operator [`subscribeOn`](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-subscribeOn).
+* [`ConnectableObservable`](https://github.com/ReactiveX/rxjs/blob/master/src/internal/observable/ConnectableObservable.ts) is hidden from direct use in `v6`. To access it, use the operators [`multicast`](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-multicast), [`publish`](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-publish), [`publishReplay`](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-publishReplay), [`publishLast`](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-publishLast).
+* [`SubscribeOnObservable`](https://github.com/ReactiveX/rxjs/blob/master/spec/observables/SubscribeOnObservable-spec.ts) is hidden from direct use in `v6`. To access it, use the operator [`subscribeOn`](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-subscribeOn).
 
 
 ### Removing resultSelector
