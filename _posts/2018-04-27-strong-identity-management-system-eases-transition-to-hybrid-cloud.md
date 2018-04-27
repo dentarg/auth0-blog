@@ -2,16 +2,16 @@
 layout: post
 title: "How a Strong Identity Management System Can Ease Your Transition to the Hybrid Cloud"
 description: "With hybrid cloud deployment becoming popular, keeping tight control on authentication and authorization has become essential."
-date: 2018-03-27 8:30
+date: 2018-04-27 8:30
 category: Growth, Identity, Trends
 design:: 
-  bg_color: "#1A1A1A"
-  image: 
+  bg_color: "#00635D"
+  image: https://cdn.auth0.com/blog/identity-management-hybrid-cloud/logo.png
 author:
-  name: 
-  url:
-  mail:
-  avatar: 
+  name: "Diego Poza"
+  url: "https://twitter.com/diegopoza"
+  mail: "diego.poza@auth0.com"
+  avatar: "https://avatars3.githubusercontent.com/u/604869?v=3&s=200"
 tags: 
   - hybrid-cloud
   - cloud
@@ -21,7 +21,7 @@ tags:
 related:
   - 2018-03-28-security-vs-convenience
   - 2018-03-16-identity-as-a-service-in-2018
-  - 2017-12-08-how-poor-identity-access-management-equals-security-breaches
+  - 2017-11-17-moving-your-app-to-cloud
 ---
 
 
