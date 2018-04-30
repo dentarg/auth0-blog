@@ -24,10 +24,6 @@ related:
   - 2017-11-17-moving-your-app-to-cloud
 ---
 
-<div class="alert alert-success alert-icon">
-  <strong>Heads up!</strong> This article has recently been updated to remove a deprecated feature, <a href="https://auth0.com/docs/user-profile/user-impersonation">User impersonation</a>, which is no longer supported.
-</div>
-
 The ability to clearly observe, track, and log in as your authorized users allows for the swift implementation of updates and early alerts of any suspicious behavior.
 
 Moving to a hybrid cloud model is the first step that many companies take when undergoing a digital transformation. Less expensive and resource-intense than a full private cloud option — yet still providing an extra measure of security, compared with the public cloud — hybrid deployment has become [highly popular](https://assets.rightscale.com/uploads/pdfs/RightScale-2017-State-of-the-Cloud-Report.pdf) among tech professionals.
