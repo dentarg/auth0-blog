@@ -24,6 +24,9 @@ related:
   - 2017-11-17-moving-your-app-to-cloud
 ---
 
+<div class="alert alert-success alert-icon">
+  <strong>Heads up!</strong> This article has recently been updated to remove a deprecated feature, <a href="https://auth0.com/docs/user-profile/user-impersonation">User impersonation</a>, which is no longer supported.
+</div>
 
 The ability to clearly observe, track, and log in as your authorized users allows for the swift implementation of updates and early alerts of any suspicious behavior.
 
