@@ -54,31 +54,6 @@ The above profile breaks down all devices the administrator has authorized for t
 
 {% include tweet_quote.html quote_text="A robust IAM strategy can show you who is currently logged into your network. Having the full picture is essential to staying organized and rooting out any suspicious activity." %}
 
-## Log In As an Individual User
-
-Within a comprehensive IAM system, an administrator can also [impersonate a user](https://auth0.com/docs/user-profile/user-impersonation), allowing him or her to better understand and/or troubleshoot issues that might arise. For example, if a user reports a bug, but you aren't able to see the issue from your angle, you can:
-
-1. Ask for further information, including a more detailed description and/or screenshots; or 
-2. Expedite the process (particularly if the issue is critical) by logging in as the specific user and experiencing the problem yourself in order to create a targeted solution.
-
-Using the Auth0 dashboard, you can easily select the user you want to log in as using the drop-down menu.
-
-<p style="text-align: center;">
-  <img src="https://cdn.auth0.com/blog/strong-identity-management-system-eases-transition-to-hybrid-cloud/userdetails.png" alt="Sign in as user drop-down">
-</p>
-
-While it's possible to construct a user impersonation feature on your own, the potential for [even more security complications](https://auth0.com/blog/how-not-to-troubleshoot-bugs-by-impersonating-users/) is high. As you shift your business to a hybrid cloud model, outsourcing this feature will ensure it is always up to date and doesn't cause additional problems. 
-
-Auth0’s [Sign in As](https://auth0.com/how-it-works) feature, for example, includes:
-
-* **Detailed auditing** of who impersonated a user when, which dissuades abuse.
-* **Restrictions on impersonation,** which can help you comply with corporate policies around privacy and sensitive data.
-* **Unlimited customization** on who can impersonate who and when, using the Auth0 [Rules engine](https://auth0.com/docs/rules), which allows you to write arbitrary Javascript to define the relationship between  `user.impersonated` (the impersonated login) and `user.impersonator` (the impersonating login).
-
-An efficient user impersonation method can allow administrators to troubleshoot quickly and accurately, helping maintain company operations during a digital overhaul.
-
-{% include tweet_quote.html quote_text="As you shift your business to a hybrid cloud model, outsourcing a user impersonation feature will ensure it's always up to date and doesn't cause additional problems, such as security complications." %}
-
 ## Restrict Access to Sensitive Documents
 
 In the hybrid cloud, your workflow is split between confidential tasks in the private cloud and less sensitive ones in the public cloud. With a strong IAM system, you can allow access to private documents based on a user's ID. This can limit the amount of damage that can occur if someone's username or login details are stolen. IAM companies like Auth0 facilitate different permissions based on the user.
