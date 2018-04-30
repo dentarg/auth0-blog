@@ -41,7 +41,7 @@ As Auth0 Principal Architect, Vittorio will be applying his skill for rendering 
 
 We’ll frequently share his expertise, but if that’s not enough, you can still find Vittorio’s many articles online, get his [books on identity](https://www.amazon.com/Vittorio-Bertocci/e/B001JSFAPC/ref=sr_ntt_srch_lnk_2?qid=1524600242&sr=8-2-fkmr0), check out his blog at [cloudidentity.com](http://www.cloudidentity.com/blog/), follow him [@vibronet](https://twitter.com/vibronet), or catch him at his next speaking engagement.
 
-<p style="text-align: center"><img src="https://cdn.auth0.com/blog/vittorio/Vittorio_193.jpg" alt="Vittorio Bertocci"></p>
+![Vittorio Bertocci](https://cdn.auth0.com/blog/vittorio/Vittorio_193.jpg)
 
 Since today is his first day at Auth0, we thought we’d seed future conversations with a few introductory questions. 
 
