@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Build and Authenticate a Node.js App with JSON Web Tokens"
-description: "Node.js allows you to build backend applications with JavaScript. In this tutorial we'll take a look at how you can secure your Node.js applications with JSON Web Tokens (JWTs)."
+description: "Node.js allows you to build backend applications with JavaScript. In this tutorial, we'll take a look at how you can secure your Node.js applications with JSON Web Tokens (JWTs)."
 date: 2016-11-21 08:30
 category: Technical Guide, Backend, NodeJS
 banner:
@@ -22,6 +22,7 @@ related:
 - angular-2-ngmodules
 - introducing-angular2-jwt-a-library-for-angular2-authentication
 - create-a-desktop-app-with-angular-2-and-electron
+lang: en
 alternate_locale_ja: jp-building-and-authenticating-nodejs-apps
 ---
 
@@ -31,9 +32,9 @@ alternate_locale_ja: jp-building-and-authenticating-nodejs-apps
 
 ---
 
-[Node.js](https://nodejs.org), or simply Node, was first released in 2009 by Ryan Dahl and has become one of the most popular backend programming languages today. Node.js is for all intents and purposes JavaScript but instead of running in the users browser, Node.js code is executed on the backend. Developers familiar with JavaScript will be able to dive right in and write Node.js code.
+[Node.js](https://nodejs.org), or simply Node, was first released in 2009 by Ryan Dahl and has become one of the most popular backend programming languages today. Node.js is for all intents and purposes JavaScript but instead of running in the user's browser, Node.js code is executed on the backend. Developers familiar with JavaScript will be able to dive right in and write Node.js code.
 
-In our tutorial today, we will write a complete Node.js application using one of the most popular web frameworks for Node, [Express Js](http://expressjs.com). We'll cover everything from project setup to routing, calling external API's, and more. Before we dive into the code let's understand why Node.js is so popular and widely used to give you a deeper understand of why you may want to use Node.js for your applications.
+In our tutorial today, we will write a complete Node.js application using one of the most popular web frameworks for Node, [Express Js](http://expressjs.com). We'll cover everything from project setup to routing, calling external API's, and more. Before we dive into the code let's understand why Node.js is so popular and widely used to give you a deeper understanding of why you may want to use Node.js for your applications.
 
 ## The Rise of Node.js
 
@@ -69,7 +70,7 @@ Node.js is great for many use cases, but not so good in others. If you need high
 
 ![Node.js App - Awesome Polls](https://cdn.auth0.com/blog/nodejs-awesome-polls/polls.png)
 
-Now that we know more about Node.js, we are ready to get coding and building our application. The application we'll be building today is called Awesome Polls. The United States just had its presidential elections and we are going to build an app to help us analyse the results. Imagine you're building this app for a news organization that wishes to have the most up-to-date data so that it can provide accurate reports to it's viewers.
+Now that we know more about Node.js, we are ready to get coding and building our application. The application we'll be building today is called Awesome Polls. The United States just had its presidential elections and we are going to build an app to help us analyze the results. Imagine you're building this app for a news organization that wishes to have the most up-to-date data so that it can provide accurate reports to its viewers.
 
 For this tutorial, we will assume that you have at least some JavaScript and general programming knowledge, but no Node.js exposure, so we'll take it step by step. As always, you can check out the completed code from the [GitHub repo](https://github.com/auth0-blog/nodejs-awesome-polls) if you would like to just follow along.
 
@@ -83,17 +84,17 @@ We will want to ensure that both NPM and Node are installed. Once you've gone th
 
 ![Verify Node.js Installation](https://cdn.auth0.com/blog/nodejs-awesome-polls/test.png)
 
-> **Note:** Node.js has two versions. A 8.x stable/long-term support version and 9.x which is the cutting edge version, that supports some of the latest ES6 features. Both versions are production-ready, and for this tutorial we'll be using the 9.x version of Node.
+> **Note:** Node.js has two versions. An 8.x stable/long-term support version and 9.x which is the cutting edge version, that supports some of the latest ES6 features. Both versions are production-ready, and for this tutorial, we'll be using the 9.x version of Node.
 
 ### Node.js Project Setup
 
-Now that we have Node and NPM installed, we are ready to continue. One of the best things about Node applications, for me personally, is the ability to have your application live anywhere in the file system. Each Node application is self-contained, so to setup our project, let's just create a directory on our desktop called `awesome-polls` and we'll place our entire application in this directory.
+Now that we have Node and NPM installed, we are ready to continue. One of the best things about Node applications, for me personally, is the ability to have your application live anywhere in the file system. Each Node application is self-contained, so to set up our project, let's just create a directory on our desktop called `awesome-polls` and we'll place our entire application in this directory.
 
 The first file we'll add to this project is a `package.json` file. This file will keep track of all of our dependencies as well as provide some useful info about our application. You can either manually create this file, or run the `npm init -y` command to get one automatically. *Remember to navigate to the `awesome-polls` directory in your terminal first, otherwise your `package.json` file will be created elsewhere.*
 
 Now that we have our `package.json` file, we can add and save our dependencies. There are multiple ways to do this. We could manually write our dependencies in the `package.json` file, for example, but the preferred way is to actually run the `npm install` command which will automatically add the dependency to your `package.json` file.
 
-Let's see how this works. We will use the Express JavaScript web framework for building our application. Currently, we don't have Express installed on our machine. To get it, simply run `npm install express`. In just a few seconds, Express will be downloaded, and stored in a new directory in your file system called `node_modules`. This directory will be located in your `awesome-polls` directory and is a local dependency. You can also install global dependencies by passing a `-g` flag, but you probably won't want to do this for the majority of libraries you install.
+Let's see how this works. We will use the Express JavaScript web framework for building our application. Currently, we don't have Express installed on our machine. To get it, simply run `npm install express`. In just a few seconds, Express will be downloaded and stored in a new directory in your file system called `node_modules`. This directory will be located in your `awesome-polls` directory and is a local dependency. You can also install global dependencies by passing a `-g` flag, but you probably won't want to do this for the majority of libraries you install.
 
 You can also install multiple dependencies at once. Let's install the rest of our dependencies. Write the following:
 
@@ -107,7 +108,7 @@ These are all of the 3rd party open source libraries we will rely on to write ou
 
 ### Node.js Directory Structure
 
-Node.js and Express Js are both pretty unopionionated when it comes to directory structure. You are free to define your own and won't be penalized for having too many or too few layers of abstraction. At the end of the day, the code is compiled and code structure flattened, so feel free to experiment with what works best for you. This will also depend a lot on the size and scope of your application. Our demo app is fairly small so our structure will look like:
+Node.js and Express Js are both pretty unopinionated when it comes to the directory structure. You are free to define your own and won't be penalized for having too many or too few layers of abstraction. At the end of the day, the code is compiled and code structure flattened, so feel free to experiment with what works best for you. This will also depend a lot on the size and scope of your application. Our demo app is fairly small so our structure will look like:
 
 ```
 .env - // We will store our global environmental variables here
@@ -118,7 +119,7 @@ app.js - // This file will be our entry point into the application
   |- stylesheets
     |- style.css - // We'll store our global styles here
 |- routes
-  |- index.js - // In this file we'll define our routes for the application
+  |- index.js - // In this file, we'll define our routes for the application
 |- views - // We'll place all of our UI views here
   |- error.jade - // Our view for the error
   |- index.jade - // Our main homepage view
@@ -151,7 +152,7 @@ dotenv.load();
 // Just like external libraries, we can import our application code using the require function. The major difference is that we have to give the exact path to our file. We saw in the directory structure section that we will have an index.js file in a routes directory. Go ahead and create it if you haven't already, otherwise you'll get errors when compiling the code.
 const routes = require('./routes/index');
 
-// This line of code instantiates the Express JS framework. We assign it to a variable called app, and will add our configruation to this variable.
+// This line of code instantiates the Express JS framework. We assign it to a variable called app and will add our configuration to this variable.
 const app = express();
 
 // The .set method allows us to configure various options with the Express framework. Here we are setting our views directory as well as telling Express that our templating engine will be Jade. More on that soon.
@@ -179,7 +180,7 @@ app.use((req, res, next) => {
   next(err);
 });
 
-// If our applicatione encounters an error, we'll display the error and stacktrace accordingly.
+// If our application encounters an error, we'll display the error and stack trace accordingly.
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error', {
@@ -188,14 +189,14 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Finally, we'll choose to have our app listen on port 3000. This means that once we launch our app, we'll be able to navigate to localhost:3000 and see our app in action. You are free to choose any port you want, so 8080, or 80, or really any number will work. The reason 3000 is typically used is because it's the lowest port number that can be used without requiring elevated privileges on Mac/Linux systems.
+// Finally, we'll choose to have our app listen on port 3000. This means that once we launch our app, we'll be able to navigate to localhost:3000 and see our app in action. You are free to choose any port you want, so 8080, or 80, or really any number will work. The reason 3000 is typically used is that it's the lowest port number that can be used without requiring elevated privileges on Mac/Linux systems.
 app.listen(3000, (err) => {
   if (err) console.log(err.message);
   console.log("App running on port 3000 of localhost");
 });
 ```
 
-Let's test our app so far. To run our app, we'll simply run the command `node app` in your terminal. Next, navigate to `locahost:3000` in your web browser. If all went as expected, you should just see a 404 page not found error. That is the expected behavior since we did not add any routes to our application, but we did add a page not found error handler. Next, let's add some routes.
+Let's test our app so far. To run our app, we'll simply run the command `node app` in your terminal. Next, navigate to `localhost:3000` in your web browser. If all went as expected, you should just see a 404 page not found error. That is the expected behavior since we did not add any routes to our application, but we did add a page not found error handler. Next, let's add some routes.
 
 ### Express Js Routing
 
@@ -206,7 +207,7 @@ If you followed along with our directory structure, you'll have created an `inde
 const express = require('express');
 const router = express.Router();
 
-// On our router variable, we'll be able to include various methods. For our app we'll only make use of GET requests, so the method router.get will handle that interaction. This method takes a string as its first parameter and that is the url path, so for the first route we are just giving it '/', which means the default route.
+// On our router variable, we'll be able to include various methods. For our app we'll only make use of GET requests, so the method router.get will handle that interaction. This method takes a string as its first parameter and that is the URL path, so for the first route, we are just giving it '/', which means the default route.
 router.get('/', (req, res) => {
     res.send('You are on the homepage');
 });
@@ -260,11 +261,11 @@ app.use('/', routes);
 // everything else ...
 ```
 
-With this change saved, restart your Node server and now navigate to [`localhost:3000/user`](localhost:3000/user) and you should just see the text "Your are on the users page" displayed. If we go to a route that we haven't defined like `localhost:3000/yo`, we'll get the 404 page like we'd expect. Alright, so far so good. We have our routes working, next let's go ahead and build our UI views.
+With this change saved, restart your Node server and now navigate to [`localhost:3000/user`](localhost:3000/user) and you should just see the text "You are on the users page" displayed. If we go to a route that we haven't defined like `localhost:3000/yo`, we'll get the 404 page like we'd expect. Alright, so far so good. We have our routes working, next let's go ahead and build our UI views.
 
 ### Building the UI
 
-Next, let's build our views. Node.js and Express are very extensible and we have a lot of choices and options when choosing a templating engine for our application. In this tutorial we will use [Jade](https://pugjs.org/api/getting-started.html) (recently renamed to Pug). Jade is perhaps one of the oldest view engines, but other options such as [EJS](http://www.embeddedjs.com/), [Mustache](https://mustache.github.io/), [Dust](http://www.dustjs.com/), and so on exist. In our `app.js` file, we already declared that our view engine is going to be Jade, and that our views will be stored in a directory titled views. In this tutorial, we won't go over the Jade/Pug syntax, so if you are unfamiliar, please check out the [official tutorial](https://pugjs.org/language/tags.html).
+Next, let's build our views. Node.js and Express are very extensible and we have a lot of choices and options when choosing a templating engine for our application. In this tutorial, we will use [Jade](https://pugjs.org/api/getting-started.html) (recently renamed to Pug). Jade is perhaps one of the oldest view engines, but other options such as [EJS](http://www.embeddedjs.com/), [Mustache](https://mustache.github.io/), [Dust](http://www.dustjs.com/), and so on exist. In our `app.js` file, we already declared that our view engine is going to be Jade and that our views will be stored in a directory titled views. In this tutorial, we won't go over the Jade/Pug syntax, so if you are unfamiliar, please check out the [official tutorial](https://pugjs.org/language/tags.html).
 
 We are going to build five unique views. Jade/Pug allows us to extend one layout and build on top of it, so we are going to do that in this simple application. Let's create a file named `layout.jade`. Our views will extend this layout and add on their unique properties. The contents of this file will be as follows:
 
@@ -281,7 +282,7 @@ html
     block content
 ```
 
-Next, let's build our homepage. Our homepage will just display the name of our app and present the user a link to log in. Create a file called `index.jade` and paste in the following:
+Next, let's build our homepage. Our homepage will just display the name of our app and present the user a link to log in. Create a file called `index.jade` and paste the following:
 
 ```jade
 extends layout
@@ -299,7 +300,7 @@ block content
 
 ![Awesome Polls Homepage](https://cdn.auth0.com/blog/nodejs-awesome-polls/main.png)
 
-For our next page, let's build the user details page. This is where we'll display the logged in user's information. Create a `user.jade` file and the implemenation is as follows:
+For our next page, let's build the user details page. This is where we'll display the logged in user's information. Create a `user.jade` file and the implementation is as follows:
 
 ```jade
 extends layout
@@ -313,7 +314,7 @@ block content
 
 ![Awesome Polls User Details Page](https://cdn.auth0.com/blog/nodejs-awesome-polls/user.png)
 
-With the users page done, next let's build the polls page. Create a file called `polls.jade`.
+With the users page done, next, let's build the polls page. Create a file called `polls.jade`.
 
 ```jade
 extends layout
@@ -378,12 +379,12 @@ Lastly, we'll also create a stub for our login page by creating a file called `l
 
 Finally, we are ready to wire up our views and controllers with actual functionality. Remember, we are storing our controllers in the `routes/index.js` file. Let's open up that file and make the following adjustments:
 
-Also, for users of this application to be authenticated with Auth0, you need to setup a client in your [Auth0 dashboard](https://manage.auth0.com/#/). If you don't have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a **free** one now</a>.
+Also, for users of this application to be authenticated with Auth0, you need to set up an application in your [Auth0 dashboard](https://manage.auth0.com/#/). If you don't have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a **free** one now</a>.
 
 After creating your free Auth0 account, visit the [Auth0 dashboard](https://manage.auth0.com/#/) and add click on the _New Client_ button. Auth0 will show a form where you will need to inform two things:
 
 1. The _Name_ of the client: Here, you can add anything to represent your Node.js application.
-2. The _Client Type_: Here, you will need to choose _Regular Web Applications_.
+2. The _Application Type_: Here, you will need to choose _Regular Web Applications_.
 
 Then, click on _Create_ and go to the _Settings_ tab of your new client. From there, you will need to copy the _Client ID_, _Domain_, and _CLIENT SECRET_ properties.
 
@@ -397,7 +398,7 @@ AUTH0_CLIENT_ID={YOUR_AUTH0_CLIENT_ID}
 AUTH0_CLIENT_SECRET={YOUR_AUTH0_CLIENT_SECRET}
 ```
 
-> **Note:** You will have to replace the `{YOUR_AUTH0_DOMAIN}`, `{YOUR_AUTH0_CLIENT_ID}`, and `{YOUR_AUTH0_CLIENT_SECRET}` placeholders with the properties copied from your Auth0 client (i.e. _Client ID_, _Domain_, and _CLIENT SECRET_).
+> **Note:** You will have to replace the `{YOUR_AUTH0_DOMAIN}`, `{YOUR_AUTH0_CLIENT_ID}`, and `{YOUR_AUTH0_CLIENT_SECRET}` placeholders with the properties copied from your Auth0 application (i.e. _Client ID_, _Domain_, and _CLIENT SECRET_).
 
 ```js
 const express = require('express');
@@ -412,7 +413,7 @@ const env = {
 };
 
 router.get('/', (req, res, next) => {
-  // Now, rather then just sending the text "You are on the homepage", we are going to actually render the view we created using the res.render method. The second argument will allow us to pass in data from the backend to our view dynamically.
+  // Now, rather than just sending the text "You are on the homepage", we are going to actually render the view we created using the res.render method. The second argument will allow us to pass in data from the backend to our view dynamically.
   res.render('index', { env: env });
 });
 

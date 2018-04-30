@@ -25,7 +25,7 @@ related:
 - 2016-11-21-building-and-authenticating-nodejs-apps 
 ---
 
-**TL;DR:**  In this article we will cover building your first web application in Crystal.  The application will utilise JSON Web Tokens (JWTs) to authenticate our users around the restricted resources of our app.  The completed sample application can be found in [this GitHub repo](https://github.com/rbnpercy/challenge).  I'd encourage you to check out the repo to follow, aside this tutorial.
+**TL;DR:**  In this article we will cover building your first web application in Crystal.  The application will utilise JSON Web Tokens (JWTs) to authenticate our users around the restricted resources of our app.  The completed sample application can be found in [this GitHub repo](https://github.com/auth0-blog/challenge).  I'd encourage you to check out the repo to follow, aside this tutorial.
 
 
 Building your first Crystal Web App &amp; Authenticating with JWTs
@@ -45,7 +45,7 @@ Crystal runs on the [LLVM](https://llvm.org/), and although the *feel* of the la
 
 Two of the things I like most about Crystal are the excellent built-in tooling available, and the ease with which you can bind C libraries. When I look at new languages, especially relatively immature languages, it's always very reassuring when the language has extensive built-in tooling available to help developers stay productive and happy! In Crystal, there are a bunch of tools that make hacking around in the language super fun, but also help us to stay on the right track with semantics and more.  I touched on those topics in a bit more detail in my [previous article](https://auth0.com/blog/an-introduction-to-crystal-lang).
 
-So that's Crystal in a nutshell!  And now we have that covered, we can get on with building our first Crystal web application, and authenticating our app users with JWTs.  If you would like to see the completed sample application to follow along with this article, it can be [found in this GitHub repo.](https://github.com/rbnpercy/challenge)
+So that's Crystal in a nutshell!  And now we have that covered, we can get on with building our first Crystal web application, and authenticating our app users with JWTs.  If you would like to see the completed sample application to follow along with this article, it can be [found in this GitHub repo.](https://github.com/auth0-blog/challenge)
 
 
 ## Web App concept TL;DR
@@ -158,7 +158,7 @@ Then, back in your chosen editor, we need to create some *routes* for our app.  
 
 ~~~ crystal
 get "/auth/login" do |env|
-  env.redirect "https://[YOUR_URL].auth0.com/login?client=[CLIENT_ID]"
+  env.redirect "https://[YOUR_URL].auth0.com/authorize?client=[CLIENT_ID]"
 end
 
 get "/auth/callback" do |env|
@@ -481,7 +481,7 @@ end
 
 ## Conclusion
 
-The GitHub repo for this completed application can be found here, in the [Challenge sample app](https://github.com/rbnpercy/challenge)
+The GitHub repo for this completed application can be found here, in the [Challenge sample app](https://github.com/auth0-blog/challenge)
 
 Coming from a lower-level programming background, whenever I build a web application, I always take the easiest route, i.e. using a complete framework.  With Crystal being such a young language it is to be expected that the equivalent libraries from other languages do not *yet* exist.  When I build a web application, I generally use Rails.  Alongside Rails, I would use Devise / Omniauth for authentication and something like Rolify or CanCan for user role management.  But with these not *yet* existing for Crystal, we have had to roll our own.
 

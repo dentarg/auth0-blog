@@ -169,9 +169,10 @@
       // TODO remove code when this experiment is finished
       setTimeout(() => {
         executeABExperiment('links-developer-dropdown-menu-header', (variant) => { 
+          if (!variant) return false;
           window.abVariantHeader= variant.name;
         })
-      }, 1000)
+      }, 2000)
 
       // Header
       var React = window.React;
