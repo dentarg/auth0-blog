@@ -3,7 +3,7 @@ layout: post
 title: "RxJS 6: What's new and what has changed?"
 description: "RxJs 6 is out to provide developers with improvements in modularity, a boost in performance and easier to debug call stacks."
 longdescription: "RxJs 6 is out and with it new exciting additions and changes! The motivation behind this release is to provide developers with improvements in modularity, a boost in performance and easier to debug call stacks. The RxJS team has made a solid effort on making this release as backward compatible as possible."
-date: 2018-04-26 8:30
+date: 2018-04-30 8:30
 category: Technical Guide, Frontend, RxJS
 design:
   bg_color: "#572D89"
