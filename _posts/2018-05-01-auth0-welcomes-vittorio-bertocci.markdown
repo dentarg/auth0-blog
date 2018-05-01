@@ -13,7 +13,7 @@ author:
   avatar: "https://cdn.auth0.com/blog/avatars/jenny-obrien.png"
 design:
   bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/series-c/auth0-logo.png
+  image: https://cdn.auth0.com/blog/vittorio/VittorioBertocci_Logo.png
 tags:
 - growth
 - team
