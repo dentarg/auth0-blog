@@ -31,7 +31,7 @@ related:
 
 If you’ve heard [Vittorio Bertocci](https://www.linkedin.com/in/vittoriobertocci/)’s sessions at events like BUILD, Microsoft PDC, and many other industry events around the world, you know why we are so excited he is joining Auth0. 
 
-During his lengthy career with Microsoft, Vittorio worked with Fortune 100 and Global 100 companies, including working on Microsoft’s Azure Active Directory team as principal program manager focusing on the developer experience. He contributed to the inception and launch of Microsoft's claims-based platform components (Windows Identity Foundation and ADFS, ADAL and MSAL SDKs, ASP.NET middleware) and turned Auth0 co-founders Eugenio Pace and Mátias Woloski onto the concept of identity.
+During his lengthy career with Microsoft, Vittorio worked with Fortune 100 and Global 100 companies, including working on Microsoft’s Azure Active Directory team as principal program manager focusing on the developer experience. He contributed to the inception and launch of Microsoft's claims-based platform components (Windows Identity Foundation and ADFS, ADAL and MSAL SDKs, ASP.NET middleware) and turned Auth0 co-founders Eugenio Pace and Matías Woloski onto the concept of identity.
 
 So, if you’ve been missing out, don’t worry. We’ve got you.
 
@@ -69,7 +69,7 @@ In a nutshell: excellence and customer obsession.
 
 Leaving my position at Microsoft has been one of the hardest things I have ever done in my life — the Azure AD team is amazing, Microsoft as a whole is doing everything right, and I was lucky to be successful and do meaningful work there. 
 
-Microsoft is a universe in itself. As cloud scenarios rose in importance, I found myself spending more and more time dealing with internal customers, with less time to work with external customers and the industry. Although that’s very interesting and impactful work, my true passion lies with the developer community. Auth0 has done amazing work with developers since its inception, adapting to the industry trends and customer requirements with dazzling speed, flexibility and overall excellence. Add to that the tremendous respect and admiration I have for Eugenio and Matias, and you’ll easily see why I am so excited to join Auth0 and do my best to contribute to its growth.
+Microsoft is a universe in itself. As cloud scenarios rose in importance, I found myself spending more and more time dealing with internal customers, with less time to work with external customers and the industry. Although that’s very interesting and impactful work, my true passion lies with the developer community. Auth0 has done amazing work with developers since its inception, adapting to the industry trends and customer requirements with dazzling speed, flexibility and overall excellence. Add to that the tremendous respect and admiration I have for Eugenio and Matías, and you’ll easily see why I am so excited to join Auth0 and do my best to contribute to its growth.
 
 **What will you be doing for Auth0?**
 
