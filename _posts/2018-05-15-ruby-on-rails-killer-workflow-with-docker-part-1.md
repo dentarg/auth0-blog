@@ -97,11 +97,11 @@ Enough selling Docker. Time to get an image up and running.
 
 ### Finding The Right Docker Image
 
-The right runtime environment for you may have been solved already. You just need to find it. If you only need ruby, the [official ruby image](https://store.docker.com/images/ruby) will do. If you need both Ruby and NodeJS, I found this [image by starefossen](https://hub.docker.com/r/starefossen/ruby-node/) useful.
+The right runtime environment for you may have been solved already. You just need to find it. If you only need Ruby, the [official Ruby image](https://store.docker.com/images/ruby) will do. If you need both Ruby and NodeJS, I found this [image by starefossen](https://hub.docker.com/r/starefossen/ruby-node/) useful.
 
-This image uses the official ruby image and builds NodeJS on top of it using commands from the official NodeJS image. So you get best of both worlds.
+This image uses the official Ruby image and builds NodeJS on top of it using commands from the official NodeJS image. So you get best of both worlds.
 
-**Just a word of caution**, Docker is not a silver bullet. Our objective is to start a runtime as quickly as possible and move on to building our app. But if the repository is not maintained or updated to reflect latest ways to install NodeJS, then it might be broken. Look through the builds to ensure you have a working image.
+**Just a word of caution**, Docker is not a silver bullet. Our goal is to start a runtime as quickly as possible and move on to building our app. But if the repository is not maintained or updated to reflect latest ways to install NodeJS, then it might be broken. Look through the builds to ensure you have a working image.
 
 ### Giving Life to A Container
 Hurray! Time to step into a terminal.
@@ -137,7 +137,7 @@ The second command boots the image into a container, which is like giving life t
 
 That should take you to the shell prompt that shows something in the lines of `root@abc123a1234b:/# `. That means you are inside the container, **with root access**. It is quite easy to expose your host root directory as a volume and it becomes editable within the container. *Just be careful what you command the prompt to do!* Even better, use `--user $(id -u):$(id -g)` flag while using `docker run` to force using current user instead of root.
 
-Now run `ruby -v` inside the shell to get the ruby version. Did you get `ruby 2.5.0...`? What about `node -v`? Did you get `v8.10`? 
+Now run `ruby -v` inside the shell to get the Ruby version. Did you get `ruby 2.5.0...`? What about `node -v`? Did you get `v8.10`? 
 
 Great! That's your own runtime environment with Ruby and Node pre-installed. Well done so far. Run `exit` to close the shell and come out of the container.
 
@@ -165,7 +165,7 @@ COPY . /project
 
 Here is what's going on:
 
-* Pull the ruby+node image from Docker hub.
+* Pull the Ruby + Node image from Docker hub.
 * Update the libraries within the image
 * Install nano editor, build tools and library for Postgres.
 * Install Bundler which will update existing Bundler.
@@ -241,7 +241,7 @@ docker-compose up --build
 
 You will see that `step 1/nn: FROM starefossen/ruby-node:2-8-stretch` is available **instantly** as a layer (that is if you have already tried the initial `docker run` with a single line of `Dockerfile`).
 
-That's Docker reusing the ruby image downloaded earlier. The whole process that ran last time is saved for you. So it is only from the second line of code within the `Dockerfile` that matters now.
+That's Docker reusing the Ruby image downloaded earlier. The whole process that ran last time is saved for you. So it is only from the second line of code within the `Dockerfile` that matters now.
 
 You'll see all the steps within the `Dockerfile` executed dutifully during the build process. Each of them creates a **layer** that you can recognize by their hash, that looks like `1adb3ee3e245`. 
 
