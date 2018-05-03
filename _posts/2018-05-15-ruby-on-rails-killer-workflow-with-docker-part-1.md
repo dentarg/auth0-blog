@@ -2,7 +2,7 @@
 layout: post
 title: "Ruby on Rails—Killer Workflow with Docker (Part 1)"
 description: "Learn how to set up a killer dockerized workflow that will raise your productivity while developing Ruby on Rails applications."
-longdescription: "In this series, you will learn how to set up a killer dockerized workflow that will raise your productivity while developing Ruby on Rails application. You will use tools like Docker, Docker Compose, Travis, and Heroku to set up an state-of-the-art workflow."
+longdescription: "In this series, you will learn how to set up a killer dockerized workflow that will raise your productivity while developing Ruby on Rails application. You will use tools like Docker, Docker Compose, Travis, and Heroku to set up a state-of-the-art workflow."
 date: 2018-05-15 08:30
 category: Technical Guide, Backend, Ruby On Rails
 design:
@@ -71,7 +71,7 @@ If you already know what Docker is and how is it helping developers, skip over t
 
 Here is the problem. See if you recognize it. You started working on a new project that needed a certain environmental setup. You followed the guides to the letter and ran into issues launching the local application. No one else seems to have got the issue. **It works on their machine, but not on yours**. You consulted [Stack Overflow](https://stackoverflow.com/) trying to figure out what went wrong. Apply sequence of helpful answers to narrow down on the issue and finally reach the moment of truth.
 
-You don't recognize that? Lucky you. For the rest of us, Docker solves the problem by allowing us to bundle our runtime environment in an image and share it around.
+Don't you recognize that? Lucky you. For the rest of us, Docker solves the problem by allowing us to bundle our runtime environment in an image and share it around.
 
 Just like your Git repository is a single version of truth for your code that you share with your team, a Docker image is a repository of your runtime environment that you can share with your team. 
 
