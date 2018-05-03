@@ -30,7 +30,7 @@ related:
 - 2017-01-03-rails-5-with-auth0
 ---
 
-**TL;DR:** In this article, you'll learn how to set up a dockerized Workflow to bootstrap a full-stack database driven application using Ruby on Rails with external identity management. It will help you convert ideas into testable MVPs ([Minimum Viable Products](https://en.wikipedia.org/wiki/Minimum_viable_product)) in no time. 
+**TL;DR:** In this article, you'll learn how to set up a dockerized Workflow to bootstrap a full-stack, database-driven application using Ruby on Rails with external identity management. It will help you convert ideas into testable MVPs ([Minimum Viable Products](https://en.wikipedia.org/wiki/Minimum_viable_product)) in no time. 
 
 You will be able to build a small shelf and fill them with books in the process. You can have a look at the app [here](https://shelvedbooks.herokuapp.com/) and this [repository on GitHub](https://github.com/vijayabharathib/dockerized-rails-app) has the code and configuration of the finished product.
 
