@@ -36,7 +36,7 @@ You will be able to build a small shelf and fill them with books in the process.
 
 ## Development Workflow
 
-The objective is to optimize for developer happiness. Ruby on Rails fits the bill. You'll set up a workflow that makes it easy to configure, test, debug and deploy.  Also, you will enter the world of [continuous deployment](https://en.wikipedia.org/wiki/Continuous_delivery) where commits are deployed automatically on successful test runs.
+The objective is to optimize for developer happiness. Ruby on Rails fits the bill. You'll set up a workflow that makes it easy to configure, test, debug and deploy. Also, you will enter the world of [continuous delivery](https://en.wikipedia.org/wiki/Continuous_delivery) where commits are deployed automatically on successful test runs.
 
 ### Tech Stack
 
