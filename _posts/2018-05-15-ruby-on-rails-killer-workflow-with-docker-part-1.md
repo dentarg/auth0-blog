@@ -189,7 +189,7 @@ This is going to be a **database-driven application**. So, we need a way to pers
 Create a `docker-compose.yml` file inside the folder. It looks like the one below:
 
 ```yml
-version: '3'
+version: '3.2'
 volumes: 
   postgres-data:
 services:
@@ -212,7 +212,7 @@ services:
 
 All right, another set of descriptions for instructions within the `docker-compose.yml` file:
 
-1. The version tells Docker about the possible tokens used inside this YAML file. Be cautious using flags from other versions, they may not work in version 3.
+1. The version tells Docker about the possible tokens used inside this YAML file. Be cautious using flags from other versions, they may not work in version `3.2`.
 2. A standalone database container launched from official Postgres image.
 3. Another service named `app` which is built based on the `Dockerfile` in the same folder.
 4. The final command that needs to be run when launching the container.
@@ -363,12 +363,13 @@ That creates a new branch and checks it out, then it pushes the branch to `origi
 
 ### Precious Gems
 
-[Guard](https://github.com/guard/guard) gem helps to watch for file changes and run appropriate commands based on which file has changed. There are plugins that allow you to take different actions for different files. [guard-minitest](https://github.com/guard/guard-minitest) allows you to run tests when test files or app files change. [guard-livereload](https://github.com/guard/guard-livereload) refreshes the page automatically when `.css`, `.js` or `.erb` files change. Foreman gem will be used to run multiple commands. [Rack-livereload](https://github.com/johnbintz/rack-livereload) is an option to enable livereload from middleware.
+[Guard](https://github.com/guard/guard) gem helps to watch for file changes and run appropriate commands based on which file has changed. There are plugins that allow you to take different actions for different files. For example, [guard-minitest](https://github.com/guard/guard-minitest) allows you to run tests when test files or app files change. Another example is [guard-livereload](https://github.com/guard/guard-livereload), which refreshes the page automatically when `.css`, `.js` or `.erb` files change. Foreman gem will be used to run multiple commands. [Rack-livereload](https://github.com/johnbintz/rack-livereload) is an option to enable livereload from middleware.
 
 Ensure the `Gemfile` reflects guard gems necessary for watching file changes. This will help live-reloading and automated testing.
 
 ```Gemfile
-#...
+# ... leave the rest untouched ...
+
 group :test , :development do
   gem 'guard', '~>2.14.2',require:false
   gem 'guard-livereload','~>2.5.2', require: false
@@ -376,7 +377,6 @@ group :test , :development do
   gem 'rack-livereload'
   gem 'foreman'
 end 
-#...
 ```
 
 Ensure you **do not remove** any existing gems in the process, just add this group right at the end of the `Gemfile`. Remember the usual drill to build the image to include these new gems. 
@@ -387,13 +387,14 @@ docker-compose up --build
 
 ### Initiate a Guardfile 
 
-You need to set up `guard` to watch for file changes. Run the following command to get started. Docker build step in the previous section would have got a container running. You need to get into that container and access a command prompt (just like your terminal). 
+You need to set up `guard` to watch for file changes. Run the following command to get started. Docker build step in the previous section would have got a container running. You need to get into that container and access a command prompt (just like your terminal).
 
 If you need to run any command inside a container that is already running, you can use `docker-compose exec` *on a new terminal*, but you should be in the same project folder. Here is how:
 
 ```bash
 docker-compose exec --user $(id -u):$(id -g) app /bin/bash
 ```
+
 That'd open a prompt within the container for you. Within the prompt, you can proceed to run further commands. The flag `--user $(id -u):$(id -g)` tells Docker to run the prompt as a normal user instead of root.
 
 Start with initiating livereload plugin for Guard.
@@ -402,9 +403,9 @@ Start with initiating livereload plugin for Guard.
 guard init livereload
 ```
 
-That should create a `Guardfile` with instructions to watch for a list of extensions. Have a read through and you'll understand that the instructions target files that affect the rendered page such as `css`, `js` or `erb`. 
+That should create a `Guardfile` with instructions to watch for a list of extensions. Have a read through and you'll understand that the instructions target files that affect the rendered page such as `css`, `js`, or `erb`. 
 
-**Note**: If plain Docker commands are run with root privileges, you can use `--user $(id -u):$(id -g)` flag to run commands as a normal user. If you already have files created with root access, you'll have to `chown` the files. 
+> **Recap**: If plain Docker commands are run with root privileges, you can use `--user $(id -u):$(id -g)` flag to run commands as a normal user. If you already have files created with root access, you'll have to `chown` the files. 
 
 Now that the `Guardfile` is ready, you can boot it up with this command. You can run this command on the same terminal on which you initiated `Guardfile`.
 
@@ -434,7 +435,7 @@ guard: bundle exec guard -i
 Next stop is to change the Docker service to start Foreman instead of the Rails server. The `docker-compose.yml` should look like this:
 
 ```yml
-version: '3'
+version: '3.2'
 volumes: 
   postgres-data:
 services:
@@ -449,14 +450,15 @@ services:
     command: foreman start -f Procfile.dev -p 3000
     volumes:
       - .:/project
-      - /project/tmp/pids/
+      - type: tmpfs
+        target: /project/tmp/pids/
     ports:
       - "3000:3000"
       - "35729:35729"
     depends_on:
       - db
-
 ```
+
 You'll notice three changes. One, the command has changed for `app` service. Now it is initiating Foreman.
 
 You may also notice an additional port. Livereload server uses port `35729`. You just exposed it outside of the container. This will ensure the browser can talk to the livereload server. 
@@ -479,7 +481,7 @@ But you don't want to delete the file manually, do you? The issue referenced ear
 
 The second volume masks the `tmp` folder in the host OS so that all other `project` folders are available for the container except the `tmp`. When you run `docker-compose down`, this `tmp` folder within the container is wiped out.
 
-Now that you know what those three changes are about, bring the service down using `Ctrl+c` first, `docker-compose down` next and finally, reboot it through `docker-compose up`. 
+Now that you know what those three changes are about, bring the service down using `Ctrl + C` first, then `docker-compose down` next and finally, reboot it through `docker-compose up`. 
 
 One last piece of work. To empower browser to receive and apply changes when files are altered. You can do it in two ways:
 
@@ -490,7 +492,7 @@ The browser plugin option is browser dependent. But works without `rack-liverelo
 
 ### Livereload Browser Plugin
 
-On to browser now. Install livereload extension on the browser from [here](http://livereload.com/extensions/#installing-sections). It has extensions for major browsers.
+On to browser now. Install livereload extension on the browser from [here](http://livereload.com/extensions/#installing-sections). It has extensions for all major browsers.
 
 Once you install the extension, you should be able to get the extension as an icon on the toolbar to make it accessible. When you click on the extension button, the container running services from `docker-compose.yml` should show `INFO - Browser connected.`. That means, **all pieces of the puzzle are now in place**.
 
@@ -499,6 +501,7 @@ Once you install the extension, you should be able to get the extension as an ic
 Time to test it out. Also, time to get your own page on the screen.
 
 ### Enable Middleware LiveReload
+
 If you are one of those front-end developers who install just about every possible browser, then the browser plugin option may not help. Your favorite browser may not even have a plugin.
 
 In such cases, it is possible to ask the Rack middleware to inject the livereload script into the HTML being served from rails server.
@@ -528,11 +531,11 @@ Back on the terminal, run the following command to create a Controller along wit
 docker-compose exec --user $(id -u):$(id -g) app rails g controller Home show
 ```
 
-**Note:** if you are getting *Permission denied* error at this stage. You can run the above command without `--user $(id -u):$(id -g)` and `chown` those files later as shown earlier in the article.
+> **Recap:** if you are getting *Permission denied* error at this stage. You can run the above command without `--user $(id -u):$(id -g)` and `chown` those files later as shown earlier in the article.
 
 You can run as many such commands on your host terminal while leaving `docker-compose up` to serve rails app on a separate terminal. You only have to **restart** if you make major changes to the app such as adding database migrations or new gems.
 
-Have a good look at that default Ruby on Rails page. Because**Yay! You are on Rails** is going bye bye and you'll replace it with most useful and comfy home page the internet has ever seen.
+Have a good look at that default Ruby on Rails page. Because **Yay! You are on Rails** is going bye bye and you'll replace it with most useful and comfy home page the internet has ever seen.
 
 You can see Rails has added `get 'home/show'` by default within `config/routes.rb` file. Replace it with this now.
 
@@ -549,7 +552,6 @@ Final test if Guard is really worth all the effort. Open `app/views/home/show.ht
 **Voilà!** By the time you go back to the browser, it should already have the new content. Now's the time you lose yourself in changing styles and watching them appear on the screen as you hit `save`!
 
 ![LiveReloading the browser](https://cdn.auth0.com/blog/docker-ruby/livereload.gif)
-
 
 ## Guard To Automate Tests
 
