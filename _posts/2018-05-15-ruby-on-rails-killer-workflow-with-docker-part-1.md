@@ -46,7 +46,7 @@ You need to get [Docker installed](https://docs.docker.com/install/). Use `docke
 
 **2. Docker Compose**
 
-Next, you will need to install [Docker Compose](https://docs.docker.com/compose/install/). It will allow you to orchestrate multiple docker services together. Try `docker-compose -v` to ensure a working version. Here is the result from my terminal: `docker-compose version 1.16.1, build 6d1ac21`.
+Next, you will need to install [Docker Compose](https://docs.docker.com/compose/install/). It will allow you to orchestrate multiple Docker services together. Try `docker-compose -v` to ensure a working version. Here is the result from my terminal: `docker-compose version 1.16.1, build 6d1ac21`.
 
 **3. Free Tier Login Accounts**
 
@@ -67,13 +67,13 @@ That's the point. You *don't* need to install Ruby, Rails or Build Tools in your
 
 ## Docker - Up and Running
 
-If you already know what docker is and how is it helping developers, skip over to the section **Finding The Right Docker Image**. If not, there is a first time for everything. Follow along.
+If you already know what Docker is and how is it helping developers, skip over to the section **Finding The Right Docker Image**. If not, there is a first time for everything. Follow along.
 
 Here is the problem. See if you recognize it. You started working on a new project that needed a certain environmental setup. You followed the guides to the letter and ran into issues launching the local application. No one else seems to have got the issue. **It works on their machine, but not on yours**. You consulted [Stack Overflow](https://stackoverflow.com/) trying to figure out what went wrong. Apply sequence of helpful answers to narrow down on the issue and finally reach the moment of truth.
 
 You don't recognize that? Lucky you. For the rest of us, Docker solves the problem by allowing us to bundle our runtime environment in an image and share it around.
 
-Just like your git repository is a single version of truth for your code that you share with your team, a docker image is a repository of your runtime environment that you can share with your team. 
+Just like your git repository is a single version of truth for your code that you share with your team, a Docker image is a repository of your runtime environment that you can share with your team. 
 
 Sometimes, it just boils down to having a simple text file named `Dockerfile` with a set of commands to get the right environment. Docker images are solved problems for you to build your solution on top of.
 
@@ -122,14 +122,13 @@ FROM starefossen/ruby-node:2-8-stretch
 
 That command says "pull the `ruby-node` image tagged `2-8-stretch`".
 
-**Tip**: Look into the [docker hub](https://hub.docker.com/r/starefossen/ruby-node/) and pick the right version from the list of tags that suit your needs.
+**Tip**: Look into the [Docker Hub](https://hub.docker.com/r/starefossen/ruby-node/) and pick the right version from the list of tags that suit your needs.
 
 ...and back at the terminal. Time to build and run the container.
 
 ```bash
 docker build -t auth0app .
 docker run -it auth0app /bin/bash
-
 ```
 
 The first command builds an image based on the instructions you've given in the `Dockerfile`. For now, `Dockerfile` just says, pull up the image from the repository. It would take minutes (or hours) depending on your connection. Total download size was close to 300MB for the first time.
@@ -310,7 +309,7 @@ That should create a new database for development and also for test environments
 
 ### Own The Files
 
-Based on the docker settings and user groups, files generated may be owned by `root` user. In such cases, you may get **Permission denied** errors while trying to edit project files created by Rails. 
+Based on the Docker settings and user groups, files generated may be owned by `root` user. In such cases, you may get **Permission denied** errors while trying to edit project files created by Rails. 
 
 One way to find out is to run `ls -la` within the terminal to look at who owns the files. Another way is to try and edit one of the generated files. 
 
@@ -403,7 +402,7 @@ guard init livereload
 
 That should create a `Guardfile` with instructions to watch for a list of extensions. Have a read through and you'll understand that the instructions target files that affect the rendered page such as `css`, `js` or `erb`. 
 
-**Note**: If plain docker commands are run with root privileges, you can use `--user $(id -u):$(id -g)` flag to run commands as a normal user. If you already have files created with root access, you'll have to `chown` the files. 
+**Note**: If plain Docker commands are run with root privileges, you can use `--user $(id -u):$(id -g)` flag to run commands as a normal user. If you already have files created with root access, you'll have to `chown` the files. 
 
 Now that the `Guardfile` is ready, you can boot it up with this command. You can run this command on the same terminal on which you initiated `Guardfile`.
 
@@ -419,9 +418,9 @@ Exit out of that prompt for now. You can use `Ctrl+C` to come out of `guard` and
 
 Now that you have Guard, you are presented with a problem. The container needs to run `rails server` and also `guard` watcher.
 
-But docker allows only one command per service. Here comes `foreman` gem you've installed earlier, along with `guard`.
+But Docker allows only one command per service. Here comes `foreman` gem you've installed earlier, along with `guard`.
 
-Foreman takes a `Procfile` with multiple commands and runs them all. With that capability, you can ask docker to run just Foreman and it will take care of rest of the commands.
+Foreman takes a `Procfile` with multiple commands and runs them all. With that capability, you can ask Docker to run just Foreman and it will take care of rest of the commands.
 
 First stop is to set up a `Procfile.dev`. It looks like this:
 
@@ -430,7 +429,7 @@ web: bundle exec rails s -b '0.0.0.0'
 guard: bundle exec guard -i
 ```
 
-Next stop is to change the docker service to start Foreman instead of the Rails server. The `docker-compose.yml` should look like this:
+Next stop is to change the Docker service to start Foreman instead of the Rails server. The `docker-compose.yml` should look like this:
 
 ```yml
 version: '3'
@@ -512,7 +511,7 @@ Rails.application.configure do
 end
 ```
 
-Since this is a change at middleware level, you need to stop the docker services using `Ctrl+C` and start them again.
+Since this is a change at middleware level, you need to stop the Docker services using `Ctrl+C` and start them again.
 
 ```bash
 docker-compose down
@@ -617,7 +616,7 @@ Your code is now safe in the hands of [GitHub], you should be able to see `stagi
 
 ## Useful Commands
 
-Docker grows on you pretty quickly, doesn't it? You may have had loving thoughts about running all future projects in docker or run none at all. While that is all good, docker also grows on your disk space.
+Docker grows on you pretty quickly, doesn't it? You may have had loving thoughts about running all future projects in Docker or run none at all. While that is all good, Docker also grows on your disk space.
 
 
 I refer to [this](https://lebkowski.name/docker-volumes/) post for some clean up work. Be careful when you use the commands. It is better to go step by step.
@@ -626,10 +625,10 @@ Command | Description
 ------- | -----------
 `docker system df` | List disk usage by docker
 `docker ps -a` | List all containers
-`docker images` | List of docker images 
+`docker images` | List of Docker images 
 `docker rmi image_name` | Remove image by repository name
 `docker rmi -f abcdef` | Remove image by ID
-`docker rm name` | Remove docker container by name
+`docker rm name` | Remove Docker container by name
 `docker rm abcdef` | Remove container by ID
 
 But one last handy tip that will save a lot of keystrokes for you. Add an alias to `docker-compose` in your bash profile. You can do that by adding this line `alias dc='docker-compose'` as the last line in the file `~/.bashrc`. That allows you to run commands like this:
