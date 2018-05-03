@@ -104,6 +104,7 @@ This image uses the official Ruby image and builds NodeJS on top of it using com
 **Just a word of caution**, Docker is not a silver bullet. Our goal is to start a runtime as quickly as possible and move on to building our app. But if the repository is not maintained or updated to reflect latest ways to install NodeJS, then it might be broken. Look through the builds to ensure you have a working image.
 
 ### Giving Life to A Container
+
 Hurray! Time to step into a terminal.
 
 ```bash
@@ -112,9 +113,9 @@ cd dockerized-rails-app
 touch Dockerfile
 ```
 
-In English, create a folder named `dockerized-rails-app`, `cd` into the directory and create a file named `Dockerfile`. I can hear you say, "that doesn't need a terminal!". But, it's good to get comfortable living in the terminal.
+In English, create a folder named `dockerized-rails-app`, `cd` into the directory, and create a file named `Dockerfile`. I can hear you say, "that doesn't need a terminal!". But, it's good to get comfortable living in the terminal.
 
-Now, open your favorite text editor. [VSCode](https://code.visualstudio.com/) is the one I use. If you have VSCode, you can type `code .` on the terminal to open the folder in the editor. Fill in this content within the `Dockerfile`.
+Now, open your favorite text editor. [VSCode](https://code.visualstudio.com/) is the one I use. If you have VSCode, you can type `code .` on the terminal to open the folder in the editor. Fill in the following content within the `Dockerfile`:
 
 ```Dockerfile
 FROM starefossen/ruby-node:2-8-stretch
@@ -122,9 +123,9 @@ FROM starefossen/ruby-node:2-8-stretch
 
 That command says "pull the `ruby-node` image tagged `2-8-stretch`".
 
-**Tip**: Look into the [Docker Hub](https://hub.docker.com/r/starefossen/ruby-node/) and pick the right version from the list of tags that suit your needs.
+> **Tip**: Look into the [Docker Hub](https://hub.docker.com/r/starefossen/ruby-node/) and pick the right version from the list of tags that suit your needs.
 
-...and back at the terminal. Time to build and run the container.
+Back to the terminal, it's time to build and run the container:
 
 ```bash
 docker build -t auth0app .
@@ -133,7 +134,7 @@ docker run -it auth0app /bin/bash
 
 The first command builds an image based on the instructions you've given in the `Dockerfile`. For now, `Dockerfile` just says, pull up the image from the repository. It would take minutes (or hours) depending on your connection. Total download size was close to 300MB for the first time.
 
-The second command boots the image into a container, which is like giving life to the image. Can't help it, but it is identical to creating an object out of a class! `-it` flag gives you an interactive terminal access *inside* the container. 
+The second command boots the image into a container, which is like giving life to the image. Can't help it, but it is identical to creating an object out of a class! The `-it` flag gives you an interactive terminal access *inside* the container. 
 
 That should take you to the shell prompt that shows something in the lines of `root@abc123a1234b:/# `. That means you are inside the container, **with root access**. It is quite easy to expose your host root directory as a volume and it becomes editable within the container. *Just be careful what you command the prompt to do!* Even better, use `--user $(id -u):$(id -g)` flag while using `docker run` to force using current user instead of root.
 
