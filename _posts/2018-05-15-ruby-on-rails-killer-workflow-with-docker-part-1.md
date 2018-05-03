@@ -144,11 +144,11 @@ Great! That's your own runtime environment with Ruby and Node pre-installed. Wel
 
 ## Ruby on Rails Inside the Container
 
-You'll shape different aspects of Rails project in this section. **This whole section is just one-off execution.** Once you are done with this, all else is normal application development workflow.
+You'll shape different aspects of Rails project in this section. **This whole section is just one-off execution**. Once you are done with this, all else is normal application development workflow.
 
-### Setting Up `Dockerfile`
+### Setting Up Dockerfile
 
-Here is the new version of the `Dockerfile`
+Here is the new version of the `Dockerfile`:
 
 ```Dockerfile
 FROM starefossen/ruby-node:2-8-stretch
@@ -162,29 +162,29 @@ RUN bundle install
 COPY . /project
 ```
 
-**Tip**: Each command in the `Dockerfile` creates a layer. While layers created by commands such as `WORKDIR` as discarded towards final build, layers by `ADD`, `RUN` and `COPY` are retained and may increase the size of the final image. It is usually a [best practice](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) to put most of those commands together in one line to avoid layers within the image. For example, `RUN apt-get update -qq & apt-get install -y nano build-essential libpq-dev` and so on. 
+> **Tip**: Each command in the `Dockerfile` creates a layer. While layers created by commands such as `WORKDIR` as discarded towards final build, layers by `ADD`, `RUN` and `COPY` are retained and may increase the size of the final image. It is usually a [best practice](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) to put most of those commands together in one line to avoid layers within the image. For example, `RUN apt-get update -qq && apt-get install -y nano build-essential libpq-dev` and so on. 
 
 Here is what's going on:
 
-* Pull the Ruby + Node image from Docker hub.
-* Update the libraries within the image
-* Install nano editor, build tools and library for Postgres.
-* Install Bundler which will update existing Bundler.
-* Create a folder for your project
-* Copy `Gemfile` and `Gemfile.lock` from host to app folder
-* Set the working directory to the app folder
-* Run `bundle install` inside the project folder. This will install necessary gems inside the container.
-* Copy rest of the content from your host folder to container app folder.
+1. Pull the Ruby + Node image from Docker hub.
+2. Update the libraries within the image.
+3. Install the `nano` editor, build tools, and library for Postgres.
+4. Install Bundler which will update existing Bundler.
+5. Create a folder for your project.
+6. Copy `Gemfile` and `Gemfile.lock` from host to app folder.
+7. Set the working directory to the app folder.
+8. Run `bundle install` inside the project folder. This will install necessary gems inside the container.
+9. Copy rest of the content from your host folder to container app folder.
 
 Note that installing OS-specific tools and copying only `Gemfile` and `Gemfile.lock` to app folder before running `bundle install` has **tremendous advantage**. Changes to the other files within the application folder do not trigger `bundle install`. Only if the `Gemfile` or `Gemfile.lock` changes, `bundle install` will be triggered. Hang on for a while, we'll create the `Gemfile` and its lock file shortly.
 
 If you think deeply enough, you'll understand that it will save hours. If thinking deeply hurts, just try moving the command `COPY . /project` line just above `bundle install`. Every time you make even a small change within app folder, the container has to be built with all the gems being installed from scratch. This hurts more!
 
-### Stitch Services with `docker-compose.yml`
+### Stitch Services with Docker Compose
 
-The `docker-compose.yml` file contains instructions that stitch multiple pieces together such as database container, application container, host folder where you store your application repository, environmental aspects such as volumes and ports.
+The `docker-compose.yml` file contains instructions that stitch multiple pieces together such as database container, application container, host folder where you store your application repository, environmental aspects such as volumes, and ports.
 
-This is going to be a **database driven application**. So, we need a way to persist data created in the environment. One way is to introduce a separate service for database layer that has its own volume (fancy name for storage space).
+This is going to be a **database-driven application**. So, we need a way to persist data created in the environment. One way is to introduce a separate service for database layer that has its own volume (fancy name for storage space).
 
 Create a `docker-compose.yml` file inside the folder. It looks like the one below:
 
@@ -217,7 +217,7 @@ All right, another set of descriptions for instructions within the `docker-compo
 3. Another service named `app` which is built based on the `Dockerfile` in the same folder.
 4. The final command that needs to be run when launching the container.
 5. A volume that maps local folder to the corresponding folder inside the container.
-6. Instruction to open port 3000 and map it to port 3000 on the host.
+6. Instruction to open port `3000` and map it to port `3000` on the host.
 7. An instruction to launch `db` service first as a dependency before launching `app` service.
 
 ### All-New Rails Project
@@ -236,7 +236,7 @@ gem 'rails', '~>5.2'
 
 You'll be using the all new Rails 5.2. `Gemfile.lock` is auto-populated during the build process and it locks gem dependencies to particular versions. You don't ever have to touch that `Gemfile.lock` again. **Once those files are in place**, run this on your terminal:
 
-```
+```bash
 docker-compose up --build
 ```
 
@@ -248,7 +248,7 @@ You'll see all the steps within the `Dockerfile` executed dutifully during the b
 
 Once build steps are over, you'll see `db` service being started first. And then the `app` service starts, but **stops** when trying to run `bundle exec rails s`, as we do not have `rails` gem within the environment yet. 
 
-But the log on the terminal shows `man` page for Rails and shows you how to get started. Press `ctrl+c` to bring down the container if it is still running. You should be back at the terminal prompt. Run this command to create a new Rails project.
+But the log on the terminal shows `man` page for Rails and shows you how to get started. Press `ctrl+c` to bring down the container if it is still running. You should be back at the terminal prompt. In there, run this command to create a new Rails project.
 
 ```bash
 docker-compose run --user $(id -u):$(id -g) app rails new . --force --database=postgresql --skip-bundle
@@ -284,7 +284,7 @@ docker-compose down
 docker-compose up --build
 ```
 
-**Note:** `docker-compose down` is usually executed from a new terminal but within the same project folder. This is because `docker-compose up` boots up the containers and shows the logs. It wouldn't quit until you press `Ctrl+C` or you run `docker-compose down` on a new terminal. In the course of this article, remember to use the terminal running `docker-compose up` for monitoring logs. All other commands can go into a new terminal. If you have a tabbed terminal, that would be very useful.
+> **Note:** `docker-compose down` is usually executed from a new terminal but within the same project folder. This is because `docker-compose up` boots up the containers and shows the logs. It wouldn't quit until you press `Ctrl+C` or you run `docker-compose down` on a new terminal. In the course of this article, remember to use the terminal running `docker-compose up` for monitoring logs. All other commands can go into a new terminal. If you have a tabbed terminal, that would be very useful.
 
 You'd have noticed that Docker reuses most of the layers created. It does not install updates or nano editor or build tools. Because there is no change in those layers. Very smart!
 
@@ -297,7 +297,7 @@ But the good news is, **Yay! You are on rails!**. Open your favorite browser and
 No? did you get `ActiveRecord: NoDatabaseError`? Well, that might happen. Create a database via this command on a new terminal (you should be within the root of the project directory and the container should already be running):
 
 ```
-docker-compose exec app rails db:create  
+docker-compose exec app rails db:create
 ```
 
 That should create a new database for development and also for test environments. Now open http://localhost:3000 again. You are ready to start celebrations!
