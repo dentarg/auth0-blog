@@ -5,6 +5,7 @@ description: "Learn how to quickly secure your Auth0 Webtasks with a shared secr
 date: 2017-10-04 8:30
 is_extend: true
 category: Extend, Technical, Webtasks
+canonical_url: true
 author:
   name: "Bobby Johnson"
   url: "https://twitter.com/NotMyself"

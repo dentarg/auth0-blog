@@ -5,6 +5,7 @@ description: "Introducing Auth0 Extend for Salesforce! Extend Salesforce using N
 date: 2017-08-15 12:00
 is_extend: true
 category: Extend, Technical, Salesforce
+canonical_url: true
 author: 
   name: "Bobby Johnson"
   url: "https://twitter.com/NotMyself"

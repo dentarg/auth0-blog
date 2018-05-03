@@ -5,6 +5,7 @@ description: "How fast can you stand up an HTTPS endpoint on the internet? With 
 date: 2017-08-01 10:00
 is_extend: true
 category: Extend, Webtask
+canonical_url: true
 author: 
   name: "Randall Tombaugh"
   url: "https://github.com/rwtombaugh"

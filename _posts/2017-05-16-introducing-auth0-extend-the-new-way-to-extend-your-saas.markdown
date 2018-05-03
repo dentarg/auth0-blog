@@ -7,6 +7,7 @@ date: 2017-05-16 10:00
 category: Announcement
 alias: /Introducing_Auth0_Extend_the_new_way_to_extend_your_SaaS/
 is_non-tech: false
+canonical_url: true
 author:
   name: "Glenn Block"
   url: "https://twitter.com/gblock"

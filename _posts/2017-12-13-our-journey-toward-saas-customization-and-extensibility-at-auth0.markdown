@@ -4,6 +4,7 @@ title: "Our Journey toward SaaS Customization and Extensibility at Auth0"
 description: "Learn about the four-year-long journey Auth0 took to deliver the tools needed by both field engineers and our customers to implement last mile identity solutions quickly."
 date: 2017-12-13 10:00
 category: Extend, Business
+canonical_url: true
 author:
   name: "Bobby Johnson"
   url: "https://twitter.com/NotMyself"

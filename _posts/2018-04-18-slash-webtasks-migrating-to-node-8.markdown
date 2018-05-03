@@ -7,6 +7,7 @@ date: 2018-04-18 12:00
 category: Technical, Webtasks
 press_release: false
 is_non-tech: false
+canonical_url: true
 author:
   name: "Bobby Johnson"
   url: "https://twitter.com/NotMyself"

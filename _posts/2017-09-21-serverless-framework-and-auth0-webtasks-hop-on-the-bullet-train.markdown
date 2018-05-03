@@ -5,6 +5,7 @@ description: "Learn how you can use the Serverless Framework and Auth0 Webtasks 
 date: 2017-09-21 10:21
 is_extend: true
 category: Extend, Webtask, Serverless
+canonical_url: true
 author:
   name: "Glenn Block"
   url: "https://twitter.com/gblock"

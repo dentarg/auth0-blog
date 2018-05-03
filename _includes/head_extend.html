@@ -2,7 +2,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-
     {% include sharing_metas.html %}
 
     {% if page.is_tag_index or page.switch_index %}
@@ -16,6 +15,9 @@
       <meta class="swiftype" name="popularity" data-type="integer" content="1"/>
     {% endif %}
 
+    {% if page.canonical_url  %}
+      <link rel="canonical" href="https://goextend.io/blog{{ page.url }}">
+    {% endif %}
     <link href="https://plus.google.com/+Auth0" rel="publisher" />
     <link rel="manifest" href="{{ site.baseurl }}/manifest.json">
     <script src="//use.typekit.net/tde2fii.js"></script>

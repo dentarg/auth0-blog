@@ -6,6 +6,7 @@ date: 2017-07-17 09:23
 is_extend: true
 alias: /how-to-migrate-from-mongodb-to-dynamodb/
 category: Product
+canonical_url: true
 author: 
   name: "Tomasz Janczuk"
   url: "https://twitter.com/tjanczuk"

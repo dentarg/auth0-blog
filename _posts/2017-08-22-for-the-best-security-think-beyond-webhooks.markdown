@@ -5,6 +5,7 @@ description: "Don't limit yourself to webhooks. With Auth0, you can fully custom
 date: 2017-08-22 8:30
 is_extend: true
 category: Extend, Technical, Webtasks
+canonical_url: true
 author: 
   name: "Bobby Johnson"
   url: "https://twitter.com/NotMyself"

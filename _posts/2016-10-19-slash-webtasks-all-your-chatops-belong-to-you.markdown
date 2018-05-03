@@ -1,9 +1,10 @@
 ---
-layout: post
+layout: post_extend
 title: "Slash Webtasks - All your ChatOps are belong to you"
 description: Introducing Slash Webtask, an amazingly simple new way to author custom Slack commands using Webtask right from within Slack. Nothing to deploy, nothing to build. All you need is code!
 date: 2016-10-19 8:30
 category: Announcement, Feature, Tools
+canonical_url: true
 author:
   name: Glenn Block
   url: https://twitter.com/gblock

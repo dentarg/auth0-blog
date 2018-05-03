@@ -5,6 +5,7 @@ description: Extend your SaaS with Node.js using Auth0 Extend
 date: 2017-05-19 09:23
 is_extend: true
 category: Product
+canonical_url: true
 author:
   name: "Tomasz Janczuk"
   url: "https://twitter.com/tjanczuk"

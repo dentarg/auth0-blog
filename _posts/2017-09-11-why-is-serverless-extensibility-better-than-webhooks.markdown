@@ -5,6 +5,7 @@ description: "Webhooks are a clean and simple way to add extensibility points in
 date: 2017-09-11 10:21
 is_extend: true
 category: Extend, Business
+canonical_url: true
 author: 
   name: "Bobby Johnson"
   url: "https://twitter.com/NotMyself"

@@ -6,6 +6,7 @@ description: "Learn how to dynamically route Intercom notifications to slack cha
 date: 2017-05-24 10:00
 category: Serverless
 is_non-tech: false
+canonical_url: true
 author:
   name: "Glenn Block"
   url: "https://twitter.com/gblock"

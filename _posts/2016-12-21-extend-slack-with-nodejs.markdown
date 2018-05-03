@@ -1,9 +1,10 @@
 ---
-layout: post
+layout: post_extend
 title: "Extend Slack with Node.js"
 description: Embrace the benefits of Slack extensibility with Slash Webtasks
 date: 2016-12-21 8:46
 category: Technical Guide, Serverless, Webtask
+canonical_url: true
 author:
   name: Tomasz Janczuk
   url: https://twitter.com/tjanczuk?lang=en

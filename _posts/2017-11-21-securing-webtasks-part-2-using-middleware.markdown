@@ -5,6 +5,7 @@ description: "Learn how to quickly secure your Auth0 Webtasks using middleware s
 date: 2017-11-21 12:00
 is_extend: true
 category: Extend, Technical, Webtasks
+canonical_url: true
 author:
   name: "Bobby Johnson"
   url: "https://twitter.com/NotMyself"

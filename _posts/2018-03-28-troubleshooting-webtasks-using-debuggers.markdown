@@ -7,6 +7,7 @@ date: 2018-03-28 08:00
 category: Extend, Techincal, Webtasks
 press_release: false
 is_non-tech: false
+canonical_url: true
 author:
   name: "Bobby Johnson"
   url: "https://twitter.com/NotMyself"
