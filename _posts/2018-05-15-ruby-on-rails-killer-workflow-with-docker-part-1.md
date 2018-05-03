@@ -12,7 +12,7 @@ author:
   name: "Vijayabharathi Balasubramanian"
   url: "vijayabharathib"
   mail: "yajiv.vijay@gmail.com"
-  avatar: "https://twitter.com/vijayabharathib/profile_image?size=original"
+  avatar: "https://cdn.auth0.com/blog/guest-authors/vijay.jpeg"
 tags:
 - ruby-on-rails
 - docker
@@ -33,6 +33,8 @@ related:
 **TL;DR:** In this article, you'll learn how to set up a dockerized Workflow to bootstrap a full-stack, database-driven application using Ruby on Rails with external identity management. It will help you convert ideas into testable MVPs ([Minimum Viable Products](https://en.wikipedia.org/wiki/Minimum_viable_product)) in no time. 
 
 You will be able to build a small shelf and fill them with books in the process. You can have a look at the app [here](https://shelvedbooks.herokuapp.com/) and this [repository on GitHub](https://github.com/vijayabharathib/dockerized-rails-app) has the code and configuration of the finished product.
+
+{% include tweet_quote.html quote_text="I'm learning how to integrate @Docker and @rails on a modern, full-stack, and database-driven development enviroment." %}
 
 ## Development Workflow
 
@@ -621,6 +623,8 @@ Your code is now safe in the hands of [GitHub], you should be able to see `stagi
 
 Docker grows on you pretty quickly, doesn't it? You may have had loving thoughts about running all future projects in Docker or run none at all. While that is all good, Docker also grows on your disk space.
 
+{% include tweet_quote.html quote_text=".@Docker grows on you pretty quickly, doesn't it?" %}
+
 I refer to [this](https://lebkowski.name/docker-volumes/) post for some clean up work. Be careful when you use the commands. It is better to go step by step.
 
 - `docker system df`: List disk usage by Docker;
@@ -642,6 +646,8 @@ Another important difference to keep in mind, `docker-compose run` springs up a 
 ## Conclusion
 
 That brings us to the end of Part 1, where you have a **dockerized workflow that gives you both live-reloading and automated testing**. 
+
+{% include tweet_quote.html quote_text="Setting up a development workflow with @Docker and @rails is amazing!!" %}
 
 In part 2, you'll build core application functionality on top of this workflow with identity management. You'll also extend your workflow to enable **Continuous Testing** using [GitHub] and [Travis]. You'll also set up **Continuous Deployment** route to [Heroku]. You'll end it with an application running in production.
 
