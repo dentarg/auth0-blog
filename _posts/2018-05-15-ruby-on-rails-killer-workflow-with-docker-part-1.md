@@ -42,20 +42,20 @@ The objective is to optimize for developer happiness. Ruby on Rails fits the bil
 
 **1. Docker**
 
-You need to get [docker installed](https://docs.docker.com/install/). Use `docker -v` on a terminal to verify you have a working version of docker. The one I have is `Docker version 17.12.0-ce, build c97c6d6`. You'll know more about docker in a minute. Installing and getting to know docker is a great investment of your time. You'll receive returns in multiples as you start to use Docker for all your projects.
+You need to get [Docker installed](https://docs.docker.com/install/). Use `docker -v` on a terminal to verify you have a working version of Docker. The one I have is `Docker version 17.12.0-ce, build c97c6d6`. You'll know more about Docker in a minute. Installing and getting to know Docker is a great investment of your time. You'll receive returns in multiples as you start to use Docker for all your projects.
 
 **2. Docker Compose**
 
-Next one is to install [Docker compose](https://docs.docker.com/compose/install/). It will allow you to orchestrate multiple docker services together. Try `docker-compose -v` to ensure a working version. Here is the result from my terminal: `docker-compose version 1.16.1, build 6d1ac21`.
+Next, you will need to install [Docker Compose](https://docs.docker.com/compose/install/). It will allow you to orchestrate multiple docker services together. Try `docker-compose -v` to ensure a working version. Here is the result from my terminal: `docker-compose version 1.16.1, build 6d1ac21`.
 
 **3. Free Tier Login Accounts**
 
-  * [GitHub] - to store your code in the cloud
-  * [Travis] - to build and test your changes
-  * [Heroku] - to deploy your app to cloud
-  * [Auth0] - to manage the identity of your users
+* [GitHub]—to store your code in the cloud.
+* [Travis]—to build and test your changes.
+* [Heroku]—to deploy your app to cloud.
+* [Auth0]—to manage the identity of your users.
 
-None of them should cost you a dime for following this workflow!
+None of them should cost you a dime while following this workflow!
 
 **4. Git CLI** (Seriously?)
 
@@ -63,7 +63,7 @@ If you have not been using [Git CLI](https://git-scm.com/downloads), it's time a
 
 **5. What about Rails?**
 
-That's the point. You *don't* need to install Ruby, Rails or Build Tools in your local environment. You'll instruct docker to handle that.
+That's the point. You *don't* need to install Ruby, Rails or Build Tools in your local environment. You'll instruct Docker to handle that.
 
 ## Docker - Up and Running
 
@@ -650,4 +650,4 @@ In part 2, you'll build core application functionality on top of this workflow w
 [GitHub]: https://github.com/
 [Travis]: https://travis-ci.org/
 [Heroku]: https://dashboard.heroku.com
-[Auth0]: http://auth0.com/ 
+[Auth0]: https://auth0.com/ 
