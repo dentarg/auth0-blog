@@ -23,9 +23,9 @@ tags:
   - salt
   - digest
 related:
+  - 2018-05-03-adding-salt-to-hashing-a-better-way-to-store-passwords
   - 2017-02-24-sha-1-collision-attack
   - 2017-03-29-is-passwordless-authentication-more-secure-than-passwords
-  - 2016-03-02-the-new-trend-of-artisanal-spam
 ---
 
 The gist of authentication is to provide users with a set of credentials, such a username and a password, and to verify that they provide the correct credentials whenever they want access to the application. Hence, we need a way to store these credentials in our database for future comparisons. However, storing passwords on the server side for authentication is a difficult task. Let's explore one of the mechanisms that make password storage secure and easier: hashing.  
@@ -144,7 +144,7 @@ A brute-force attack is largely inefficient. Does the attacker have any other op
 
 Since hash functions are deterministic (the same function input always results in the same hash), if a couple of users were to use the same password, their hash would be identical. If a significant amount of people are mapped to the same hash that could be an indicator that the hash represents a commonly used password and allow the attacker to significantly narrow down the number of passwords to use to break in by brute force.
 
-Additionally, through a ***rainbow table attack***, an attacker can use a large database of precomputed hashes to find the input of stolen password hashes. We can mitigate a rainbow table attack by boosting hashing with a procedure that adds unique random data to each input at the moment they are stored. This practice is known as ***adding salt to a hash*** and it produces ***salted password hashes***.
+Additionally, through a ***rainbow table attack***, an attacker can use a large database of precomputed hashes to find the input of stolen password hashes. We can mitigate a rainbow table attack by boosting hashing with a procedure that adds unique random data to each input at the moment they are stored. This practice is known as [***adding salt to a hash***](https://auth0.com/blog/adding-salt-to-hashing-a-better-way-to-store-passwords/) and it produces ***salted password hashes***.
 
 With a salt, the hash is not based on the value of the password alone. The input is made up of the password plus the salt. A rainbow table is built for a set of predicted passwords. If the hashing of those passwords doesn't include the salt, the rainbow table is useless. When the attacker gets a hold of the salt, the rainbow table now needs to be re-computed, which ideally would take a very long time, further mitigating this attack vector.
 
@@ -166,7 +166,7 @@ A cryptographic collision occurs when two unique inputs produce the same hash. C
 
 For simple hashing algorithms, a simple Google search will allow us to find tools that convert a hash back to its cleartext input. The [MD5](https://security.googleblog.com/2014/09/gradually-sunsetting-sha-1.html) algorithm and the [SHA1](https://security.googleblog.com/2017/02/announcing-first-sha1-collision.html) algorithm have been deemed unsafe to use and deprecated by Google due to the occurrence of cryptographic collisions.
 
-Google recommends using stronger hashing algorithms such as SHA-256 and SHA-3. Other options commonly used in practice are `bcrypt`, `scrypt`, `PBKDF2`, among many others that you can [find in this list of cryptographic algorithms](https://en.wikipedia.org/wiki/List_of_algorithms#Cryptography). However, as we've explored earlier, hashing alone is not sufficient and should be combined with salts, which we'll explore in a future post.
+Google recommends using stronger hashing algorithms such as SHA-256 and SHA-3. Other options commonly used in practice are `bcrypt`, `scrypt`, `PBKDF2`, among many others that you can [find in this list of cryptographic algorithms](https://en.wikipedia.org/wiki/List_of_algorithms#Cryptography). However, as we've explored earlier, hashing alone is not sufficient and should be combined with salts. Learn more about how [adding salt to hashing is a better way to store passwords.](https://auth0.com/blog/adding-salt-to-hashing-a-better-way-to-store-passwords/)
 
 ## Recap
 
