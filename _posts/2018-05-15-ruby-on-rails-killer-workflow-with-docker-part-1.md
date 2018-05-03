@@ -85,11 +85,11 @@ The bottom-line, pull an image and get down to business. Your business could be,
 
 Now, think about other solutions that solve a similar problem. You might have used a *dual-boot* PC that runs both Windows and Linux. You would have switched between them when required.
 
-Another solution is the [VirtualBox](https://www.virtualbox.org/) that allows you to run entirely full-scale guest OS on top of your host OS.
+Another solution is [VirtualBox](https://www.virtualbox.org/), which allows you to run entirely full-scale guest OS on top of your host OS.
 
 These are not bad solutions. It is just that Docker is a leaner solution compared to these full-scale OS images if you just want to have a uniform runtime environment. Moreover, there is no automated way to configure each OS the same way, unless you do it manually, which may lead to different configurations at scale.
 
-Compare that to a set of written instructions that can be version controlled. **Docker uses the instructions to pull in the necessary OS libraries to construct the runtime on top of your existing operating system.** Not too different from using a `package.json` or `Gemfile` to keep track of project dependencies.
+Compare that to a set of written instructions that can be version controlled. **Docker uses the instructions to pull in the necessary OS libraries to construct the runtime on top of your existing operating system**. Not too different from using a `package.json` or `Gemfile` to keep track of project dependencies.
 
 The image with Ruby and Node that we'll be using is close to 300MB. You can explore for smaller images when you are done with this process. Imagine having to set up a virtual OS, which usually takes up more space.
 
