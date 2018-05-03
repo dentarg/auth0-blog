@@ -3,8 +3,8 @@ layout: post
 title: "Adding Salt to Hashing: A Better Way to Store Passwords"
 description: "A salt is added to the hashing process to force their uniqueness, increase their complexity without increasing user requirements, and to mitigate password attacks like rainbow tables"
 longdescription: "A salt is a fixed-length cryptographically-strong random value appended to passwords to prevent revealing identical passwords used across users, to increase the complexity of passwords without increasing the complexity of the password requirements, and to mitigate password attack vectors such as rainbow tables."
-date: 2018-04-23 8:30
-category: Security Authentication Breaches
+date: 2018-05-03 8:30
+category: Technical Guide, Security
 design:
   bg_color: "#4A4A4A"
   image: "https://cdn.auth0.com/blog/adding-salt-to-hashing-a-better-way-to-store-passwords/salt-logo.png"
@@ -24,6 +24,7 @@ tags:
 related:
   - 2017-03-29-is-passwordless-authentication-more-secure-than-passwords
   - 2016-03-17-data-breach-response-planning-for-startups
+  - 2018-04-25-hashing-passwords-one-way-road-to-security
 ---
 
 
