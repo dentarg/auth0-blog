@@ -67,13 +67,13 @@ That's the point. You *don't* need to install Ruby, Rails or Build Tools in your
 
 ## Docker - Up and Running
 
-If you already know what Docker is and how is it helping developers, skip over to the section **Finding The Right Docker Image**. If not, there is a first time for everything. Follow along.
+If you already know what Docker is and how is it helping developers, skip over to the _Finding The Right Docker Image_ section. If not, there is a first time for everything. Follow along.
 
 Here is the problem. See if you recognize it. You started working on a new project that needed a certain environmental setup. You followed the guides to the letter and ran into issues launching the local application. No one else seems to have got the issue. **It works on their machine, but not on yours**. You consulted [Stack Overflow](https://stackoverflow.com/) trying to figure out what went wrong. Apply sequence of helpful answers to narrow down on the issue and finally reach the moment of truth.
 
 You don't recognize that? Lucky you. For the rest of us, Docker solves the problem by allowing us to bundle our runtime environment in an image and share it around.
 
-Just like your git repository is a single version of truth for your code that you share with your team, a Docker image is a repository of your runtime environment that you can share with your team. 
+Just like your Git repository is a single version of truth for your code that you share with your team, a Docker image is a repository of your runtime environment that you can share with your team. 
 
 Sometimes, it just boils down to having a simple text file named `Dockerfile` with a set of commands to get the right environment. Docker images are solved problems for you to build your solution on top of.
 
@@ -323,7 +323,7 @@ Remember to use your user id instead of `weeuser` in the command above.
 
 ## Git It Up
 
-A working configuration of a brand new Rails project is usually very easy. As you saw, it just took a simple `rails new` command within the container. But it has done so much work for you, so much that it warrants a git commit.
+A working configuration of a brand new Rails project is usually very easy. As you saw, it just took a simple `rails new` command within the container. But it has done so much work for you, so much that it warrants a Git commit.
 
 ```bash
 git add --all
