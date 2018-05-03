@@ -346,7 +346,7 @@ git push -u origin master
 
 Just ensure you use your own GitHub username and repository name in the command above. It is easier to copy the URL shown on GitHub.
 
-Once `push` is complete, refresh GitHub repository page to see the files committed. Now that they are in the cloud, we can say it is much more safe to play around with the local copy.
+Once `push` is complete, refresh GitHub repository page to see the files committed. Now that they are in the cloud, we can say it is much safer to play around with the local copy.
 
 **From here onwards, we'll work on a branch named `staging` and move changes to `master` branch only when necessary.**
 
@@ -356,7 +356,8 @@ For that, follow these commands:
 git checkout -b staging
 git push -u origin staging
 ```
-That creates a new branch and checks it out. Pushes the branch to `origin`, which is another name for the GitHub repository on the server side.
+
+That creates a new branch and checks it out, then it pushes the branch to `origin` (which is another name for the Git repository on the GitHub side).
 
 ## Hot Reloading
 
