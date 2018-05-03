@@ -571,7 +571,7 @@ That should add additional instructions to `Guardfile`. Open the `Guardfile` in 
 
 1. **Comment** the default instructions 
 2. **Un-comment** instructions generated for `Rails 4`.
-3. **Change** the block to read like `guard :minitest, spring: "bin/rails test" do`. 
+3. **Change** from `guard :minitest do` to `guard :minitest, spring: "bin/rails test" do`. 
 
 Using spring is optional, spring is a preloader that starts tests faster. So the tests should run without point 3 as well. Despite being on Rails 5, those commands should work just ok. 
 
@@ -581,7 +581,6 @@ You should be able to see a failed test if you followed on to the instructions a
 
 ```bash
 guard_1  | 1 runs, 0 assertions, 0 failures, 1 errors, 0 skips
-
 ```
 
 Remember changing the `config/routes.rb` file to point root at `home#show` action? That's what causing the issue now. Update the file `test/controllers/home_controller_test.rb` to reflect the changes made to the `config/routes.rb` file earlier. 
@@ -622,18 +621,15 @@ Your code is now safe in the hands of [GitHub], you should be able to see `stagi
 
 Docker grows on you pretty quickly, doesn't it? You may have had loving thoughts about running all future projects in Docker or run none at all. While that is all good, Docker also grows on your disk space.
 
-
 I refer to [this](https://lebkowski.name/docker-volumes/) post for some clean up work. Be careful when you use the commands. It is better to go step by step.
 
-Command | Description
-------- | -----------
-`docker system df` | List disk usage by docker
-`docker ps -a` | List all containers
-`docker images` | List of Docker images 
-`docker rmi image_name` | Remove image by repository name
-`docker rmi -f abcdef` | Remove image by ID
-`docker rm name` | Remove Docker container by name
-`docker rm abcdef` | Remove container by ID
+- `docker system df`: List disk usage by Docker;
+- `docker ps -a`: List all containers;
+- `docker images`: List of Docker images;
+- `docker rmi image_name`: Remove image by repository name;
+- `docker rmi -f abcdef`: Remove image by ID;
+- `docker rm name`: Remove Docker container by name;
+- `docker rm abcdef`: Remove container by ID;
 
 But one last handy tip that will save a lot of keystrokes for you. Add an alias to `docker-compose` in your bash profile. You can do that by adding this line `alias dc='docker-compose'` as the last line in the file `~/.bashrc`. That allows you to run commands like this:
 
