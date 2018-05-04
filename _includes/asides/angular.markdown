@@ -91,10 +91,12 @@ Authentication logic on the front end is handled with an `AuthService` authentic
 ```js
 // src/app/auth/auth.service.ts
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import * as auth0 from 'auth0-js';
 import { AUTH_CONFIG } from './auth0-variables';
 import { UserProfile } from './profile.model';
+
+(window as any).global = window;
 
 @Injectable()
 export class AuthService {
@@ -201,7 +203,7 @@ The [callback component](https://github.com/auth0-blog/angular-auth0-aside/tree/
 ```js
 // src/app/callback/callback.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { AuthService } from './../auth/auth.service';
 import { Router } from '@angular/router';
 
@@ -238,10 +240,9 @@ In order to make authenticated HTTP requests, we need to add an `Authorization` 
 ```js
 // src/app/api.service.ts
 import { Injectable } from '@angular/core';
+import { throwError, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
-import 'rxjs/add/observable/throw';
 import { AuthService } from './auth/auth.service';
 
 @Injectable()
@@ -255,7 +256,7 @@ export class ApiService {
 
   getDragons$(): Observable<any[]> {
     return this.http
-      .get(`${this.baseUrl}dragons`, {
+      .get<any[]>(`${this.baseUrl}dragons`, {
         headers: new HttpHeaders().set(
           'Authorization', `Bearer ${this.auth.accessToken}`
         )
@@ -267,7 +268,7 @@ export class ApiService {
 
   private _handleError(err: HttpErrorResponse | any) {
     const errorMsg = err.message || 'Unable to retrieve data';
-    return Observable.throw(errorMsg);
+    return throwError(errorMsg);
   }
 
 }
