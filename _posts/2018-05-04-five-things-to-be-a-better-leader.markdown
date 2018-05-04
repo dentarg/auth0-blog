@@ -1,19 +1,19 @@
 ---
 layout: post
 title: "Five Things That Every Leader Could Use to be a Better Leader"
-description: Leadership is a skill that can be learned, says Auth0 CISO Joan Pepin. Her talk, given at Women Who Code Connect 2018, gives tips on growing your knowledge.
+description: Leadership is a skill that can be learned. My talk, given at Women Who Code Connect 2018, gives tips on growing your knowledge.
 longdescription: Auth0 CISO Joan Pepin shows that leadership is a skill that can be learned and shared tips on how to be a stronger leader at Women Who Code Connect 2018 in San Francisco, Calif. Here’s the full transcript, plus video outtakes from the QA.
-date: 2018-05-05 08:30
-category: Announcements, Press, Growth
+date: 2018-05-04 08:30
+category: Announcements, Press
 is_non-tech: true
 author:
-  name: "Jenny O'Brien"
-  url: "https://www.linkedin.com/in/jenny-o-brien-storyteller/"
-  mail: "jennifer.obrien@auth0.com"
-  avatar: "https://cdn.auth0.com/blog/avatars/jenny-obrien.png"
+  name: "Joan Pepin"
+  url: "https://twitter.com/cloudciso_joan"
+  mail: "joan.pepin@auth0.com"
+  avatar: "https://cdn.auth0.com/blog/meltdown-spectre/joanpepin.jpg"
 design:
-  bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/vittorio/VittorioBertocci_Logo.png
+  bg_color: "#222328"
+  image: https://cdn.auth0.com/blog/wwcode-joan-talk/logo.png
 tags:
 - leader
 - leadership
@@ -23,16 +23,20 @@ tags:
 - self-improvement
 related:
 - 2018-05-01-auth0-welcomes-vittorio-bertocci
-- 2018-02-02-3-ways-to-get-an-iam-budget-in-2018
+- 2017-08-14-our-culture-and-values-at-auth0
+- 2018-03-28-security-vs-convenience
 ---
 
 EDITOR’S NOTE: [Auth0 CISO Joan Pepin](https://www.linkedin.com/in/joanpepin/) spoke at the [Women Who Code Connect 2018](https://connect2018.womenwhocode.com/) conference in San Francisco, Calif. on April 28th. You’ll find video excerpts of her lengthy QA session throughout this transcript. (Due to sound quality, questions were paraphrased for clarity.)
 
-{% include tweet_quote.html quote_text="Auth0 CISO Joan Pepin showed that leadership is a skill that can be learned — and shared tips on how to be a stronger leader at #WWCode. Here’s the full transcript, but video outtakes from the QA. @CloudCISO_Joan @auth0 @womenwhocode" %}
+{% include tweet_quote.html quote_text="Auth0 CISO Joan Pepin showed that leadership is a skill that can be learned — and shared tips on how to be a stronger leader at #WWCode. Here’s the full transcript, with video outtakes from the QA. @CloudCISO_Joan @auth0 @womenwhocode" %}
+
+![Insights Shared at Women Who Code Connect 2018](https://cdn.auth0.com/blog/better-leader/joan-talking-0.png)
+
 
 ---
 
-## Auth0 CISO Joan Pepin’s Insights Shared at Women Who Code Connect 2018
+## Leadership can be learned… and other tips from my talk at Women Who Code Connect 2018
 I'm here to talk about leadership, and another confession is, I believe the title of this talk in the program is "Five Things That Every Leader Could Use to be a Better Leader." We will hit five things, and generally speaking, some of that advice will be pretty gender neutral for anybody, but as I've prepared for this talk, it evolved a little bit. So "Five Things Every Leader Should Know" might not be the best description anymore for this talk.
 
 I'm also going to talk a little bit more about myself personally than, A, I normally do, and B, that I'm normally comfortable with, because I've been asked the question a lot in the last few years how I got where I am. And people ask me all the time, "How did you do it?" I was raised in a New England Catholic family, and talking about myself and my accomplishments is not necessarily super comfortable with. But we're going to give it a try because I am asked that question very often. So who am I and how do those perspectives conform to what we're going to talk about today? 
