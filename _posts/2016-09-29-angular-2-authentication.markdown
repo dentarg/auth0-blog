@@ -304,7 +304,7 @@ The public and private deals components are very similar. In fact, the only diff
 ```typescript
 // public-deals.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { Deal } from '../deal';
 // We haven't defined these services yet
 import { AuthService } from '../auth.service';
@@ -324,8 +324,8 @@ export class PublicDealsComponent implements OnInit, OnDestroy {
   // Note: We haven't implemented the Deal or Auth Services yet.
   constructor(
     public dealService: DealService,
-    public authService: AuthService) {
-  }
+    public authService: AuthService
+  ) { }
 
   // When this component is loaded, we'll call the dealService and get our public deals.
   ngOnInit() {
@@ -404,7 +404,50 @@ Finally, let's add a custom style. In the `public-deals.component.css` file add 
 
 This will ensure that each of the products displays nicely on our page.
 
-Our private deals component will look very similar. For brevity, we won't display the scaffold. We'll cover the changes a little later on. If you'd like to see what it looks like, you can view it from our [Github repo](https://github.com/auth0-blog/angular-2-authentication-tutorial).
+Our private deals component will look very similar. However, we also want to add some conditional logic to ensure that private deals are not accessible to unauthenticated users. We'll wire up the logic that supports this later.
+
+Open your `private-deals.component.html` file and add the following:
+
+{% higlight html %}
+{% raw %}
+<ng-template [ngIf]="authService.isLoggedIn">
+  <h3 class="text-center">Special (Private) Deals</h3>
+
+  <div class="col-sm-4" *ngFor="let deal of privateDeals">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ deal.name }}</h3>
+      </div>
+      <div class="panel-body">
+        {{ deal.description }}
+      </div>
+      <div class="panel-footer">
+        <ul class="list-inline">
+          <li>Original</li>
+          <li class="pull-right">Sale</li>
+        </ul>
+        <ul class="list-inline">
+          <li><a class="btn btn-danger">${{ deal.originalPrice | number }}</a></li>
+          <li class="pull-right"><a class="btn btn-success" (click)="dealService.purchase(deal)">${{ deal.salePrice | number }}</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<div class="col-sm-12">
+  <div class="jumbotron text-center">
+    <h2>View Public Deals</h2>
+    <a class="btn btn-lg btn-success" routerLink="/deals">Public Deals</a>
+  </div>
+</div>
+
+<div class="col-sm-12 alert alert-danger" *ngIf="error">
+  <strong>Oops!</strong> An error occurred fetching data. Please try again.
+</div>
+{% endraw %}
+{% endhighlight %}
+
 
 ### Accessing our Deals API
 
@@ -414,22 +457,21 @@ Earlier in the tutorial we wrote a very simple API that exposed two routes. Now,
 // deal.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import 'rxjs/add/observable/throw';
+import { Deal } from './deal';
 
 @Injectable()
 export class DealService {
   // Define the routes we are going to interact with
   private publicDealsUrl = 'http://localhost:3001/api/deals/public';
-  private privateDealsUrl = 'http://localhost:3001/api/deals/private';
 
   constructor(private http: HttpClient) { }
 
   // Implement a method to get the public deals
   getPublicDeals() {
     return this.http
-      .get(this.publicDealsUrl)
+      .get<Deal[]>(this.publicDealsUrl)
       .pipe(
         catchError(this.handleError)
       );
@@ -438,7 +480,7 @@ export class DealService {
   // Implement a method to get the private deals
   getPrivateDeals() {
     return this.http
-      .get(this.privateDealsUrl)
+      .get<Deal[]>(this.privateDealsUrl)
       .pipe(
         catchError(this.handleError)
       );
@@ -447,10 +489,9 @@ export class DealService {
   // Implement a method to handle errors if any
   private handleError(err: HttpErrorResponse | any) {
     console.error('An error occurred', err);
-    return Observable.throw(err.message || err);
+    return throwError(err.message || err);
   }
 
-  // Create a shared method that shows an alert when someone buys a deal
   purchase(item) {
     alert(`You bought the: ${item.name}`);
   }
@@ -609,6 +650,8 @@ import * as auth0 from 'auth0-js';
 import { environment } from './../../environments/environment';
 import { Router } from '@angular/router';
 
+(window as any).global = window;
+
 @Injectable()
 export class AuthService {
   // Create Auth0 web auth instance
@@ -627,7 +670,9 @@ export class AuthService {
 
   constructor(private router: Router) {
     // Check session to restore login if not expired
-    this.getAccessToken();
+    if (Date.now() < JSON.parse(localStorage.getItem('expires_at'))) {
+      this.getAccessToken();
+    }
   }
 
   login() {
@@ -687,8 +732,8 @@ export class AuthService {
   }
 
   get isLoggedIn(): boolean {
-    // Check if current date is greater
-    // than expiration and user is logged in
+    // Check if current date is before token
+    // expiration and user is signed in locally
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return Date.now() < expiresAt && this.authenticated;
   }
@@ -731,7 +776,7 @@ Open the generated `auth.guard.ts` file and make the following changes:
 // auth.guard.ts
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 
@@ -885,23 +930,31 @@ We need to update the call to the `/api/deals/private` to include our access tok
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 // Import AuthService
 import { AuthService } from './auth/auth.service';
+
+@Injectable()
+export class DealService {
   ...
+  private privateDealsUrl = 'http://localhost:3001/api/deals/private';
+
   constructor(
-    private http: HttpClient,
+    ...,
     private authService: AuthService
   ) { }
+  
   ...
 
   // Implement a method to get the private deals
   getPrivateDeals() {
     return this.http
-      .get(this.privateDealsUrl, {
+      .get<Deal[]>(this.privateDealsUrl, {
         headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
       })
       .pipe(
         catchError(this.handleError)
       );
   }
+  ...
+}
 ```
 
 We will add an `Authorization` header to our `getPrivateDeals()` request using the token from the authentication service. Now when a call is made to the private route in our API, we will automatically append the `authService.accessToken` to the call. Let's try it out in the next section to make sure that it works.
