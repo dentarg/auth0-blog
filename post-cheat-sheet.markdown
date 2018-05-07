@@ -111,6 +111,15 @@ $ bash
 text
 ```
 
+## Warnings
+
+```html
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-487"></i>
+  <strong>This article is outdated.</strong> Some kind of warning about this article being out of date.
+</div>
+```
+
 ## Special Characters and Snippets
 
 ### Characters
@@ -144,13 +153,13 @@ HTML is required with a `target="_self"` because the blog programming will autom
 
 You'll need an [Auth0](https://auth0.com) account to manage authentication. You can <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account here</a>. Next, set up an Auth0 Client and API so Auth0 can interface with your app and API.
 
-### Set Up a Client App
+### Set Up an Application
 
-1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[create a new client](https://manage.auth0.com/#/clients/create)" button. 
-2. Name your new app, select "Single Page Web Applications", and click the "Create" button. 
-3. In the **Settings** for your new Auth0 client app, add `http://localhost:[PORT]` to the **Allowed Callback URLs**.
+1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[create a new application](https://manage.auth0.com/#/applications/create)" button. 
+2. Name your new app, select "Single Page Web Applications," and click the "Create" button. 
+3. In the **Settings** for your new Auth0 app, add `http://localhost:[PORT]` to the **Allowed Callback URLs**.
 4. Click the "Save Changes" button.
-5. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Client** options under the **Connections** tab. The example shown in the screenshot above utilizes username/password database, Facebook, Google, and Twitter.
+5. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Application** options under the **Connections** tab. The example shown in the screenshot above utilizes username/password database, Facebook, Google, and Twitter.
 
 > **Note:** Under the **OAuth** tab of **Advanced Settings** (at the bottom of the **Settings** section) you should see that the **JsonWebToken Signature Algorithm** is set to `RS256`. This is  the default for new clients. If it is set to `HS256`, please change it to `RS256`. You can [read more about RS256 vs. HS256 JWT signing algorithms here](https://community.auth0.com/questions/6942/jwt-signing-algorithms-rs256-vs-hs256).
 
