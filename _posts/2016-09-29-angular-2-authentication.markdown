@@ -408,7 +408,7 @@ Our private deals component will look very similar. However, we also want to add
 
 Open your `private-deals.component.html` file and add the following:
 
-{% higlight html %}
+{% highlight html %}
 {% raw %}
 <ng-template [ngIf]="authService.isLoggedIn">
   <h3 class="text-center">Special (Private) Deals</h3>
