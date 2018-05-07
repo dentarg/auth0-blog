@@ -3,7 +3,7 @@ layout: post
 title: "Angular 6 Release: What’s New?"
 description: "Fresh out the oven is Angular 6. It brings some new features and enhancement to one of the most popular JavaScript frameworks for crafting mobile, desktop and web applications. Learn what's new in Angular!"
 longdescription: "What's new in Angular 6? Check out the new features and bug fixes in the latest version of one of the most used JavaScript frontend frameworks. Learn what's new in Angular 6!"
-date: 2018-05-02 08:30
+date: 2018-05-07 08:30
 category: Technical Guide, Angular, Angular 6
 design:
   bg_color: "#012C6C"
