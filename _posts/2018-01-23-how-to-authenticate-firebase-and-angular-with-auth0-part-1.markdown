@@ -34,6 +34,11 @@ related:
 - 2017-06-28-real-world-angular-series-part-1
 ---
 
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-487"></i>
+  <strong>WARNING: This article uses Angular 5 and RxJS 5.</strong> Please be aware that angularfire2 is currently not compatible with changes in Angular 6. We will update this tutorial once angularfire2 compatibility is completed. Thank you for your patience!
+</div>
+
 **TL;DR:** In this 2-part tutorial series, we'll learn how to build an application that secures a Node back end and an Angular front end with [Auth0](https://auth0.com) authentication. Our server and app will also authenticate a [Firebase](https://firebase.google.com) [Cloud Firestore database](https://firebase.google.com/docs/firestore/) with custom tokens so that users can leave realtime comments in a secure manner after logging in with Auth0. The Angular application code can be found at the [angular-firebase GitHub repo](https://github.com/auth0-blog/angular-firebase) and the Node API can be found in the [firebase-auth0-nodeserver repo](https://github.com/auth0-blog/firebase-auth0-nodeserver).
 
 ---
