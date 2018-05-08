@@ -32,7 +32,7 @@ related:
 ---
 
 
-BELLEVUE, Wash., May 7, 2018 – [Auth0](https://auth0.com/), a global leader in Identity-as-a-Service (IDaaS), today announced that CEO and Co-founder Eugenio Pace has been named a finalist by EY for its Entrepreneur Of The Year® 2018 Award in the Pacific Northwest. The awards program recognizes entrepreneurs who are excelling in areas such as innovation, financial performance, and personal commitment to their businesses and communities. 
+**BELLEVUE, Wash., May 7, 2018 –** [Auth0](https://auth0.com/), a global leader in Identity-as-a-Service (IDaaS), today announced that CEO and Co-founder Eugenio Pace has been named a finalist by EY for its Entrepreneur Of The Year® 2018 Award in the Pacific Northwest. The awards program recognizes entrepreneurs who are excelling in areas such as innovation, financial performance, and personal commitment to their businesses and communities. 
 
 “I am honored to be considered for this very prestigious award, alongside such outstanding entrepreneurs from the Pacific Northwest,” said Pace. “Auth0 is experiencing tremendous growth and success, none of which would be possible without the incredible people I work with. This award is an amazing recognition of the collaboration between our team, our product, and our valued customers.” 
 
@@ -47,7 +47,7 @@ In the Pacific Northwest, sponsors also include Woodruff Sawyer.
 About Entrepreneur Of The Year®
 Entrepreneur Of The Year®, founded by EY, is the world’s most prestigious business awards program for entrepreneurs, chosen from an independent panel of judges including entrepreneurs and prominent leaders from business, finance, and the local community. The program makes a difference through the way it encourages entrepreneurial activity among those with potential and recognizes the contribution of people who inspire others with their vision, leadership and achievement. As the first and only truly global awards program of its kind, Entrepreneur Of The Year celebrates those who are building and leading successful, growing and dynamic businesses, recognizing them through regional, national and global awards programs in more than 145 cities and more than 60 countries. ey.com/eoy
 
-About Auth0
+**About Auth0**
 Auth0, a global leader in Identity-as-a-Service (IDaaS), provides thousands of enterprise customers with a Universal Identity Platform for their web, mobile, IoT, and internal applications. Its extensible platform seamlessly authenticates and secures more than 1.5B logins per month, making it loved by developers and trusted by global enterprises. The company’s U.S. headquarters in Bellevue, WA, and additional offices in Buenos Aires, London, Tokyo, and Sydney, support its customers that are located in 70+ countries.
 For more information, visit https://auth0.com or follow @auth0 on Twitter.
 
