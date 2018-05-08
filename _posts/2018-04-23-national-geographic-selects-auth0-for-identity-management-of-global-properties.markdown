@@ -23,7 +23,7 @@ related:
 - 2018-04-18-auth0-continues-rapid-expansion-in-emea
 ---
 
-**BELLEVUE, Wash. -- April 23, 2018** -- [_Auth0_](https://auth0.com/), a global leader in Identity-as-a-Service (IDaaS), today announced that it has been selected by [National Geographic Partners, LLC](https://www.nationalgeographic.com/) (NGP) to centralize identity for its global properties, spanning tens of millions of users in 172 countries. Auth0 will be used across the brand to unify a standardized identity platform, which will increase user adoption and improve National Geographic customers’ entire online experience. 
+**BELLEVUE, Wash. -- April 23, 2018** -- [Auth0](https://auth0.com/), a global leader in Identity-as-a-Service (IDaaS), today announced that it has been selected by [National Geographic Partners, LLC](https://www.nationalgeographic.com/) (NGP) to centralize identity for its global properties, spanning tens of millions of users in 172 countries. Auth0 will be used across the brand to unify a standardized identity platform, which will increase user adoption and improve National Geographic customers’ entire online experience. 
 
 National Geographic, a recognized leader in premium science, adventure, and exploration content across an unrivaled portfolio of media assets, was seeking a way to provide a cohesive digital experience to its global customers and provide a more seamless way to access rich content across its breadth of brands. Auth0’s Universal Identity Platform provides all the features to achieve that, and was the only solution that could quickly be integrated into National Geographic’s existing technology infrastructure without any major disruption to its consumers.  
 
