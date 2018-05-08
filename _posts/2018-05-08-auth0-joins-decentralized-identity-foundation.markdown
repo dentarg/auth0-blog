@@ -31,17 +31,19 @@ related:
 
 ---
 
-BELLEVUE, Wash. -- May 8, 2018 -- [Auth0](https://auth0.com/), a global leader in Identity-as-a-Service (IDaaS), today announced that it has joined the [Decentralized Identity Foundation](http://identity.foundation/) (DIF) to collaborate and provide insight on creating a standards-based ecosystem for managing digital identities. Initiated by executives from Microsoft, uPort, Gem, Evernym, Blockstack, and Tierion, the Decentralized Identity Foundation addresses an ever increasing need for governance around identity and authentication. 
+**BELLEVUE, Wash. -- May 8, 2018 --** [Auth0](https://auth0.com/), a global leader in Identity-as-a-Service (IDaaS), today announced that it has joined the [Decentralized Identity Foundation](http://identity.foundation/) (DIF) to collaborate and provide insight on creating a standards-based ecosystem for managing digital identities. Initiated by executives from Microsoft, uPort, Gem, Evernym, Blockstack, and Tierion, the Decentralized Identity Foundation addresses an ever increasing need for governance around identity and authentication. 
 
-Auth0 will work alongside companies such as IBM, Accenture, RSA, IDEO, and others within the foundation to create specifications for securing and accessing identity data. The three foundational elements of a decentralized ecosystem are to: 
+Auth0 will work alongside companies such as IBM, Accenture, RSA, IDEO, and others within the foundation to create specifications for securing and accessing identity data. The three foundational elements of a decentralized ecosystem are to:
 
 1) Enable registration of self-sovereign identifiers that no provider owns or controls; 
+
 2) Offer the ability to look up and discover identifiers and data across decentralized systems; 
+
 3) Provide a mechanism for users to securely store sensitive identity data, and enable them to precisely control what is shared with others.
 
 “Digital identity is the core of every interaction, transaction, and communication online, but it’s a little like the Wild West right now in terms of standards and specifications around how identity could be handled in a decentralized manner,” said Martin Gontovnikas, Vice President of Marketing at Auth0. “There is an important need for strong voices to shape the future of this industry, and we are looking forward to our involvement with the Decentralized Identity Foundation.” 
   
-About Auth0
+**About Auth0**
 Auth0, a global leader in Identity-as-a-Service (IDaaS), provides thousands of enterprise customers with a Universal Identity Platform for their web, mobile, IoT, and internal applications. Its extensible platform seamlessly authenticates and secures more than 1.5B logins per month, making it loved by developers and trusted by global enterprises. The company’s U.S. headquarters in Bellevue, WA, and additional offices in Buenos Aires, London, Tokyo, and Sydney, support its customers that are located in 70+ countries.
 For more information, visit https://auth0.com or follow @auth0 on Twitter.
 
