@@ -23,7 +23,7 @@ related:
 - 2018-04-18-auth0-continues-rapid-expansion-in-emea
 ---
   
-  BELLEVUE, Wash. -- May 5, 2018 -- [Auth0](https://auth0.com/), a global leader in Identity-as-a-Service (IDaaS), announced that renowned identity expert [Vittorio Bertocci](https://www.linkedin.com/in/vittoriobertocci/) will be joining the company as Principal Architect. Bertocci will apply his vast knowledge of the identity industry to Auth0 in all aspects of the company, including internal and external education, product innovation, and customer integration. 
+  **BELLEVUE, Wash. -- May 5, 2018** -- [Auth0](https://auth0.com/), a global leader in Identity-as-a-Service (IDaaS), announced that renowned identity expert [Vittorio Bertocci](https://www.linkedin.com/in/vittoriobertocci/) will be joining the company as Principal Architect. Bertocci will apply his vast knowledge of the identity industry to Auth0 in all aspects of the company, including internal and external education, product innovation, and customer integration. 
 
 Bertocci has spent most of his 20-year career at Microsoft, where he worked on the Azure Active Directory team and focused largely on improving the developer experience. As a published author of four identity books and a highly-trafficked blog: [cloudidentity.com](http://www.cloudidentity.com/blog/), his forward-thinking commentary has enabled him to speak at conferences, such as BUILD, PDC, TechEd, Cloud Identity Summit, and many other industry events around the world. 
 
@@ -34,6 +34,18 @@ Bertocci holds a masters degree in Computer Science from Università degli Studi
 “My co-founder Matias Woloski and I knew Vittorio before we even started Auth0, and credit him with introducing us to many innovative identity concepts,” said Eugenio Pace, CEO and Co-founder of Auth0. “His highly technical expertise and deep knowledge of the industry as a whole will be an incredible resource for Auth0.” 
 
 
-About Auth0
+**About Auth0**
 Auth0, a global leader in Identity-as-a-Service (IDaaS), provides thousands of enterprise customers with a Universal Identity Platform for their web, mobile, IoT, and internal applications. Its extensible platform seamlessly authenticates and secures more than 1.5B logins per month, making it loved by developers and trusted by global enterprises. The company’s U.S. headquarters in Bellevue, WA, and additional offices in Buenos Aires, London, Tokyo, and Sydney, support its customers that are located in 70+ countries.
 For more information, visit https://auth0.com or follow @auth0 on Twitter.
+
+**Media Contact:**
+
+Jeana Tahnk
+Corporate Communications
+Auth0
+jeana.tahnk@auth0.com
+
+Kasia Hall
+Matter for Auth0
+khall@matternow.com 
+971-246-7898
