@@ -31,7 +31,7 @@ related:
 
 ---
 
-BELLEVUE, Wash. -- May 8, 2018 -- Auth0 [https://auth0.com/], a global leader in Identity-as-a-Service (IDaaS), today announced that it has joined the Decentralized Identity Foundation [http://identity.foundation/] (DIF) to collaborate and provide insight on creating a standards-based ecosystem for managing digital identities. Initiated by executives from Microsoft, uPort, Gem, Evernym, Blockstack, and Tierion, the Decentralized Identity Foundation addresses an ever increasing need for governance around identity and authentication. 
+BELLEVUE, Wash. -- May 8, 2018 -- [Auth0](https://auth0.com/), a global leader in Identity-as-a-Service (IDaaS), today announced that it has joined the [Decentralized Identity Foundation](http://identity.foundation/) (DIF) to collaborate and provide insight on creating a standards-based ecosystem for managing digital identities. Initiated by executives from Microsoft, uPort, Gem, Evernym, Blockstack, and Tierion, the Decentralized Identity Foundation addresses an ever increasing need for governance around identity and authentication. 
 
 Auth0 will work alongside companies such as IBM, Accenture, RSA, IDEO, and others within the foundation to create specifications for securing and accessing identity data. The three foundational elements of a decentralized ecosystem are to: 
 
