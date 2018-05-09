@@ -25,7 +25,6 @@ tags:
 - continuous-delivery
 - auth0
 related:
-- 2018-05-17-ruby-on-rails-killer-workflow-with-docker-part-1
 - 2017-05-22-load-balancing-nodejs-applications-with-nginx-and-docker
 - 2017-01-03-rails-5-with-auth0
 ---
@@ -248,7 +247,7 @@ That's Docker reusing the Ruby image downloaded earlier. The whole process that 
 
 You'll see all the steps within the `Dockerfile` executed dutifully during the build process. Each of them creates a **layer** that you can recognize by their hash, that looks like `1adb3ee3e245`. 
 
-Once build steps are over, you'll see `db` service being started first. And then the `app` service starts, but **stops** when trying to run `bundle exec rails s`, as we do not have `rails` gem within the environment yet. 
+Once build steps are over, you'll see `db` service being started first. And then the `app` service starts, but **stops** when trying to run `bundle exec rails s`, as you have not created a Rails project yet. 
 
 But the log on the terminal shows `man` page for Rails and shows you how to get started. Press `ctrl+c` to bring down the container if it is still running. You should be back at the terminal prompt. In there, run this command to create a new Rails project.
 
@@ -384,6 +383,7 @@ end
 Ensure you **do not remove** any existing gems in the process, just add this group right at the end of the `Gemfile`. Remember the usual drill to build the image to include these new gems. 
 
 ```bash
+docker-compose down
 docker-compose up --build
 ```
 
