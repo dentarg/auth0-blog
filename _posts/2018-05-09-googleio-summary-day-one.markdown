@@ -2,6 +2,7 @@
 layout: post
 title: "Google I/O 2018 Summary - Day 1"
 description: "Check out our summary of the Google I/O Conference 2018, Day 1."
+longdescription: "The first day of the Google I/O 18 consisted of a general opening keynote by Google CEO, Sundar Pichai, a developer keynote led by Jason Titus, VP, Developer Product Group, Google, the web state of the union talk, and several others."
 date: 2018-05-09 08:30
 category: Technical Guide, Conferences, Google I/O
 author:
@@ -10,10 +11,10 @@ author:
   mail: "prosper.otemuyiwa@auth0.com"
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
-  bg_color: "#2D6189"
-  image: "https://cdn.auth0.com/blog/ChromedevSummitLogo.png"
+  bg_color: "#334192"
+  image: "https://cdn.auth0.com/blog/google-io-summary/logo.png"
 tags:
-- Conference
+- conference
 - googleio
 - io18
 - googleio18
