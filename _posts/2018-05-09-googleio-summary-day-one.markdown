@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Google I/O Conference 2018 Summary - Day 1"
+title: "Google I/O 2018 Summary - Day 1"
 description: "Check out our summary of the Google I/O Conference 2018, Day 1."
 date: 2018-05-09 08:30
 category: Technical Guide, Conferences, Google I/O
@@ -24,7 +24,7 @@ related:
 - 2017-10-05-nestjs-brings-typescript-to-nodejs-and-express
 ---
 
-The first day of the Google I/O 18 consisted of a general opening keynote by Google CEO, Sundar Pichai, a developer keynote led by Jason Titus, VP, Developer Product Group, Google, the web state of the union talk, and several others. Over 7,000 developers, designers, and managers gathered at Shoreline, Amphitheater to witness the opening day. Let's dive in to the key announcements that were made!
+The first day of the Google I/O 18 consisted of a general opening keynote by Google CEO, Sundar Pichai, a developer keynote led by Jason Titus, VP, Developer Product Group, Google, the web state of the union talk, and several others. Over 7,000 developers, designers, and managers gathered at Shoreline, Amphitheatre to witness the opening day. Let's dive into the key announcements that were made!
 
 Google has worked hard over the last few years on improving every aspect of their products with AI and Machine Learning. And this year, they made some key announcements about new products, and existing products improved with AI.
 
@@ -35,16 +35,16 @@ Google has worked hard over the last few years on improving every aspect of thei
 
 Google announced that its research division has been rebranded to **Google AI**. This rebranding came as a result of Google's continued focus on Computer vision, Natural language processing, and neural networks. 
 
-All the research papers and publicatons are now on [ai.google](https://ai.google/).
+All the research papers and publications are now on [ai.google](https://ai.google/).
 
 ## Google Assistant
 
-The Google Assistant has been greatly improved. 6 new voices have been added including the voice of popular musician, John Legend. Furthermore, Google announced a new technology called **Duplex** that'll enable your Google Assistant make conversations on your behalf like a lunch reservation at a restaurant, and setting up a meeting. The rollout will be very limited. 
+The Google Assistant has been greatly improved. 6 new voices have been added including the voice of popular musician, John Legend. Furthermore, Google announced a new technology called **Duplex** that'll enable your Google Assistant to make conversations on your behalf like a lunch reservation at a restaurant, and setting up a meeting. The rollout will be very limited. 
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Google Assistant making bookings already for you? 😱😱😱<br><br>Ah, this is too early oh <a href="https://twitter.com/hashtag/io18?src=hash&amp;ref_src=twsrc%5Etfw">#io18</a> <a href="https://twitter.com/hashtag/AI?src=hash&amp;ref_src=twsrc%5Etfw">#AI</a> <a href="https://t.co/V6CpxajNJx">pic.twitter.com/V6CpxajNJx</a></p>&mdash; Prosper @ Google I/O 18 🔥🚀 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/993908985517326336?ref_src=twsrc%5Etfw">May 8, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-I'm a Google Home user. And everytime I need my Google Assistant to do something, I usually start every conversation with _Hey, Google!_. Now, I don't have to do that anymore because the Google Assistant now has support for continued conversations. I could just say _Hey, Google!_ once and continue asking my Google Assistant for help on any matter.
+I'm a Google Home user. And every time I need my Google Assistant to do something, I usually start every conversation with _Hey, Google!_. Now, I don't have to do that anymore because the Google Assistant now has support for continued conversations. I could just say _Hey, Google!_ once and continue asking my Google Assistant for help on any matter.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">John Legend is going to be one of the new voices for Goole Assistant! 😍<a href="https://twitter.com/hashtag/io18?src=hash&amp;ref_src=twsrc%5Etfw">#io18</a> <a href="https://twitter.com/hashtag/ShareTheJourney?src=hash&amp;ref_src=twsrc%5Etfw">#ShareTheJourney</a> <a href="https://t.co/XCEkJr9kKr">pic.twitter.com/XCEkJr9kKr</a></p>&mdash; Ire Aderinokun (@ireaderinokun) <a href="https://twitter.com/ireaderinokun/status/993904230598459394?ref_src=twsrc%5Etfw">May 8, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -65,7 +65,7 @@ An AI-improved Google Photos now has features such as:
 
 ## Google News
 
-Google is keen on getting users a seamless way of catching up with news all over the world. From text to audio to video. Google is rolling out a new AI improved version of the  **Google News** product that provides an insane way to catch up with events around the world. This improved product replaces Google Play Newsstand on mobile and desktop, and Google News app on mobile. It will be available to everyone on Android, iOS, and the web in 127 countries by next week.
+Google is keen on getting users a seamless way of catching up with news all over the world. From text to audio to video. Google is rolling out a new AI improved version of the  **[Google News](https://news.google.com)** product that provides an insane way to catch up with events around the world. This improved product replaces Google Play Newsstand on mobile and desktop, and Google News app on mobile. It will be available to everyone on Android, iOS, and the web in 127 countries by next week.
 
 ## Android P
 
@@ -95,11 +95,11 @@ The Android P developer [preview](https://developer.android.com/preview/) is als
 
 ## ML Kit
 
-Google announced a new [Machine Learning Kit](https://firebase.google.com/products/ml-kit) for mobile developers. The ML Kit ships with a set of ready-to use APIs for common use cases:
+Google announced a new [Machine Learning Kit](https://firebase.google.com/products/ml-kit) for mobile developers. The ML Kit ships with a set of ready-to-use APIs for common use cases:
 
 * Text Recognition.
 * Face Detection.
-* Barcode Scannning.
+* Barcode Scanning.
 * Image Labelling.
 * Landmark Recognition.
 * Smart Reply as seen in Gmail.
@@ -119,7 +119,7 @@ Material design is an opinionated design framework for apps designed by Google. 
 ![Material Theme](https://cdn.auth0.com/blog/googleio1/materialtheme.jpg)
 _Material theme_
 
-Google launched Material theming, a set of extensible and customizable theming components. Material themes gives developers a lot of freedom when using Material design in their apps. Google also added a new set of icons and a Material theme editor to create and modify components to customized taste.
+Google launched Material theming, a set of extensible and customizable theming components. Material themes give developers a lot of freedom when using Material design in their apps. Google also added a new set of icons and a Material theme editor to create and modify components to customized taste.
 
 ![Material theme 2](https://cdn.auth0.com/blog/googleio2/materialtheme2.png)
 
@@ -152,7 +152,7 @@ Google announced better navigation for Google Maps aided by AI. Before now, Goog
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Google Maps: “Head South”<br><br>Me: Where the hell is south???<br><br>Google just took care of one of my most pressing needs!!! <br><br>Google Maps enhanced with AI &amp; Computer vision! <a href="https://t.co/4W80zojuYt">pic.twitter.com/4W80zojuYt</a></p>&mdash; Prosper @ Google I/O 18 🔥🚀 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/993921549781487616?ref_src=twsrc%5Etfw">May 8, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-The new Google Maps provides a street view with a very obvious direction sign. With Google Assistant in navigation in Google Maps, it provides users a better description of routes. It also adds a cute navigation animal that allows the map user quickly identify the route to take. I'm stoked about this addition because I have always wanted a better form of navigation. I'm a nomad hence hence the excitement!
+The new Google Maps provides a street view with a very obvious direction sign. With Google Assistant in navigation in Google Maps, it provides users a better description of routes. It also adds a cute navigation animal that allows the map user quickly identify the route to take. I'm stoked about this addition because I have always wanted a better form of navigation. I'm a nomad hence the excitement!
 
 ## Smart Display
 
@@ -161,8 +161,7 @@ Google is launching its first smart display in July. Google's smart display is p
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/io18?src=hash&amp;ref_src=twsrc%5Etfw">#io18</a> keynote <a href="https://twitter.com/hashtag/sketchnotes?src=hash&amp;ref_src=twsrc%5Etfw">#sketchnotes</a> <a href="https://t.co/ptQOHtDg0f">pic.twitter.com/ptQOHtDg0f</a></p>&mdash; Chiu-Ki Chan (@chiuki) <a href="https://twitter.com/chiuki/status/993926968440586240?ref_src=twsrc%5Etfw">May 8, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-
-The dates for Chrome Dev Summit have been announced.
+Finally, the dates for Chrome Dev Summit have been announced.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Finally!!!!  ❤️❤️❤️ <a href="https://twitter.com/hashtag/io18?src=hash&amp;ref_src=twsrc%5Etfw">#io18</a> <a href="https://twitter.com/hashtag/SaveTheDate?src=hash&amp;ref_src=twsrc%5Etfw">#SaveTheDate</a> <a href="https://t.co/huYxi1Bq4o">pic.twitter.com/huYxi1Bq4o</a></p>&mdash; Prosper @ Google I/O 18 🔥🚀 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/993968457187147776?ref_src=twsrc%5Etfw">May 8, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -174,5 +173,7 @@ The dates for Chrome Dev Summit have been announced.
 ## Conclusion
 
 Google I/O, Day 1 was incredible. These major announcements are signs that AI is the future. Software is eating the world. Already looking forward to **#Day2** and the fresh inspiring moments it will bring along with it!
+
+{% include tweet_quote.html quote_text="These major announcements are signs that AI is the future. Software is eating the world." %}
 
 If you were around for _#GoogleIO - Day 1_, let me know the announcements and talks that inspired you in the comment section. 😃
