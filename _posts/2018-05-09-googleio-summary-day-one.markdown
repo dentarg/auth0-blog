@@ -18,6 +18,8 @@ tags:
 - io18
 - googleio18
 - google
+- google-io
+- io
 related:
 - 2016-11-15-chromedevsummit-summary
 - 2016-12-19-introduction-to-progressive-apps-part-one
@@ -49,8 +51,7 @@ I'm a Google Home user. And every time I need my Google Assistant to do somethin
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">John Legend is going to be one of the new voices for Goole Assistant! 😍<a href="https://twitter.com/hashtag/io18?src=hash&amp;ref_src=twsrc%5Etfw">#io18</a> <a href="https://twitter.com/hashtag/ShareTheJourney?src=hash&amp;ref_src=twsrc%5Etfw">#ShareTheJourney</a> <a href="https://t.co/XCEkJr9kKr">pic.twitter.com/XCEkJr9kKr</a></p>&mdash; Ire Aderinokun (@ireaderinokun) <a href="https://twitter.com/ireaderinokun/status/993904230598459394?ref_src=twsrc%5Etfw">May 8, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-
-The Google Assistant has a new feature called _Pretty Please_. This feature was added to help train your kids to avoid being commanding when asking for favors. You can enable this mode on your Google Home, or Google Home Mini.
+The Google Assistant has a new feature called _Pretty Please_. This feature was added to help train your kids to avoid being commanding when asking for favors. With the new _Pretty Please_ feature, kids can be taught to always make polite requests. You can enable this mode on your Google Home, or Google Home Mini.
 
 > **Note:** Duplex is an AI system for natural conversations. 
 
@@ -140,10 +141,10 @@ Google Lens introduced **Style Match**. With Style Match, you could take a photo
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
-![Google Lens 1](https://cdn.auth0.com/blog/googleio1/google_lens_landmarks_2.png) 
+![Google Lens 1](https://cdn.auth0.com/blog/googleio/googlelenslandmarks.png) 
 _Landmark_
 
-![Animal](https://cdn.auth0.com/blog/googleio1/google_lens_dog_1.png)
+![Animal](https://cdn.auth0.com/blog/googleio/googlelensdog.png)
 _Animal recognition_
 
 
@@ -155,6 +156,12 @@ Google announced better navigation for Google Maps aided by AI. Before now, Goog
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 The new Google Maps provides a street view with a very obvious direction sign. With Google Assistant in navigation in Google Maps, it provides users a better description of routes. It also adds a cute navigation animal that allows the map user quickly identify the route to take. I'm stoked about this addition because I have always wanted a better form of navigation. I'm a nomad hence the excitement!
+
+![Google Maps direction](https://cdn.auth0.com/blog/googleio/right.png)
+_Maps direction_
+
+![Google Maps Animal COntroller](https://cdn.auth0.com/blog/googleio/cuteanimalcontroller.png)
+_Navigation animal_
 
 ## Smart Display
 
