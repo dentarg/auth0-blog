@@ -77,6 +77,8 @@ Google launched Android P, the latest version of the operating system that runs 
 
 There are a bunch of features that Google added to Android P to make users have such a delightful experience. Google CEO made it clear that it's key that humans have a healthy digital wellbeing and this is paramount in the new Android P features.
 
+{% include tweet_quote.html quote_text="Google CEO made it clear that it's key that humans have a healthy digital wellbeing." %}
+
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Android P helps you set limits on time spent using apps.<br><br>“Yo, go spend time with your family”<br><br>- App timer<br>- No pings<br>- No vibrations<br><br>Introducing “Shush”. 🔥 <a href="https://twitter.com/hashtag/io18?src=hash&amp;ref_src=twsrc%5Etfw">#io18</a></p>&mdash; Prosper @ Google I/O 18 🔥🚀 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/993917960887521280?ref_src=twsrc%5Etfw">May 8, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
