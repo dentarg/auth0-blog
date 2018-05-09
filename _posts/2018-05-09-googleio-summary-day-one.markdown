@@ -26,7 +26,7 @@ related:
 - 2017-10-05-nestjs-brings-typescript-to-nodejs-and-express
 ---
 
-The first day of the Google I/O 18 consisted of a general opening keynote by Google CEO, Sundar Pichai, a developer keynote led by Jason Titus, VP, Developer Product Group, Google, the web state of the union talk, and several others. Over 7,000 developers, designers, and managers gathered at Shoreline, Amphitheatre to witness the opening day. Let's dive into the key announcements that were made!
+The first day of the Google I/O 18 consisted of a general opening keynote by Google CEO, Sundar Pichai, a developer keynote led by Jason Titus, VP, Developer Product Group, Google, the web state of the union talk, and several others. Over 5,000 developers, designers, and managers gathered at Shoreline, Amphitheatre to witness the opening day. Let's dive into the key announcements that were made!
 
 Google has worked hard over the last few years on improving every aspect of their products with AI and Machine Learning. And this year, they made some key announcements about new products, and existing products improved with AI.
 
