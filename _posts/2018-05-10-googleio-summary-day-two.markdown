@@ -22,9 +22,10 @@ tags:
 - google-io
 - io
 related:
-- 2016-11-15-chromedevsummit-summary
-- 2016-12-19-introduction-to-progressive-apps-part-one
+- 2018-05-09-googleio-summary-day-one
 - 2017-10-05-nestjs-brings-typescript-to-nodejs-and-express
+- 2016-11-15-chromedevsummit-summary
+
 ---
 
 The second day of the Google I/O 18 consisted of several talks including Web Assembly, Polymer, Chrome Dev Tools, Flutter and Artificial Intelligence.
@@ -87,7 +88,7 @@ Google analyzes a lot of sites and has learned over time how to make them extrem
 Google announced a new experimental browser feature called `Priority Hints`. It allows you to specify the importance of a resource like so:
 
 ```
-<img src="" importance="high" >
+<img src="kit.png" importance="high" >
 ```
 
 ```
