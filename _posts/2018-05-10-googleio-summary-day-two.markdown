@@ -63,6 +63,8 @@ Google introduced the **AIY Kits:** a series of open source projects that includ
 
 With AIY Kits, users can use artificial intelligence to make human-to-machine interaction more like human-to-human interactions. 
 
+{% include tweet_quote.html quote_text="With AIY Kits, users can use artificial intelligence to make human-to-machine interaction more like human-to-human interactions." %}
+
 The first open source project is the Voice Kit. The speech recognition ability in this kit allows you to add voice recognition to assistive robots, talk to control devices such as light bulbs and replace physical buttons on household appliances and consumer electronics.
 
 ![Introducing Voice Kit](https://cdn.auth0.com/blog/googleio2/introvoicekit.png)
@@ -84,11 +86,11 @@ Google analyzes a lot of sites and have learned over time how to make them extre
 
 Google announced a new experimental browser feature called `Priority Hints`. It allows you to specify the importance of a resource like so:
 
-```js
+```
 <img src="" importance="high" >
 ```
 
-```js
+```
 <link rel="preload" as="style" href="theme.css" importance="low">
 ```
 
@@ -100,7 +102,12 @@ The browser loads the resources with high importance first before the others.
 ![Unoptimized images](https://cdn.auth0.com/blog/googleio2/unoptimized.png)
 ![Web Font Loading strategy](https://cdn.auth0.com/blog/googleio2/webfontloadingstrategy.png)
 
-Addy Osmani announced [Guess.js](https://github.com/guess-js/guess), a toolkit for enabling data-driven user-experiences on the Web. It provides the following shown in the diagram below:
+Addy Osmani announced [Guess.js](https://github.com/guess-js/guess), a toolkit for enabling data-driven user-experiences on the Web. 
+
+
+{% include tweet_quote.html quote_text="Addy Osmani announced Guess.js, a toolkit for enabling data-driven user-experiences on the Web" %}
+
+It provides the following shown in the diagram below:
 
 ![Guessjs](https://cdn.auth0.com/blog/googleio2/guessjs.png)
 
@@ -123,6 +130,17 @@ With Web Assembly, softwares like AutoCad and Complex3 have created complex but 
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Figma uses C++. and WebAssembly <a href="https://twitter.com/hashtag/io18?src=hash&amp;ref_src=twsrc%5Etfw">#io18</a> <a href="https://t.co/EbwAYoSGfD">pic.twitter.com/EbwAYoSGfD</a></p>&mdash; Prosper @ Google I/O 18 🔥🚀 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/994333999936913408?ref_src=twsrc%5Etfw">May 9, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Check out some updates from my developer friend, [Ire Aderinokun](https://twitter.com/ireaderinokun), that attended other sessions below.
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">With the Accessibility Object Model we can create accessible elements from previously inaccessible elements like canvas!<br><br>You can use the AOM to create elements that don&#39;t exist in the DOM, but that can be interacted with assistive technology 🔥<a href="https://twitter.com/hashtag/io18?src=hash&amp;ref_src=twsrc%5Etfw">#io18</a> <a href="https://t.co/8gWHYh2S9x">pic.twitter.com/8gWHYh2S9x</a></p>&mdash; Ire Aderinokun (@ireaderinokun) <a href="https://twitter.com/ireaderinokun/status/994292868498972672?ref_src=twsrc%5Etfw">May 9, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">The new :focus-visible pseudoclass will only apply when a user is focusing via a keyboard or other assistive tech (or if a user opts in)<br><br>This will allow us to have more visible focus styles for users that need it and less obvious ones for mouse users 👏🏾<a href="https://twitter.com/hashtag/io18?src=hash&amp;ref_src=twsrc%5Etfw">#io18</a> <a href="https://t.co/sMeRpc5oId">pic.twitter.com/sMeRpc5oId</a></p>&mdash; Ire Aderinokun (@ireaderinokun) <a href="https://twitter.com/ireaderinokun/status/994289136826703872?ref_src=twsrc%5Etfw">May 9, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">The &quot;Accessibility&quot; tab in Chrome DevTools shows you any properties related to an element and how it looks in the Accessibility tree <a href="https://twitter.com/hashtag/io18?src=hash&amp;ref_src=twsrc%5Etfw">#io18</a> <a href="https://t.co/TaRPjBRkhE">pic.twitter.com/TaRPjBRkhE</a></p>&mdash; Ire Aderinokun (@ireaderinokun) <a href="https://twitter.com/ireaderinokun/status/994286888868429824?ref_src=twsrc%5Etfw">May 9, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
