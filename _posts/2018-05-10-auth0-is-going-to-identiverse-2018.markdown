@@ -4,7 +4,8 @@ title: "Going to Identiverse 2018?"
 description: "Visit Auth0’s Booth #200 at Identiverse 2018 and take your opportunity to hack the code to win a $5K Amazon Gift Card."
 longdescription: "Get in on the Auth0 Identiverse excitement! Visit Auth0’s Booth #200 at Identiverse 2018 and take your opportunity to hack the code to win a $5K Amazon Gift Card, check out one of our 5 sessions, scoop up a 20% pass discount, or share on LinkedIn or Twitter by May 31st for a chance at a full conference pass on us!"
 date: 2018-05-10 10:30
-category: Announcements, Contest
+category: Announcements, Content
+is_non-tech: true
 author:
   name: "Jenny O'Brien"
   url: "https://www.linkedin.com/in/jenny-o-brien-storyteller/"
