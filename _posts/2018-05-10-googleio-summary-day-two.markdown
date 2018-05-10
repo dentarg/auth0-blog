@@ -73,7 +73,7 @@ The first open source project is the Voice Kit. The speech recognition ability i
 
 ## Web Performance
 
-Google analyzes a lot of sites and have learned over time how to make them extremely fast. The **Web Performance made easy** talk by Eva and Addy Osmani showed how to fix common web performance bottlenecks and take advantage of the latest browser APIs to improve loading experience.
+Google analyzes a lot of sites and has learned over time how to make them extremely fast. The **Web Performance made easy** talk by Eva and Addy Osmani showed how to fix common web performance bottlenecks and take advantage of the latest browser APIs to improve loading experience.
 
 * **New Lighthouse Web Performance Audits** 
 * Optimizing Caching Strategies - Cache as many resources as possible efficiently.
@@ -121,7 +121,7 @@ Read more about [Guessjs](https://blog.mgechev.com/2018/05/09/introducing-guess-
 
 Google is working really hard to allow developers import web assembly modules into their JavaScript apps and have Chrome render it effectively.
 
-With Web Assembly, softwares like AutoCad and Complex3 have created complex but fast UI web experiences.
+With Web Assembly, software like AutoCAD and Complex3 have created complex but fast UI web experiences.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Web Assembly - The Journey <a href="https://twitter.com/hashtag/io18?src=hash&amp;ref_src=twsrc%5Etfw">#io18</a> <a href="https://t.co/gDeBaLSitP">pic.twitter.com/gDeBaLSitP</a></p>&mdash; Prosper @ Google I/O 18 🔥🚀 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/994336938957066240?ref_src=twsrc%5Etfw">May 9, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
