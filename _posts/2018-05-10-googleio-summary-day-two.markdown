@@ -3,7 +3,7 @@ layout: post
 title: "Google I/O 2018 Summary - Day 2"
 description: "Check out our summary of the Google I/O Conference 2018, Day 2."
 longdescription: "The second day of the Google I/O 18 consisted of several talks including Web Assembly, Polymer, Chrome Dev Tools, Flutter and Artificial Intelligence."
-date: 2018-05-09 08:30
+date: 2018-05-10 08:30
 category: Technical Guide, Conferences, Google I/O
 author:
   name: "Prosper Otemuyiwa"
