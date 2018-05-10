@@ -5,6 +5,7 @@ description: "How the right fit can help you source more value from your IT team
 longdescription: "Understanding the value of managed service providers is key to ensuring success in companies that are scaling. This article describes how, when, and where it is a good idea to use them to maximize success."
 date: 2018-04-17 12:30
 category: Hot Topic, Trends
+is_non-tech: true
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
