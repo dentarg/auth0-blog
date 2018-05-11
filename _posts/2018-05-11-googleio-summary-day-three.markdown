@@ -28,7 +28,7 @@ related:
 
 ---
 
-The final day of the Google I/O 18 consisted of a few talks including Node.js, Serverless deployment, Tensorflow, Android Security, etc.
+The final day of Google I/O 18 consisted of a few talks including Node.js, Serverless deployment, Tensorflow, Android Security, etc.
 
 Let's get started. 
 
