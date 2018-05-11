@@ -59,17 +59,17 @@ Apart from these, the Pro version allows for usage monitoring with a sweet admin
 
 ## Step 1: Installation and configuration
 
-* First of all [Download Shiny Server Pro](https://www.rstudio.com/products/shiny-server-pro/evaluation/) - If you don't see anything in the download box, you may have to disable your ad-blocker software, since it's a third party form. The setup is almost the same as the one described in [our previous blog post, in step 1](/blog/adding-authentication-to-shiny-server/), but using the shiny server pro download.
+* First of all [Download Shiny Server Pro](https://www.rstudio.com/products/shiny-server-pro/evaluation/) - If you don't see anything in the download box, you may have to disable your ad-blocker software, since it's a third party form. The setup is almost the same as the one described in [our previous blog post, in step 1](/blog/adding-authentication-to-shiny-server/), but using the Shiny Server Pro download.
 * [Follow the basic setup instructions for it](http://docs.rstudio.com/shiny-server/#installation)
 * Make sure it works before trying to add any authentication.
 
-Once you know Shiny Server is up and running in it's Pro version, we can start to plan out how to make it work with Auth0.
+Once you know Shiny Server is up and running in its Pro version, we can start to plan out how to make it work with Auth0.
 
 ![Shiny Server Pro installed](https://cdn.auth0.com/blog/shiny/shinyserver_intro.png)
 
 ## Step 2: Get Nginx Up and Running
 
-[Nginx](http://nginx.org) is a powerful and popular HTTP server. It supports a ton of features and is very fast. We will use Nginx to perform SSL/TLS termination. In other words, Nginx will act as the public facing server, with full TLS support (a must for secure connections). It will then forward all requests to our internal shiny-auth0-plus proxy server, which will run without TLS in our internal network (considered safe). This step is the same as the guide for the open source shiny server.
+[Nginx](http://nginx.org) is a powerful and popular HTTP server. It supports a ton of features and is very fast. We will use Nginx to perform SSL/TLS termination. In other words, Nginx will act as the public facing server, with full TLS support (a must for secure connections). It will then forward all requests to our internal [shiny-auth0-plus](https://github.com/auth0/shiny-auth0-plus) proxy server, which will run without TLS in our internal network (considered safe). This step is the same as the guide for the open source Shiny server.
 
 Our sample [Nginx configuration](http://nginx.org/en/docs/beginners_guide.html#conf_structure) file looks as follows:
 
@@ -146,9 +146,11 @@ http {
 }
 ```
 
-The important part is near the bottom. Take a look at the last `location /` block. This block tells Nginx to handle all requests. Inside this block you will find two directives: `proxy_pass` and `proxy_redirect`. These directives tell Nginx to proxy requests to the host passed as parameter to them. This is were you should edit the configuration file to point it to your shiny-auth0-plus authentication server, which we will setup later on in this guide.
+The important part is near the bottom. Take a look at the last `location /` block. This block tells Nginx to handle all requests. Inside this block you will find two directives: `proxy_pass` and `proxy_redirect`. These directives tell Nginx to proxy requests to the host passed as parameter to them. This is were you should edit the configuration file to point it to your [shiny-auth0-plus](https://github.com/auth0/shiny-auth0-plus) authentication server, which we will setup later on in this guide.
 
-Other important directives in this configuration file are `ssl_certificate` and `ssl_certificate_key`. These directives point Nginx to your TLS/SSL certificates. These certificates are used to secure the connection to the server. You must set a valid certificate and a private key here, as TLS must be enabled to properly secure your Shiny Server installation. If you want to learn more about TLS/SSL, or find out how to get your own free TLS certificate, head over to our [Using HTTPS article](https://auth0.com/blog/using-https/). You can also ask your system administrator to perform these steps for you. It is also possible to use a self-signed certificate, if only certain clients need access to the server (and can install your certificate in their browsers).
+Other important directives in this configuration file are `ssl_certificate` and `ssl_certificate_key`. These directives point Nginx to your TLS/SSL certificates. These certificates are used to secure the connection to the server. You must set a valid certificate and a private key here, as TLS must be enabled to properly secure your Shiny Server installation.
+
+If you want to learn more about TLS/SSL, or find out how to get your own free TLS certificate, head over to our [Using HTTPS article](https://auth0.com/blog/using-https/). You may want to consider that [Let's Encrypt provides free TLS certificates](https://letsencrypt.org/) with automatic updates after expiration. You can also ask your system administrator to perform these steps for you. It is also possible to use a self-signed certificate, if only certain clients need access to the server (and can install your certificate in their browsers).
 
 Last but not least, you should change both `server_name` directives to use the right name for your host. This is of particular importance if several hosts are being served by the same Nginx configuration. If in doubt about what this means, consult with your system administrator.
 
@@ -156,37 +158,38 @@ In most installations, the system-wide Nginx configuration file is located at `/
 
 ## Step 3: Setting up an Auth0 Account for shiny-auth0-plus
 
-Since authentication will be handled by Auth0, a free Auth0 account is required to work with shiny-auth0-plus. Don't panic, it's as simple as signing-up and setting a few knobs here and there. Let's take a look.
+Since authentication will be handled by Auth0, a free Auth0 account is required to work with [shiny-auth0-plus](https://github.com/auth0/shiny-auth0-plus). Don't panic, it's as simple as signing-up and setting a few knobs here and there. Let's take a look.
 
-First, head over to https://auth0.com and signup. Follow the steps to fill in your details. For simple use cases, a free account is more than enough. With a free account you get up to 7000 regular users. If you need more than that, check our pricing page.
+First, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">head over to Auth0's signup page</a>. Follow the steps to fill in your details. For simple use cases, a free account is more than enough. With a free account you get up to 7000 regular users. If you need more than that, check our pricing page.
 
+Signup to Auth0</a>
 
-After you have completed the signup process, access the [Auth0 Dashboard](https://manage.auth0.com) and create a new application for our shiny-auth0-plus app. This application will let you setup how your users will log-in through shiny-auth0-plus. You have several options you must consider: will you use a standard username/password database? Or will you allow social logins (through Facebook or Google, for example)? It is up to you to decide what fits best your use case.
+After you have completed the signup process, access the [Auth0 Dashboard](https://manage.auth0.com) and create a new application for our `shiny-auth0-plus` app. This application will let you setup how your users will log-in through the proxy. You have several options you must consider: will you use a standard username/password database? Or will you allow social logins (through Facebook or Google, for example)? It is up to you to decide what fits best your use case.
 
 To create an application go to `Applications` on the sidebar and then `Create Application` on the top right of the screen. Pick a name and then select the type of client. Select `Regular Web Applications`. Ignore the quickstart that is presented after that and go straight to `Settings`.
 
 ![Auth0 Application Settings](https://cdn.auth0.com/blog/shiny-server-2/settings.png)
 
-Take note of the `Client ID`, `Domain` and the `Client Secret`. You will need these later to setup shiny-auth0-plus. Another important setting is the `Allowed Callback URLs` setting visible below. This is the URL the user will be redirected to after a successful authentication attempt. It is formed by the domain of your public server plus the `callback` path. For instance: `https://shiny.yourhost.com/callback`.
+Take note of the `Client ID`, `Domain` and the `Client Secret`. You will need these later to setup [shiny-auth0-plus](https://github.com/auth0/shiny-auth0-plus). Another important setting is the `Allowed Callback URLs` setting visible below. This is the URL the user will be redirected to after a successful authentication attempt. It is formed by the domain of your public server plus the `callback` path. For instance: `https://shiny.yourhost.com/callback`.
 
 ## Step 4: Setting up shiny-auth0-plus for Shiny Server Authentication
 
 In this step we'll configure a proxy that sits between nginx and the Shiny Server, which will authenticate with Auth0.
 
-First, clone the latest version of shiny-auth0-plus to the system that will run the authentication proxy.
+First, clone the latest version of `shiny-auth0-plus` to the system that will run the authentication proxy.
 
 ```bash
 git clone https://github.com/auth0/shiny-auth0-plus.git
 ```
 
-Make sure you have an up-to-date [Node.js](https://nodejs.org/) installation. If in doubt, consult with your system administrator. Now install all required dependencies for shiny-auth0-plus:
+Make sure you have an up-to-date [Node.js](https://nodejs.org/) installation. If in doubt, consult with your system administrator. Now install all required dependencies for `shiny-auth0-plus`:
 
 ```sh
 cd shiny-auth0-plus
 npm install
 ```
 
-If everything went well, all dependencies for running shiny-auth0-plus are now locally installed. Now, we will setup shiny-auth0-plus. Create a new file named `.env` inside the shiny-auth0-plus directory with the following content, adjusted with the variables you wrote down.
+If everything went well, all dependencies for running `shiny-auth0-plus` are now locally installed. Now, we will setup shiny-auth0-plus. Create a new file named `.env` inside the `shiny-auth0-plus` directory with the following content, adjusted with the variables you wrote down.
 
 ```sh
 AUTH0_CLIENT_SECRET=myCoolSecret
@@ -194,7 +197,7 @@ AUTH0_CLIENT_ID=myCoolClientId
 AUTH0_DOMAIN=myCoolDomain
 AUTH0_CALLBACK_URL=https://shiny.yourhost.com/callback
 AUTH0_GROUPS_CLAIM=https://shiny.yourhost.com/claims
-COOKIE_SECRET=somethingRandomHerePlease
+COOKIE_SECRET=somethingRandomAndLongHerePlease
 SHINY_HOST=localhost
 SHINY_PORT=3838
 SHINY_ADMIN_PORT=4151
@@ -215,7 +218,7 @@ pwgen 50 1
 
 SHINY_HOST, SHINY_PORT and SHINY_ADMIN_PORT are the actual host and ports for your running Shiny Server installation from step 1. If everything is running on the same server, the defaults should be OK (localhost and ports 3838 and 4151).
 
-Lastly, PORT is the port where the shiny-auth0-plus authentication proxy will run. This port is the port that should be set in the proxy_pass and proxy_redirect directives from step 2. If shiny-auth0-plus will run on a different host from Nginx, don't forget to update the localhost part of these directives in nginx.conf as well. If in doubt, consult with your system administrator.
+Lastly, PORT is the port where the `shiny-auth0-plus` authentication proxy will run. This port is the port that should be set in the proxy_pass and proxy_redirect directives from step 2. If `shiny-auth0-plus` will run on a different host from Nginx, don't forget to update the localhost part of these directives in nginx.conf as well. If in doubt, consult with your system administrator.
 
 If you are just testing locally, you can use `localhost` instead of the IP of any machine. After setting up all of this, start the proxy with this command:
 
