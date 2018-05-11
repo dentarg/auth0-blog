@@ -36,7 +36,7 @@ Let's get started.
 
 [Myles Borins](https://twitter.com/MylesBorins) and [Steren Giannini](https://twitter.com/steren) gave a talk on _Deploying Serverless Node.js microservices_.
 
-They announced that in a couple of weeks, Node.js will start running on Google AppEngine. Developers would be able to deploy a node.js app easily to Google Cloud. 
+They announced that in a couple of weeks, Node.js will start running on Google AppEngine. Developers would be able to deploy a Node.js app easily to Google Cloud. 
 
 The Node.js app would simply have an _app.yaml_ file that specifies the runtime. And then the developer can run `gcloud app deploy`. That's it!
 
