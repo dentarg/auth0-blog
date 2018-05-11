@@ -28,7 +28,7 @@ related:
 
 ---
 
-The final day of the Google I/O 18 consisted of several talks including Node.js, Serverless deployment, PWAs, Tensorflow, Android Security, etc.
+The final day of the Google I/O 18 consisted of a few talks including Node.js, Serverless deployment, Tensorflow, Android Security, etc.
 
 Let's get started. 
 
@@ -66,7 +66,7 @@ The tools for the demo include:
 
 ## Search Friendly JavaScript-powered Websites
 
-Several tips for building search friendly JavaScript-powered websites were given in this talk.
+Several tips for building search-friendly JavaScript-powered websites were given in this talk.
 
 * Add a robot.txt to the top level domain of your site which specifies the URLs to crawl and not to.
 * Use good URLs such as `example.com/about` rather than fragmented URLs such as `example.com/#home`.
@@ -76,7 +76,7 @@ Several tips for building search friendly JavaScript-powered websites were given
 
 Tools such as [Puppeteer](https://developers.google.com/web/tools/puppeteer) and [Rendertron](https://github.com/GoogleChrome/rendertron) were recommnended for dynamic rendering.
 
-> **Note:** The rendering of JavaScript powered websites in Google search is deferred until Googlebot has resources available to process that content.
+> **Note:** The rendering of JavaScript-powered websites in Google search is deferred until Googlebot has resources available to process that content.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">🌟 Tips for SEO<br><br>1. Use meaningful URLs<br><br>E.g. <br>✅ <a href="https://t.co/jTx8E7mblc">https://t.co/jTx8E7mblc</a> <br>❌ <a href="https://t.co/Qo9zfpbcLH">https://t.co/Qo9zfpbcLH</a> <a href="https://t.co/NUZ1V33d3d">pic.twitter.com/NUZ1V33d3d</a></p>&mdash; Ire Aderinokun (@ireaderinokun) <a href="https://twitter.com/ireaderinokun/status/994664766571405312?ref_src=twsrc%5Etfw">May 10, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
