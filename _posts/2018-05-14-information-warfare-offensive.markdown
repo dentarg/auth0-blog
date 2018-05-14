@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Information Warfare Offensive"
-description: "Auth0 CISO Joan Pepin explains how making security easier makes things safer for users, but requires more planning from engineers to render security seamless."
-longdescription: "Everybody used to believe that to be secure, something couldn’t be convenient. Making access hard kept info safe. Auth0 Ciso Joan Pepin explains how security experts have failed users by making passwords too complex. Turns out convenience can make things much safer, but it requires more planning from engineers."
+description: "Access to information is valuable but it is also dangerous. Auth0 CISO Joan Pepin explains why information warfare is a big deal"
+longdescription: "Access to information is valuable but it is also dangerous. Auth0 CISO Joan Pepin explains why her job really is about balancing the opportunities and risks that information presents and why information warfare is a big deal"
 date: 2018-05-14 8:30
 category: Growth, Security
 is_non-tech: true
