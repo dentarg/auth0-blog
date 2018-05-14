@@ -14,13 +14,14 @@ author:
   mail: "joan.pepin@auth0.com"
   avatar: "https://cdn.auth0.com/blog/meltdown-spectre/joanpepin.jpg"
 design:
-  image: ""
-  bg_color: "#"
+  image: "https://cdn.auth0.com/blog/data-security/logo.png"
+  bg_color: "#222228"
 tags:
 - security
 - cybersecurity
 - information-warfare
-- nist
+- information
+- communication
 related:
 - 2018-03-28-security-vs-convenience
 - 2018-03-16-identity-as-a-service-in-2018
