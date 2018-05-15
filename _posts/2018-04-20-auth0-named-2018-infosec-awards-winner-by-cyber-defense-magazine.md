@@ -35,9 +35,19 @@ Auth0’s Universal Identity Platform provides identity management for consumers
 
 **About Cyber Defense Magazine**
 
-With over 1.2 Million annual readers and growing, Cyber Defense Magazine is the premier source of IT Security information. We are managed and published by and for ethical, honest, passionate information security professionals. Our mission is to share cutting-edge knowledge, real-world stories and awards on the best ideas, products and services in the information technology industry. We deliver electronic magazines every month online for free, and limited print editions exclusively for the RSA conferences and our paid subscribers. Learn more about us at [_http://www.cyberdefensemagazine.com_](http://www.cyberdefensemagazine.com/). CDM is a proud member of the Cyber Defense Media Group.
+With over 1.2 Million annual readers and growing, Cyber Defense Magazine is the premier source of IT Security information. We are managed and published by and for ethical, honest, passionate information security professionals. Our mission is to share cutting-edge knowledge, real-world stories and awards on the best ideas, products and services in the information technology industry. We deliver electronic magazines every month online for free, and limited print editions exclusively for the RSA conferences and our paid subscribers. Learn more about us at [http://www.cyberdefensemagazine.com](http://www.cyberdefensemagazine.com/). CDM is a proud member of the Cyber Defense Media Group.
 
-**About Auth0**
 
-Auth0, a global leader in Identity-as-a-Service (IDaaS), provides thousands of enterprise customers with a Universal Identity Platform for their web, mobile, IoT, and internal applications. Its extensible platform seamlessly authenticates and secures more than 1.5B logins per month, making it loved by developers and trusted by global enterprises. The company’s U.S. headquarters in Bellevue, WA, and additional offices in Buenos Aires, London, Tokyo, and Sydney, support its customers that are located in 70+ countries.
-For more information, visit [_https://auth0.com_](https://auth0.com/) or follow [_@auth0 on Twitter_](https://twitter.com/auth0).
+{% include asides/about-auth0.markdown %}
+
+### Media Contact
+
+Jeana Tahnk<br>
+Corporate Communications<br>
+Auth0<br>
+[jeana.tahnk@auth0.com](mailto:jeana.tahnk@auth0.com)
+
+Kasia Hall<br>
+Matter for Auth0<br>
+[khall@matternow.com](mailto:khall@matternow.com)<br>
+971-246-7898

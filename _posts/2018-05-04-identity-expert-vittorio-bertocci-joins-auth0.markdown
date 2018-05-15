@@ -34,18 +34,16 @@ Bertocci holds a masters degree in Computer Science from Università degli Studi
 “My co-founder Matias Woloski and I knew Vittorio before we even started Auth0, and credit him with introducing us to many innovative identity concepts,” said Eugenio Pace, CEO and Co-founder of Auth0. “His highly technical expertise and deep knowledge of the industry as a whole will be an incredible resource for Auth0.” 
 
 
-**About Auth0**
-Auth0, a global leader in Identity-as-a-Service (IDaaS), provides thousands of enterprise customers with a Universal Identity Platform for their web, mobile, IoT, and internal applications. Its extensible platform seamlessly authenticates and secures more than 1.5B logins per month, making it loved by developers and trusted by global enterprises. The company’s U.S. headquarters in Bellevue, WA, and additional offices in Buenos Aires, London, Tokyo, and Sydney, support its customers that are located in 70+ countries.
-For more information, visit https://auth0.com or follow @auth0 on Twitter.
+{% include asides/about-auth0.markdown %}
 
-**Media Contact:**
+### Media Contact
 
-Jeana Tahnk
-Corporate Communications
-Auth0
-jeana.tahnk@auth0.com
+Jeana Tahnk<br>
+Corporate Communications<br>
+Auth0<br>
+[jeana.tahnk@auth0.com](mailto:jeana.tahnk@auth0.com)
 
-Kasia Hall
-Matter for Auth0
-khall@matternow.com 
+Kasia Hall<br>
+Matter for Auth0<br>
+[khall@matternow.com](mailto:khall@matternow.com)<br>
 971-246-7898
