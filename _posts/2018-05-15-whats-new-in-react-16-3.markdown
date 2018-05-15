@@ -3,7 +3,7 @@ layout: post
 title: "React 16.3: What’s New?"
 description: "Learn about the new features in React 16.3. New Lifecycles, Context, Strict Mode, createRef, and forwardRef"
 longdescription: "React 16 keeps evolving. It's important to understand the changes that enable you to build ergonomic React applications. Learn what's new in React 16.3!"
-date: 2018-04-26 08:30
+date: 2018-05-15 08:30
 category: Technical Guide, FrontEnd, React
 design:
   bg_color: "#1A1A1A"
