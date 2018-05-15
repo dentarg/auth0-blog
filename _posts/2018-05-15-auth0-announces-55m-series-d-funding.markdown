@@ -41,10 +41,12 @@ In today’s global economy where cloud architecture dominates, companies are se
 
 _“We are humbled by the support from our investors, and emboldened in our mission to provide the most extensible, powerful, and easy-to-use identity management solution available,”_ said Eugenio Pace, CEO and Co-founder of Auth0. _“We look forward to using these funds to make our product and company even better, and to continue offering value to our incredible customers around the world.”_
 
-About Sapphire Ventures 
+## About Sapphire Ventures 
+
 Sapphire Ventures is a venture capital firm focused on helping innovative technology companies become global category leaders. Leveraging nearly two decades of experience and an extensive global enterprise network, Sapphire Ventures invests capital, resources and expertise to enable its portfolio companies to scale rapidly. Whether entrepreneurs sell to businesses, consumers or both, Sapphire Ventures offers a powerful platform for business development and operational excellence to help them accelerate growth. With $2.5 billion under management via direct growth investments and early-stage fund investments, Sapphire Ventures is positioned to elevate companies to the global stage.
 
-About World Innovation Lab
+## About World Innovation Lab
+
 World Innovation Lab (WiL) connects entrepreneurs with corporate resources to build global businesses. WiL is a multi-stage venture capital firm that invests in consumer and enterprise technology companies. With a deep network of global corporate partners, the firm is committed to providing startups with unparalleled investment and partnership opportunities. World Innovation Lab's foundational platform includes the Japanese government investment arm and over 20 Japan leading corporations such as Sony, Nissan, All Nippon Airways, Mizuho Bank, Daiwa Securities, NTT, and KDDI. In addition to venture investment, WiL also collaborates with the world’s leading companies to incubate new businesses and to create spin-offs and joint ventures.
   
 {% include asides/about-auth0.markdown %}
