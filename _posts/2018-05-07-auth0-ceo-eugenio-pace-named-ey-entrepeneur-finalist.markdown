@@ -47,18 +47,16 @@ In the Pacific Northwest, sponsors also include Woodruff Sawyer.
 About Entrepreneur Of The Year®
 Entrepreneur Of The Year®, founded by EY, is the world’s most prestigious business awards program for entrepreneurs, chosen from an independent panel of judges including entrepreneurs and prominent leaders from business, finance, and the local community. The program makes a difference through the way it encourages entrepreneurial activity among those with potential and recognizes the contribution of people who inspire others with their vision, leadership and achievement. As the first and only truly global awards program of its kind, Entrepreneur Of The Year celebrates those who are building and leading successful, growing and dynamic businesses, recognizing them through regional, national and global awards programs in more than 145 cities and more than 60 countries. ey.com/eoy
 
-**About Auth0**
-Auth0, a global leader in Identity-as-a-Service (IDaaS), provides thousands of enterprise customers with a Universal Identity Platform for their web, mobile, IoT, and internal applications. Its extensible platform seamlessly authenticates and secures more than 1.5B logins per month, making it loved by developers and trusted by global enterprises. The company’s U.S. headquarters in Bellevue, WA, and additional offices in Buenos Aires, London, Tokyo, and Sydney, support its customers that are located in 70+ countries.
-For more information, visit https://auth0.com or follow @auth0 on Twitter.
+{% include asides/about-auth0.markdown %}
 
-**Media Contact:**
+### Media Contact
 
-Jeana Tahnk
-Corporate Communications
-Auth0
-jeana.tahnk@auth0.com
+Jeana Tahnk<br>
+Corporate Communications<br>
+Auth0<br>
+[jeana.tahnk@auth0.com](mailto:jeana.tahnk@auth0.com)
 
-Kasia Hall
-Matter for Auth0
-khall@matternow.com 
+Kasia Hall<br>
+Matter for Auth0<br>
+[khall@matternow.com](mailto:khall@matternow.com)<br>
 971-246-7898

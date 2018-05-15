@@ -43,18 +43,16 @@ Auth0 will work alongside companies such as IBM, Accenture, RSA, IDEO, and other
 
 “Digital identity is the core of every interaction, transaction, and communication online, but it’s a little like the Wild West right now in terms of standards and specifications around how identity could be handled in a decentralized manner,” said Martin Gontovnikas, Vice President of Marketing at Auth0. “There is an important need for strong voices to shape the future of this industry, and we are looking forward to our involvement with the Decentralized Identity Foundation.” 
   
-**About Auth0**
+{% include asides/about-auth0.markdown %}
 
-Auth0, a global leader in Identity-as-a-Service (IDaaS), provides thousands of enterprise customers with a Universal Identity Platform for their web, mobile, IoT, and internal applications. Its extensible platform seamlessly authenticates and secures more than 1.5B logins per month, making it loved by developers and trusted by global enterprises. The company’s U.S. headquarters in Bellevue, WA, and additional offices in Buenos Aires, London, Tokyo, and Sydney, support its customers that are located in 70+ countries.
-For more information, visit [_https://auth0.com_](https://auth0.com/) or follow [_@auth0 on Twitter_](https://twitter.com/auth0).
+### Media Contact
 
-Media Contact:
-Jeana Tahnk
-Corporate Communications
-Auth0
-jeana.tahnk@auth0.com
+Jeana Tahnk<br>
+Corporate Communications<br>
+Auth0<br>
+[jeana.tahnk@auth0.com](mailto:jeana.tahnk@auth0.com)
 
-Kasia Hall
-Matter for Auth0
-khall@matternow.com 
+Kasia Hall<br>
+Matter for Auth0<br>
+[khall@matternow.com](mailto:khall@matternow.com)<br>
 971-246-7898
