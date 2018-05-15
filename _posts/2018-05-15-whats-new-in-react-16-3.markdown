@@ -4,7 +4,7 @@ title: "React 16.3: What’s New?"
 description: "Learn about the new features in React 16.3. New Lifecycles, Context, Strict Mode, createRef, and forwardRef"
 longdescription: "React 16 keeps evolving. It's important to understand the changes that enable you to build ergonomic React applications. Learn what's new in React 16.3!"
 date: 2018-04-26 08:30
-category: Technical Guide, Angular, ReactJS
+category: Technical Guide, FrontEnd, React
 design:
   bg_color: "#1A1A1A"
   image: https://cdn.auth0.com/blog/reactjs16/logo.png
@@ -23,15 +23,10 @@ tags:
 - authentication
 related:
 - 2017-02-21-reactjs-authentication-tutorial
-- 2017-01-24-optimizing-react
-- 2017-10-26-twhats-new-in-react16
+- 2018-02-06-developing-games-with-react-redux-and-svg-part-1
+- 2018-03-27-react-router-4-practical-tutorial
 ---
 
----
-
-**TL;DR:** In this article, I'll cover the new major features in React 16.3.
-
----
 
 [ReactJS 16 shipped with a lot of new features](https://auth0.com/blog/whats-new-in-react16). Since then, even more features have been introduced to the library.
 
