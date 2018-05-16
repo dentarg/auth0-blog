@@ -3,7 +3,7 @@ layout: post
 title: "Authentication and Authorization with Shiny Server Pro + Auth0"
 description: "Learn how to configure Auth0 with Shiny Server Pro to secure your interactive R apps!"
 longdescription: "You can add authentication to a Shiny Server instance with Auth0. If you have Shiny Server Pro, you can also give different permissions according to which user is logging in."
-date: 2018-05-10 16:00
+date: 2018-05-16 16:00
 category: Technical Guide, Data, Shiny, R
 author:
   name: Pablo Seibelt
