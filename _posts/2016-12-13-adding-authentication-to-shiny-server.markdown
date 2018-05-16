@@ -31,7 +31,7 @@ related:
 - 2016-07-22-customer-data-is-king-four-ways-to-know-your-customers-better
 ---
 
-[Shiny Server](https://www.rstudio.com/products/shiny/) is a great tool to create visualizations and interactive documents for your [R](https://www.r-project.org) applications. It is also very popular. Unfortunately, the free version of Shiny Server does not support any form of authentication whatsoever. This precludes many common use cases such as taking your apps online, or limiting access to certain users inside your network. In this article we will show you how to add authentication to the free version of Shiny Server using [Auth0](https://auth0.com). Read on! 
+[Shiny Server](https://www.rstudio.com/products/shiny/) is a great tool to create visualizations and interactive documents for your [R](https://www.r-project.org) applications. It is also very popular. Unfortunately, the free version of Shiny Server does not support any form of authentication whatsoever. This precludes many common use cases such as taking your apps online, or limiting access to certain users inside your network. In this article we will show you how to add authentication to the free version of Shiny Server using [Auth0](https://auth0.com). Read on!
 
 {% include tweet_quote.html quote_text="We show you how to add authentication to the free version of Shiny Server!" %}
 
@@ -62,7 +62,7 @@ Shiny runs on Linux servers. We will assume a fairly common CentOS 7 / Red Hat E
 sudo yum install epel-release
 # Install R
 sudo yum install R
-# Run R as root 
+# Run R as root
 sudo R
 ```
 
@@ -76,13 +76,18 @@ install.packages("shiny", repos='https://cran.rstudio.com/')
 quit()
 ```
 
-Now back in the command shell, run:
+Now back in the command shell, follow the instructions in [https://www.rstudio.com/products/shiny/download-server/](https://www.rstudio.com/products/shiny/download-server/) for your distribution, that look like:
 
 ```sh
 # Download Shiny server
-curl -O https://download3.rstudio.org/centos5.9/x86_64/shiny-server-1.5.1.834-rh5-x86_64.rpm
+curl -O https://download3.rstudio.org/centos5.9/x86_64/shiny-server-1.x.y.z-rh5-x86_64.rpm
 # Install it
-sudo yum install --nogpgcheck shiny-server-1.5.1.834-rh5-x86_64.rpm
+sudo yum install --nogpgcheck shiny-server-1.x.y.z-rh5-x86_64.rpm
+```
+
+And start the service:
+
+```
 # Start it using systemd (it is already setup to run automatically during boot)
 sudo systemctl start shiny-server
 ```
@@ -114,14 +119,14 @@ http {
         ''      close;
     }
 
-    # Listen on port 80 and redirect all requests to the 
+    # Listen on port 80 and redirect all requests to the
     # TLS enabled server (https, port 443)
     server {
         listen       *:80;
 
         # Your hostname should go here
         server_name  shiny.yourhost.com;
-        
+
         access_log   off;
         location / {
             rewrite ^ https://$host$request_uri? permanent;
@@ -143,7 +148,7 @@ http {
         ssl_certificate_key  localtestserver-dot-com-key.pem;
 
         # To enhance security, as long as you don't need to support older browsers
-        # (and you probably don't), you should only enable the most secure 
+        # (and you probably don't), you should only enable the most secure
         # ciphers and algorithms. This is a sane selection.
         ssl_ciphers 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128:AES256:AES:DES-CBC3-SHA:HIGH:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK';
         ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
@@ -152,25 +157,25 @@ http {
         ssl_stapling on; # Requires nginx >= 1.3.7
         ssl_stapling_verify on; # Requires nginx => 1.3.7
 
-        # This proxies requests to our shiny-auth0 authentication proxy. 
+        # This proxies requests to our shiny-auth0 authentication proxy.
         # Requests are passed in plain HTTP, so TLS termination
         # is applied at this point.
         location / {
             proxy_set_header    Host $host;
 
             # This points to our shiny-auth0 authentication proxy,
-            # change localhost:3000 to suit the configuration of 
+            # change localhost:3000 to suit the configuration of
             # your shiny-auth0 config
             proxy_pass          http://localhost:3000;
             proxy_redirect      http://localhost:3000/ $scheme://$host/;
-            
+
             proxy_http_version  1.1;
-            
+
             # The following lines enable WebSockets proxying, do not remove them
             # as they are used by Shiny Server to improve user experience
             proxy_set_header    Upgrade $http_upgrade;
             proxy_set_header    Connection $connection_upgrade;
-            
+
             proxy_connect_timeout 3h;
             proxy_send_timeout 3h;
             proxy_read_timeout 3h;
@@ -187,16 +192,16 @@ Last but not least, you should change both `server_name` directives to use the r
 
 In most installations, the system-wide Nginx configuration file is located at `/etc/nginx/nginx.conf`.
 
-## Step 3: Setting up and Auth0 Account for shiny-auth0
+## Step 3: Setting up an Auth0 Account for shiny-auth0
 Since authentication will be handled by Auth0, a free Auth0 account is required to work with shiny-auth0. Don't panic, it's as simple as signing-up and setting a few knobs here and there. Let's take a look.
 
 First, head over to [https://auth0.com](https://auth0.com) and <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">signup</a>. Follow the steps to fill in your details. For simple use cases, a free account is more than enough. With a free account you get up to 7000 users. If you need more than that, check our [pricing](https://auth0.com/pricing/) page.
 
-After you have completed the signup process, access the [Auth0 Dashboard](https://manage.auth0.com) and create a new client for our shiny-auth0 app. This client will let you setup how your users will log-in through shiny-auth0. You have several options you must consider: will you use a standard username/password database? Or will you allow social logins (through Facebook or Google, for example)? It is up to you to decide what fits best your use case. For simplicity, we will go with a simple social login through Google. We will only allow certain users access to our Shiny Server.
+After you have completed the signup process, access the [Auth0 Dashboard](https://manage.auth0.com) and create a new application for our shiny-auth0 app. This application will let you setup how your users will log-in through shiny-auth0. You have several options you must consider: will you use a standard username/password database? Or will you allow social logins (through Facebook or Google, for example)? It is up to you to decide what fits best your use case. For simplicity, we will go with a simple social login through Google. We will only allow certain users access to our Shiny Server.
 
-To create a client go to `Client` on the sidebar and then `Create Client` on the top right of the screen. Pick a name and then select the type of client. Select `Regular Web Applications`. Ignore the quickstart that is presented after that and go straight to `Settings`.
+To create an application go to `Applications` on the sidebar and then `Create Application` on the top right of the screen. Pick a name and then select the type of client. Select `Regular Web Applications`. Ignore the quickstart that is presented after that and go straight to `Settings`.
 
-![Auth0 Client Settings](https://cdn.auth0.com/blog/shiny-server-2/settings.png)
+![Auth0 Application Settings](https://cdn.auth0.com/blog/shiny-server-2/settings.png)
 
 Take note of the `Client ID`, `Domain` and the `Client Secret`. You will need these later to setup shiny-auth0. Another important setting is the `Allowed Callback URLs` setting visible below. This is the URL the user will be redirected to after a successful authentication attempt. It is formed by the domain of your public server plus the `callback` path. For instance: `https://shiny.yourhost.com/callback`.
 
@@ -253,13 +258,13 @@ SHINY_PORT=3838
 PORT=3000
 ```
 
-You will see several common names here. As you can imagine, `AUTH0_CLIENT_SECRET`, `AUTH0_CLIENT_ID` and `AUTH0_DOMAIN` are the client settings we took note in step 3. Proceed to fill these in here. 
+You will see several common names here. As you can imagine, `AUTH0_CLIENT_SECRET`, `AUTH0_CLIENT_ID` and `AUTH0_DOMAIN` are the client settings we took note in step 3. Proceed to fill these in here.
 
 `AUTH0_CALLBACK_URL` depends on the actual URL you will use to access your Shiny Server from outside. In other words, it is the URL the user will be redirected to after authentication. This should be one of the `Allowed Callback URLs` from step 3. It is very important to leave the trailing `/callback` part of the URL in place, whatever the name of your host is.
 
-`COOKIE_SECRET` should be a fairly long random string that should be kept secret. This secret is used to validate the cookie stored client side. Put a long, random string here. 
+`COOKIE_SECRET` should be a fairly long random string that should be kept secret. This secret is used to validate the cookie stored client side. Put a long, random string here.
 
-`SHINY_HOST` and `SHINY_PORT` are the actual host and port for your running Shiny Server installation from step 1. If everything is running on the same server, the defaults should be OK (`localhost` and port 3838). 
+`SHINY_HOST` and `SHINY_PORT` are the actual host and port for your running Shiny Server installation from step 1. If everything is running on the same server, the defaults should be OK (`localhost` and port 3838).
 
 Lastly, `PORT` is the port where the shiny-auth0 authentication proxy will run. This port is the port that should be set in the `proxy_pass` and `proxy_redirect` directives from step 2. If shiny-auth0 will run on a different host from Nginx, don't forget to update the `localhost` part of these directives in `nginx.conf` as well. If in doubt, consult with your system administrator.
 
@@ -270,7 +275,7 @@ We're almost there! If you have reached this point, make sure everything is up a
 sudo systemctl start shiny-server
 # Run the following command in the host for Nginx
 sudo systemctl start nginx
-# Run the following command in the host for shiny-auth0, 
+# Run the following command in the host for shiny-auth0,
 # inside the shiny-auth0 folder
 node bin/www
 ```
@@ -291,7 +296,7 @@ sudo systemctl enable shiny-server
 sudo systemctl enable nginx
 ```
 
-Now, let't take a look at a sample systemd service file for shiny-auth0:
+Now, let's take a look at a sample systemd service file for shiny-auth0:
 
 ```systemd.service
 [Service]
@@ -316,10 +321,10 @@ You can now make shiny-auth0 start automatically during boot:
 # Enable shiny-auth0 autostart during boot
 sudo systemctl enable shiny-auth0
 # To start it now, without rebooting
-sudo systemctl start shiny-auth0 
+sudo systemctl start shiny-auth0
 ```  
 
 If you need help with any of this, ask your local sysadmin. If you have succeeded in running Shiny Server with Auth0 by following the guide above, your local system administrator will not have any problems making the necessary changes to have this run in the appropriate servers, with automatic start on boot.
 
 ## Conclusion
-Shiny server is a great tool to visualize data using R. In spite of its limitations, the open-source version is really powerful. TLS/SSL support and authentication are essential for user facing apps, sometimes even inside private networks. Using Auth0, shiny-auth0 and nginx makes adding authentication and TLS support to Shiny Server Open Source Edition a breeze, even for people not versed in the arcana of Unix commands or programming. Leave us your thoughts in the comments section below, cheers! 
+Shiny server is a great tool to visualize data using R. In spite of its limitations, the open-source version is really powerful. TLS/SSL support and authentication are essential for user facing apps, sometimes even inside private networks. Using Auth0, shiny-auth0 and nginx makes adding authentication and TLS support to Shiny Server Open Source Edition a breeze, even for people not versed in the arcana of Unix commands or programming. Leave us your thoughts in the comments section below, cheers!
