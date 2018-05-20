@@ -347,6 +347,7 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="{{ site.baseurl }}/js/vendor/nprogress.js"></script>
     <script src="{{ site.baseurl }}/js/vendor/moment.min.js"></script>
+    <script src="{{ site.baseurl }}/js/vendor/jquery.csbuttons.min.js"></script>
     <script async src="{{ site.baseurl }}/js/vendor/html2canvas.js"></script>
     <script src="{{ site.baseurl }}/js/vendor/selection-sharer.min.js"></script>
     <script src="{{ site.baseurl }}/js/vendor/jquery.sticky-kit.min.js"></script>
@@ -543,6 +544,9 @@
 
             $current.addClass('rendered');
           });
+
+          // Social Buttons
+          $('.social-stats .network').cSButtons();
 
           // Force content links to _blank if not explicitly set to _self
           $('.entry-content a').each(function() {
