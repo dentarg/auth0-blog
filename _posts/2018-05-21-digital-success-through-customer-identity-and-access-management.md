@@ -2,16 +2,17 @@
 layout: post
 title: "How a Strong Customer Identity and Access Management Strategy Can Drive Digital Success"
 description: "Upgrading CIAM prior to other digital transformations can help maintain a positive user experience and high level of engagement with your platform."
-date: 2018-03-30 8:30
-category: Auth0 Authentication Identity Trends
-design:: 
-  bg_color: "#1A1A1A"
-  image: 
+longdescription: "Upgrading CIAM prior to other digital transformations can help maintain a positive user experience and high level of engagement with your platform. Read about three specific benefits CIAM can provide to help you achieve and maintain an industry-leading position."
+date: 2018-05-21 8:30
+category: Growth, Identity, CIAM
+design: 
+  bg_color: "#297373"
+  image: https://cdn.auth0.com/blog/iam-drives-digital-success/logo.png
 author:
-  name:
-  url:
-  mail:
-  avatar: 
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 tags: 
   - identity
   - access-management
@@ -72,7 +73,7 @@ A single, detailed vision of each of your customers is an excellent starting poi
 
 ## Secure user data
 
-In addition to being a cornerstone of your team's growth strategy, an impenetrable CIAM setup can help ensure the data of your users is safe from cyberthreats. Data breaches like [Equifax's](http://money.cnn.com/2017/09/11/technology/equifax-identity-theft/index.html), [Yahoo's](http://money.cnn.com/2017/10/03/technology/business/yahoo-breach-3-billion-accounts/index.html), and [Myspace's](https://techcrunch.com/2016/05/31/recently-confirmed-myspace-hack-could-be-the-largest-yet/) nearly destroyed these companies' reputations. With Equifax, in particular, multiple [lawsuits](http://bgr.com/2017/09/08/equifax-hack-lawsuit-class-action-how-to-join/) followed, and government investigations paved the way for major [fines](https://www.reuters.com/article/us-equifax-cyber-ftc/ftc-probes-equifax-top-democrat-likens-it-to-enron-idUSKCN1BP1VX). Revenue loss from Equifax's customers [shifting to competitors](https://www.wsj.com/articles/hack-puts-equifax-at-risk-of-pullback-by-lenders-1505253402) TransUnion and Experian depressed its growth. While no tool can 100% guarantee the safety of user data, CIAM mitigates the risk of your company losing enormous sums of money in the short term and its good standing in the long term.
+In addition to being a cornerstone of your team's growth strategy, an impenetrable CIAM setup can help ensure the data of your users is safe from cyberthreats. Data breaches like [Equifax's](https://auth0.com/blog/equifax-data-breach/), [Yahoo's](https://auth0.com/blog/yahoo-confirms-data-breach-of-half-a-billion-user-accounts/), and [Myspace's](https://techcrunch.com/2016/05/31/recently-confirmed-myspace-hack-could-be-the-largest-yet/) nearly destroyed these companies' reputations. With Equifax, in particular, multiple [lawsuits](http://bgr.com/2017/09/08/equifax-hack-lawsuit-class-action-how-to-join/) followed, and government investigations paved the way for major [fines](https://www.reuters.com/article/us-equifax-cyber-ftc/ftc-probes-equifax-top-democrat-likens-it-to-enron-idUSKCN1BP1VX). Revenue loss from Equifax's customers [shifting to competitors](https://www.wsj.com/articles/hack-puts-equifax-at-risk-of-pullback-by-lenders-1505253402) TransUnion and Experian depressed its growth. While no tool can 100% guarantee the safety of user data, CIAM mitigates the risk of your company losing enormous sums of money in the short term and its good standing in the long term.
 
 Users will appreciate your implementation of a [two-factor authentication](https://auth0.com/learn/two-factor-authentication/) (2FA), for example — i.e., relying on a second set of information, such as an SMS code or a fingerprint to gain access. 
 
@@ -95,8 +96,6 @@ Turning on one of these shields, such as brute force protection, will automatica
 Taking such clear steps to protect your users will go a long way towards building their trust and ensuring their consistent use of your platform.
 
 Tracking and securing your customer data is essential to maintaining integrity; however, if you're located in the EU, it is also critical for complying with [GDPR](https://auth0.com/gdpr). With fines for non-compliance being [up to €20 million or 4% of the global annual revenue](https://auth0.com/gdpr) (whichever is greater) — even if your team is an industry leader, the financial and reputational pitfall of losing this sensitive information could send you into a tailspin.
-
-As many companies are still far from compliance, with only a few months to go (May 25, 2018, is the deadline), taking the bold step to craft exceptional CIAM can place you head and shoulders above your peers. 
 
 ## Going Beyond CIAM: Think Platform IAM
 
