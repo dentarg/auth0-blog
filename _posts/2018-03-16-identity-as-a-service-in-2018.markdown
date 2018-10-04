@@ -29,84 +29,90 @@ related:
 - 2017-12-08-how-poor-identity-access-management-equals-security-breaches
 ---
 
-The New Year is bringing with it a rapidly growing desire to keep individual identity safe—on a state and geopolitical level, as well as a personal level. 
+# What Is Identity as a Service (IDaaS)?
 
-We're seeing unprecedented new privacy controls with the impending enforcement of [GDPR](https://www.eugdpr.org/), the EU's massive regulatory attempt to secure and protect consumer data. With this comes new rights for the individual (e.g. the Right to Be Forgotten or the Right to Erasure).
+## We break down the core components of identity and access management and highlight solutions that can help your team move forward in a difficult threat environment.
+If you're a growing company, particularly one that deals with a large volume of customer information, it's critical to know what solutions are available to help you protect all of this sensitive data.
 
-The ways we conceive of and secure individual identity seems to be changing. New biometric technologies are transforming what we consider unique versus what might be replicable. 
+The phrase identity as a service (or IDaaS) comes up repeatedly in conversations about protecting users. In the wake of scandals like [Facebook's](https://auth0.com/blog/what-facebook-disinformation-scandal-means-for-your-company/), many companies are turning to [identity as a service providers](https://auth0.com/) to help them secure and manage online identities.
 
-And pushing the boundaries of the blockchain is creating new pathways for decentralizing consumer data from their current pools.
+But what exactly is identity as a service? What do these providers actually offer that can help you in such a challenging environment?
+In this piece we define identity as a service and break it down into core components that can help teams be more secure.
 
-While all of these realms have the potential to bolster individual privacy, some have concerns about these strategies' efficacy and potential for widespread adoption.
+## IDaaS Defined
+Identity as a service (IDaaS) comprises cloud-based solutions for identity and access management (IAM) functions, such as single sign-on ([_SSO_](https://auth0.com/blog/4-vital-ways-enterprise-sso-saves-your-employees-time/)). These methods allow all users (customers, employees, and third parties) to more securely access sensitive information both on and off-premises. 
 
-Keep reading for the breakdown of the top identity-as-a-service trends of 2018.
+IDaaS also means collecting intelligence (i.e., logging events and reporting on which users accessed what information and when) to better understand, monitor, and improve their behaviors.
+Multi-factor authentication (MFA), including biometrics, are core components of IDaaS.
 
-{% include tweet_quote.html quote_text="Identity is a complex and changing topic, want to know what's new in 2018? Check it out!" %}
+### Multi-factor authentication (MFA)
+Multi-factor authentication (MFA) is an increasingly popular way of verifying a user's identity. MFA requires more than one piece of identifying information (i.e., a password). 
+Typically, two or more of the following criteria are used:
 
----
+* **Knowledge:** Something the user knows (such as a password)
+* **Possession:** Something the user has (such as a cell phone)
+* **Inheritance:** Something the user is (such as a fingerprint or retina scan)
 
-## Top Identity-as-a-Service Trends for 2018
-### Blockchain/cryptocurrency
-2017 was clearly an enormous year for bitcoin, Ethereum, and a range of cryptocurrencies. Although the technology remains divisive ([PwC](https://www.pwc.com/us/en/financial-services/publications/assets/pwc-cryptocurrency-evolution.pdf) calls cryptocurrencies one of the “greatest technological breakthroughs since the Internet,” while others describe them as a money-sucking “black holes”); it still highlights some incredible opportunities. 
+For example, some apps like Amazon have implemented [Touch ID](https://auth0.com/docs/multifactor-authentication/touchid). 
+In order to enter the app, a user must possess their cell phone and know their password.
 
-![Ethereum](https://cdn.auth0.com/blog/idaas-2018/1-ethereum-price-fb.jpg)
+![touch-id](https://cdn.auth0.com/blog/idaas-2018/touch-id)
 
-> [Image source.](https://ethereumprice.org/wp-content/uploads/2017/12/ethereum-price-fb.jpg)
+Multi-factor or two-factor authentication provides an additional layer of security and diminishes the likelihood of unauthorized access. If a cyber thief gets ahold of your password, they still won't be able to access your account without your thumb and phone. 
 
-The decentralized nature of the blockchain avoids large, consolidated pools of data, which are ripe for hackers. 2018 will see entrepreneurs moving ahead with developing their own systems, built on advanced distributed ledger technology, and designed to give users more power over their individual information. 
+[Google 2-Step Verification](https://www.google.com/landing/2step/) and [Microsoft Authenticator](https://www.microsoft.com/en-us/account/authenticator)are other examples of how multi-factor authentication can work. Both of these rely on a TOTP (time-based one-time password algorithm).
 
-Distributed ledgers can separate personal data, duplicate it thousands of times, and disperse it globally—but true ownership of the data remains with the individual. 
+Despite numerous reports on [the benefits of multi-factor authentication for stopping data breaches](https://auth0.com/blog/how-two-factor-authentication-can-help-financial-institutions-reduce-data-breaches/), widespread adoption is still low:
 
-For example, individuals who use the startup [Civic](https://www.civic.com/) start by entering a range of personal data into Civic's app; Civic then verifies all of this through a government agency or other third party verification service. Once verified, Civic converts this data into a cryptographic hash.
+![mfa-graph](https://cdn.auth0.com/blog/idaas-2018/mfa-graph)
 
-After Civic creates a hash for this user, the company uploads it into its public blockchain. Next, when the user wants to authenticate on a new platform, she will input her data as requested, and the platform will route this information through Civic's special algorithm. If the algorithm reveals that the individual's information matches the hash in the blockchain, she is verified, and the platform can erase her data.  
-
-No one knows how (or whether) the blockchain will definitely be used to manage identities going forward. Some argue that the distributed system actually offers more surface area for attacks; others sense that giving a user the power to manager all of his or her personal data would be too complicated and/or overwhelming to facilitate in the coming years. For more on the future of the blockchain + identity management, check out our [post dedicated to it](https://auth0.com/blog/how-the-blockchain-could-change-the-idea-of-identity/) and our guide to [Ethereum and smart contracts](https://auth0.com/blog/an-introduction-to-ethereum-and-smart-contracts-part-2/).
+([Source](https://www.statista.com/statistics/789473/us-use-of-two-factor-authentication/))
+One of the reasons for this is that it's relatively technical to get going — and users must be involved. Full deployment often requires issuing tokens or embedding cryptographic keys in specific devices. 
+Multi-factor authentication is also not bulletproof (although it is certainly safer than a simple password-protected system). New and safer iterations of multi-factor authentication are becoming popular, such as biometrics.
 
 ### Biometrics
-Biometrics also made some important strides in 2017, including the launch of Apple’s iPhone X facial recognition feature. Although this [didn’t quite gain the traction](https://www.theguardian.com/technology/video/2017/sep/12/apple-iphone-x-facial-recognition-face-id-fail-launch-video) anticipated, the launch a sign of what's to come in 2018. 
+Biometrics means the use of an "inheritance" criteria — something the user *is* as a means of verification. 
+In addition to touch ID, other common multi-factor authentication methods include SMS and voice verifications. 
+Some teams are even turning to thumbprints, iris or retina recognition, full [facial recognition](https://www.syte.ai/blog/brief-history-image-search/), fingerprint, hand, and DNA usage.
+Additional emerging technologies include:
 
-![Face-id](https://cdn.auth0.com/blog/idaas-2018/2-face-id.jpg)
+* **Voice recognition**. (Auth0 already has a means of helping users [_authenticate_](https://auth0.com/blog/two-factor-authentication-using-biometrics/) via voice recognition with our partner, Twilio.)
 
-> [Image source.](http://s.newsweek.com/sites/www.newsweek.com/files/styles/embed-lg/public/2017/12/18/abababa.jpg)
+* **Typing recognition**. (While this has been slower to stick in U.S. markets, many financial firms in Norway have widely adopted the strategy. One company boasted a [_99.7%_](https://www.hottopics.ht/stories/consumer/dont-go-hacking-my-heart-10-startups-at-the-frontier-of-biometric-authentication/) success rate for distinguishing real users from fake.)
+Body modifications (body mod) is one more pioneering method.
 
-In addition to more widely used biometrics for identity verification, such as iris or retina recognition, facial, fingerprint, hand, and DNA usage; emerging technologies that we'll see in the mainstream in 2018 include:
+![chip-in-hand](https://cdn.auth0.com/blog/idaas-2018/chip-in-hand)
 
-- Voice recognition. Auth0 already has a means of helping users [authenticate](https://auth0.com/blog/two-factor-authentication-using-biometrics/) via voice recognition with our partner, Twilio. With Twilio, the user automatically receives a call when an authentication request comes in. The call asks the user to provide his associated authentication phrase, then records and sends it for verification. This new approach has quickly gained traction, given how familiar users are with phone calls. 
-- Typing recognition. While this has been slower to stick in U.S. markets, many financial firms in Norway have widely adopted the strategy. Typing recognition identifies individuals' unique habits, including key pressure and rhythm of tapping. One company boasted a [99.7%](https://www.hottopics.ht/stories/consumer/dont-go-hacking-my-heart-10-startups-at-the-frontier-of-biometric-authentication/) success rate at distinguishing real from fake users.
+Above, a senior BuzzFeed reporter [_implanted a chip in his hand_](https://www.buzzfeed.com/charliewarzel/yes-we-scan?utm_term=.rvybjNzVOX#.hgpyDE14O2) and successfully purchased goods by connecting it to a mobile paying app.
+While many of these represent exciting new frontiers for biometrics and multi-factor authentication, Touch ID, SMS, and voice verifications are good places to begin.
 
-More, intriguing biometric technologies are rapidly improving for identification purposes. Here are a few, which we might not see widespread adoption of in 2018, but which could replace or be used in tandem with facial, voice, and typing recognition by 2020:
+## New Regulations to Help Protect Users' Identities
+One of the reasons that IDaaS has become so important recently is the rush to comply with the EU's [_General Data Protection Regulation_](https://www.eugdpr.org/) (GDPR). Officially approved April 14, 2016, GDPR officially became enforceable May 25, 2018. It applies to all businesses globally that collect and process the data of EU citizens.
+A slew of other related regulations are springing up, such as [the California Consumer Privacy Act (CCPA)](https://auth0.com/blog/brace-yourself-the-gdpr-ripple-effect-in-california/).
+Today, organizations that are audited and don't have adequate security measures in place for consumer data can be fined up to 20 million euros or 4 percent of annual global turnover — whichever is higher.
 
-- Ear recognition. As strange as it may sound, each of us has a wholly unique ear shape, which doesn't change as we age.  While the technology for highly accurate ear recognition exists and is theoretically ready to use, applications of ear recognition are being refined and tested, and are still not widespread.
-- Gait analysis. This involves identifying an individual via a number of data points, surrounding his or her gait, including speed and joint movements. Although gait movement doesn't take much effort on the part of the individual, for public IDaaS use, we still need more powerful technological infrastructure (e.g. under-skin chips). At the moment gait analysis is most popular with trainers, who us it to determine athletes' efficiency. 
-- Body modifications (Bodymod). The idea of embedding, injecting, or ingesting technology seems [Matrix-like](https://clairedowler.files.wordpress.com/2013/07/worm.jpg) for many of us; perhaps that's why it has yet to really gain traction for identity purposes. Although radical, a few have tried it. Recently a senior BuzzFeed reporter [implanted a chip in his hand](https://www.buzzfeed.com/charliewarzel/yes-we-scan?utm_term=.rvybjNzVOX#.hgpyDE14O2) and successfully purchased goods by connecting it to a mobile paying app. 
+![gdpr-compliance](https://cdn.auth0.com/blog/idaas-2018/gdpr-compliance)
 
-![Implanted chip](https://cdn.auth0.com/blog/idaas-2018/3-implant.jpg)
+[_Image source_](https://www.lepide.com/infographics/gdpr-compliance-checklist.png)
 
-> [Image source.](https://www.buzzfeed.com/charliewarzel/yes-we-scan?utm_term=.tfbvlW0ymZ#.ef3E3VXewz)
+Despite these stiff punishments, a lot of companies are far from ready. Studies show that in Ireland, for example, [_a quarter of organizations_](https://www.independent.ie/business/technology/gdpr/almost-one-quarter-of-irish-firms-will-be-forced-to-close-if-subject-to-gdpr-fines-survey-36131915.html) would be forced to shut down if audited — and [60%](https://www.theverge.com/2018/5/22/17378688/gdpr-general-data-protection-regulation-eu) of tech companies aren't fully prepared.
+This opens more possibilities for IDaaS providers in 2018. Strong, flexible identity management is essential to keeping user identities safe and allowing them to [comply with the new GDPR rules](https://www.godaddy.com/garage/practical-steps-for-website-gdpr-compliance/) like:
+* A new Right to Data Portability
+* An extended Right to Be Forgotten (also called the Right to Erasure)
+* An enhanced Subject Access Right - to be free and with a shorter time to reply
+Although an IDaaS provider like Auth0 can't ensure your organization will be fully compliant, we have lots of [tools](https://auth0.com/gdpr) that can help.
 
-For more emerging biometrics technologies for identity, see [here](https://auth0.com/blog/the-state-of-biometric-identity-in-2017/).
+## IDaaS and Blockchain
+2017 and 2018 have been enormous years for Bitcoin, Ethereum, and other cryptocurrencies. Although the technology remains divisive ([_PwC_](https://www.pwc.com/us/en/financial-services/publications/assets/pwc-cryptocurrency-evolution.pdf) calls cryptocurrencies one of the "greatest technological breakthroughs since the Internet," while others describe them as a money-sucking "black holes"), it still highlights some incredible IDaaS opportunities.
 
-Biometrics add another dimension to the identification process. More than multi-factor authentication, which usually involves a series steps, using alphanumeric characters, and requiring a user's smartphone; biometrics brings in an extra piece of information (e.g. a human body), over and above a piece of hardware. Adding these unique human factors makes identity theft far more complex for a hacker than simply stealing an individual's password.
+![ethereum](https://cdn.auth0.com/blog/idaas-2018/1-ethereum-price-fb.jpg)
 
-### New data regulations in the EU
-2018 will see a rush among European companies to comply with the EU’s [General Data Protection Regulation](https://www.eugdpr.org/) (GDPR). Officially adopted April 27th, 2016, GDPR becomes officially enforceable May 25th, 2018 and applies to all those in the EU who control data and/or undertake data processing.
+[_Image source._](https://ethereumprice.org/wp-content/uploads/2017/12/ethereum-price-fb.jpg)
 
-![GDPR Compliance Checklist](https://cdn.auth0.com/blog/idaas-2018/4-gdpr-compliance-checklist.png)
+The decentralized nature of blockchain avoids large, consolidated pools of data, which are ripe for hackers. Distributed ledgers can separate personal data, duplicate it thousands of times, and disperse it globally — but true ownership of the data remains with the individual.
+While no one truly knows how (or whether) blockchain will definitely be used to manage personal identities going forward, many argue that because of its [success in tracking inventory and payments](https://auth0.com/blog/how-the-blockchain-could-change-the-idea-of-identity/), similar techniques could help verify individuals and their behaviors.
 
-> [Image source.](https://www.lepide.com/infographics/gdpr-compliance-checklist.png)
-
-After May organizations found not to be in compliance (i.e. without adequate security measures in place for consumer data) could be fined up to 20 million euros or 4 percent of annual global turnover—whichever is higher. Despite these stiff punishments, a lot of European companies are still far from ready. Studies show that in Ireland, for example, [a quarter of organizations](https://www.independent.ie/business/technology/gdpr/almost-one-quarter-of-irish-firms-will-be-forced-to-close-if-subject-to-gdpr-fines-survey-36131915.html) would be forced to shut down if audited. Lots of companies still continue to transmit sensitive personal data through vulnerable email channels, for example. 
-
-This opens even more possibilities for IDaaS providers in 2018. Strong, flexible identity management is essential to keeping user identities safe and allowing them to comply with the new GDPR rules like:
-
-- A new Right To Data Portability;
-- An extended Right To Be Forgotten (also called the Right to Erasure);
-- An enhanced Subject Access Right - to be free and with a shorter time to reply.
-
-Although an IDaaS provider, like Auth0, can't ensure your organization will be fully compliant, we and others have lots of tools that can help
-
-## New Year, Big Moves in IDaaS
-Demand from new regulations, paired with a lot of excitement and [funding](https://www.theverge.com/2017/4/18/15332742/us-border-biometric-exit-facial-recognition-scanning-homeland-security), pushing new technologies, like biometrics and distributed ledger opportunities, into the mainstream, has opened a lot of new avenues for IDaaS in 2018. Look for more people taking selfies to sign on, investors seeking out blockchain startups that focus on personal data security, and European companies panicking to meet their looming May deadline. And this could just be a start.
-
-{% include tweet_quote.html quote_text="Blockchain, biometrics, data protection regulations. Which of these will define the trend for 2018 on identity?" %}
+## What's Ahead for IDaaS
+Demand from new regulations, paired with a lot of excitement and funding for new solutions, has opened a lot of avenues for IDaaS. 
+Teams of all sizes are [taking security seriously](http://blog.idonethis.com/security-ringcaptcha/) and making investments so they can move forward with less worry.
+Incorporating tactics like multi-factor authentication, including biometrics like Touch ID, making sure you're in compliance with GDPR and other identity regulations, and even brainstorming how blockchain might help verify your users in the future will help your team secure its most critical data so you can grow safely.
