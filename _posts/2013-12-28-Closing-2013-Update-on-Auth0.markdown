@@ -3,11 +3,21 @@ published: "true"
 layout: post
 title: Closing 2013 - Update on Auth0
 date: "2013-12-28 10:30"
+outdated: true
+alias: /2013/12/28/Closing-2013-Update-on-Auth0/
 author:
   name: Matias Woloski
   mail: matias@auth0.com
   url: http://twitter.com/woloski
   avatar: https://secure.gravatar.com/avatar/0cd73f2f2f39709bd03646e9225cc3d3?s=60
+description: "For the last few months, we've been working on many new features and improvements to the platform."
+category: Product
+related:
+- 2014-09-17-big-milestone
+- 2014-04-28-announcing-our-advisors
+- 2016-04-15-angularjs-authentication-screencast-series-part-1
+tags:
+- enterprise
 ---
 
 
@@ -65,7 +75,7 @@ You now have access to 2,000,000,000 potential users out of the box with the add
 
 <a href="http://s3.amazonaws.com/blog.auth0.com/newsletter-1/idps2.gif"><img src="http://s3.amazonaws.com/blog.auth0.com/newsletter-1/idps2.gif"alt="login widget"></a>
 
-> Is your favorite IdP not on our list? [Let us know](mailto://support@auth0.com)!
+> Is your favorite IdP not on our list? [Let us know](https://support.auth0.com)!
 
 ---
 
@@ -75,7 +85,7 @@ Every time you start developing on a new platform, you have to solve user and AP
 
 [![](http://s3.amazonaws.com/blog.auth0.com/newsletter-1/te0SB53RLj.png)](http://s3.amazonaws.com/blog.auth0.com/newsletter-1/te0SB53RLj.png)
 
-> Want to a see another platform supported? [Let us know](mailto:support@auth0.com)!
+> Want to a see another platform supported? [Let us know](https://support.auth0.com)!
 
 ---
 
@@ -108,7 +118,7 @@ Auth0 easily integrates with __+1000 of apps__ that are SAML, WS-Fed or OAuth ca
 
 [![new applications](https://s3.amazonaws.com/blog.auth0.com/newsletter-1/rGEoPzk40n.png)](http://s3.amazonaws.com/blog.auth0.com/newsletter-1/rGEoPzk40n.png)
 
-> Need help configuring SAML for an app not listed here? [Let us know](mailto:support@auth0.com)!
+> Need help configuring SAML for an app not listed here? [open a support ticket](https://support.auth0.com)!
 
 <a name="9"></a>
 ### 9. Deploy Auth0 Anywhere

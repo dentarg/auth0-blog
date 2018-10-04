@@ -1,0 +1,34 @@
+---
+layout: amp
+meta-robots: "noodp, noydir, noindex, noarchive, follow"
+is_post_index: true
+sitemap:
+  exclude: 'yes'
+---
+
+{% assign post = page.post %}
+
+<div id='header-post' itemprop="mainEntity" itemscope itemtype="http://schema.org/BlogPosting">
+    {% include amp/banner_post.html %}
+  <div id="container" class="container">
+    <div class="sticky-container">
+      <div class="content-column">
+        <main class="blog-post blog-single">
+          <div class="inner">
+            <div class="entry-content js-entry-content" itemprop="articleBody">
+              {{ post.content  | markdownify_includes | markdownify | amp_images }}
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+  <div itemprop='publisher' itemscope='itemscope' itemtype='https://schema.org/Organization'>
+    <div itemprop='logo' itemscope='itemscope' itemtype='https://schema.org/ImageObject'>
+      <meta itemprop='url' content='https://i.cloudup.com/BngR4GufYd-3000x3000.png' />
+      <meta itemprop='width' content='100' />
+      <meta itemprop='height' content='37' />
+    </div>
+    <meta itemprop="name" content="Auth0">
+  </div>
+</div>

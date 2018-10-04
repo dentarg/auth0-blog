@@ -2,11 +2,21 @@
 layout: post
 title: "A New Android Sample"
 date: 2013-06-20 21:18
+outdated: true
+alias: /2013/06/20/A-new-Android-Sample/
 author:
   name: Eugenio Pace
   mail: eugeniop@auth0.com
   url: http://twitter.com/eugenio_pace
   avatar: https://secure.gravatar.com/avatar/702d07476c482418b948b911504137a5?s=60
+description: "A new sample is now available on our repo for Android developers. The sample demonstrates integration with Auth0 for authentication"
+category: Product
+related:
+- 2015-09-30-auth0-passwordless-email-authentication-and-sms-login-without-passwords
+- 2016-02-03-getting-started-with-auth0-lock-series-implementing-lock
+- 2016-02-08-how-to-authenticate-on-android-using-social-logins
+tags:
+- android
 ---
 
 A new sample is now available on [our repo](https://github.com/auth0/Auth0-Android-Sample) for Android developers. The sample demonstrates integration with Auth0 for authentication and uses the standard techinque of delegating the authentication process to an embeded web view (extending the `WebViewClient` class).
@@ -62,7 +72,7 @@ If your app in Auth0 is created as __Windows Azure Mobile Services__:
 
 ![](https://puu.sh/3kCLH.png)
 
-Then the _Json Web Token_ will be compatible with what __Mobile Services__ expects. See [this previous](http://blog.auth0.com/2013/03/17/Authenticate-Azure-Mobile-Services-apps-with-Everything-using-Auth0/) post for more details.
+Then the [_Json Web Token_](https://auth0.com/learn/json-web-tokens/) will be compatible with what __Mobile Services__ expects. See [this previous](http://blog.auth0.com/2013/03/17/Authenticate-Azure-Mobile-Services-apps-with-Everything-using-Auth0/) post for more details.
 
 An end to end tutorial is available [here](https://docs.auth0.com/android-tutorial).
 

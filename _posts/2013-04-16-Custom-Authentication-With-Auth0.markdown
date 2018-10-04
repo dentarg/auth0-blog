@@ -2,11 +2,21 @@
 layout: post
 title: "Custom Authentication With Auth0"
 date: 2013-04-16 14:11
+outdated: true
+alias: /2013/04/16/Custom-Authentication-With-Auth0/
 author:
   name: Eugenio Pace
   mail: eugeniop@auth0.com
   url: http://twitter.com/eugenio_pace
   avatar: https://secure.gravatar.com/avatar/702d07476c482418b948b911504137a5?s=60
+description: "Many companies rely on databases to store user credentials. Either because they use pre-built systems like ASP.NET Membership, or because they wanted to keep"
+category: Product
+related:
+- 2013-04-02-Auth0-Adds-Support-For-LinkedIn-PayPal-GitHub-Twitter-and-Facebook
+- 2013-06-05-connect-windows-azure-active-directory-with-salesforce-dropbox-sharepoint-zendesk
+- 2013-06-04-introducing-db-connections
+tags:
+- announcements
 ---
 
 

@@ -2,12 +2,24 @@
 published: "true"
 layout: post
 title: 10 Things You Should Know about Tokens
+description: "Explore in more detail some of the most common questions around token-based authentication."
+category: Technical Guide, Identity, Cookies vs Tokens
 date: "2014-01-27 12:30"
+alias: /2014/01/27/ten-things-you-should-know-about-tokens-and-cookies/
 author:
   name: Matias Woloski
   mail: matias@auth0.com
   url: http://twitter.com/woloski
   avatar: https://secure.gravatar.com/avatar/0cd73f2f2f39709bd03646e9225cc3d3?s=60
+design:
+  image: https://cldup.com/_DrZQjW90p.png
+pr: 3
+related:
+- 2014-02-26-openid-connect-final-spec-10
+- 2015-12-17-json-web-token-signing-algorithms-overview
+- 2016-04-15-angularjs-authentication-screencast-series-part-1
+tags:
+- featured
 ---
 
 
@@ -85,7 +97,7 @@ Tokens stored in local/session storage, on the other hand, can't be accessed fro
 
 One possible option is, when the user authenticates on `app.yourdomain.com` and you generate a token you can also set a cookie set to `.yourdomain.com`
 
-    $.post('/authenticate, function() {
+    $.post('/authenticate', function() {
       // store token on local/session storage or cookie
         ....
 
@@ -93,7 +105,7 @@ One possible option is, when the user authenticates on `app.yourdomain.com` and 
       $.cookie('loggedin', profile.name, '.yourdomain.com');
     });
 
-Then, in `youromdain.com` you can check the existance of that cookie and redirect to `app.yourdomain.com` if the cookie exists. The token will be available on app subdomain, and from there on, the usual flow applies (if the token is still valid use it, if not get a new one unless last login was more than the threshold you set up).
+Then, in `yourdomain.com` you can check the existance of that cookie and redirect to `app.yourdomain.com` if the cookie exists. The token will be available on app subdomain, and from there on, the usual flow applies (if the token is still valid use it, if not get a new one unless last login was more than the threshold you set up).
 
 It could happen that the cookie exists but the token was deleted or something else happened. In that case, the user would have to login again. But what's important to highlight here is, as we said before, we are not using the cookie as an authentication mechanism, just as a storage mechanism that happens to support storing information across different domains.
 
@@ -209,11 +221,11 @@ Of course you can use the approach on #7 and keep confidential info in a databas
 **UPDATE**: [Pedro Felix](https://twitter.com/pmhsfelix) correctly pointed out that MAC-then-encrypt is vulnerable to [Vaudenay-style attacks](http://www.thoughtcrime.org/blog/the-cryptographic-doom-principle/). I updated the code to do encrypt-then-MAC.
 
 <a name="token-oauth"></a>
-##9. JSON Web Tokens can be used in OAuth
+##9. JSON Web Tokens can be used in OAuth: Bearer Token
 
 Tokens are usually associated with OAuth. [OAuth 2](http://tools.ietf.org/html/rfc6749) is an authorization protocol that solves identity delegation. The user is prompted for consent to access his/her data and the authorization server gives back an `access_token` that can be used to call the APIs acting as that user.
 
-Typically these tokens are opaque. They are called `bearer` tokens and are random strings that will be stored in some kind of hash-table storage on the server (db, cache, etc.) together with an expiration, the scope requested (e.g. access to friend list) and the user who gave consent. Later, when the API is called, this token is sent and the server lookup on the hash-table, rehydrating the context to make the authorization decision (did it expire? does this token has the right scope associated for the API that wants to be accessed?).
+Typically these tokens are opaque. They are called `bearer` tokens and are random strings that will be stored in some kind of hash-table storage on the server (db, cache, etc.) together with an expiration, the scope requested (e.g. access to friend list) and the user who gave consent. Later, when the API is called, this token is sent and the server lookup on the hash-table, rehydrating the context to make the authorization decision (did it expire? does this token have the right scope associated for the API that wants to be accessed?).
 
 The main difference between these tokens and the ones we've been discussing is that signed tokens (e.g.: JWT) are "stateless". They don't need to be stored on a hash-table, hence it's a more lightweight approach. OAuth2 does not dictate the format of the `access_token` so you could return a JWT from the authorization server containing the scope/permissions and the expiration.
 
@@ -237,6 +249,3 @@ Please leave a comment or [discuss on HN](https://news.ycombinator.com/item?id=7
 Happy tokenizing!
 
 _Photo taken from: http://alfanatic.webs.com/_
-
-
-

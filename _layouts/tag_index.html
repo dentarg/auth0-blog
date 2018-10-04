@@ -1,12 +1,22 @@
 ---
 layout: default
-meta-robots: "noodp, noydir, noindex, noarchive, follow"
+meta-robots: "noodp, noydir, noarchive, follow"
+is_post_index: true
+is_tag_index: true
 ---
+{% include banner_blog.html %}
 
-<h1> Posts tagged as: {{ page.tag }} </h1><br>
-<ul>
-{% for post in site.tags[page.tag] %}
-{% include archive_post.html %}
-{% endfor %}
-</ul>
+<div id="container" class="container">
 
+  <div class="archive">
+
+  {% for post in site.tags[page.tag] limit: 3 %}
+	  {% unless post.hide_from_index %}
+	    {% unless post.press_release %}
+	    	{% include archive_post.html %}
+	  	{% endunless %}  	
+	  {% endunless %}
+  {% endfor %}
+
+</div>
+</div>

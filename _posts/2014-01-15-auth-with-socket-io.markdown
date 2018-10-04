@@ -1,12 +1,23 @@
 ---
 layout: post
 title: "Token-based Authentication with Socket.IO"
+description: "Learn to implement token-based authentication using Socket.IO in this quick tutorial."
 date: 2014-01-15 14:18
+outdated: true
+alias: /2014/01/15/auth-with-socket-io/
 author:
   name: José F. Romaniello
   url: "http://joseoncode.com"
   mail: "jfromaniello@gmail.com"
   avatar: "https://secure.gravatar.com/avatar/d1a7e0fbfb2c1d9a8b10fd03648da78f.png"
+design:
+  image: http://assets.auth0.com/blog/design-process/socket-io.png
+  bg_color: "#030303"
+  bg_merge: true
+category: Technical Guide, Identity, Cookies vs Tokens
+pr: 2
+tags:
+- featured
 ---
 
 ## Introduction
@@ -41,7 +52,7 @@ In our previous article, we wrote about the benefits of a token-based architectu
 
 ## Authenticating Sockets using Tokens
 
-By now you should not be surprised if we proposed a different alternative to cookies: using tokens. Let's look at a simple sample that uses [express](http://expressjs.com/), [socket.io](http://socket.io) and handles authentication using Json Web Tokens (JWT).
+By now you should not be surprised if we proposed a different alternative to cookies: using tokens. Let's look at a simple sample that uses [express](http://expressjs.com/), [socket.io](http://socket.io) and handles authentication using [Json Web Tokens (JWT)](https://auth0.com/learn/json-web-tokens/).
 
 ### Server Side
 
@@ -127,3 +138,5 @@ As stated before, this is much simpler than using cookies and sessions, and it i
 The complete sample is available for [download here](https://github.com/auth0/socketio-jwt/tree/master/example).
 
 You could use a very similar approach with WebSockets, [this is an example with __einaros/ws__](https://gist.github.com/jfromaniello/8418116).
+
+{% include asides/javascript-at-auth0.markdown %}

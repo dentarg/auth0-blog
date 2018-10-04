@@ -1,0 +1,29 @@
+<nav class="blog-navigation">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 items">
+        <button class="jump-to" data-toggle="collapse" data-target="#navigation_menu">Sections <i class="icon-budicon-460"></i></button>
+        <ul class="nav-list collapse" id="navigation_menu" data-sticky>
+          <li class="{% if page.switch_index != true %}active{% endif %}">
+           <a data-pjax href="{{ site.baseurl }}/"><i class="icon-oval"></i>All Articles</a>
+          </li>
+          <li class="{% if page.switch == 'tech' %}active{% endif %} ">
+            <a data-pjax href="{{ site.baseurl }}/tech"><i class="icon-oval"></i>Technology Articles</a>
+          </li>
+          <li class="{% if page.switch == 'business' %}active{% endif %}">
+            <a data-pjax href="{{ site.baseurl }}/business"><i class="icon-oval"></i> Business Articles</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <div class="search-bar">
+            <div class="form-group search-control">
+              <i class="search-icon icon-budicon-489"></i>
+              <input type="text" id="search-input" autocomplete="off" class="search-input form-control" placeholder="Search for posts" data-reactid="203">
+              <i id="close-search" class="close-icon icon-budicon-471 clear-result"></i>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

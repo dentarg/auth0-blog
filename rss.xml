@@ -1,5 +1,7 @@
 ---
-layout: nil
+layout: null
+sitemap:
+  exclude: 'yes'
 ---
 <?xml version="1.0"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -13,15 +15,14 @@ layout: nil
     <lastBuildDate>{{ site.time | date: "%a, %d %b %Y %H:%M:%S %z" }}</lastBuildDate>
 
     {% for post in site.posts limit:10 %}
-      {% unless post.draft %}
+      {% unless post.hide_from_index %}
         <item>
-          <title>{{ post.title }}</title>
+          <title>{{ post.title | xml_escape }}</title>
           <link>https://auth0.com{{ site.baseurl }}{{ post.url }}</link>
           <pubDate>{{ post.date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
-          <author>{{post.author.name}}</author>
-          <avatar>{{post.author.avatar}}</avatar>
+          <author>{{post.author.mail}}</author>
           <guid>https://auth0.com{{ site.baseurl }}{{ post.id }}</guid>
-          <description>{{ post.content | xml_escape }}</description>
+          <description>{{ post.description | xml_escape }}</description>
         </item>
       {% endunless %}
     {% endfor %}

@@ -2,11 +2,25 @@
 layout: post
 title: "SSO with Salesforce.com and Auth0"
 date: 2013-05-05 8:29
+outdated: true
+alias: /2013/05/05/SSO-With-Salesforce-and-Auth0/
+banner:
+  text: "The Definitive Guide to Single Sign-On"
+  action: "https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog"
+  cta: "Download eBook"
 author:
   name: Eugenio Pace
   mail: eugeniop@auth0.com
   url: http://twitter.com/eugenio_pace
   avatar: https://secure.gravatar.com/avatar/702d07476c482418b948b911504137a5?s=60
+description: "Last week we added support to Auth0 to integrate with Salesforce.com."
+category: Product
+related:
+- 2013-04-02-Auth0-Adds-Support-For-LinkedIn-PayPal-GitHub-Twitter-and-Facebook
+- 2013-04-16-Custom-Authentication-With-Auth0
+- 2013-06-04-introducing-db-connections
+tags:
+- announcements
 ---
 
 

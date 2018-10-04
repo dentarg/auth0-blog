@@ -3,10 +3,14 @@ published: "true"
 layout: post
 title: Integrating AuthorizationServer with Auth0
 date: "2014-04-08 10:33"
+outdated: true
+alias: /2014/04/08/Integrating-AuthorizationServer-with-Auth0/
 author:
   name: Dominick Baier
   url: https://twitter.com/leastprivilege
   avatar: https://avatars1.githubusercontent.com/u/1454075?s=400
+description: "A guest post from identity expert Dominick Baier. Cross posted on leastprivilege.com  AuthorizationServer is a lightweight OAuth2 implementation that is"
+category: Auth0-based Tutorial, Integration
 ---
 
 A guest post from identity expert Dominick Baier. Cross posted on [leastprivilege.com](http://leastprivilege.com/2014/04/08/integrating-authorizationserver-with-auth0/)

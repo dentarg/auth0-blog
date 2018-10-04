@@ -2,11 +2,21 @@
 layout: post
 title: "Authenticate users with Amazon accounts"
 date: 2013-05-29 16:57
+outdated: true
+alias: /2013/05/29/Authenticate-users-with-Amazon-accounts/
 author:
   name: Eugenio Pace
   mail: eugeniop@auth0.com
   url: http://twitter.com/eugenio_pace
   avatar: https://secure.gravatar.com/avatar/702d07476c482418b948b911504137a5?s=60
+description: "Today Amazon announced a new Login Service, which allows you to connect with millions of their customers"
+category: Product
+related:
+- 2013-04-02-Auth0-Adds-Support-For-LinkedIn-PayPal-GitHub-Twitter-and-Facebook
+- 2013-05-22-SSO-with-Dropbox-only-a-checkbox-away
+- 2013-06-04-introducing-db-connections
+tags:
+- announcements
 ---
 
 

@@ -2,11 +2,20 @@
 layout: post
 title: "Мы добавили поддержку пользователей вКонтакте!"
 date: 2013-06-09 9:53
+outdated: true
 author:
   name: Eugenio Pace
   mail: eugeniop@auth0.com
   url: http://twitter.com/eugenio_pace
   avatar: https://secure.gravatar.com/avatar/702d07476c482418b948b911504137a5?s=60
+description: "Мы очень рады сообщить, что мы недавно добавили в Auth0 поддержку аутентификации в вКонтакте! Теперь пользователь может использовать свой вКонтакте логин для"
+category: Product
+related:
+- 2013-04-02-Auth0-Adds-Support-For-LinkedIn-PayPal-GitHub-Twitter-and-Facebook
+- 2013-06-05-connect-windows-azure-active-directory-with-salesforce-dropbox-sharepoint-zendesk
+- 2013-05-29-Authenticate-users-with-Amazon-accounts
+tags:
+- announcements
 ---
 
 

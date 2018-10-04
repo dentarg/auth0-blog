@@ -1,0 +1,20 @@
+---
+layout: null
+sitemap:
+  exclude: 'yes'
+---
+{% assign posts = site.posts | where: "is_non-tech", null %}
+[
+  {% for post in posts %}
+    {
+      "avatar"        : "{{ post.author.avatar }}",
+      "title"         : "{{post.title}}",
+      "description"   : "{{ post.description | escape }}",
+      "link"          : "https://auth0.com{{ site.baseurl }}{{ post.url }}",
+      "date"          : "{{ post.date | date: "%B %d, %Y" }}",
+      "author"        : "{{ post.author.name }}",
+      "thumbnail"     : "{{ post.design.image }}",
+      "fullDate"      : "{{ post.date | date: "%Y-%m-%d" }}"
+    }{% unless forloop.last  %},{% endunless %}
+  {% endfor %}
+]

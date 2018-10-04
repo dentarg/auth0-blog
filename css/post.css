@@ -1,0 +1,109 @@
+.post {
+  position: relative;
+  border: 1px solid #e3e5e7;
+  border-radius: 4px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+  text-align: left;
+  margin-bottom: 30px;
+}
+.post a {
+  color: color_grey_text;
+}
+.post:hover .backdrop {
+  opacity: 0.02;
+}
+.post .backdrop {
+  transition: opacity 0.2s easeInOut;
+  opacity: 0;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 4px 0 0 4px;
+}
+.post .image-container {
+  position: relative;
+breakpoint("tablet", "max")
+breakpoint("tablet")
+}
+.post .image-container .entry-thumbnail {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: 100px;
+  max-height: 100px;
+  margin-top: 0;
+  z-index: 1;
+}
+.post .text-container {
+  padding: 30px;
+  text-align: center;
+breakpoint("tablet")
+}
+.post .post-category {
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.post .post-title {
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.5em;
+  margin: 0;
+  margin-bottom: 10px;
+  color: #000;
+breakpoint("tablet")
+}
+.post .post-title a,
+.post .post-title a:hover {
+  color: inherit;
+}
+.post .post-description {
+  font-size: 14px;
+  line-height: 2em;
+}
+.post .more-info {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 13px;
+breakpoint("tablet")
+}
+.post .post-author a,
+.post .post-author a:hover {
+  color: inherit;
+}
+.post .post-author img {
+  border-radius: 50%;
+  margin-right: 5px;
+}
+.post .post-time {
+  float: right;
+  font-size: 13px;
+}
+.empower-video-button {
+  margin: 25px auto;
+  position: relative;
+  border: 2px solid #3445dc;
+  border-radius: 5px;
+  overflow: hidden;
+  display: inline-block;
+  cursor: pointer;
+  max-width: 94%;
+}
+.empower-video-button .video-button {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 0.3s ease-in-out;
+breakpoint("desktop")
+}
+.empower-video-button .video-screen {
+  width: 100%;
+  height: 100%;
+  max-width: 700px;
+  max-height: 394px;
+  margin: 0;
+}

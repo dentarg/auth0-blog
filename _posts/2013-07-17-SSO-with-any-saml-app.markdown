@@ -2,11 +2,25 @@
 layout: post
 title: "SSO with any SAML App"
 date: 2013-07-17 11:46
+outdated: true
+alias: /2013/07/17/SSO-with-any-saml-app/
+banner:
+  text: "The Definitive Guide to Single Sign-On"
+  action: "https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog"
+  cta: "Download eBook"
 author:
   name: Eugenio Pace
   mail: eugeniop@auth0.com
   url: http://twitter.com/eugenio_pace
   avatar: https://secure.gravatar.com/avatar/702d07476c482418b948b911504137a5?s=60
+description: "You probably noticed that we are adding apps at a very fast pace. This past week we added SpringCM and EchoSign."
+category: Product
+related:
+- 2013-04-02-Auth0-Adds-Support-For-LinkedIn-PayPal-GitHub-Twitter-and-Facebook
+- 2013-05-29-Authenticate-users-with-Amazon-accounts
+- 2013-06-04-introducing-db-connections
+tags:
+- announcements
 ---
 
 
@@ -36,6 +50,9 @@ We've even included an online __SAML debugger__ that shows exactly the `SAMLResp
 
 You can easily look for attributes, mappings, signatures and other SAML artifacts to quickly identify mis-configurations.
 
-So, if you don't see the app you need on our list, fear not! Use this feature or let us know: [support@auth0.com](mailto://support@auth0.com)
+So, if you don't see the app you need on our list, fear not! Use this feature or let us know:
+[open a support ticket](https://support.auth0.com)
 
 [Try Auth0 yourself!](https://auth0.com)
+
+[Want to learn more about Single Sign-On? Get The Definitive Guide on SSO (74-page free eBook) here.](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog)

@@ -2,15 +2,23 @@
 layout: post
 title: "Authenticate Azure Mobile Services Apps with Everything using Auth0"
 date: 2013-03-17 11:00
+outdated: true
+doc_reference: https://docs.auth0.com/wams
+alias: /2013/03/17/Authenticate-Azure-Mobile-Services-apps-with-Everything-using-Auth0/
 author:
   name: Eugenio Pace
   mail: eugeniop@auth0.com
   url: http://twitter.com/eugenio_pace
   avatar: https://secure.gravatar.com/avatar/702d07476c482418b948b911504137a5?s=60
+description: "Windows Azure Mobile Services (WAMS) is a really neat technology by Microsoft to get you started very quickly with simple mobile apps."
+category: Auth0-based Tutorial
+related:
+- 2013-03-15-Integrating-Auth0-with-Rights-Management-Services
+- 2013-03-07-On-Premises-SharePoint-Federated-with-Partner-AD
+- 2013-03-27-Automating-SharePoint-Federation-Setup-With-Auth0
+tags:
+- microsoft
 ---
-
-
-**UPDATE: This article is a bit old at this point. Please refer to this tutorial for an updated version of the Windows Azure Mobile Services integration: <https://docs.auth0.com/wams>**
 
 [Windows Azure Mobile Services](http://www.windowsazure.com/en-us/develop/mobile/) (WAMS) is a really neat technology by Microsoft to get you started very quickly with simple mobile apps. It's a _"Mobile Backend as a Service"_. It also provides a nice extensibility model for more advanced scenarios with server-side JavaScript.
 

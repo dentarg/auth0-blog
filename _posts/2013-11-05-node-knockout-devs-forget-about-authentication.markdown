@@ -3,11 +3,15 @@ published: "true"
 layout: post
 title: Node Knockout Devs - Forget about Authentication!
 date: "2013-11-06 10:30"
+outdated: true
+alias: /2013/11/06/node-knockout-devs-forget-about-authentication/
 author:
   name: Matias Woloski
   mail: matias@auth0.com
   url: http://twitter.com/woloski
   avatar: https://secure.gravatar.com/avatar/0cd73f2f2f39709bd03646e9225cc3d3?s=60
+description: "Node Knockout is a 48-hour hackathon where devs across the world gather in teams and implement an application using node.js."
+category: Auth0-based Tutorial, Event
 ---
 
 
@@ -100,7 +104,7 @@ The [widget is customizable](https://docs.auth0.com/login-widget2) but if you wa
 
 > By using Auth0 you don't have to worry about about user management, single sign on, flow user attributes across layers of your app, integrate with social providers and enterprises and see who is using your app.
 
-During the event we'll be available on our chat room [http://chat.auth0.com](http://chat.auth0.com) and Twitter ([@authzero](http://authzero.com)) to help you out if you have any issue.
+During the event we'll be available on our chat room [http://chat.auth0.com](http://chat.auth0.com) and Twitter ([@auth0](http://auth0.com)) to help you out if you have any issue.
 
 Happy Noding!
 

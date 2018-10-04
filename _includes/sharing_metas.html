@@ -1,15 +1,26 @@
 <!-- <meta property="fb:admins" content="YOUR_FB_USER_ID" /> -->
 <meta property="fb:app_id" content="534074790006350"/>
-<meta property="og:title" content="{{ page.title }}" />
-<meta property="og:site_name" content="Auth0 - Blog" />
-<meta property="og:url" content="https://auth0.com{{ site.baseurl }}{{ page.url }}" />
-<meta property="og:image" content="https://i.cloudup.com/Tty5socUdu.png" />
-<!-- we should add some `each` for declared post images here -->
-
-{% if page.excerpt %}
-<meta property="og:description" content="{{ page.excerpt | markdownify | strip_html | truncate: 140 | strip_newlines }}" />
+{% if page.is_tag_index or page.switch_index %}
+  <meta property="og:title" content="{{ page.tag | capitalize }} - Auth0 Blog" />
 {% else %}
-<meta property="og:description" content="Company Updates & Technology Articles" />
+  <meta property="og:title" content="{{ page.title }}" />
+{% endif %}
+<meta property="og:site_name" content="Auth0 - Blog" />
+<meta property="og:url" content="https://auth0.com{{ site.baseurl }}{{ page.url | replace:'index.html'}}" />
+{% if page.design.image_fb %}
+<meta property="og:image" content="{{page.design.image_fb}}">
+{% else %}
+  {%if page.design.image %}
+    <meta property="og:image" content="{{page.design.image}}">
+  {% else %}
+    <meta property="og:image" content="https://i.cloudup.com/Tty5socUdu.png">
+  {% endif %}
+{% endif%}
+
+{% if page.description %}
+<meta property="og:description" content="{{ page.description | markdownify | strip_html | truncate: 140 | strip_newlines }}" />
+{% else %}
+<meta property="og:description" content="{{ site.description }}" />
 {% endif %}
 
 {% if page.path contains '_posts' %}
@@ -17,3 +28,45 @@
 {% else %}
 <meta property="og:type" content="website">
 {% endif %}
+
+<!-- Twitter Cards -->
+<meta name="twitter:site" content="@auth0">
+<meta name="twitter:creator" content="@auth0">
+{% if page.title %}
+  <meta name="twitter:title" content="{{ page.title }}">
+{% else %}
+  {% if page.is_tag_index or page.switch_index %}
+    <meta name="twitter:title" content="{{ page.tag | capitalize }} - Auth0 Blog">
+  {% else %}
+    <meta name="twitter:title" content="{{ site.title }}">
+  {% endif %}
+{% endif %}
+
+{% if page.url %}
+  <meta name="twitter:url"  content="https://auth0.com{{ site.baseurl }}{{ page.url | replace:'index.html'}}">
+{% endif %}
+{% if page.description %}
+  <meta name="twitter:description" content="{{ page.description }}">
+{% else %}
+  <meta name="twitter:description" content="{{ site.description }}">
+{% endif %}
+
+
+{% if page.is_post_index %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image:src" content="https://cdn.auth0.com/blog/blog/home-twitter-card.png">
+{% else %}
+{% if page.design.image_tw %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{{page.design.image_tw}}">
+{% else if page.design.image  %}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="{{page.design.image}}">
+{% endif %}
+{% endif %}
+
+<meta name="twitter:image:height" content="512">
+<meta name="twitter:image:width" content="1024">
+
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">

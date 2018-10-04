@@ -2,11 +2,24 @@
 layout: post
 title: "Xamarin Component just released"
 date: 2013-08-22 5:18
+outdated: true
+alias: /2013/08/22/Xamarin-Component-Just-Released/
 author:
   name: Eugenio Pace
   mail: eugeniop@auth0.com
   url: http://twitter.com/eugenio_pace
   avatar: https://secure.gravatar.com/avatar/702d07476c482418b948b911504137a5?s=60
+description: "We are very excited to announce the release of the Auth0 Component for Xamarin. As with the other SDKs we released (and available on Github)"
+category: Auth0-based Tutorial
+related:
+- 2015-09-30-auth0-passwordless-email-authentication-and-sms-login-without-passwords
+- 2016-02-03-getting-started-with-auth0-lock-series-implementing-lock
+- 2013-03-17-Authenticate-Azure-Mobile-Services-apps-with-Everything-using-Auth0
+tags:
+- android
+- iphone
+- microsoft
+- enterprise
 ---
 
 
@@ -35,7 +48,7 @@ The code above will display the [Auth0 login widget](https://docs.auth0.com/logi
 
 It is delivered as a [component](http://components.xamarin.com/), so you can get it straight into Xamarin Studio.
 
-What you get back after login is the [normalized user profile](https://docs.auth0.com/user-profile) and [Json Web Token](http://docs.auth0.com/jwt) you can use to authenticate calls with your API.
+What you get back after login is the [normalized user profile](https://docs.auth0.com/user-profile) and [Json Web Token](https://auth0.com/learn/json-web-tokens/) you can use to authenticate calls with your API.
 
 Here's a quick end to end demo (use full screen):
 

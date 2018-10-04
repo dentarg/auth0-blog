@@ -1,0 +1,20 @@
+---
+layout: null
+sitemap:
+  exclude: 'yes'
+---
+[
+  {% for post in site.posts limit:10 %}
+  {
+      "avatar": "{{  post.author.avatar }}",
+      "title": "{{ post.title}}",
+      "excerpt": "{{  post.description }}",
+      "link": "https://auth0.com{{  site.baseurl }}{{  post.url }}",
+      "date": "{{  post.date | date: "%B %-d" }}",
+      "author": "{{  post.author.name }}",
+      "thumbnail": "{{  post.design.image }}",
+      "fullDate": "{{  post.date | date_to_xmlschema}}",
+      "bg_color": "{{ post.design.bg_color }}"
+  }{% unless forloop.last  %},{% endunless %}
+  {% endfor %}
+]

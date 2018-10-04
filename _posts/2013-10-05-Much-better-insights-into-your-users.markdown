@@ -2,11 +2,15 @@
 layout: post
 title: "Much better insights into your users"
 date: 2013-10-4 8:15
+outdated: true
+alias: /2013/10/04/Much-better-insights-into-your-users/
 author:
   name: Matias Woloski
   mail: matias@auth0.com
   url: http://twitter.com/woloski
   avatar: https://secure.gravatar.com/avatar/0cd73f2f2f39709bd03646e9225cc3d3?s=60
+description: "We recently released a much improved visualization for Auth0's user log."
+category: Product
 ---
 
 

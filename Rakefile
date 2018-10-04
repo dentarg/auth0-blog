@@ -1,4 +1,5 @@
 require "stringex"
+require 'highline/import'
 new_post_ext = "markdown"
 posts_dir    = "_posts"
 
@@ -37,20 +38,39 @@ task :new_post, :title do |t, args|
   title = args.title
   filename = "#{posts_dir}/#{Time.now.strftime('%Y-%m-%d')}-#{title.to_url}.#{new_post_ext}"
   if File.exist?(filename)
-    abort("rake aborted!") if ask("#{filename} already exists. Do you want to overwrite?", ['y', 'n']) == 'n'
+    abort("Rake aborted!") if ask("#{filename} already exists. \nDo you want to overwrite? Y/n", ['y', 'n', 'Y', 'N']).downcase == 'n'
   end
   puts "Creating new post: #{filename}"
   open(filename, 'w') do |post|
-    post.puts "---"
-    post.puts "layout: post"
-    post.puts "title: \"#{title.gsub(/&/,'&amp;')}\""
-    post.puts "date: #{Time.now.strftime('%Y-%m-%d %H:%M')}"
-    post.puts "author: "
-    post.puts "  name: <YOUR NAME>"
-    post.puts "  url: <YOUR URL>"
-    post.puts "  mail: <YOUR MAIL>"
-    post.puts "tags: "
-    post.puts "- foo"
-    post.puts "---"
+    post.puts <<-POST
+---
+layout: post
+title: #{title.gsub(/&/,'&amp;')}
+description: <A SHORT DESCRIPTION OF THE POST <= 200 CHARACTERS >
+longdescription: <A LONG DESCRIPTION OF THE POST BETWEEN 230 AND 320 CHARACTERS>
+date: #{Time.now.strftime('%Y-%m-%d %H:%M')}
+category: <FROM HERE: https://docs.google.com/spreadsheets/d/1e_RKzi8kVwzqPG8si8kyDOWPiBk9tI-XNGh0KgRIF7Q>
+press_release: <true|false (FOR FALSE YOU COULD ALSO REMOVE THIS LINE)>
+is_non-tech: <true|false (FOR FALSE YOU COULD ALSO REMOVE THIS LINE)>
+author:
+  name: <YOUR NAME>
+  url: <YOUR URL>
+  mail: <YOUR MAIL>
+  avatar: <LINK TO PROFILE PIC>
+design:
+  bg_color: <A HEX BACKGROUND COLOR>
+  image: <A PATH TO A 200x200 IMAGE>
+tags:
+- foo
+related:
+- <ADD SOME RELATED POSTS FROM AUTH0'S BLOG>
+---
+
+**TL;DR:** A brief synopsis that includes link to a [github repo](http://www.github.com/).
+
+---
+POST
   end
 end
+
+

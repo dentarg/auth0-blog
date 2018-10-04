@@ -1,0 +1,172 @@
+.list-container {
+  ul{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    li{
+      border-bottom: 1px solid #E8E8E8;
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .wrapper{
+    padding: 25px;
+    padding-bottom: 27px;
+
+    .footer{
+      margin-top: 23.5px;
+      color: #9B9B9B;
+      font-size: 14px;
+      .date{
+        position: relative;
+        margin-left: 5px;
+        display: inline-block;
+        float:right;
+
+        i{
+          height: 10px;
+          margin-right: 19px;
+          svg{
+            fill: #9B9B9B;
+            height: 14px;
+            width: 14px;
+            bottom: 2px;
+            position: absolute;
+          }
+        }
+      }
+    }
+    .content{
+      a{
+        cursor: pointer;
+        h2{
+          font-size: 25px;
+          font-weight: 400;
+          margin: 0px
+        }
+      }
+    }
+  }
+
+  .header{
+    background-color: #751EFD;
+    height: 179.5px;
+    .thumbnail {
+      width: 100px;
+      margin: auto;
+      padding: 40px;
+      amp-img{
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .header-title{
+    padding-top: 25.3px
+  }
+
+
+  .items{
+    position: relative;
+    .image{
+      width: 55px;
+      height: 55px;
+      position: absolute;
+      left: 20px;
+      top: 30%;
+      amp-img{
+        border-radius: 50%
+      }
+    }
+    .content{
+      margin-left: 65px;
+
+      a{
+        cursor: pointer;
+        p{
+          font-weight: 500;
+          font-size: 16px;
+          margin-bottom: 5px;
+        }
+      }
+
+      span{
+        font-size: 14px;
+      }
+    }
+  }
+
+}
+
+#nav-below.navigation .nav-previous a, #nav-below.navigation .nav-next a {
+    display: inline-block;
+    background-color: rgba(0,0,0,0.05);
+    font-size: 13px;
+    color: #000;
+    line-height: 34px;
+    padding: 0 12px;
+    border-radius: 3px;
+}
+
+
+#nav-below.navigation .nav-next {
+    float: right;
+    padding: 2% 5% 10% 0;
+}
+
+#nav-below.navigation .nav-previous {
+    float: left;
+    padding: 2% 0 10% 5%;
+}
+
+.navigation .nav-previous {
+  i{
+    border-right: 2px solid white;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 34px;
+    padding-right: 12px;
+    margin-right: 12px;
+
+    &:before{
+      content: "";
+      display: inline-block;
+      border-style: solid;
+      border-width: 0px 0px 1px 1px;
+      transform: rotate(45deg);
+      width: 7px;
+      height: 7px;
+      vertical-align: baseline;
+      padding: 0;
+      position: relative;
+      bottom: 1px;
+    }
+  }
+}
+
+.navigation .nav-next {
+  i{
+    border-left: 2px solid white;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 34px;
+    padding-left: 12px;
+    margin-left: 12px;
+
+    &:before{
+      content: "";
+      display: inline-block;
+      border-style: solid;
+      border-width: 1px 1px 0 0;
+      transform: rotate(45deg);
+      width: 7px;
+      height: 7px;
+      vertical-align: baseline;
+      padding: 0;
+      position: relative;
+      bottom: 1px;
+    }
+  }
+}

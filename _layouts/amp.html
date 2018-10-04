@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html ⚡ lang="en">
+<head>
+
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Montserrat" rel="stylesheet">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+<meta name="amp-link-variable-allowed-origin" content="https://auth0.com/signup">
+
+{% if page.title%}
+<title>{{ page.title }}</title>
+{% else %}
+<title>Auth0 Blog</title>
+{%endif%}
+
+{% if page.is_list_amp_index %}
+<link rel="canonical" href="https://auth0.com/blog/">
+{%else %}
+<link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url | replace: '/amp',''}}">
+{%endif%}
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}">
+
+
+    {% if page.meta-robots %}
+    <meta name="robots" content="{{ page.meta-robots }}" />
+    {% endif %}
+
+    {% if paginator.page > 1 %}
+    <meta name="robots" content="noindex, noarchive, follow" />
+    {% endif %}
+<script async src="https://cdn.ampproject.org/v0.js"></script>
+<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+<script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+{% if page.is_post_index %}
+  <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+  <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
+{% endif %}
+<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+<style amp-custom>
+  @font-face {
+      font-family: "fakt-web";
+      src: url("https://cdn.auth0.com/styleguide/core/2.0.4/fonts/fakt/FaktPro-Normal.woff2");
+    }
+
+  {% capture include_to_scssify %}
+    {% include amp-styles.scss %}
+  {% endcapture %}
+  {{ include_to_scssify | scssify }}
+
+{% if page.post.design.bg_color %}
+  .bg-header-post{
+    background-color: {{ page.post.design.bg_color }}
+  }
+{%endif%}
+
+{% assign bg_header_list = paginator.posts.first.design.bg_color %}
+{% if bg_header_list %}
+  .list-container .bg-header-list{
+    background-color: {{bg_header_list}}
+  }
+{%endif%}
+
+</style>
+
+</head>
+  <body>
+    {% include /amp/amp_sidebar.html %}
+
+    <div class="wrapper">
+      {% include /amp/nav-bar.html %}
+      {{content}}
+    </div>
+  </body>
+  <amp-analytics>
+    <script type="application/json">
+      {
+        "requests": {
+          "proxyMetrics": "https://dwh-tracking.it.auth0.com/amp-analytics",
+          "pageview": "${proxyMetrics}/?type=${type}&label=${label}&${extraUrlParams}"
+        },
+        "extraUrlParams": {
+          "userAgent": "${userAgent}",
+          "title":"${title}",
+          "clientId": "${clientId(cid-scope-cookie-fallback-name)}",
+          "referrer": "${documentReferrer}",
+          "path": "${sourcePath}",
+          "url": "${sourceUrl}"
+        },
+        "vars": {
+          "label": "AMP-Blog",
+          "type": "page"
+        },
+        "triggers": {
+          "trackPageview": {
+            "on": "visible",
+            "request": "pageview"
+          },
+          "trackSignupClick": {
+            "on": "click",
+            "selector": "a[href='https://auth0.com/signup']",
+            "request": "pageview",
+            "extraUrlParams": {
+              "eventName": "amp-blog:signup"
+            },
+            "vars": {
+              "type": "track"
+            }
+          }
+        }
+      }
+    </script>
+  </amp-analytics>
+</html>

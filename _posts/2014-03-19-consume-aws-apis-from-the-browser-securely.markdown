@@ -1,13 +1,17 @@
 ---
-published: "true"
+published: false
 layout: post
 title: Using AWS APIs without a server
 date: "2014-03-25 12:30"
+outdated: true
+alias: /2014/03/25/consume-aws-apis-from-the-browser-securely/
 author:
   name: Matias Woloski
   mail: matias@auth0.com
   url: http://twitter.com/woloski
   avatar: https://secure.gravatar.com/avatar/0cd73f2f2f39709bd03646e9225cc3d3?s=60
+description: "TL;DR: you can access the AWS APIs securely (e.g. S3, DynamoDB, EC2) from browsers (i.e. using JavaScript) or native apps, without the need of a backend"
+category: Auth0-based Tutorial
 ---
 
 **TL;DR**: you can access the AWS APIs securely (e.g. S3, DynamoDB, EC2) from browsers (i.e. using JavaScript) or native apps, without the need of a backend server. Live demo @ <http://auth0.github.io/auth0-s3-sample/>
@@ -67,7 +71,7 @@ Here's the code:
 
 As an example, this policy gives permission to do everything on an S3 folder under a bucket. The name of the folder gets resolved at runtime depending on the contents of the JSON Web Token. The `user_id` in the JWT will be replaced as the name of the folder (`${saml:sub}` is a placeholder for the `user_id`).
 
-![](https://docs.auth0.com/img/aws-api-setup-9.png)
+![](https://cdn.auth0.com/docs/img/aws-api-setup-9.png)
 
 ### 3. Upload file using AWS Session Token
 

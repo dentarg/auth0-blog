@@ -2,13 +2,21 @@
 layout: post
 title: "Global Azure Bootcamp - Content Open Sourced and What's Next..."
 date: 2013-04-29 13:15
+alias: /2013/04/29/Global-Azure-Bootcamp-Real-World-Nodejs-Startup/
 author:
   name: Matias Woloski
   mail: matias@auth0.com
   url: http://twitter.com/woloski
   avatar: https://secure.gravatar.com/avatar/0cd73f2f2f39709bd03646e9225cc3d3?s=60
+description: "Startup in-a-Box Bootcamp In partnership with Microsoft, NXTP Labs, Mural.ly and Ideame, Auth0 is very proud to have hosted the the Global Windows Azure"
+category: Announcement
+related:
+- 2013-03-15-Integrating-Auth0-with-Rights-Management-Services
+- 2013-03-07-On-Premises-SharePoint-Federated-with-Partner-AD
+- 2013-04-10-Auth0-Windows-Azure-Active-Directory
+tags:
+- microsoft
 ---
-
 
 ### Startup in-a-Box Bootcamp
 
@@ -47,7 +55,7 @@ Twitter is often a good sensor of how an event is going:
 <blockquote class="twitter-tweet"><p>Muy bien organizado el <a href="https://twitter.com/search/%23MeQuieroIrAlBootcamp">#MeQuieroIrAlBootcamp</a>: 8 horas tremendas que se me pasaron volando.</p>&mdash; DiegoRam (@DiegoRam) <a href="https://twitter.com/DiegoRam/status/328234714773209089">April 27, 2013</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-<blockquote class="twitter-tweet"><p><a href="https://twitter.com/search/%23MeQuieroIrAlBootcamp">#MeQuieroIrAlBootcamp</a> <a href="https://twitter.com/search/%23GlobalWindowsAzure">#GlobalWindowsAzure</a> gran bootcamp!. Muchas gracias! @<a href="https://twitter.com/jfroma">jfroma</a> @<a href="https://twitter.com/woloski">woloski</a> @<a href="https://twitter.com/authzero">authzero</a> jonny y otros</p>&mdash; Andrés Falcón (@_andresff) <a href="https://twitter.com/_andresff/status/328260849716318209">April 27, 2013</a></blockquote>
+<blockquote class="twitter-tweet"><p><a href="https://twitter.com/search/%23MeQuieroIrAlBootcamp">#MeQuieroIrAlBootcamp</a> <a href="https://twitter.com/search/%23GlobalWindowsAzure">#GlobalWindowsAzure</a> gran bootcamp!. Muchas gracias! @<a href="https://twitter.com/jfroma">jfroma</a> @<a href="https://twitter.com/woloski">woloski</a> @<a href="https://twitter.com/auth0">auth0</a> jonny y otros</p>&mdash; Andrés Falcón (@_andresff) <a href="https://twitter.com/_andresff/status/328260849716318209">April 27, 2013</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <blockquote class="twitter-tweet"><p>Excelente el <a href="https://twitter.com/search/%23GlobalWindowsAzure">#GlobalWindowsAzure</a> de Buenos Aires, con @<a href="https://twitter.com/woloski">woloski</a> @<a href="https://twitter.com/johnnyhalife">johnnyhalife</a> @<a href="https://twitter.com/jfroma">jfroma</a> @<a href="https://twitter.com/liarjo">liarjo</a></p>&mdash; Juan Manuel Arias (@juanma_ari) <a href="https://twitter.com/juanma_ari/status/328913141465497600">April 29, 2013</a></blockquote>
@@ -85,4 +93,4 @@ We often hear questions like:
 
 Given that last Saturday was such a good experience, we asked ourselves: why not do this more often?
 
-So [stay tuned](http://twitter.com/authzero)...we'll have more news to share with you soon.
+So [stay tuned](http://twitter.com/auth0)...we'll have more news to share with you soon.

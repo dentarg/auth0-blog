@@ -3,11 +3,19 @@ published: "true"
 layout: post
 title: Integrating Heroku Apps with Salesforce
 date: "2013-10-18 19:50"
+outdated: true
+alias: /2013/10/18/Integrating-Heroku-Apps-with-Salesforce/
 author:
   name: José F. Romaniello
   url: "http://joseoncode.com"
   mail: "jfromaniello@gmail.com"
   avatar: "https://secure.gravatar.com/avatar/d1a7e0fbfb2c1d9a8b10fd03648da78f.png"
+description: "In this post, I'll show you how easy it is with Auth0 to get an app running on Heroku"
+category: Auth0-based Tutorial
+related:
+- 2013-04-27-Connecting-Rails-With-Auth0
+- 2016-04-15-angularjs-authentication-screencast-series-part-1
+- 2013-09-10-auth0-for-Heroku-hosted-apps
 ---
 
 
